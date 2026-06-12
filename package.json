@@ -1,0 +1,15 @@
+{
+  "name": "losoma",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static website prepared for Cloudflare Pages deployment.",
+  "scripts": {
+    "build": "node scripts/build-static.mjs",
+    "dev": "npm run build && npx wrangler pages dev dist --live-reload",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch main",
+    "deploy:preview": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch preview"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
