@@ -17,6 +17,8 @@
 
 Основной чеклист процесса: [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)
 
+SEO и правила нейминга классов: [docs/SEO_AND_CLASS_GUIDELINES.md](./docs/SEO_AND_CLASS_GUIDELINES.md)
+
 ## Project Structure
 
 ```
@@ -27,6 +29,7 @@ script.js        # All JavaScript
 CLAUDE.md        # Instructions for Claude Code
 README.md        # Project notes and operational details
 DEPLOYMENT_CHECKLIST.md
+docs/SEO_AND_CLASS_GUIDELINES.md
 ```
 
 ## Local Development
@@ -153,6 +156,7 @@ GTM_ID=
 - 2026-06-12: Vercel CLI перелогинен на `glebtiidt-work`, проект `gleb-projects-work/losoma` связан с GitHub repo.
 - 2026-06-12: GitHub repo `glebtiidt-work/losoma` создан и запушен чистой историей без `node_modules`.
 - 2026-06-12: Vercel production deployment от GitHub push готов и отвечает `200` на `https://losoma-pi.vercel.app`.
+- 2026-06-12: Из SEO-базы и Notion собран контекст Losoma для Германии/Berlin, AI-search и правил нейминга CSS-классов.
 
 ## Known Issues
 

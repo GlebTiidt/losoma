@@ -70,6 +70,9 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 
 ## 5. SEO
 
+- [x] Прочитать локальную SEO-базу.
+- [x] Прочитать Notion-контекст Losoma.
+- [x] Зафиксировать правила AI SEO и class naming.
 - [ ] Заполнить `title` для каждой страницы.
 - [ ] Заполнить `description` для каждой страницы.
 - [ ] Настроить Open Graph.
