@@ -3,6 +3,9 @@
 Thumbs.db
 node_modules/
 dist/
+assets/generated/*
+!assets/generated/.gitkeep
+!assets/generated/manifest.json
 .wrangler/
 .vercel/
 .dev.vars

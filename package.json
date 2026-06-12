@@ -4,12 +4,14 @@
   "private": true,
   "description": "Static website prepared for Cloudflare Pages deployment.",
   "scripts": {
-    "build": "node scripts/build-static.mjs",
+    "assets:images": "node scripts/optimize-images.mjs",
+    "build": "npm run assets:images && node scripts/build-static.mjs",
     "dev": "npm run build && npx wrangler pages dev dist --live-reload",
     "deploy": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch main",
     "deploy:preview": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch preview"
   },
   "devDependencies": {
+    "sharp": "^0.35.1",
     "wrangler": "^4.0.0"
   }
 }

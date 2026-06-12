@@ -257,6 +257,9 @@ Permissions-Policy
 
 ## 15. Performance
 
+- [x] Добавить Sharp image pipeline.
+- [x] Настроить AVIF + WebP + JPEG/PNG fallback.
+- [x] Зафиксировать правила нейминга изображений.
 - [ ] Использовать WebP/AVIF, где возможно.
 - [ ] Настроить responsive image sizes.
 - [ ] Добавить lazy loading для тяжелых изображений.

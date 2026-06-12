@@ -180,6 +180,58 @@ Every meaningful image needs:
 - `loading="lazy"` except for the primary above-the-fold image.
 - `decoding="async"` for non-critical images.
 
+Source image naming:
+
+- Put original PNG/JPEG files into `assets/source/`.
+- Use German, semantic, lowercase names.
+- Separate words with hyphens.
+- Include the entity and context, not generic visual labels.
+- Do not include dimensions unless the same image needs multiple art-directed crops.
+
+Good source names:
+
+```text
+losoma-team-gebaeudebetreuung-berlin.jpg
+treppenhausreinigung-wohnimmobilie-berlin.jpg
+winterdienst-eingang-wohnanlage-berlin.jpg
+solaranlagenreinigung-gebaeudedach.jpg
+```
+
+Bad source names:
+
+```text
+IMG_4821.JPG
+hero-final-new.png
+cleaning-photo-1.jpg
+image-large.png
+```
+
+Image optimization pipeline:
+
+- Run `npm run assets:images`.
+- Source: `assets/source/`.
+- Output: `assets/generated/`.
+- Formats generated: AVIF, WebP and JPEG/PNG fallback.
+- Browser fallback order: AVIF first, WebP second, JPEG/PNG fallback in `<img>`.
+- Do not upscale images above the original width.
+- Keep quality high. Conversion is for browser compatibility and transfer efficiency, not aggressive visual compression.
+
+Required markup pattern:
+
+```html
+<picture>
+  <source type="image/avif" srcset="/assets/generated/example-768.avif 768w, /assets/generated/example-1440.avif 1440w" sizes="(max-width: 768px) 100vw, 50vw">
+  <source type="image/webp" srcset="/assets/generated/example-768.webp 768w, /assets/generated/example-1440.webp 1440w" sizes="(max-width: 768px) 100vw, 50vw">
+  <img src="/assets/generated/example-1440.jpg" alt="Gepflegtes Treppenhaus einer Berliner Wohnimmobilie" title="Treppenhausreinigung für Wohnimmobilien in Berlin" width="1440" height="960" loading="lazy" decoding="async">
+</picture>
+```
+
+For the primary above-the-fold hero image:
+
+- Use `fetchpriority="high"`.
+- Do not use `loading="lazy"`.
+- Keep explicit `width` and `height`.
+
 Alt examples:
 
 ```html
@@ -203,6 +255,15 @@ Good:
 ```text
 Gepflegtes Treppenhaus einer Berliner Wohnimmobilie nach der Reinigung
 ```
+
+## Font Rules
+
+- Prefer local WOFF2 when the final Figma font files are available and licensing allows self-hosting.
+- Use Google Fonts only when the font is open, stable, and the design does not require custom licensed files.
+- For German-market performance and privacy, self-hosted WOFF2 is preferred over external Google Fonts requests.
+- Keep font weights limited to what the design actually uses.
+- Use `font-display: swap`.
+- Preload only critical above-the-fold font files.
 
 ## Page-Level SEO Drafts
 
