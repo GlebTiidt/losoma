@@ -146,12 +146,15 @@ GTM_ID=
 
 - [x] Выбрать хостинг frontend.
 - [ ] Подключить репозиторий к хостингу.
+- [x] Создать GitHub repo `glebtiidt-work/losoma`.
+- [x] Запушить чистую `main` history без `node_modules`.
 - [x] Настроить build command, если появится сборка.
 - [x] Настроить output directory.
 - [x] Настроить production branch.
 - [x] Настроить preview deployments.
 - [x] Подключить Vercel CLI к аккаунту `glebtiidt-work`.
 - [x] Связать Vercel project с GitHub repo.
+- [x] Проверить Vercel production URL.
 - [ ] Добавить env variables.
 - [x] Выполнить первый staging deploy.
 - [ ] Проверить staging URL.

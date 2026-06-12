@@ -97,6 +97,18 @@ Preview deploy command:
 npm run deploy:preview
 ```
 
+Vercel production URL:
+
+```text
+https://losoma-pi.vercel.app
+```
+
+GitHub repository:
+
+```text
+https://github.com/glebtiidt-work/losoma
+```
+
 ## Access And Services
 
 Заполняем по мере появления доступов.
@@ -108,6 +120,8 @@ Cloudflare account ID: 2bedcd032916f6e9d1b1b63562113a3d
 Hosting: Cloudflare Pages, project `losoma`
 Vercel account: glebtiidt-work
 Vercel project: gleb-projects-work/losoma
+Vercel production URL: https://losoma-pi.vercel.app
+GitHub repository: https://github.com/glebtiidt-work/losoma
 Backend hosting:
 GA4 property:
 GTM container:
@@ -137,11 +151,13 @@ GTM_ID=
 - 2026-06-12: Для первого Cloudflare-подключения выбран Cloudflare Pages Direct Upload с project name `losoma`. Backend позже добавляем отдельно как Worker или Pages Functions.
 - 2026-06-12: Wrangler 4.100.0 установлен локально, Cloudflare login выполнен, Pages project `losoma` создан, production deploy доступен на `https://losoma.pages.dev`.
 - 2026-06-12: Vercel CLI перелогинен на `glebtiidt-work`, проект `gleb-projects-work/losoma` связан с GitHub repo.
+- 2026-06-12: GitHub repo `glebtiidt-work/losoma` создан и запушен чистой историей без `node_modules`.
+- 2026-06-12: Vercel production deployment от GitHub push готов и отвечает `200` на `https://losoma-pi.vercel.app`.
 
 ## Known Issues
 
 - 2026-06-12: Production URL отвечает `200`. Preview deployment создан, но `curl` с этой машины получил SSL handshake failure на preview URL; перепроверить позже, возможно SSL/alias еще прогревается.
-- 2026-06-12: Первый Vercel deploy упал, потому что project setting ожидал output directory `public`. Добавлен `vercel.json` с `outputDirectory: dist`.
+- 2026-06-12: Первый Vercel CLI deploy упал из-за output directory `public`, затем resolved через `vercel.json`, GitHub push и новый Vercel deployment.
 
 ## Open Questions
 
