@@ -1,3 +1,508 @@
 {
-  "images": []
+  "images": [
+    {
+      "source": "berliner-innenhof-objektbetreuung-losoma-team.png",
+      "normalizedSource": "/assets/normalized/berliner-innenhof-objektbetreuung-losoma-team.png",
+      "baseName": "berliner-innenhof-objektbetreuung-losoma-team",
+      "originalWidth": 1600,
+      "originalHeight": 1600,
+      "normalizedWidth": 1600,
+      "normalizedHeight": 1600,
+      "output": {
+        "avif": "/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.avif",
+        "webp": "/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.avif\">\n  <img src=\"/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.webp\" alt=\"berliner innenhof objektbetreuung losoma team\" title=\"berliner innenhof objektbetreuung losoma team\" width=\"1600\" height=\"1600\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.png",
+      "normalizedSource": "/assets/normalized/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.png",
+      "baseName": "berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.avif",
+        "webp": "/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.avif\">\n  <img src=\"/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp\" alt=\"berliner wohnhaus objektbetreuung hausmeisterservice losoma\" title=\"berliner wohnhaus objektbetreuung hausmeisterservice losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "berliner-wohnimmobilie-gebaeudebetreuung-losoma.png",
+      "normalizedSource": "/assets/normalized/berliner-wohnimmobilie-gebaeudebetreuung-losoma.png",
+      "baseName": "berliner-wohnimmobilie-gebaeudebetreuung-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.avif",
+        "webp": "/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.avif\">\n  <img src=\"/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp\" alt=\"berliner wohnimmobilie gebaeudebetreuung losoma\" title=\"berliner wohnimmobilie gebaeudebetreuung losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "cta-berliner-wohnimmobilie-kontaktformular-losoma.png",
+      "normalizedSource": "/assets/normalized/cta-berliner-wohnimmobilie-kontaktformular-losoma.png",
+      "baseName": "cta-berliner-wohnimmobilie-kontaktformular-losoma",
+      "originalWidth": 4096,
+      "originalHeight": 2286,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.avif",
+        "webp": "/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.avif\">\n  <img src=\"/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.webp\" alt=\"cta berliner wohnimmobilie kontaktformular losoma\" title=\"cta berliner wohnimmobilie kontaktformular losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "fassaden-hoehenarbeiten-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/fassaden-hoehenarbeiten-berlin-losoma.png",
+      "baseName": "fassaden-hoehenarbeiten-berlin-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.avif",
+        "webp": "/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.avif\">\n  <img src=\"/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.webp\" alt=\"fassaden hoehenarbeiten berlin losoma\" title=\"fassaden hoehenarbeiten berlin losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "fassaden-hoehenarbeiten-glasfassade-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/fassaden-hoehenarbeiten-glasfassade-berlin-losoma.png",
+      "baseName": "fassaden-hoehenarbeiten-glasfassade-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/fassaden-hoehenarbeiten-glasfassade-berlin-losoma.avif",
+        "webp": "/assets/generated/fassaden-hoehenarbeiten-glasfassade-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/fassaden-hoehenarbeiten-glasfassade-berlin-losoma.avif\">\n  <img src=\"/assets/generated/fassaden-hoehenarbeiten-glasfassade-berlin-losoma.webp\" alt=\"fassaden hoehenarbeiten glasfassade berlin losoma\" title=\"fassaden hoehenarbeiten glasfassade berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.png",
+      "normalizedSource": "/assets/normalized/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.png",
+      "baseName": "fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma",
+      "originalWidth": 2400,
+      "originalHeight": 1792,
+      "normalizedWidth": 2400,
+      "normalizedHeight": 1792,
+      "output": {
+        "avif": "/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.avif",
+        "webp": "/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.avif\">\n  <img src=\"/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp\" alt=\"fassadenreinigung hoehenarbeiten gebaeudeservice losoma\" title=\"fassadenreinigung hoehenarbeiten gebaeudeservice losoma\" width=\"2400\" height=\"1792\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "fassadenreinigung-wohngebaeude-ziegelfassade-losoma.png",
+      "normalizedSource": "/assets/normalized/fassadenreinigung-wohngebaeude-ziegelfassade-losoma.png",
+      "baseName": "fassadenreinigung-wohngebaeude-ziegelfassade-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/fassadenreinigung-wohngebaeude-ziegelfassade-losoma.avif",
+        "webp": "/assets/generated/fassadenreinigung-wohngebaeude-ziegelfassade-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/fassadenreinigung-wohngebaeude-ziegelfassade-losoma.avif\">\n  <img src=\"/assets/generated/fassadenreinigung-wohngebaeude-ziegelfassade-losoma.webp\" alt=\"fassadenreinigung wohngebaeude ziegelfassade losoma\" title=\"fassadenreinigung wohngebaeude ziegelfassade losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.png",
+      "baseName": "garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.avif",
+        "webp": "/assets/generated/garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.avif\">\n  <img src=\"/assets/generated/garten-landschaftspflege-vorgarten-wohnimmobilie-berlin-losoma.webp\" alt=\"garten landschaftspflege vorgarten wohnimmobilie berlin losoma\" title=\"garten landschaftspflege vorgarten wohnimmobilie berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "garten-landschaftspflege-wohnanlage-losoma.png",
+      "normalizedSource": "/assets/normalized/garten-landschaftspflege-wohnanlage-losoma.png",
+      "baseName": "garten-landschaftspflege-wohnanlage-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/garten-landschaftspflege-wohnanlage-losoma.avif",
+        "webp": "/assets/generated/garten-landschaftspflege-wohnanlage-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/garten-landschaftspflege-wohnanlage-losoma.avif\">\n  <img src=\"/assets/generated/garten-landschaftspflege-wohnanlage-losoma.webp\" alt=\"garten landschaftspflege wohnanlage losoma\" title=\"garten landschaftspflege wohnanlage losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "garten-rasenpflege-rasenmaeher-wohnanlage-losoma.png",
+      "normalizedSource": "/assets/normalized/garten-rasenpflege-rasenmaeher-wohnanlage-losoma.png",
+      "baseName": "garten-rasenpflege-rasenmaeher-wohnanlage-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/garten-rasenpflege-rasenmaeher-wohnanlage-losoma.avif",
+        "webp": "/assets/generated/garten-rasenpflege-rasenmaeher-wohnanlage-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/garten-rasenpflege-rasenmaeher-wohnanlage-losoma.avif\">\n  <img src=\"/assets/generated/garten-rasenpflege-rasenmaeher-wohnanlage-losoma.webp\" alt=\"garten rasenpflege rasenmaeher wohnanlage losoma\" title=\"garten rasenpflege rasenmaeher wohnanlage losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "gewerbliche-reinigung-besprechungsraum-losoma.png",
+      "normalizedSource": "/assets/normalized/gewerbliche-reinigung-besprechungsraum-losoma.png",
+      "baseName": "gewerbliche-reinigung-besprechungsraum-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/gewerbliche-reinigung-besprechungsraum-losoma.avif",
+        "webp": "/assets/generated/gewerbliche-reinigung-besprechungsraum-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/gewerbliche-reinigung-besprechungsraum-losoma.avif\">\n  <img src=\"/assets/generated/gewerbliche-reinigung-besprechungsraum-losoma.webp\" alt=\"gewerbliche reinigung besprechungsraum losoma\" title=\"gewerbliche reinigung besprechungsraum losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "gewerbliche-reinigung-buero-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/gewerbliche-reinigung-buero-berlin-losoma.png",
+      "baseName": "gewerbliche-reinigung-buero-berlin-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.avif",
+        "webp": "/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.avif\">\n  <img src=\"/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.webp\" alt=\"gewerbliche reinigung buero berlin losoma\" title=\"gewerbliche reinigung buero berlin losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "gewerbliche-reinigung-buerogebaeude-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/gewerbliche-reinigung-buerogebaeude-berlin-losoma.png",
+      "baseName": "gewerbliche-reinigung-buerogebaeude-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/gewerbliche-reinigung-buerogebaeude-berlin-losoma.avif",
+        "webp": "/assets/generated/gewerbliche-reinigung-buerogebaeude-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/gewerbliche-reinigung-buerogebaeude-berlin-losoma.avif\">\n  <img src=\"/assets/generated/gewerbliche-reinigung-buerogebaeude-berlin-losoma.webp\" alt=\"gewerbliche reinigung buerogebaeude berlin losoma\" title=\"gewerbliche reinigung buerogebaeude berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "grundreinigung-bodenpflege-gebaeude-losoma.png",
+      "normalizedSource": "/assets/normalized/grundreinigung-bodenpflege-gebaeude-losoma.png",
+      "baseName": "grundreinigung-bodenpflege-gebaeude-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.avif",
+        "webp": "/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.avif\">\n  <img src=\"/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.webp\" alt=\"grundreinigung bodenpflege gebaeude losoma\" title=\"grundreinigung bodenpflege gebaeude losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "grundreinigung-bodenreinigung-innenraum-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/grundreinigung-bodenreinigung-innenraum-berlin-losoma.png",
+      "baseName": "grundreinigung-bodenreinigung-innenraum-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/grundreinigung-bodenreinigung-innenraum-berlin-losoma.avif",
+        "webp": "/assets/generated/grundreinigung-bodenreinigung-innenraum-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/grundreinigung-bodenreinigung-innenraum-berlin-losoma.avif\">\n  <img src=\"/assets/generated/grundreinigung-bodenreinigung-innenraum-berlin-losoma.webp\" alt=\"grundreinigung bodenreinigung innenraum berlin losoma\" title=\"grundreinigung bodenreinigung innenraum berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "grundreinigung-teppichboden-buero-losoma.png",
+      "normalizedSource": "/assets/normalized/grundreinigung-teppichboden-buero-losoma.png",
+      "baseName": "grundreinigung-teppichboden-buero-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 1600,
+      "normalizedHeight": 893,
+      "output": {
+        "avif": "/assets/generated/grundreinigung-teppichboden-buero-losoma.avif",
+        "webp": "/assets/generated/grundreinigung-teppichboden-buero-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/grundreinigung-teppichboden-buero-losoma.avif\">\n  <img src=\"/assets/generated/grundreinigung-teppichboden-buero-losoma.webp\" alt=\"grundreinigung teppichboden buero losoma\" title=\"grundreinigung teppichboden buero losoma\" width=\"1600\" height=\"893\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "hausmeisterservice-berliner-innenhof-losoma.png",
+      "normalizedSource": "/assets/normalized/hausmeisterservice-berliner-innenhof-losoma.png",
+      "baseName": "hausmeisterservice-berliner-innenhof-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/hausmeisterservice-berliner-innenhof-losoma.avif",
+        "webp": "/assets/generated/hausmeisterservice-berliner-innenhof-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/hausmeisterservice-berliner-innenhof-losoma.avif\">\n  <img src=\"/assets/generated/hausmeisterservice-berliner-innenhof-losoma.webp\" alt=\"hausmeisterservice berliner innenhof losoma\" title=\"hausmeisterservice berliner innenhof losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "hausmeisterservice-berliner-wohnanlage-losoma.png",
+      "normalizedSource": "/assets/normalized/hausmeisterservice-berliner-wohnanlage-losoma.png",
+      "baseName": "hausmeisterservice-berliner-wohnanlage-losoma",
+      "originalWidth": 1200,
+      "originalHeight": 670,
+      "normalizedWidth": 900,
+      "normalizedHeight": 503,
+      "output": {
+        "avif": "/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.avif",
+        "webp": "/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.avif\">\n  <img src=\"/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.webp\" alt=\"hausmeisterservice berliner wohnanlage losoma\" title=\"hausmeisterservice berliner wohnanlage losoma\" width=\"900\" height=\"503\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.png",
+      "normalizedSource": "/assets/normalized/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.png",
+      "baseName": "hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.avif",
+        "webp": "/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.avif\">\n  <img src=\"/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.webp\" alt=\"hausmeisterservice treppenhaus gemeinschaftsbereich losoma\" title=\"hausmeisterservice treppenhaus gemeinschaftsbereich losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "industriereinigung-gewerbeflaeche-losoma.png",
+      "normalizedSource": "/assets/normalized/industriereinigung-gewerbeflaeche-losoma.png",
+      "baseName": "industriereinigung-gewerbeflaeche-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/industriereinigung-gewerbeflaeche-losoma.avif",
+        "webp": "/assets/generated/industriereinigung-gewerbeflaeche-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/industriereinigung-gewerbeflaeche-losoma.avif\">\n  <img src=\"/assets/generated/industriereinigung-gewerbeflaeche-losoma.webp\" alt=\"industriereinigung gewerbeflaeche losoma\" title=\"industriereinigung gewerbeflaeche losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "industriereinigung-produktionshalle-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/industriereinigung-produktionshalle-berlin-losoma.png",
+      "baseName": "industriereinigung-produktionshalle-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/industriereinigung-produktionshalle-berlin-losoma.avif",
+        "webp": "/assets/generated/industriereinigung-produktionshalle-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/industriereinigung-produktionshalle-berlin-losoma.avif\">\n  <img src=\"/assets/generated/industriereinigung-produktionshalle-berlin-losoma.webp\" alt=\"industriereinigung produktionshalle berlin losoma\" title=\"industriereinigung produktionshalle berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "industriereinigung-technikraum-anlagen-losoma.png",
+      "normalizedSource": "/assets/normalized/industriereinigung-technikraum-anlagen-losoma.png",
+      "baseName": "industriereinigung-technikraum-anlagen-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/industriereinigung-technikraum-anlagen-losoma.avif",
+        "webp": "/assets/generated/industriereinigung-technikraum-anlagen-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/industriereinigung-technikraum-anlagen-losoma.avif\">\n  <img src=\"/assets/generated/industriereinigung-technikraum-anlagen-losoma.webp\" alt=\"industriereinigung technikraum anlagen losoma\" title=\"industriereinigung technikraum anlagen losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "solaranlagenreinigung-dachanlage-losoma.png",
+      "normalizedSource": "/assets/normalized/solaranlagenreinigung-dachanlage-losoma.png",
+      "baseName": "solaranlagenreinigung-dachanlage-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/solaranlagenreinigung-dachanlage-losoma.avif",
+        "webp": "/assets/generated/solaranlagenreinigung-dachanlage-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/solaranlagenreinigung-dachanlage-losoma.avif\">\n  <img src=\"/assets/generated/solaranlagenreinigung-dachanlage-losoma.webp\" alt=\"solaranlagenreinigung dachanlage losoma\" title=\"solaranlagenreinigung dachanlage losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "solaranlagenreinigung-photovoltaik-dach-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/solaranlagenreinigung-photovoltaik-dach-berlin-losoma.png",
+      "baseName": "solaranlagenreinigung-photovoltaik-dach-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/solaranlagenreinigung-photovoltaik-dach-berlin-losoma.avif",
+        "webp": "/assets/generated/solaranlagenreinigung-photovoltaik-dach-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/solaranlagenreinigung-photovoltaik-dach-berlin-losoma.avif\">\n  <img src=\"/assets/generated/solaranlagenreinigung-photovoltaik-dach-berlin-losoma.webp\" alt=\"solaranlagenreinigung photovoltaik dach berlin losoma\" title=\"solaranlagenreinigung photovoltaik dach berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.png",
+      "normalizedSource": "/assets/normalized/solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.png",
+      "baseName": "solaranlagenreinigung-photovoltaik-modul-reinigung-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.avif",
+        "webp": "/assets/generated/solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.avif\">\n  <img src=\"/assets/generated/solaranlagenreinigung-photovoltaik-modul-reinigung-losoma.webp\" alt=\"solaranlagenreinigung photovoltaik modul reinigung losoma\" title=\"solaranlagenreinigung photovoltaik modul reinigung losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.png",
+      "normalizedSource": "/assets/normalized/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.png",
+      "baseName": "treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.avif",
+        "webp": "/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.avif\">\n  <img src=\"/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.webp\" alt=\"treppenhaus gemeinschaftsreinigung briefkaesten losoma\" title=\"treppenhaus gemeinschaftsreinigung briefkaesten losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "treppenhaus-reinigung-briefkaesten-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/treppenhaus-reinigung-briefkaesten-berlin-losoma.png",
+      "baseName": "treppenhaus-reinigung-briefkaesten-berlin-losoma",
+      "originalWidth": 1200,
+      "originalHeight": 896,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 896,
+      "output": {
+        "avif": "/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.avif",
+        "webp": "/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.avif\">\n  <img src=\"/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.webp\" alt=\"treppenhaus reinigung briefkaesten berlin losoma\" title=\"treppenhaus reinigung briefkaesten berlin losoma\" width=\"1200\" height=\"896\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "treppenhausreinigung-aufzugsbereich-gebaeude-losoma.png",
+      "normalizedSource": "/assets/normalized/treppenhausreinigung-aufzugsbereich-gebaeude-losoma.png",
+      "baseName": "treppenhausreinigung-aufzugsbereich-gebaeude-losoma",
+      "originalWidth": 4096,
+      "originalHeight": 4096,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/treppenhausreinigung-aufzugsbereich-gebaeude-losoma.avif",
+        "webp": "/assets/generated/treppenhausreinigung-aufzugsbereich-gebaeude-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/treppenhausreinigung-aufzugsbereich-gebaeude-losoma.avif\">\n  <img src=\"/assets/generated/treppenhausreinigung-aufzugsbereich-gebaeude-losoma.webp\" alt=\"treppenhausreinigung aufzugsbereich gebaeude losoma\" title=\"treppenhausreinigung aufzugsbereich gebaeude losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "treppenhausreinigung-flur-buerogebaeude-losoma.png",
+      "normalizedSource": "/assets/normalized/treppenhausreinigung-flur-buerogebaeude-losoma.png",
+      "baseName": "treppenhausreinigung-flur-buerogebaeude-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/treppenhausreinigung-flur-buerogebaeude-losoma.avif",
+        "webp": "/assets/generated/treppenhausreinigung-flur-buerogebaeude-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/treppenhausreinigung-flur-buerogebaeude-losoma.avif\">\n  <img src=\"/assets/generated/treppenhausreinigung-flur-buerogebaeude-losoma.webp\" alt=\"treppenhausreinigung flur buerogebaeude losoma\" title=\"treppenhausreinigung flur buerogebaeude losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "warum-losoma-aufmerksamkeit-vor-ort.png",
+      "normalizedSource": "/assets/normalized/warum-losoma-aufmerksamkeit-vor-ort.png",
+      "baseName": "warum-losoma-aufmerksamkeit-vor-ort",
+      "originalWidth": 2400,
+      "originalHeight": 1792,
+      "normalizedWidth": 1400,
+      "normalizedHeight": 1045,
+      "output": {
+        "avif": "/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.avif",
+        "webp": "/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.avif\">\n  <img src=\"/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.webp\" alt=\"warum losoma aufmerksamkeit vor ort\" title=\"warum losoma aufmerksamkeit vor ort\" width=\"1400\" height=\"1045\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "warum-losoma-stabile-arbeit-alltag.png",
+      "normalizedSource": "/assets/normalized/warum-losoma-stabile-arbeit-alltag.png",
+      "baseName": "warum-losoma-stabile-arbeit-alltag",
+      "originalWidth": 1200,
+      "originalHeight": 896,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 896,
+      "output": {
+        "avif": "/assets/generated/warum-losoma-stabile-arbeit-alltag.avif",
+        "webp": "/assets/generated/warum-losoma-stabile-arbeit-alltag.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/warum-losoma-stabile-arbeit-alltag.avif\">\n  <img src=\"/assets/generated/warum-losoma-stabile-arbeit-alltag.webp\" alt=\"warum losoma stabile arbeit alltag\" title=\"warum losoma stabile arbeit alltag\" width=\"1200\" height=\"896\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "warum-losoma-verantwortlicher-partner.png",
+      "normalizedSource": "/assets/normalized/warum-losoma-verantwortlicher-partner.png",
+      "baseName": "warum-losoma-verantwortlicher-partner",
+      "originalWidth": 1200,
+      "originalHeight": 896,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 896,
+      "output": {
+        "avif": "/assets/generated/warum-losoma-verantwortlicher-partner.avif",
+        "webp": "/assets/generated/warum-losoma-verantwortlicher-partner.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/warum-losoma-verantwortlicher-partner.avif\">\n  <img src=\"/assets/generated/warum-losoma-verantwortlicher-partner.webp\" alt=\"warum losoma verantwortlicher partner\" title=\"warum losoma verantwortlicher partner\" width=\"1200\" height=\"896\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "winterdienst-gebaeudeservice-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/winterdienst-gebaeudeservice-berlin-losoma.png",
+      "baseName": "winterdienst-gebaeudeservice-berlin-losoma",
+      "originalWidth": 900,
+      "originalHeight": 900,
+      "normalizedWidth": 900,
+      "normalizedHeight": 900,
+      "output": {
+        "avif": "/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.avif",
+        "webp": "/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.avif\">\n  <img src=\"/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.webp\" alt=\"winterdienst gebaeudeservice berlin losoma\" title=\"winterdienst gebaeudeservice berlin losoma\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "winterdienst-schneeraeumung-gehweg-berlin-losoma.png",
+      "normalizedSource": "/assets/normalized/winterdienst-schneeraeumung-gehweg-berlin-losoma.png",
+      "baseName": "winterdienst-schneeraeumung-gehweg-berlin-losoma",
+      "originalWidth": 2752,
+      "originalHeight": 1536,
+      "normalizedWidth": 2560,
+      "normalizedHeight": 1429,
+      "output": {
+        "avif": "/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.avif",
+        "webp": "/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.avif\">\n  <img src=\"/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.webp\" alt=\"winterdienst schneeraeumung gehweg berlin losoma\" title=\"winterdienst schneeraeumung gehweg berlin losoma\" width=\"2560\" height=\"1429\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    },
+    {
+      "source": "winterdienst-schneeschaufel-gehweg-losoma.png",
+      "normalizedSource": "/assets/normalized/winterdienst-schneeschaufel-gehweg-losoma.png",
+      "baseName": "winterdienst-schneeschaufel-gehweg-losoma",
+      "originalWidth": 2048,
+      "originalHeight": 2048,
+      "normalizedWidth": 1200,
+      "normalizedHeight": 1200,
+      "output": {
+        "avif": "/assets/generated/winterdienst-schneeschaufel-gehweg-losoma.avif",
+        "webp": "/assets/generated/winterdienst-schneeschaufel-gehweg-losoma.webp"
+      },
+      "pictureExample": "<picture>\n  <source type=\"image/avif\" srcset=\"/assets/generated/winterdienst-schneeschaufel-gehweg-losoma.avif\">\n  <img src=\"/assets/generated/winterdienst-schneeschaufel-gehweg-losoma.webp\" alt=\"winterdienst schneeschaufel gehweg losoma\" title=\"winterdienst schneeschaufel gehweg losoma\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\">\n</picture>"
+    }
+  ]
 }

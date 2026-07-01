@@ -1,0 +1,11 @@
+{
+  "name": "Losoma",
+  "short_name": "Losoma",
+  "icons": [
+    { "src": "/assets/static/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/static/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#fdfdfc",
+  "background_color": "#fdfdfc",
+  "display": "standalone"
+}

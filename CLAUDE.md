@@ -151,9 +151,8 @@ revolutionize, leverage, synergy, cutting-edge, seamless, empower, game-changer,
    - Colors: [what we're using]
    - Fonts: [what we're using]
 
-   ## Pages
-   - **Homepage** (`index.html`) - [description of what's on it]
-   - **About** (`about.html`) - [description]
+## Pages
+- **Homepage** (`index.html`) - [description of what's on it]
 
    ## Recent Changes
    - [Date]: Added hero section with [description]
@@ -172,11 +171,16 @@ revolutionize, leverage, synergy, cutting-edge, seamless, empower, game-changer,
 
 ---
 
+## SEO Checklist
+
+The repo has **`SEO_CHECKLIST.md`** in the root — the single source of truth for SEO and Schema.org work (structured data, robots.txt, sitemap, Google Business Profile, on-page review, AI-SEO rules). **Read it before doing any SEO/Schema task** and keep its checkboxes up to date as items get done. The production domain for all canonical/og/sitemap/schema is **https://losoma.de**.
+
+---
+
 ## Project Structure
 
 ```
 index.html       # Homepage
-about.html       # About page (example)
 styles.css       # All styles (uses CSS variables for theming)
 script.js        # All JavaScript
 images/          # Images folder (create when needed)
@@ -211,28 +215,18 @@ images/          # Images folder (create when needed)
 
 ---
 
-## Adding a New Page
+## Adding Sections
 
-Each `.html` file in the project is a page:
-- `index.html` → Homepage (yoursite.com)
-- `about.html` → About page (yoursite.com/about)
-- `contact.html` → Contact page (yoursite.com/contact)
-- `pricing.html` → Pricing page (yoursite.com/pricing)
+The site is currently a one-page build.
 
-### Example: Creating a New Page
-
-If the user asks for a "Contact" page:
+If the user asks for a new section:
 
 1. Check `SITE.md` for brand personality
-2. Plan what sections the page needs
-3. Create `contact.html` following the same structure as `index.html`:
-   - Copy the `<head>` section (with stylesheet and font links)
-   - Copy the `<nav>` and `<footer>`
-   - Add content in `<main>`
-4. Add a "Contact" link to the nav in **all** HTML files
-5. Add any new styles to `styles.css`
-6. Write copy using the copywriting guidelines
-7. **Update `SITE.md`** with the new page
+2. Plan what the section needs
+3. Add the content to `index.html`
+4. Add any new styles to `styles.css`
+5. Write copy using the copywriting guidelines
+6. **Update `SITE.md`** with the change
 8. Tell the user: "I created a Contact page. Click Refresh in the preview and navigate to it from the menu."
 
 ---

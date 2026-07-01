@@ -6,6 +6,15 @@ dist/
 assets/generated/*
 !assets/generated/.gitkeep
 !assets/generated/manifest.json
+assets/normalized/*
+!assets/normalized/.gitkeep
+
+# Heavy raw video sources stay local only — encoded web versions live in assets/static/
+assets/source/*.mov
+assets/source/*.mp4
+assets/source/*.m4v
+assets/source/*.avi
+assets/source/*.mkv
 .wrangler/
 .vercel/
 .dev.vars

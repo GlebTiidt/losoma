@@ -1,10 +1,17 @@
-import { cp, copyFile, mkdir, rm } from "node:fs/promises";
+import { cp, copyFile, mkdir, readdir, rm } from "node:fs/promises";
 
+const rootDir = new URL("../", import.meta.url);
 const outputDir = new URL("../dist/", import.meta.url);
 const generatedAssetsDir = new URL("../assets/generated/", import.meta.url);
+const staticAssetsDir = new URL("../assets/static/", import.meta.url);
+const vendorAssetsDir = new URL("../assets/vendor/", import.meta.url);
+
+// Every page is a root-level .html file — auto-discover them so new service pages
+// (hausmeisterservice.html, …) ship without editing this list.
+const rootEntries = await readdir(rootDir);
+const htmlPages = rootEntries.filter((name) => name.endsWith(".html"));
 const files = [
-  "index.html",
-  "about.html",
+  ...htmlPages,
   "styles.css",
   "script.js",
   "_headers",
@@ -19,5 +26,13 @@ for (const file of files) {
 }
 
 await cp(generatedAssetsDir, new URL("assets/generated/", outputDir), {
+  recursive: true
+});
+
+await cp(staticAssetsDir, new URL("assets/static/", outputDir), {
+  recursive: true
+});
+
+await cp(vendorAssetsDir, new URL("assets/vendor/", outputDir), {
   recursive: true
 });

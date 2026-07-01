@@ -1,1 +1,1 @@
-http://:host/* https://:host/:splat 301!
+http://:host/* https://:host/:splat 301

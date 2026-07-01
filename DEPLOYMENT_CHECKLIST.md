@@ -50,6 +50,10 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 ## 4. Верстка
 
 - [ ] Разобрать дизайн на компоненты.
+- [x] Зафиксировать правило верстки: сначала Figma `get_design_context` / CSS Dev Mode values, затем перевод в веб-систему через semantic classes, grid/flex, `rem` и `clamp()`.
+- [x] Зафиксировать Finsweet Client-First как стандарт нейминга классов.
+- [ ] Мигрировать существующие project-owned классы с BEM `__` / `--` на Client-First.
+- [ ] После миграции включить `npm run audit:classes:strict` в проверочный процесс.
 - [ ] Зафиксировать дизайн-токены: цвета, типографика, spacing, breakpoints, radius.
 - [ ] Подключить шрифты.
 - [ ] Оптимизировать изображения.
@@ -67,6 +71,7 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 - [ ] Проверить контраст.
 - [ ] Проверить отсутствие горизонтального скролла.
 - [ ] Проверить, что текст не вылезает из контейнеров.
+- [ ] Опционально: перевести desktop-типографику и desktop-размеры ключевых блоков на `clamp()` с сохранением текущих максимальных значений из макета.
 
 ## 5. SEO
 
@@ -158,6 +163,7 @@ GTM_ID=
 - [x] Подключить Vercel CLI к аккаунту `glebtiidt-work`.
 - [x] Связать Vercel project с GitHub repo.
 - [x] Проверить Vercel production URL.
+- [x] Проверить, что в Vercel остался только alias `losoma-pi.vercel.app`.
 - [ ] Добавить env variables.
 - [x] Выполнить первый staging deploy.
 - [ ] Проверить staging URL.

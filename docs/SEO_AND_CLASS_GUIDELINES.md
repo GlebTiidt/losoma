@@ -12,6 +12,7 @@
 - Primary audience: Hausverwaltungen, Eigentümer, managers of residential and commercial properties.
 - Positioning: reliable, responsible, detail-focused service provider for ongoing building care.
 - Core proof points from current copy: `7+ Jahre am Markt`, `70+ Objekte in laufender Betreuung in Berlin`.
+- Current public Vercel alias: `https://losoma-pi.vercel.app`.
 
 ## SEO Principles
 
@@ -66,98 +67,111 @@ Required source facts before final JSON-LD:
 - Logo URL.
 - Social profile URLs.
 
-## Class Naming Rules
+## Class Naming Rules (BEM — the project standard)
 
-Classes are for maintainable styling. They are not SEO signals by themselves, but the names must be semantic and stable so the code remains understandable.
+**The project's actual and official class-naming standard is BEM**, not Finsweet Client-First. The whole codebase (home, service pages, contact, impressum — 140+ classes) is BEM, and we keep it that way for consistency. Classes are not SEO signals by themselves, but they must be semantic, reusable, predictable and easy to scale across sections and future pages.
 
-Use a small design-system layer plus section/component-specific BEM-style classes.
+> History: the project once aspired to Client-First, but nothing was actually built that way (only the stray `contact-form_select*` family uses single-underscore — a known leftover; leave it, JS depends on `.contact-form_select-option`). Decision (2026-06-22): **standardize on BEM**. From Client-First we keep only two genuinely useful conventions — `is-*` for dynamic state and `data-*` for JS hooks (see below).
 
-### Global Layout Classes
+### Naming Layers
 
-- `.page`
-- `.page-main`
-- `.container`
-- `.section`
-- `.section--compact`
-- `.section--spacious`
-- `.section-header`
-- `.section-eyebrow`
-- `.section-title`
-- `.section-description`
+- **Block (component / section)**: a semantic, domain-aware name, no underscore — `hero`, `header`, `nav`, `mobile-menu`, `contact-form`, `contact-panel`, `service-card`, `why-card`, `faq`, `footer`, `contact-page`, `legal-page`, `legal-block`.
+- **Element**: `block__element` (double underscore) — `hero__content`, `contact-form__row`, `footer__links`, `legal-block__title`, `contact-page__inner`.
+- **Static variant/modifier**: `block--modifier` (double dash), set in the markup — `button--accent`, `link-button--green`, `section-label--blue`, `why-card--daily-work`, `page--solid-header`, `header__logo--light`.
+- **Dynamic state** (toggled by JS at runtime via `classList`): **`is-*`** — `is-open`, `is-scrolled`, `is-hidden`, `is-selected`, `is-menu-open`, `is-invalid`. Use `is-*` for things that flip at runtime; use `--modifier` for fixed variants chosen in the HTML.
+- **Shared global classes** stay generic and reusable across pages — `.button`, `.link-button`, `.section-label`, `.heading-1`, `.heading-2`.
 
-### Global Typography Classes
+`__` and `--` ARE allowed (that's BEM). Keep a block internally consistent.
 
-These classes are not tied to a page or section.
+### Layout & typography come from TOKENS, not utility classes
 
-- `.heading-1`
-- `.heading-2`
-- `.heading-3`
-- `.heading-4`
-- `.text-lead`
-- `.text-body`
-- `.text-small`
-- `.text-muted`
-- `.link-text`
+This project does NOT use Client-First-style utility classes (`.padding-global`, `.container-large`, etc. do **not** exist). Instead:
 
-Use semantic HTML tags separately:
+- **Spacing / sizing / colour / type** are CSS custom-property tokens in `:root` (and redefined per breakpoint): `--section-gap`, `--section-gap-tight`, `--content-gutter`, `--grid-column-gap`, `--container-width`, `--type-section-title`, `--type-body`, `--color-ink`, `--color-blue`, etc. Desktop type is fluid via clamps in `@media (min-width: 1025px) :root`.
+- **Layout** is per-component CSS (grid/flex on the block class), e.g. the 12-col grid on `.contact-page__inner` / `.legal-page__inner`.
+- A handful of **shared, reusable classes** carry cross-page UI: `.heading-1`, `.heading-2`, `.button` (+`--accent`), `.link-button` (+`--green`), `.section-label` (+`--blue`/`--green`).
 
-```html
-<h1 class="heading-1">Zuverlässige Gebäudedienstleistungen für Berliner Immobilien</h1>
-<h2 class="heading-2">Unsere Leistungen</h2>
+### Component (block) classes — BEM
+
+Pattern: `block`, `block__element`, `block--modifier`.
+
+```text
+hero            hero__media   hero__overlay   hero__content   hero__title   hero__cta
+contact-form    contact-form__row   contact-form__check   contact-form__submit
+contact-panel   contact-panel__background
+service-card    service-card__image
+why-card        why-card__content   why-card--daily-work
+footer          footer__nav   footer__links   footer__contact   footer__legal
+contact-page    contact-page__inner   contact-page__intro   contact-page__details   contact-page__social
+legal-page      legal-page__inner   legal-page__title   legal-page__content
+legal-block     legal-block__title  legal-block__row   legal-block__col
 ```
 
-### Global UI Classes
+Use domain meaning where it improves clarity (`service-card`, `reviews`, `contact-form`, `faq`, `footer`, `legal-block`). Avoid visual-only names. **Spacing and type come from CSS custom-property tokens** (`--section-gap`, `--type-section-title`, `--content-gutter`, …) defined in `:root` and the breakpoint `:root` blocks — NOT from utility classes. There are a few shared cross-page classes: `.heading-1`, `.heading-2`, `.button`, `.link-button`, `.section-label`.
 
-- `.button`
-- `.button--primary`
-- `.button--secondary`
-- `.button--ghost`
-- `.button__icon`
-- `.form`
-- `.form-field`
-- `.form-label`
-- `.form-input`
-- `.form-textarea`
-- `.form-error`
-- `.form-success`
+### State & variant classes
 
-### Section And Component Classes
+Static variants chosen in the HTML use `--modifier` (`button--accent`, `section-label--blue`, `page--solid-header`). Dynamic states toggled by JS at runtime use `is-`:
 
-Use section names only where the element belongs to that section.
+```text
+is-active
+is-open
+is-disabled
+is-loading
+is-blue
+is-green
+is-dark
+is-hidden
+```
 
 Examples:
 
-- `.site-header`
-- `.site-header__nav`
-- `.site-footer`
-- `.hero`
-- `.hero__content`
-- `.hero__actions`
-- `.hero__media`
-- `.service-overview`
-- `.service-grid`
-- `.service-card`
-- `.service-card__title`
-- `.service-card__description`
-- `.trust-metrics`
-- `.trust-metric`
-- `.benefits`
-- `.benefit-card`
-- `.process`
-- `.process-step`
-- `.team-preview`
-- `.contact-cta`
-- `.faq`
-- `.faq-item`
-- `.faq-question`
-- `.faq-answer`
+```html
+<!-- static variant chosen in the markup → --modifier -->
+<a class="button button--accent" href="/kontakt">Angebot anfragen</a>
+<!-- dynamic state toggled by JS at runtime → is- -->
+<article class="faq-item is-open">...</article>
+<header class="header is-scrolled is-hidden">...</header>
+<button class="contact-form_select-toggle is-selected">...</button>
+```
+
+Rule of thumb: if the markup author picks it once → `--modifier`; if JS flips it at runtime → `is-*`. `.button--accent`, `.why-card--daily-work`, `.section-label--blue`, `.page--solid-header` are all correct.
+
+### JavaScript Hooks
+
+Do not bind JavaScript to styling classes when the behavior can use data attributes.
+
+Preferred:
+
+```html
+<div class="reviews_slider splide" data-reviews-slider>
+```
+
+Allowed:
+
+```js
+document.querySelector("[data-reviews-slider]");
+```
+
+Avoid:
+
+```js
+document.querySelector(".reviews_slider");
+```
+
+This keeps style naming flexible and prevents JS from breaking during class refactors.
+
+### No migration
+
+BEM is the standard — do **not** migrate existing classes to Client-First (that was the old, abandoned plan). New code uses BEM too. When you touch a section, keep its classes as they are and stay internally consistent. The one stray Client-First family (`contact-form_select*`) is intentionally left alone because `script.js` selects `.contact-form_select-option`; only rename it if you also update that selector.
 
 ### Forbidden Class Patterns
 
-Do not use:
+Do not use (these are about vague/throwaway names, NOT about BEM — `__`/`--` are fine):
 
 - `.section-1`
 - `.block-left`
+- `.block-right`
 - `.home-title`
 - `.main-page-card-3`
 - `.blue-text`
@@ -166,8 +180,12 @@ Do not use:
 - `.div-block`
 - `.copy-1`
 - `.new-section`
+- `.right-lower`
+- `.left-upper`
+- `.site-header`
+- `.site-footer`
 
-Avoid page-specific utility classes unless the page genuinely has a unique component.
+Exception: third-party classes such as `.splide__track`, `.splide__list`, `.splide__slide` are allowed because they belong to the library API.
 
 ## Image Rules
 
@@ -211,8 +229,9 @@ Image optimization pipeline:
 - Run `npm run assets:images`.
 - Source: `assets/source/`.
 - Output: `assets/generated/`.
-- Formats generated: AVIF, WebP and JPEG/PNG fallback.
-- Browser fallback order: AVIF first, WebP second, JPEG/PNG fallback in `<img>`.
+- Formats generated: one AVIF and one WebP per source image.
+- Browser fallback order: AVIF first, WebP in `<img>`.
+- Do not generate multiple responsive copies by default. Create art-directed variants only when a specific layout requires a separate crop.
 - Do not upscale images above the original width.
 - Keep quality high. Conversion is for browser compatibility and transfer efficiency, not aggressive visual compression.
 
@@ -220,9 +239,8 @@ Required markup pattern:
 
 ```html
 <picture>
-  <source type="image/avif" srcset="/assets/generated/example-768.avif 768w, /assets/generated/example-1440.avif 1440w" sizes="(max-width: 768px) 100vw, 50vw">
-  <source type="image/webp" srcset="/assets/generated/example-768.webp 768w, /assets/generated/example-1440.webp 1440w" sizes="(max-width: 768px) 100vw, 50vw">
-  <img src="/assets/generated/example-1440.jpg" alt="Gepflegtes Treppenhaus einer Berliner Wohnimmobilie" title="Treppenhausreinigung für Wohnimmobilien in Berlin" width="1440" height="960" loading="lazy" decoding="async">
+  <source type="image/avif" srcset="/assets/generated/example.avif">
+  <img src="/assets/generated/example.webp" alt="Gepflegtes Treppenhaus einer Berliner Wohnimmobilie" title="Treppenhausreinigung für Wohnimmobilien in Berlin" width="2560" height="1429" loading="lazy" decoding="async">
 </picture>
 ```
 

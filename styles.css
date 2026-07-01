@@ -1,184 +1,3571 @@
-/* Reset & Base */
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
+* {
+  margin: 0;
+}
+
 :root {
-  --color-bg: #fafaf9;
-  --color-text: #1c1917;
-  --color-text-muted: #57534e;
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-border: #e7e5e4;
-  --color-surface: #ffffff;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --max-width: 960px;
+  --color-page: #fdfdfc;
+  --color-ink: #04171f;
+  --color-white: #ffffff;
+  --color-accent: #86e83d;
+  --color-blue: #0b6c95;
+  --color-muted: #747474;
+  --color-surface-hover: #ededed;
+  --color-focus: rgba(134, 232, 61, 0.42);
+  --font-sans: "Lato", Arial, sans-serif;
+  --content-gutter: clamp(1.25rem, 2.38vw, 2.5rem);
+  --grid-column-gap: 1.5rem;
+  --content-column-large: 57.9375rem;
+  --content-column-medium: 41.0625rem;
+  --content-column-small: 32.6875rem;
+  --service-card-width: clamp(24rem, 29.17vw, 30.625rem);
+  --form-width: var(--content-column-medium);
+  --header-height: 4.1875rem;
+  --container-width: calc(100% - (var(--content-gutter) * 2));
+  --section-gap: 12.5rem;
+  --section-gap-tight: 10rem;
+  --section-block-padding: 7.5rem;
+  --divider-subtle: 1px solid rgba(4, 23, 31, 0.22);
+  --divider-on-dark: 1px solid rgba(255, 255, 255, 0.22);
+  --radius-card: 0.25rem;
+  --radius-soft: 0.375rem;
+  --radius-field: 0.5rem;
+  --button-height: 2.75rem;
+  --field-height: 3.75rem;
+  --control-size: 2.5rem;
+  --quote-icon-size: 3rem;
+  --type-hero-title: 4.25rem;
+  --type-section-title: 2.625rem;
+  --type-metric: 4.25rem;
+  --type-card-title: 1.75rem;
+  --type-panel-title: 1.5rem;
+  --type-body-large: 1.375rem;
+  --type-body: 1.125rem;
+  --type-body-small: 1rem;
+  --type-caption: 0.75rem;
+  --type-label: 0.875rem;
+  --motion-fast: 180ms ease;
+  --motion-medium: 620ms cubic-bezier(0.12, 0.72, 0, 1);
+  --motion-cta: 560ms cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-page);
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
+  min-width: 20rem;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: inherit;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Navigation */
-nav {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  padding: 1rem 1.5rem;
+img,
+picture {
+  display: block;
 }
 
-.nav-container {
-  max-width: var(--max-width);
+a {
+  color: inherit;
+}
+
+.page-main {
+  min-height: 100vh;
+}
+
+.heading-1 {
+  font-size: var(--type-hero-title);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.heading-2 {
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12.0625rem;
+  min-height: var(--button-height);
+  border: 0;
+  border-radius: var(--radius-card);
+  padding: 0.625rem 1.0625rem;
+  font: 400 var(--type-body)/1.3 var(--font-sans);
+  white-space: nowrap;
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 240ms ease 150ms;
+}
+
+.button::before {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  z-index: 0;
+  width: calc(100% + 0.125rem);
+  background: var(--color-ink);
+  content: "";
+  transform: translateX(-100%);
+  transition: transform var(--motion-cta);
+}
+
+.button:focus-visible::before {
+  transform: translateX(0);
+}
+
+.button span,
+.button__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.button__icon {
+  position: absolute;
+  left: 1.0625rem;
+  top: 50%;
+  z-index: 1;
+  width: 0.9375rem;
+  height: 0.75rem;
+  transform: translate3d(0, -50%, 0);
+  transition: transform var(--motion-cta);
+}
+
+.button span {
+  position: relative;
+  z-index: 1;
+  transform: translateX(0.7813rem);
+  transition: transform var(--motion-cta);
+}
+
+.button:focus-visible .button__icon {
+  transform: translate3d(9rem, -50%, 0);
+}
+
+.button:focus-visible span {
+  transform: translateX(-0.7813rem);
+}
+
+.button:focus-visible,
+.nav__link:focus-visible,
+.header__brand:focus-visible {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.25rem;
+}
+
+.button--accent {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.button--accent:focus-visible {
+  color: var(--color-white);
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--color-white);
+  background: var(--color-ink);
+}
+
+.hero__media,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero__image,
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__overlay {
+  z-index: -1;
+  background: rgba(4, 23, 31, 0.3);
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  column-gap: var(--grid-column-gap);
+  width: var(--container-width);
+  min-height: var(--header-height);
   margin: 0 auto;
+  padding-top: var(--content-gutter);
+}
+
+.header__brand {
+  position: relative;
+  grid-column: 1 / 3;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.header__logo {
+  width: 10.1875rem;
+  height: auto;
+}
+
+/* The dark (ink-word) logo is the always-solid base; the light (white-word) logo
+   is overlaid exactly on top and only its opacity animates. Because the flower is
+   pixel-identical in both files and the base never fades, the flower stays fully
+   solid through the transition — only the word appears to recolor, with no flicker. */
+.header__logo--light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity var(--motion-medium);
+}
+
+/* Pages without a dark hero (e.g. /kontakt, /impressum) carry `.page--solid-header`:
+   the header is solid from the top, so the dark-word logo shows at every breakpoint.
+   Set statically (not toggled), so it never fades — no white→ink flash on load. */
+.page--solid-header .header__logo--light {
+  opacity: 0;
+}
+
+/* …except when the mobile menu is open: over the navy overlay the logo word must
+   be white again (same as every other page's open menu). */
+.page--solid-header.is-menu-open .header__logo--light {
+  opacity: 1;
+}
+
+.header__actions {
+  grid-column: 6 / -1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: clamp(1rem, 2vw, 2rem);
+  min-width: 0;
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-.nav-links {
+.nav {
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(0.4rem, 0.8vw, 1.25rem);
+  white-space: nowrap;
 }
 
-.nav-links a {
-  color: var(--color-text-muted);
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0;
+  color: var(--color-white);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.3;
   text-decoration: none;
-  font-size: 0.9375rem;
-  transition: color 0.2s;
+  transition: color var(--motion-medium);
 }
 
-.nav-links a:hover {
-  color: var(--color-text);
+.nav__link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--motion-medium);
 }
 
-/* Main Content */
-main {
-  flex: 1;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  width: 100%;
+.nav__link:focus-visible::after {
+  transform: scaleX(1);
 }
 
-/* Hero Section */
-.hero {
-  padding: 4rem 0 3rem;
-  text-align: center;
+.header__cta {
+  flex: 0 0 auto;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.125rem;
-  color: var(--color-text-muted);
-  max-width: 560px;
-  margin: 0 auto 2rem;
-}
-
-/* Button */
-.button {
-  display: inline-block;
+/* Burger toggle — Figma lines (1.5px, ink, 20px wide on a 40px accent button),
+   open animation ported from the CodePen #nav-icon4 (hinge from the left edge). */
+.menu-toggle {
+  display: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
   background: var(--color-accent);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9375rem;
-  transition: background 0.2s;
+  cursor: pointer;
 }
 
-.button:hover {
-  background: var(--color-accent-hover);
+.menu-toggle:focus-visible {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.25rem;
 }
 
-/* Features Grid */
-.features {
+.menu-toggle__box {
+  position: relative;
+  width: 1.25rem;
+  height: 0.75rem;
+}
+
+.menu-toggle__line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-ink);
+  border-radius: 1px;
+  transform-origin: center;
+  transition:
+    transform var(--motion-fast),
+    opacity var(--motion-fast);
+}
+
+.menu-toggle__line:nth-child(1) { top: 0; }
+.menu-toggle__line:nth-child(2) { top: 5.25px; }
+.menu-toggle__line:nth-child(3) { top: 10.5px; }
+
+.menu-toggle.is-open .menu-toggle__line:nth-child(1) {
+  transform: translateY(5.25px) rotate(45deg);
+}
+
+.menu-toggle.is-open .menu-toggle__line:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-open .menu-toggle__line:nth-child(3) {
+  transform: translateY(-5.25px) rotate(-45deg);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.hero__content {
+  position: absolute;
+  right: var(--content-gutter);
+  bottom: 4.375rem; /* 70px — flat desktop offset (tablet 24px / phone 16px come from the padding overrides) */
+  left: var(--content-gutter);
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem 0 4rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  align-items: start;
 }
 
-.feature {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 1.5rem;
+.hero__service-label {
+  grid-column: 1 / 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  max-width: 18.8125rem;
+  color: var(--color-white);
+  font-size: var(--type-label);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.feature h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.hero__service-dot {
+  flex: 0 0 auto;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  background: var(--color-accent);
 }
 
-.feature p {
-  color: var(--color-text-muted);
-  font-size: 0.9375rem;
+.hero__copy {
+  grid-column: 6 / -1;
+  max-width: var(--content-column-large);
 }
 
-/* Content Section */
-.content {
-  padding: 0 0 4rem;
-  max-width: 640px;
+.hero__title {
+  max-width: var(--content-column-large);
 }
 
-.content h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.content p {
-  color: var(--color-text-muted);
-  margin-bottom: 1rem;
-}
-
-/* Footer */
-footer {
-  border-top: 1px solid var(--color-border);
-  padding: 2rem 1.5rem;
-  text-align: center;
-}
-
-footer p {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-  .hero h1 {
-    font-size: 1.75rem;
+/* Desktop only: scale the hero H1 fluidly so the long German words never clip,
+   topping out at the Figma desktop size on wide screens. Tablet/phone get their
+   own sizes from their Figma frames. */
+@media (min-width: 1025px) {
+  /* Desktop-only: scale type tokens down toward the low end so the whole page shrinks
+     proportionally (and the nav keeps fitting). Small text/paragraphs/card headings -2px,
+     section H2 -6px, section labels -2px. Max = the Figma desktop value. */
+  :root {
+    --type-section-title: clamp(2.25rem, calc(1.324rem + 1.446vw), 2.625rem); /* 42 → 36 */
+    --type-card-title: clamp(1.625rem, calc(1.316rem + 0.482vw), 1.75rem);    /* 28 → 26 */
+    --type-panel-title: clamp(1.375rem, calc(1.066rem + 0.482vw), 1.5rem);    /* 24 → 22 */
+    --type-body-large: clamp(1.25rem, calc(0.94rem + 0.482vw), 1.375rem);     /* 22 → 20 */
+    --type-body: clamp(1rem, calc(0.69rem + 0.482vw), 1.125rem);              /* 18 → 16 */
+    --type-body-small: clamp(0.875rem, calc(0.566rem + 0.482vw), 1rem);       /* 16 → 14 */
+    --type-label: clamp(0.75rem, calc(0.441rem + 0.482vw), 0.875rem);         /* 14 → 12 */
   }
 
-  .hero p {
+  .hero__title {
+    font-size: clamp(2.5rem, 3.9vw, var(--type-hero-title));
+  }
+}
+
+.hero__text {
+  max-width: 52.5rem;
+  margin-top: 1.4375rem;
+  color: var(--color-white);
+  font-size: var(--type-body-large);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.hero__cta {
+  margin-top: 2rem;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--color-ink);
+  font-size: var(--type-label);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section-label__dot {
+  flex: 0 0 auto;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.section-label--blue .section-label__dot {
+  background: var(--color-blue);
+}
+
+.link-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: var(--button-height);
+  padding-right: 0;
+  color: var(--color-ink);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.3;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.link-button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--button-height);
+  border-radius: var(--radius-card);
+  background: var(--color-blue);
+  content: "";
+  transition: width var(--motion-cta);
+}
+
+.link-button__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  width: var(--button-height);
+  height: var(--button-height);
+  border-radius: var(--radius-card);
+  background: transparent;
+  color: var(--color-white);
+}
+
+.link-button > span:not(.link-button__icon) {
+  position: relative;
+  z-index: 1;
+  transition:
+    color 240ms ease 150ms,
+    transform var(--motion-cta);
+}
+
+.link-button:focus-visible {
+  outline: 0.1875rem solid rgba(11, 108, 149, 0.28);
+  outline-offset: 0.25rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover::before {
+    transform: translateX(0);
+  }
+
+  .button:hover .button__icon {
+    transform: translate3d(9rem, -50%, 0);
+  }
+
+  .button:hover span {
+    transform: translateX(-0.7813rem);
+  }
+
+  .button--accent:hover {
+    color: var(--color-white);
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .link-button:hover::before,
+  .link-button:focus-visible::before {
+    width: 100%;
+  }
+
+  .link-button:hover > span:not(.link-button__icon),
+  .link-button:focus-visible > span:not(.link-button__icon) {
+    color: var(--color-white);
+    transform: translateX(-0.75rem);
+  }
+
+  .why-contact-card:hover .why-contact-card__cta::before,
+  .why-contact-card:focus-visible .why-contact-card__cta::before {
+    width: 100%;
+  }
+
+  .why-contact-card:hover .why-contact-card__cta > span:not(.link-button__icon),
+  .why-contact-card:focus-visible .why-contact-card__cta > span:not(.link-button__icon) {
+    color: var(--color-ink);
+    transform: translateX(-0.75rem);
+  }
+
+  .service-catalog-card:hover .details-link::before,
+  .service-catalog-card:focus-within .details-link::before {
+    transform: scaleX(1);
+  }
+
+  .service-catalog-card:hover .service-catalog-card__image,
+  .service-catalog-card:focus-within .service-catalog-card__image {
+    transform: scale(1.025);
+  }
+}
+
+/* Static solid button: same green fill as .button but no slide animation —
+   inline icon + 12px gap + text (Figma tablet/menu CTA). Placed after the hover
+   rules so it cleanly cancels .button's hover transforms. */
+.button--static {
+  min-width: auto;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.button--static::before {
+  content: none;
+}
+
+.button--static .button__icon {
+  position: static;
+  transform: none;
+}
+
+.button--static span {
+  transform: none;
+}
+
+.button--static:hover .button__icon,
+.button--static:focus-visible .button__icon,
+.button--static:hover span,
+.button--static:focus-visible span {
+  transform: none;
+}
+
+.button--static.button--accent:hover,
+.button--static.button--accent:focus-visible {
+  color: var(--color-ink);
+}
+
+.services-overview {
+  width: var(--container-width);
+  margin: var(--section-gap) auto 0;
+  color: var(--color-ink);
+}
+
+.services-overview__header {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+}
+
+.services-overview .section-label {
+  grid-column: 1 / 4;
+  align-self: start;
+  height: fit-content;
+}
+
+.services-overview__intro {
+  grid-column: 6 / -1;
+  max-width: var(--content-column-large);
+}
+
+.services-overview__title {
+  max-width: 53.6875rem;
+}
+
+.services-overview__text {
+  max-width: 45.125rem;
+  margin-top: 1.125rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.services-overview__cta {
+  margin-top: 2rem;
+}
+
+.services-overview__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 5rem;
+}
+
+.service-card {
+  position: relative;
+  aspect-ratio: 523 / 500;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  color: var(--color-white);
+  background: var(--color-ink);
+}
+
+.service-card__media,
+.service-card__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.service-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-card__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(4, 23, 31, 0) 35%,
+    rgba(4, 23, 31, 0.64) 100%
+  );
+}
+
+.service-card__content {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 1;
+}
+
+.service-card__title {
+  max-width: 21.25rem;
+  font-size: var(--type-card-title);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.service-card__text {
+  max-width: 100%;
+  margin-top: 0.75rem;
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.28;
+}
+
+.quality-claim {
+  width: var(--container-width);
+  margin: var(--section-gap) auto 0;
+  color: var(--color-ink);
+}
+
+.quality-claim__intro {
+  padding-bottom: 3.75rem;
+  border-bottom: var(--divider-subtle);
+}
+
+.quality-claim__title {
+  max-width: 91.5625rem;
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.quality-claim__text {
+  max-width: 40.875rem;
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.quality-claim__cta {
+  margin-top: 2rem;
+}
+
+.quality-claim__detail {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  align-items: start;
+  padding-top: 3.75rem;
+  padding-bottom: 7.5rem;
+  border-bottom: var(--divider-subtle);
+}
+
+.quality-claim__points {
+  grid-column: 1 / 5;
+  max-width: 33.25rem;
+}
+
+.quality-point {
+  padding-bottom: 2.5rem;
+  border-bottom: var(--divider-subtle);
+}
+
+.quality-point + .quality-point {
+  padding-top: 2.5rem;
+}
+
+.quality-point__title {
+  color: var(--color-muted);
+  font-size: var(--type-body-large);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.quality-point__text {
+  margin-top: 0.875rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.quality-claim__media {
+  grid-column: 6 / 10;
+  width: 100%;
+  aspect-ratio: 523 / 600;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.quality-claim__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Keep the left side of a wide source in view when it crops to the portrait box. */
+.quality-claim__image--align-left {
+  object-position: left center;
+}
+
+.experience-summary {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  padding-top: 5rem;
+}
+
+.experience-summary .section-label {
+  grid-column: 1 / 4;
+  align-self: start;
+}
+
+.experience-summary__items {
+  grid-column: 6 / -1;
+}
+
+.experience-summary__item {
+  padding-bottom: 2rem;
+  border-bottom: var(--divider-subtle);
+}
+
+.experience-summary__item + .experience-summary__item {
+  padding-top: 2rem;
+}
+
+.experience-summary__value {
+  font-size: var(--type-metric);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.experience-summary__text {
+  margin-top: 1.125rem;
+  color: #3f3f3f;
+  font-size: var(--type-body-large);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.section-label--green .section-label__dot {
+  background: var(--color-accent);
+}
+
+.link-button--green::before {
+  background: var(--color-accent);
+}
+
+.link-button--green .link-button__icon {
+  color: var(--color-ink);
+}
+
+.services-catalog {
+  width: 100%;
+  margin: var(--section-gap) 0 0;
+  padding-left: var(--content-gutter);
+  overflow: hidden;
+}
+
+.services-catalog__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 5rem;
+  padding-right: var(--content-gutter);
+}
+
+.services-catalog__title {
+  max-width: 61.8125rem;
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.services-catalog__text {
+  max-width: 61.8125rem;
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  line-height: 1.3;
+}
+
+.slider-controls {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.slider-control {
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-size);
+  height: var(--control-size);
+  border: 0;
+  border-radius: 50%;
+  background: #efefef;
+  color: var(--color-ink);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-medium),
+    color var(--motion-medium),
+    opacity var(--motion-medium);
+}
+
+.slider-control:disabled {
+  cursor: default;
+  opacity: 0.42;
+}
+
+.splide__pagination {
+  position: absolute !important;
+  inset: auto auto 0 0 !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.splide__pagination li,
+.splide__pagination__page,
+.splide__sr {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+.service-list {
+  margin-top: 5rem;
+}
+
+.service-list__track {
+  overflow: visible;
+  padding-right: var(--content-gutter);
+}
+
+.service-list__list {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-catalog-card {
+  position: relative;
+  display: flex;
+  flex: 0 0 var(--service-card-width);
+  width: var(--service-card-width);
+  min-height: 36rem;
+  padding: 0 1.25rem;
+  border-left: var(--divider-subtle);
+  flex-direction: column;
+  cursor: pointer;
+  outline: none;
+}
+
+.service-catalog-card:focus-visible {
+  outline: 1px solid var(--color-blue);
+  outline-offset: -1px;
+}
+
+.service-catalog-card__number {
+  color: var(--color-muted);
+  font-size: var(--type-metric);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.service-catalog-card__title {
+  margin-top: 2rem;
+  font-size: var(--type-panel-title);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.service-catalog-card__text {
+  flex: 1 1 auto;
+  min-height: 5.625rem;
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  line-height: 1.35;
+}
+
+.details-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  margin-top: 1.5rem;
+  padding-bottom: 0.4375rem;
+  color: var(--color-blue);
+  font-size: var(--type-body);
+  text-decoration: none;
+  z-index: 2;
+}
+
+.details-link::before {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--motion-medium);
+}
+
+.details-link span {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  background: var(--color-blue);
+}
+
+.service-catalog-card__media {
+  width: 100%;
+  height: clamp(15rem, 16.19vw, 17rem);
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.service-catalog-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+.why-losoma {
+  width: var(--container-width);
+  margin: var(--section-gap) auto 0;
+}
+
+.why-losoma__title {
+  max-width: 45.125rem;
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.why-losoma__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 4.6875rem;
+}
+
+.why-card,
+.why-contact-card {
+  position: relative;
+  min-height: 28.125rem;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.why-card--reliable-partner,
+.why-contact-card {
+  grid-column: span 5;
+}
+
+.why-card--daily-work,
+.why-card--site-awareness {
+  grid-column: span 7;
+}
+
+.why-contact-card {
+  display: flex;
+  padding: 1.25rem;
+  flex-direction: column;
+  background: #0a163e;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.why-card__media,
+.why-card__media::after {
+  position: absolute;
+  inset: 0;
+}
+
+.why-card__media::after {
+  background: linear-gradient(180deg, rgba(4, 23, 31, 0) 42%, rgba(4, 23, 31, 0.7));
+  content: "";
+}
+
+.why-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.why-card__content {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 1;
+  color: var(--color-white);
+}
+
+.why-card__content h3,
+.why-contact-card__title {
+  font-size: var(--type-card-title);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.why-card__content p,
+.why-contact-card__text {
+  margin-top: 0.625rem;
+  font-size: var(--type-body);
+  line-height: 1.35;
+}
+
+.why-contact-card__label {
+  color: var(--color-white);
+}
+
+.why-contact-card__content {
+  display: block;
+  margin-top: 2rem;
+}
+
+.why-contact-card__title {
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.why-contact-card__text {
+  color: #ddd;
+}
+
+.why-contact-card__title,
+.why-contact-card__text {
+  display: block;
+}
+
+.why-contact-card__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--color-white);
+}
+
+.collaboration-process {
+  width: var(--container-width);
+  margin: var(--section-gap) auto 0;
+}
+
+.collaboration-process__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem 5rem;
+}
+
+/* When the heading + button no longer fit on one row, the button wraps below
+   the text instead of being clipped. */
+.collaboration-process__link {
+  flex-shrink: 0;
+}
+
+.collaboration-process__intro {
+  align-self: flex-start;
+  max-width: 61.8125rem;
+}
+
+.collaboration-process__title {
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 5rem;
+}
+
+.process-step-card {
+  display: flex;
+  min-height: 17.5rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-soft);
+  flex-direction: column;
+  background: #efefef;
+}
+
+.process-step-card__number {
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-size);
+  height: var(--control-size);
+  border-radius: 50%;
+  background: var(--color-blue);
+  color: var(--color-white);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.process-step-card__content {
+  margin-top: auto;
+}
+
+.process-step-card h3 {
+  max-width: 26.25rem;
+  font-size: var(--type-panel-title);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.process-step-card p {
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-button--green:hover > span:not(.link-button__icon),
+  .link-button--green:focus-visible > span:not(.link-button__icon) {
+    color: var(--color-ink);
+  }
+
+}
+
+.team-reviews {
+  width: var(--container-width);
+  margin: var(--section-gap-tight) auto 0;
+}
+
+.team-overview {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  padding-bottom: 7.5rem;
+}
+
+.team-overview__intro {
+  grid-column: 1 / 5;
+}
+
+.team-overview__intro h2 {
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.team-overview__intro p:not(.section-label) {
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  line-height: 1.45;
+}
+
+.team-overview__members {
+  grid-column: 6 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem 1rem;
+}
+
+.team-card__photo {
+  aspect-ratio: 1 / 1.24;
+  background: #000;
+}
+
+.team-card h3 {
+  margin-top: 0.75rem;
+  font-size: var(--type-panel-title);
+  font-weight: 400;
+}
+
+.team-card p {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+}
+
+.customer-review {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  padding-block: 5rem 7.5rem;
+  border-top: var(--divider-subtle);
+  border-bottom: var(--divider-subtle);
+}
+
+.customer-review__meta {
+  grid-column: 1 / 5;
+}
+
+.customer-review__author-panel {
+  margin-top: 2rem;
+}
+
+.customer-review__author-panel h3 {
+  position: relative;
+  display: block;
+  font-size: var(--type-body-large);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.customer-review__author-current,
+.customer-review__author-next {
+  display: block;
+  transition: opacity 210ms ease;
+}
+
+.customer-review__author-next {
+  position: absolute;
+  inset: 0 auto auto 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.customer-review__author-panel h3.is-changing .customer-review__author-current {
+  opacity: 0;
+}
+
+.customer-review__author-panel h3.is-changing .customer-review__author-next {
+  opacity: 1;
+}
+
+.customer-review__controls {
+  margin-top: 1.5rem;
+}
+
+.customer-review__content {
+  grid-column: 6 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.customer-review__slider {
+  position: relative;
+  min-width: 0;
+  transition: height var(--motion-medium);
+}
+
+.customer-review__track {
+  overflow: hidden;
+  transition: height var(--motion-medium);
+}
+
+.customer-review__list {
+  position: relative;
+  display: block;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.customer-review__slide {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 210ms ease;
+}
+
+.customer-review__slide.is-active {
+  position: relative;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.customer-review__quote-icon {
+  width: var(--quote-icon-size);
+  height: var(--quote-icon-size);
+}
+
+.customer-review__slide .customer-review__quote-icon {
+  display: none;
+}
+
+.customer-review__slide p {
+  max-width: 58rem;
+  margin: 0;
+  font-size: var(--type-panel-title);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.contact-faq {
+  margin-top: 2.5rem;
+}
+
+/* On service pages the contact CTA follows the collaboration-process directly
+   (no reviews block between them), so it needs the FULL default section gap —
+   not the tight 40px the main page uses after the reviews. Adjacent-sibling
+   selector only matches the service pages; uses the per-breakpoint token. */
+.collaboration-process + .contact-faq {
+  margin-top: var(--section-gap);
+}
+
+.contact-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  min-height: 40.625rem;
+  padding: 10rem var(--content-gutter);
+  overflow: hidden;
+  color: var(--color-white);
+  background: var(--color-ink);
+}
+
+.contact-panel__background {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(4, 23, 31, 0.8) 17.527%,
+      rgba(4, 23, 31, 0.061) 45.201%,
+      rgba(4, 23, 31, 0) 60.695%,
+      rgba(4, 23, 31, 0.8) 94.21%
+    ),
+    image-set(
+      url("/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.avif") type("image/avif"),
+      url("/assets/generated/cta-berliner-wohnimmobilie-kontaktformular-losoma.webp") type("image/webp")
+    ) center / cover;
+  filter: blur(0.125rem);
+  transform: scaleX(-1) scale(1.02);
+  transform-origin: center;
+}
+
+.contact-form {
+  position: relative;
+  grid-column: 1 / -1;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--form-width);
+  margin-left: auto;
+  padding: 1.5rem;
+  border-radius: var(--radius-soft);
+  background: #0a163e;
+}
+
+.contact-form .section-label {
+  color: var(--color-white);
+}
+
+.contact-form h2 {
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.contact-form p:not(.section-label) {
+  margin-top: 1.25rem;
+  font-size: var(--type-body);
+  line-height: 1.3;
+  color: #ddd;
+}
+
+.contact-form__honeypot {
+  position: absolute;
+  left: -100vw;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form_select-toggle {
+  width: 100%;
+  min-height: var(--field-height);
+  margin-top: 0.5rem;
+  border: var(--divider-subtle);
+  border-radius: var(--radius-field);
+  padding: 0 1.25rem;
+  font: 400 var(--type-body)/1.3 var(--font-sans);
+}
+
+.contact-form > input[type="text"] {
+  margin-top: 2rem;
+}
+
+.contact-form .iti {
+  width: 100%;
+  margin-top: 0.5rem;
+  color: var(--color-ink);
+  --iti-border-color: rgba(4, 23, 31, 0.22);
+  --iti-dropdown-bg: var(--color-white);
+  --iti-hover-color: var(--color-surface-hover);
+  --iti-icon-color: #848a8c;
+}
+
+.contact-form .iti input {
+  margin-top: 0;
+}
+
+/* Round the country button's left corners to match the field's 8px radius.
+   The country container insets itself by the 1px border, so subtract it for a concentric curve. */
+.contact-form .iti__selected-country {
+  overflow: hidden;
+}
+
+.contact-form .iti__selected-country,
+.contact-form .iti__selected-country-primary {
+  border-top-left-radius: calc(var(--radius-field) - var(--iti-border-width));
+  border-bottom-left-radius: calc(var(--radius-field) - var(--iti-border-width));
+}
+
+.contact-form .iti__dropdown-content {
+  z-index: 12;
+  border-radius: var(--radius-field);
+  overflow: hidden;
+  font: 400 var(--type-body-small)/1.3 var(--font-sans);
+  /* iti positions the inline list at offsetHeight + DROPDOWN_MARGIN (3px).
+     Add the remainder so the list starts 8px below the field, aligned with the field underneath. */
+  margin-top: calc(var(--iti-spacer-horizontal) - 3px);
+}
+
+.contact-form .iti__country {
+  min-height: 2.75rem;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #848a8c;
+}
+
+.contact-form_select {
+  position: relative;
+  display: block;
+  z-index: 2;
+}
+
+.contact-form_select-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--color-white);
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.contact-form_select-toggle:not(.is-selected) {
+  color: #848a8c;
+}
+
+.contact-form_select.is-invalid .contact-form_select-toggle {
+  border-color: #e5484d;
+}
+
+.contact-form_select-icon {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #848a8c;
+  pointer-events: none;
+  transition: transform var(--motion-medium);
+}
+
+.contact-form_select.is-open .contact-form_select-icon {
+  transform: rotate(180deg);
+}
+
+.contact-form_select-icon svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.contact-form_select-list {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  max-height: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-field);
+  background: var(--color-white);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  clip-path: inset(0 0 100% 0 round var(--radius-field));
+  pointer-events: none;
+  transition:
+    max-height var(--motion-medium),
+    border-color var(--motion-medium),
+    clip-path var(--motion-medium);
+}
+
+.contact-form_select.is-open .contact-form_select-list {
+  max-height: calc(var(--field-height) * 4.5);
+  border-color: rgba(4, 23, 31, 0.22);
+  overflow-y: auto;
+  clip-path: inset(0 0 0 0 round var(--radius-field));
+  pointer-events: auto;
+  transition:
+    max-height var(--motion-medium),
+    border-color var(--motion-medium),
+    clip-path var(--motion-medium);
+}
+
+.contact-form_select-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--field-height);
+  border: 0;
+  border-bottom: var(--divider-subtle);
+  padding: 0.9375rem 1.25rem;
+  color: var(--color-ink);
+  background: var(--color-white);
+  text-align: left;
+  font: 400 var(--type-body)/1.3 var(--font-sans);
+  cursor: pointer;
+  transition: background-color var(--motion-medium);
+}
+
+.contact-form_select-option:last-child {
+  border-bottom: 0;
+}
+
+.contact-form_select-option:hover,
+.contact-form_select-option:focus-visible,
+.contact-form_select-option.is-selected {
+  background: var(--color-surface-hover);
+}
+
+.contact-form__row {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.contact-form__hint {
+  grid-column: 1 / -1;
+  justify-self: start;
+  width: auto;
+  min-height: 0;
+  margin-top: 0.375rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ddd;
+  font: 400 var(--type-caption)/1.3 var(--font-sans);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.15rem;
+  cursor: pointer;
+}
+
+.contact-form__hint[hidden] {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-form__hint:hover {
+    color: var(--color-white);
+  }
+}
+
+.contact-form__hint:focus-visible {
+  color: var(--color-white);
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.1875rem;
+}
+
+.contact-form textarea {
+  min-height: 7.5rem;
+  padding-top: 0.9375rem;
+  resize: vertical;
+}
+
+.contact-form__check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  font-size: var(--type-caption);
+  line-height: 1.3;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.contact-form__check input {
+  position: absolute;
+  width: 1px;
+  min-height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-form__check-mark {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 0.1875rem;
+  background: var(--color-accent);
+  color: var(--color-ink);
+  transition:
+    background-color var(--motion-fast),
+    transform var(--motion-fast);
+}
+
+.contact-form__check-mark svg {
+  width: 0.5625rem;
+  height: 0.4375rem;
+  transform: scale(1);
+  opacity: 1;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.contact-form__check input:not(:checked) + .contact-form__check-mark {
+  background: var(--color-white);
+}
+
+.contact-form__check input:not(:checked) + .contact-form__check-mark svg {
+  opacity: 0;
+  transform: scale(0.65);
+}
+
+.contact-form__check input:focus-visible + .contact-form__check-mark {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.1875rem;
+}
+
+.contact-form__submit {
+  border: 0;
+  margin-top: 2rem;
+  padding: 0;
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+  font: 400 var(--type-body)/1.1 var(--font-sans);
+}
+
+/* ── Contact page (/kontakt) ──────────────────────────────────────────────
+   A standalone form section on the off-white page (no dark hero). The page
+   carries `.page--solid-header`, so the header is dark + frosted from the very
+   top. Layout (Figma 149:5708): left = KONTAKT label + heading + contact
+   details + socials; right = the shared contact form, re-themed light. The 12-col
+   grid (5 | 7) reproduces the Figma 657 / 927 columns; top/bottom spacing leaves
+   ~100px of breathing room under the fixed header and above the footer. */
+.contact-page {
+  background: var(--color-page);
+  padding: 11.5rem 0 6.25rem;
+}
+
+.contact-page__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  align-items: stretch;
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.contact-page__intro {
+  grid-column: 1 / 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.contact-page__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-page__title {
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.contact-page__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-page__details p,
+.contact-page__details a {
+  color: var(--color-ink);
+  font-size: var(--type-body);
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.contact-page__details a {
+  transition: color var(--motion-medium);
+}
+
+.contact-page__social {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.contact-page__social a {
+  display: inline-flex;
+  color: var(--color-ink);
+  transition: color var(--motion-medium);
+}
+
+/* Re-theme the shared form for the light page: strip the navy panel chrome and
+   flip every field/text colour to ink-on-off-white. All field structure, the
+   service dropdown (with its chevron), the phone widget, validation hooks and
+   spacing come from the base `.contact-form` rules untouched. */
+.contact-page .contact-form {
+  position: static;
+  grid-column: 6 / -1;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.contact-page .contact-form > input[type="text"] {
+  margin-top: 0;
+}
+
+.contact-page .contact-form input,
+.contact-page .contact-form textarea,
+.contact-page .contact-form_select-toggle {
+  background: var(--color-page);
+  border-color: #c0c0c0;
+}
+
+/* Typed input text is ink; the dropdown toggle is deliberately left to the base
+   rules so its label stays the muted placeholder colour until a service is
+   picked (`.is-selected` flips it to ink) — don't force a colour here. */
+.contact-page .contact-form input,
+.contact-page .contact-form textarea {
+  color: var(--color-ink);
+}
+
+.contact-page .contact-form .iti {
+  --iti-border-color: #c0c0c0;
+}
+
+.contact-page .contact-form__check {
+  color: var(--color-ink);
+}
+
+/* Visible unchecked box on the light page; blue tick when checked (matches the
+   blue submit square + blue label dot). Border on both states avoids a size jump. */
+.contact-page .contact-form__check-mark {
+  border: 1px solid var(--color-blue);
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+.contact-page .contact-form__check input:not(:checked) + .contact-form__check-mark {
+  border-color: #c0c0c0;
+  background: var(--color-page);
+}
+
+.contact-page .contact-form__hint {
+  color: var(--color-blue);
+}
+
+/* Submit keeps the base `.link-button` blue square (no `--green` modifier); only
+   the text colour flips back to ink for the light background. */
+.contact-page .contact-form__submit {
+  color: var(--color-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-page__details a:hover {
+    color: var(--color-blue);
+  }
+}
+
+/* ── Legal pages (/impressum; reusable for /datenschutz) ──────────────────────
+   Same shell as the contact page: `body.page--solid-header`, off-white, the 12-col
+   grid (title 1/6 | content 6/-1) and the shared ~100px top/bottom spacing. The
+   right column is a stack of legal blocks, each closed by a `#c0c0c0` divider
+   (Figma 149:5593). */
+.legal-page {
+  background: var(--color-page);
+  padding: 11.5rem 0 6.25rem;
+}
+
+.legal-page__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  align-items: start;
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.legal-page__title {
+  grid-column: 1 / 6;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.legal-page__content {
+  grid-column: 6 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Each block: title (22px bold) + value group, closed by a bottom divider with
+   40px of padding above it; blocks are 40px apart (the content `gap`). */
+.legal-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #c0c0c0;
+}
+
+.legal-block__title {
+  font-size: var(--type-body-large);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+
+.legal-block__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--color-ink);
+  font-size: var(--type-body);
+  line-height: 1.5;
+}
+
+/* Two-up blocks (Adresse | Kontakt, USt-ID | Steuernummer). The 404/523 fr split
+   reproduces the Figma column ratio and stays fluid. */
+.legal-block__group ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.legal-block__group li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.legal-block__group li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-blue);
+}
+
+.legal-block__row {
+  display: grid;
+  grid-template-columns: minmax(0, 404fr) minmax(0, 523fr);
+  column-gap: var(--grid-column-gap);
+}
+
+.legal-block__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Muted inline labels ("Telefon:", "E-Mail:") next to ink values. */
+.legal-label {
+  color: #767a7b;
+}
+
+.faq {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  width: var(--container-width);
+  margin: 2.5rem auto 7.5rem;
+  padding: 7.5rem 0 0;
+  border-top: var(--divider-subtle);
+}
+
+.faq__intro {
+  grid-column: 1 / 5;
+}
+
+.faq h2 {
+  margin-top: 2rem;
+  font-size: var(--type-section-title);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.faq-list {
+  grid-column: 6 / -1;
+  display: grid;
+}
+
+.faq-item {
+  border-bottom: var(--divider-subtle);
+}
+
+.faq-item h3 {
+  font: inherit;
+}
+
+.faq-item__trigger {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  border: 0;
+  padding: 1.25rem 0;
+  color: var(--color-ink);
+  background: transparent;
+  text-align: left;
+  font-size: var(--type-panel-title);
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.faq-item:first-child .faq-item__trigger {
+  padding-top: 0;
+}
+
+.faq-item__trigger > span:first-child {
+  max-width: 55.4375rem;
+}
+
+.faq-item__icon {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-size);
+  height: var(--control-size);
+  border-radius: 50%;
+  background: #efefef;
+  color: var(--color-ink);
+  transition:
+    background-color var(--motion-fast),
+    color var(--motion-fast);
+}
+
+.faq-item__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform var(--motion-fast);
+}
+
+.faq-item__trigger[aria-expanded="true"] .faq-item__icon {
+  background: #d5d5d5;
+}
+
+.faq-item__trigger[aria-expanded="true"] .faq-item__icon svg {
+  transform-origin: center;
+  transform: rotate(-45deg);
+}
+
+.faq-item__trigger:focus-visible .faq-item__icon {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.1875rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faq-item:hover .faq-item__icon {
+    background: #d5d5d5;
+  }
+}
+
+.faq-item__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item.is-open .faq-item__panel {
+  max-height: var(--faq-panel-height, 12rem);
+}
+
+.faq-item p {
+  max-width: 50rem;
+  margin: 0;
+  padding-bottom: 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--type-body);
+  line-height: 1.3;
+}
+
+.footer {
+  --footer-service-column: var(--content-column-small);
+  --footer-content-column: var(--content-column-large);
+  --footer-column-gap: 9.375rem;
+  --footer-top-gap: 2.5rem;
+  --footer-legal-gap: 7.5rem;
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--footer-service-column))
+    minmax(0, var(--footer-content-column));
+  grid-template-areas:
+    "logo nav"
+    "service-summary contact-area"
+    "legal legal";
+  column-gap: var(--footer-column-gap);
+  row-gap: var(--footer-top-gap);
+  min-height: 45.5rem;
+  padding: 5rem var(--content-gutter) 1.5rem;
+  background: #0a163e;
+  color: var(--color-white);
+}
+
+.footer__logo {
+  grid-area: logo;
+}
+
+.footer__logo a {
+  display: inline-block;
+  width: fit-content;
+}
+
+.footer__logo img {
+  display: block;
+  width: 14.5625rem;
+  height: auto;
+}
+
+.footer__nav {
+  grid-area: nav;
+  display: grid;
+  grid-template-columns: minmax(15rem, 1fr) repeat(2, minmax(11rem, 0.55fr));
+  justify-content: space-between;
+  align-items: start;
+  gap: 5rem;
+}
+
+.footer__nav-column h3,
+.footer__contact h3 {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: var(--type-body-small);
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.footer__links {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.footer a,
+.footer p {
+  color: var(--color-white);
+  font-size: var(--type-body);
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.footer a {
+  transition: opacity var(--motion-medium);
+}
+
+.footer__service-summary {
+  grid-area: service-summary;
+  align-self: start;
+  padding-top: var(--footer-top-gap);
+}
+
+.footer__service-summary p {
+  max-width: 33rem;
+  font-weight: 700;
+  color: #ddd;
+}
+
+.footer__cta {
+  margin-top: 1.25rem;
+  color: var(--color-white);
+}
+
+.footer__contact-area {
+  grid-area: contact-area;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 6.25rem;
+  align-items: start;
+  border-top: var(--divider-on-dark);
+  padding-top: var(--footer-top-gap);
+}
+
+.footer__contact {
+  max-width: 27rem;
+}
+
+.footer__social {
+  display: inline-flex;
+  gap: 0.75rem;
+  justify-self: end;
+}
+
+.footer__social a {
+  display: inline-grid;
+  place-items: center;
+  color: var(--color-white);
+  transition:
+    color var(--motion-medium),
+    opacity var(--motion-medium);
+}
+
+.footer__social svg {
+  display: block;
+  fill: currentColor;
+}
+
+.footer__legal {
+  grid-area: legal;
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--footer-service-column))
+    minmax(0, var(--footer-content-column));
+  column-gap: var(--footer-column-gap);
+  margin-top: var(--footer-legal-gap);
+  border-top: var(--divider-on-dark);
+  padding-top: 1.25rem;
+}
+
+.footer__legal p {
+  color: #ddd;
+  font-size: var(--type-label);
+  line-height: 1.3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__links a:hover,
+  .footer__links a:focus-visible,
+  .footer__legal a:hover,
+  .footer__legal a:focus-visible,
+  .footer__social a:hover,
+  .footer__social a:focus-visible,
+  .mobile-menu__link:hover,
+  .mobile-menu__link:focus-visible {
+    opacity: 0.72;
+  }
+}
+
+/* Desktop (full nav, >1150px): the header sticks to the top of the viewport and
+   rides the scroll. While it overlaps the dark hero, the logo word + nav links stay
+   white; once the hero scrolls past, both crossfade to ink. The `.is-scrolled`
+   class is toggled from JS the moment the header clears the hero. */
+@media (min-width: 1151px) {
+  /* Fixed 80px bar — the SAME height over the hero and after scrolling, so the
+     height never changes (no shrink animation). Only the frosted background, the
+     white→ink recolor, and the footer slide-up animate. The base header's
+     padding-top gutter is dropped here so the content centers cleanly in 80px. */
+  .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    min-height: 5rem;
+    padding-top: 0;
+    transition: transform var(--motion-medium);
+  }
+
+  /* Full-bleed frosted-glass bar behind the header. It breaks out of the
+     container-width header to span the viewport, sits behind the header content
+     (z-index: -1) and carries the blur + glassy tint. Hidden over the hero, it
+     fades in once the header leaves the hero (.is-scrolled). */
+  .header::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    width: 100vw;
+    background: rgba(253, 253, 252, 0.72);
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity var(--motion-medium);
+    content: "";
+    pointer-events: none;
+  }
+
+  /* The fixed header lives inside the hero's stacking context, so lift the hero
+     above the later positioned sections to keep the header painting on top. The
+     hero box itself is off-screen once scrolled, so this has no other effect. */
+  .hero {
+    z-index: 50;
+  }
+
+  /* Scrolled state (header has left the hero): reveal the frosted bar and recolor
+     the logo word + nav links from white to ink. The height stays at 80px. */
+  .header.is-scrolled::before {
+    opacity: 1;
+  }
+
+  .header.is-scrolled .nav__link {
+    color: var(--color-ink);
+  }
+
+  .header.is-scrolled .header__logo--light {
+    opacity: 0;
+  }
+
+  /* Solid-header pages (no hero): the frosted bar + ink nav are on permanently,
+     set statically so they render solid on first paint without fading in. */
+  .page--solid-header .header::before {
+    opacity: 1;
+  }
+
+  .page--solid-header .nav__link {
+    color: var(--color-ink);
+  }
+
+  /* Footer in view: slide the whole header up out of sight so it doesn't
+     duplicate the footer's logo + CTA. */
+  .header.is-hidden {
+    transform: translateY(-100%);
+  }
+}
+
+/* Header collapses to the burger where the (now fluid) nav stops fitting. */
+@media (max-width: 1150px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__actions {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: grid;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    padding-top: calc(var(--header-height) + var(--content-gutter) + 1.5rem);
+    background: #0a163e;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity var(--motion-fast),
+      visibility var(--motion-fast);
+  }
+
+  .is-menu-open .mobile-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__nav {
+    margin-top: auto;
+  }
+
+  .mobile-menu__heading {
+    margin-bottom: 1rem;
+    color: #959595;
+    font-size: var(--type-body-small);
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .mobile-menu__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu__link {
+    color: var(--color-white);
+    font-size: var(--type-body);
+    font-weight: 400;
+    line-height: 1.3;
+    text-decoration: none;
+    transition: opacity var(--motion-medium);
+  }
+
+  .mobile-menu__footer {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .mobile-menu__tagline {
+    color: #ddd;
+    font-size: var(--type-body);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .mobile-menu__cta {
+    align-self: flex-start;
+    color: var(--color-white);
+  }
+}
+
+/* Tablet Hero (Figma 29:208): full-width content at the bottom, burger header.
+   Overlay is inherited from desktop (uniform rgba(4,23,31,0.3)) by request. */
+@media (max-width: 1024px) {
+  :root {
+    /* Tablet: fixed 120px gap between sections (Figma) */
+    --section-gap: 7.5rem;
+  }
+
+  /* Contact page → single column: intro stacked above the form. The header is in
+     flow here (burger, not fixed), so the top padding only needs the shared gap. */
+  .contact-page {
+    padding: 3.75rem 0;
+  }
+
+  .contact-page__inner {
+    grid-template-columns: 1fr;
+    row-gap: 2.5rem;
+  }
+
+  .contact-page__intro {
+    grid-column: 1 / -1;
+    gap: 2.5rem;
+  }
+
+  .contact-page .contact-form {
+    grid-column: 1 / -1;
+  }
+
+  /* Legal page → single column: title stacked above the blocks. */
+  .legal-page {
+    padding: 3.75rem 0;
+  }
+
+  .legal-page__inner {
+    grid-template-columns: 1fr;
+    row-gap: 2.5rem;
+  }
+
+  .legal-page__title,
+  .legal-page__content {
+    grid-column: 1 / -1;
+  }
+
+  .hero__content {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    grid-template-columns: none;
+  }
+
+  .hero__service-label {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .hero__copy {
+    grid-column: auto;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__title {
+    max-width: none;
+    font-size: clamp(2.25rem, 6.4vw, 3rem);
+  }
+
+  .hero__text {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .hero__cta {
+    margin-top: 1.5rem;
+    align-self: flex-start;
+  }
+
+  /* Services overview (Figma 29:231): stacked single-column header,
+     cards in one column. */
+  .services-overview__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .services-overview__intro {
+    max-width: none;
+  }
+
+  .services-overview__title {
+    max-width: none;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .services-overview__text {
+    max-width: 40.875rem;
+    margin-top: 1rem;
+  }
+
+  .services-overview__cta {
+    margin-top: 1.5rem;
+  }
+
+  .services-overview__cards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .service-card {
+    aspect-ratio: auto;
+    height: 28.125rem;
+  }
+
+  .service-card__content {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .service-card__title {
+    max-width: none;
+    line-height: 1.1;
+  }
+
+  .service-card__text {
+    line-height: 1.3;
+  }
+
+  /* Quality claim (Figma 29:265): single column — intro, stacked
+     points above the image, then the experience metrics. */
+  .quality-claim__intro {
+    padding-bottom: 2.5rem;
+  }
+
+  .quality-claim__title {
+    max-width: none;
+    margin-top: 1.5rem;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .quality-claim__text {
+    margin-top: 1rem;
+  }
+
+  .quality-claim__cta {
+    margin-top: 1.5rem;
+  }
+
+  .quality-claim__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .quality-claim__points {
+    max-width: none;
+  }
+
+  .quality-point {
+    padding-bottom: 2rem;
+  }
+
+  .quality-point + .quality-point {
+    padding-top: 2rem;
+  }
+
+  .quality-point__title {
+    line-height: 1.4;
+  }
+
+  .quality-point__text {
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .quality-claim__media {
+    aspect-ratio: auto;
+    height: 37.5rem;
+    border-radius: var(--radius-soft);
+  }
+
+  .experience-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2.5rem;
+  }
+
+  .experience-summary__value {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+
+  .experience-summary__text {
+    max-width: 36.9375rem;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  /* Services catalog (Figma 29:310, card 29:329): stacked header with the
+     slider arrows below; cards sized per the tablet frame. */
+  .services-catalog__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .services-catalog__title {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .services-catalog__text {
+    margin-top: 1rem;
+  }
+
+  .service-list {
+    margin-top: 2.5rem;
+  }
+
+  .service-catalog-card {
+    flex-basis: 26.875rem;
+    width: 26.875rem;
+    min-height: 33.375rem;
+    padding: 0 0.75rem;
+  }
+
+  .service-catalog-card__number {
+    font-size: 3.25rem;
+  }
+
+  .service-catalog-card__title {
+    margin-top: 1.5rem;
+  }
+
+  .service-catalog-card__text {
+    font-size: var(--type-body-small);
+    line-height: 1.3;
+  }
+
+  .details-link {
+    gap: 0.5rem;
+  }
+
+  .details-link span {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .service-catalog-card__media {
+    height: 17rem;
+  }
+
+  /* Why Losoma (Figma 29:432): single-column stack — three image cards then
+     the contact card. */
+  .why-losoma__title {
+    max-width: none;
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .why-losoma__grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .why-card,
+  .why-contact-card {
+    grid-column: auto;
+    border-radius: var(--radius-soft);
+  }
+
+  .why-card__content {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .why-card__content h3 {
+    line-height: 1.1;
+  }
+
+  .why-card__content p,
+  .why-contact-card__text {
+    line-height: 1.3;
+  }
+
+  .why-contact-card {
+    min-height: 18.75rem;
+    padding: 1rem;
+  }
+
+  .why-contact-card__title {
+    font-size: 2rem;
+  }
+
+  .why-contact-card__content {
+    margin-top: 1.5rem;
+  }
+
+  .why-contact-card__text {
+    margin-top: 1rem;
+  }
+
+  /* Collaboration process (Figma 29:474): stacked header (label, title, CTA)
+     then the steps in one column. */
+  .collaboration-process__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .collaboration-process__intro {
+    align-self: stretch;
+    max-width: none;
+  }
+
+  .collaboration-process__link {
+    align-self: flex-start;
+  }
+
+  .collaboration-process__title {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .process-step-card {
+    min-height: 12.5rem;
+    padding: 1rem;
+  }
+
+  .process-step-card p {
+    margin-top: 1rem;
+  }
+
+  /* Team overview (Figma 29:513): stacked intro, team cards in two columns.
+     60px gap down to the reviews block (Figma 29:554). */
+  .team-overview {
+    display: block;
+    padding-bottom: 3.75rem;
+  }
+
+  .team-overview__intro h2 {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .team-overview__intro p:not(.section-label) {
+    margin-top: 1rem;
+    line-height: 1.3;
+  }
+
+  .team-overview__members {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .team-card__photo {
+    aspect-ratio: 343.5 / 350;
+  }
+
+  .team-card h3 {
+    line-height: 1.4;
+  }
+
+  .team-card p {
+    margin-top: 0.25rem;
+  }
+
+  /* Customer reviews (Figma 29:554): single column — meta (label + author/arrows
+     row) above the quote. */
+  .customer-review {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 2.5rem 1.5rem;
+  }
+
+  .customer-review__author-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+
+  /* Author stays on one line (Figma nowrap) so a long name doesn't render two
+     lines and then snap back to one. */
+  .customer-review__author-panel h3 {
+    white-space: nowrap;
+  }
+
+  .customer-review__controls {
+    margin-top: 0;
+  }
+
+  .customer-review__quote-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  /* Contact CTA (Figma 29:573): full-bleed panel with 24px side gutters and
+     40px top/bottom; the navy form fills the column. */
+  .contact-panel {
+    min-height: auto;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .contact-form {
+    max-width: none;
+    margin-left: 0;
+    padding: 1.25rem;
+  }
+
+  .contact-form h2 {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .contact-form p:not(.section-label) {
+    margin-top: 1rem;
+  }
+
+  .contact-form > input[type="text"] {
+    margin-top: 1.5rem;
+  }
+
+  /* FAQ (Figma 29:610): sits tight under the CTA — single column with the intro
+     stacked above the list. 40px above the divider, 40px below it, 24px side
+     gutters. The 20px question/answer rhythm already matches, so only the
+     layout, the H2 size, and the top spacing change. */
+  .faq {
+    grid-template-columns: 1fr;
+    row-gap: 2.5rem;
+    width: auto;
+    margin: 2.5rem 0 0;
+    padding: 2.5rem 1.5rem 3.75rem;
+  }
+
+  .faq__intro,
+  .faq-list {
+    grid-column: 1 / -1;
+  }
+
+  .faq h2 {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  /* Footer (Figma 29:668): sits flush under the FAQ — everything stacks into a
+     single column. Order: logo, tagline + CTA, the link columns (2-up grid),
+     a divider, the contact block, then the legal row. 60px top / 24px sides /
+     24px bottom. */
+  .footer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "service-summary"
+      "nav"
+      "contact-area"
+      "legal";
+    row-gap: 0;
+    column-gap: 0;
+    min-height: auto;
+    padding: 3.75rem 1.5rem 1.5rem;
+  }
+
+  .footer__service-summary {
+    margin-top: 2.5rem;
+    padding-top: 0;
+  }
+
+  .footer__service-summary p {
+    max-width: none;
+  }
+
+  .footer__cta {
+    margin-top: 1.5rem;
+  }
+
+  /* Link columns: Leistungen + Navigation on row 1, Rechtliches under
+     Leistungen on row 2. */
+  .footer__nav {
+    margin-top: 3.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1rem;
+  }
+
+  /* Contact block stacks under a divider; social icons sit below the details. */
+  .footer__contact-area {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+    column-gap: 0;
+    margin-top: 2.5rem;
+  }
+
+  .footer__contact {
+    max-width: none;
+  }
+
+  .footer__social {
+    justify-self: start;
+    gap: 0.625rem;
+  }
+
+  .footer__legal {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+  }
+}
+
+/* Phone Hero (Figma 29:733): single column, content pinned to the bottom, burger
+   header. Header sits at the frame top with 16px side gutters / 24px top. The
+   overlay stays the uniform rgba(4,23,31,0.3) from the desktop/tablet pass — the
+   Figma gradient is intentionally ignored, by request. */
+@media (max-width: 560px) {
+  :root {
+    /* Phone: 80px between every section (per spec) */
+    --section-gap: 5rem;
+    --section-gap-tight: 5rem;
+    /* Phone buttons are 40px tall (Figma) */
+    --button-height: 2.5rem;
+  }
+
+  /* E-Mail + Telefon stack on phone — side by side they're too cramped. Shared
+     across every page's contact form (CTA panel + contact page). Each field keeps
+     its own 0.5rem top-margin rhythm, so the row gap is zeroed to avoid doubling. */
+  .contact-form__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Contact page: 16px gutters, 28px heading (phone type scale). */
+  .contact-page {
+    padding: 2.5rem 0 4rem;
+  }
+
+  .contact-page__inner {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .contact-page__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  /* Legal page: 16px gutters, 28px title, and the two-up blocks stack. */
+  .legal-page {
+    padding: 2.5rem 0 4rem;
+  }
+
+  .legal-page__inner {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .legal-page__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .legal-block__row {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+
+  .header {
+    width: 100%;
+    padding: 1.5rem 1rem 0;
+  }
+
+  .hero__content {
+    padding: 1rem;
+  }
+
+  .hero__service-label {
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .hero__service-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  /* Tops out at 32px (Figma, ~390px wide) and shrinks below that so the long
+     German compounds never clip on small phones; break-word is the final safety
+     net (matches Figma's word-break on this node). */
+  .hero__title {
+    font-size: clamp(1.5rem, 8.2vw, 2rem);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+  }
+
+  .hero__text {
+    margin-top: 0.75rem;
+    font-size: 1.125rem;
+  }
+
+  /* CTA (Figma 29:751): the static layout — inline icon + 12px gap + text. This is
+     the animated .button on desktop/tablet and can't swap classes by breakpoint, so
+     we replicate the FULL .button--static treatment here. The :hover/:focus rules
+     below are NOT optional — without them the base `.button:hover .button__icon`
+     rule (higher specificity than a plain `.hero__cta .button__icon`) still fires on
+     any pointer hover and slides the arrow to the right. Do not drop them. */
+  .hero__cta {
+    min-width: auto;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
   }
 
-  .features {
+  .hero__cta::before {
+    content: none;
+  }
+
+  .hero__cta .button__icon,
+  .hero__cta:hover .button__icon,
+  .hero__cta:focus-visible .button__icon {
+    position: static;
+    transform: none;
+  }
+
+  .hero__cta span,
+  .hero__cta:hover span,
+  .hero__cta:focus-visible span {
+    transform: none;
+  }
+
+  .hero__cta.button--accent:hover,
+  .hero__cta.button--accent:focus-visible {
+    color: var(--color-ink);
+  }
+
+  /* Phone services-overview (Figma 29:756): single column, 16px side gutters.
+     Header (label + intro + CTA) stacked, then the three service cards in one
+     column. The card overlay stays the component's own gradient — unchanged. */
+  .services-overview {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .section-label {
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .services-overview__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .services-overview__text {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .services-overview__cta {
+    font-size: 1rem;
+  }
+
+  .service-card {
+    height: 25rem;
+  }
+
+  .service-card__content {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+  }
+
+  .service-card__title {
+    font-size: 1.5rem;
+    overflow-wrap: break-word;
+  }
+
+  .service-card__text {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  /* Phone quality-claim (Figma 29:790 / 29:791 / 29:819): single column, 16px
+     gutters. The intro divider runs full-bleed (Figma 29:807) while its text keeps
+     the 16px gutter — done with a negative inline margin + matching padding. The
+     per-point dividers, the image and the metric dividers all stay inset at 16px. */
+  .quality-claim {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .quality-claim__intro {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .quality-claim__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .quality-claim__text {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .quality-claim__cta {
+    font-size: 1rem;
+  }
+
+  .quality-claim__detail {
+    gap: 1.5625rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .quality-point {
+    padding-bottom: 1.5rem;
+  }
+
+  .quality-point + .quality-point {
+    padding-top: 1.5rem;
+  }
+
+  .quality-point__title {
+    font-size: 1.25rem;
+  }
+
+  .quality-point__text {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .quality-claim__media {
+    height: 31.25rem;
+  }
+
+  .experience-summary {
+    padding-top: 2rem;
+  }
+
+  .experience-summary__item {
+    padding-bottom: 1.5rem;
+  }
+
+  .experience-summary__value {
+    font-size: 2.5rem;
+    overflow-wrap: break-word;
+  }
+
+  .experience-summary__text {
+    margin-top: 0.75rem;
+    font-size: 1.125rem;
+  }
+
+  /* Phone services-catalog (Figma 29:835, card 29:854): 16px gutters; the slider
+     keeps its peek-the-next-card behaviour (card capped at 360px, ~14px of the next
+     card showing on a 390px phone). Card internals follow the single-card frame
+     29:854 — in particular the gap ABOVE "Details ansehen" is 16px. The section
+     export shows 24px on most cards, but the canonical card is 16px, so 16px wins.
+     The "Details ansehen" → image gap stays 24px (pb-24, the same on every card). */
+  .services-catalog {
+    padding-left: 1rem;
+  }
+
+  .services-catalog__header {
+    padding-right: 1rem;
+  }
+
+  .services-catalog__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .services-catalog__text {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .service-list__track {
+    padding-right: 1rem;
+  }
+
+  .service-catalog-card {
+    flex-basis: min(22.5rem, calc(100vw - 1.875rem));
+    width: min(22.5rem, calc(100vw - 1.875rem));
+    min-height: 29.25rem;
+    padding-inline: 0.5rem;
+  }
+
+  .service-catalog-card__number {
+    font-size: 2.75rem;
+  }
+
+  .service-catalog-card__title {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .service-catalog-card__text {
+    font-size: 0.875rem;
+  }
+
+  .details-link {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .service-catalog-card__media {
+    margin-top: 1rem;
+    height: 15rem;
+  }
+
+  /* Phone why-losoma (Figma 29:957): single column, 16px gutters. Three image
+     cards (350px tall) then the navy contact card (300px, already set on tablet).
+     Card gradient overlays stay the component's own gradient. */
+  .why-losoma {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .why-losoma__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .why-card {
+    min-height: 21.875rem;
+  }
+
+  .why-card__content h3 {
+    font-size: 1.5rem;
+  }
+
+  .why-card__content p,
+  .why-contact-card__text {
+    font-size: 1rem;
+  }
+
+  .why-contact-card__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .why-contact-card__text {
+    margin-top: 0.75rem;
+  }
+
+  .why-contact-card__cta {
+    font-size: 1rem;
+  }
+
+  /* Phone collaboration-process (Figma 29:999): single column, 16px gutters.
+     Header (label, title, CTA) then the three step cards stacked. Card height,
+     padding, the 40px number badge and the grid were already set on tablet. */
+  .collaboration-process {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .collaboration-process__title {
+    font-size: 1.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .collaboration-process__link {
+    font-size: 1rem;
+  }
+
+  .process-step-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .process-step-card p {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  /* Phone team overview (Figma 29:1033): single column, 16px gutters. The 16px
+     gutter is set on the whole .team-reviews wrapper so the (not-yet-built) reviews
+     block lines up too. Team cards stack one per row with a 24px row gap; the photo
+     becomes a fixed 350px box. Name (24px) and role (18px) already match the base.
+     Note: the Figma label here is 14px, but every other section's phone label is
+     12px, so the shared 12px is kept for consistency. */
+  .team-reviews {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .team-overview__intro h2 {
+    font-size: 1.75rem;
+  }
+
+  .team-overview__intro p:not(.section-label) {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .team-overview__members {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .team-card__photo {
+    aspect-ratio: auto;
+    height: 21.875rem;
+  }
+
+  /* Phone customer-reviews (Figma 29:1073): single-column meta (label + author/arrows
+     row) above the quote — the flex/justify-between layout already comes from tablet.
+     30px top / 24px bottom padding to the base top + bottom border lines; the 50px of
+     off-white below (via .contact-faq margin-top) keeps the bottom border visible. */
+  .customer-review {
+    padding-block: 1.875rem 1.5rem;
+  }
+
+  .customer-review__slide p {
+    font-size: 1.25rem;
+  }
+
+  /* Phone contact CTA panel (Figma 29:1092): full-bleed dark panel, the navy form
+     fills the width. 50px of off-white sits between the reviews block's bottom border
+     and the panel, so that border stays clearly visible (it'd be lost flush against
+     the dark panel). */
+  .contact-faq {
+    margin-top: 3.125rem;
+  }
+
+  .contact-panel {
+    padding: 2rem 1rem;
+  }
+
+  .contact-form {
+    padding: 1rem;
+  }
+
+  .contact-form h2 {
+    font-size: 1.75rem;
+  }
+
+  .contact-form p:not(.section-label) {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form_select-toggle,
+  .contact-form_select-option {
+    font-size: 1rem;
+  }
+
+  .contact-form > input[type="text"] {
+    margin-top: 2rem;
+  }
+
+  .contact-form__submit {
+    font-size: 1rem;
+  }
+
+  /* Phone FAQ (Figma 29:1129): single column. The 16px gutter is a MARGIN (not
+     padding) so the top border stays inset to the content (a real border, like the
+     reviews block) instead of running edge-to-edge. 32px of off-white above the
+     border (gap from the CTA panel), then 40px down to the heading. Plus icon → 32px. */
+  .faq {
+    margin: 2rem 1rem 0;
+    padding: 2.5rem 0 3rem;
+  }
+
+  .faq h2 {
+    font-size: 1.75rem;
+  }
+
+  .faq-item__trigger {
+    font-size: 1.25rem;
+  }
+
+  .faq-item__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Phone footer (Figma 29:1187): single column — logo, tagline + CTA, the three
+     link groups stacked, a divider, the contact block, a divider, then the legal
+     lines stacked. 40px top / 16px sides / 16px bottom. Headings 14px, body 16px. */
+  .footer {
+    padding: 2.5rem 1rem 1rem;
+  }
+
+  .footer__service-summary {
+    margin-top: 2rem;
+  }
+
+  .footer__service-summary p {
+    font-size: 1rem;
+  }
+
+  .footer__cta {
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  .footer__nav {
+    grid-template-columns: 1fr;
+    margin-top: 2.5rem;
+    gap: 1.25rem;
+  }
+
+  .footer__nav-column h3,
+  .footer__contact h3 {
+    font-size: 0.875rem;
+  }
+
+  .footer__links {
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .footer__links a,
+  .footer__links p {
+    font-size: 1rem;
+  }
+
+  .footer__contact-area {
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
+
+  .footer__legal {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  /* Phone mobile menu: 16px side gutters (tablet keeps 24px) and the EXACT phone
+     footer type sizes — heading 14px, links + tagline 16px (the footer shrinks a step
+     on phone, so the menu matches it rather than keeping the tablet 16/18px). */
+  .mobile-menu {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mobile-menu__heading {
+    font-size: 0.875rem;
+  }
+
+  .mobile-menu__link {
+    font-size: 1rem;
+  }
+
+  .mobile-menu__tagline {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

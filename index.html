@@ -1,49 +1,765 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/static/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/static/site.webmanifest">
+  <title>Losoma | Gebäudedienstleistungen für Berliner Immobilien</title>
+  <meta name="description" content="Losoma betreut Berliner Immobilien mit Gebäudeservice, Reinigung, Hausmeisterservice und klar organisierten Abläufen für Hausverwaltungen und Eigentümer.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://losoma-pi.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://losoma-pi.vercel.app/">
+  <meta property="og:title" content="Losoma | Gebäudedienstleistungen für Berliner Immobilien">
+  <meta property="og:description" content="Zuverlässige Gebäudedienstleistungen, regelmäßige Betreuung und ein fester Ansprechpartner für Immobilien in Berlin.">
+  <meta property="og:image" content="/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp">
+  <meta property="og:locale" content="de_DE">
+  <link rel="stylesheet" href="/assets/vendor/lato/lato.css">
+  <link rel="stylesheet" href="/assets/vendor/lenis/lenis.css">
+  <link rel="stylesheet" href="/assets/vendor/intl-tel-input/css/intlTelInput.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav>
-    <div class="nav-container">
-      <a href="/" class="logo">My Website</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/about.html">About</a>
-      </div>
-    </div>
-  </nav>
+  <main class="page-main">
+    <section class="hero" aria-labelledby="hero-title">
+      <video
+        class="hero__media hero__video"
+        poster="/assets/static/losoma-hero-poster.webp"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+        tabindex="-1"
+        width="1920"
+        height="1080"
+      >
+        <source src="/assets/static/losoma-hero-video.mp4" type="video/mp4">
+      </video>
 
-  <main>
-    <section class="hero">
-      <h1>Welcome to My Website</h1>
-      <p>How professionals build with AI. Just describe what you want.</p>
-      <a href="/about.html" class="button">Learn More</a>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <header class="header" aria-label="Hauptnavigation">
+        <a class="header__brand" href="/" aria-label="Losoma Startseite">
+          <img
+            class="header__logo header__logo--light"
+            src="/assets/static/losoma-logo.svg"
+            alt="Losoma"
+            title="Losoma Gebäudeservice Berlin"
+            width="163"
+            height="35"
+          >
+          <img
+            class="header__logo header__logo--dark"
+            src="/assets/static/losoma-logo-dark.svg"
+            alt=""
+            aria-hidden="true"
+            width="163"
+            height="35"
+          >
+        </a>
+
+        <div class="header__actions">
+        <nav class="nav" aria-label="Primäre Navigation">
+          <a class="nav__link" href="#ueber-uns">Über uns</a>
+          <a class="nav__link" href="#leistungen">Leistungen</a>
+          <a class="nav__link" href="#team">Unser Team</a>
+          <a class="nav__link" href="#einblicke">Einblicke</a>
+          <a class="nav__link" href="#bewertungen">Bewertungen</a>
+        </nav>
+
+        <a class="button button--accent header__cta" href="/kontakt" target="_blank" rel="noopener">
+          <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none" aria-hidden="true" focusable="false">
+            <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Angebot anfragen</span>
+        </a>
+        </div>
+
+        <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+          <span class="menu-toggle__box" aria-hidden="true">
+            <span class="menu-toggle__line"></span>
+            <span class="menu-toggle__line"></span>
+            <span class="menu-toggle__line"></span>
+          </span>
+        </button>
+      </header>
+
+      <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu data-lenis-prevent>
+        <nav class="mobile-menu__nav" aria-label="Mobile Navigation">
+          <p class="mobile-menu__heading">Leistungen</p>
+          <div class="mobile-menu__links">
+            <a class="mobile-menu__link" href="/hausmeisterservice">Hausmeisterservice</a>
+            <a class="mobile-menu__link" href="/treppenhausreinigung">Treppenhaus- &amp; Gemeinschaftsreinigung</a>
+            <a class="mobile-menu__link" href="/gewerbliche-reinigung">Gewerbliche Reinigung</a>
+            <a class="mobile-menu__link" href="/grundreinigung">Grundreinigung</a>
+            <a class="mobile-menu__link" href="/industriereinigung">Industriereinigung</a>
+            <a class="mobile-menu__link" href="/winterdienst">Winterdienst</a>
+            <a class="mobile-menu__link" href="/garten-landschaftspflege">Garten- &amp; Landschaftspflege</a>
+            <a class="mobile-menu__link" href="/fassaden-hoehenarbeiten">Fassaden- &amp; Höhenarbeiten</a>
+            <a class="mobile-menu__link" href="/solaranlagenreinigung">Solaranlagenreinigung</a>
+          </div>
+        </nav>
+        <div class="mobile-menu__footer">
+          <p class="mobile-menu__tagline">Gebäudeservice für Immobilien, die im Alltag zuverlässig betreut, gepflegt und in Ordnung gehalten werden sollen.</p>
+          <a class="link-button link-button--green mobile-menu__cta" href="/kontakt" target="_blank" rel="noopener">
+            <span class="link-button__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Kontakt aufnehmen</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__service-label">
+          <span class="hero__service-dot" aria-hidden="true"></span>
+          <span>Gebäudeservice, der für sich spricht</span>
+        </p>
+        <div class="hero__copy">
+          <h1 class="heading-1 hero__title" id="hero-title">Zuverlässige Gebäudedienstleistungen für Berliner Immobilien</h1>
+          <p class="hero__text">Wir halten Ihre Immobilie sauber, funktionsfähig und gut organisiert - mit klaren Abläufen, regelmäßiger Betreuung und einem festen Ansprechpartner.</p>
+          <a class="button button--accent hero__cta" href="/kontakt" target="_blank" rel="noopener">
+            <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Angebot anfragen</span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section class="features">
-      <div class="feature">
-        <h3>Simple</h3>
-        <p>Plain HTML, CSS, and JS. No frameworks, no build tools, no complexity.</p>
+    <section class="services-overview" aria-labelledby="services-overview-title">
+      <div class="services-overview__header">
+        <p class="section-label section-label--blue">
+          <span class="section-label__dot" aria-hidden="true"></span>
+          <span>Gebäudeservice</span>
+        </p>
+
+        <div class="services-overview__intro">
+          <h2 class="heading-2 services-overview__title" id="services-overview-title">Leistungen für einen stabilen und funktionierenden Gebäudebetrieb</h2>
+          <p class="services-overview__text">Von regelmäßiger Betreuung bis zu spezialisierten Arbeiten - wir sichern den laufenden Betrieb und den gepflegten Zustand Ihrer Immobilie.</p>
+          <a class="link-button services-overview__cta" href="/kontakt" target="_blank" rel="noopener">
+            <span class="link-button__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none" focusable="false">
+                <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Anfrage senden</span>
+          </a>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Fast</h3>
-        <p>No dependencies to install. Just open and start editing.</p>
+
+      <div class="services-overview__cards" aria-label="Leistungsbereiche">
+        <article class="service-card">
+          <picture class="service-card__media">
+            <source type="image/avif" srcset="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.avif">
+            <img class="service-card__image" src="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp" alt="Gepflegter Eingangsbereich eines Berliner Wohnhauses" title="Objektbetreuung und Hausmeisterservice für Berliner Wohnimmobilien" width="2560" height="1429" loading="lazy" decoding="async">
+          </picture>
+          <div class="service-card__overlay" aria-hidden="true"></div>
+          <div class="service-card__content">
+            <h3 class="service-card__title">Objektbetreuung &amp; Hausmeisterservice</h3>
+            <p class="service-card__text">Regelmäßige Objektkontrollen und Vor-Ort-Betreuung sorgen für einen stabilen Betrieb und einen gepflegten Zustand Ihrer Immobilie.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <picture class="service-card__media">
+            <source type="image/avif" srcset="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.avif">
+            <img class="service-card__image" src="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.webp" alt="Treppenhaus mit Briefkästen in einem Berliner Wohngebäude" title="Reinigungsservices für Treppenhäuser und Gemeinschaftsflächen in Berlin" width="1200" height="896" loading="lazy" decoding="async">
+          </picture>
+          <div class="service-card__overlay" aria-hidden="true"></div>
+          <div class="service-card__content">
+            <h3 class="service-card__title">Reinigungsservices</h3>
+            <p class="service-card__text">Regelmäßige Reinigung für Treppenhäuser, Gemeinschaftsflächen, Büros und gewerblich genutzte Bereiche.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <picture class="service-card__media">
+            <source type="image/avif" srcset="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.avif">
+            <img class="service-card__image" src="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp" alt="Fassadenarbeiten an einem modernen Glasgebäude in Berlin" title="Spezialisierte Dienstleistungen für Fassadenreinigung und Höhenarbeiten" width="2400" height="1792" loading="lazy" decoding="async">
+          </picture>
+          <div class="service-card__overlay" aria-hidden="true"></div>
+          <div class="service-card__content">
+            <h3 class="service-card__title">Spezialisierte Dienstleistungen</h3>
+            <p class="service-card__text">Zusätzliche Leistungen für anspruchsvollere Aufgaben - von Fassaden- und Höhenarbeiten bis Winterdienst und Solaranlagenreinigung.</p>
+          </div>
+        </article>
       </div>
-      <div class="feature">
-        <h3>Flexible</h3>
-        <p>Add pages, styles, and scripts as you need them.</p>
+    </section>
+
+    <section class="quality-claim" id="ueber-uns" aria-labelledby="quality-claim-title">
+      <div class="quality-claim__intro">
+        <p class="section-label section-label--blue">
+          <span class="section-label__dot" aria-hidden="true"></span>
+          <span>Unser Anspruch</span>
+        </p>
+
+        <h2 class="quality-claim__title" id="quality-claim-title">Treppenhaus, Eingang, Hof und Gemeinschaftsflächen sind nicht nur Hintergrund. Menschen sehen sie jeden Tag - beim Verlassen des Hauses, beim Zurückkommen oder auf dem Weg zur Arbeit. Für uns bedeutet Qualität mehr als saubere Oberflächen: Sorgfalt, Aufmerksamkeit für Details und Arbeit, nach der sich ein Ort wieder ordentlich, lebendig und gepflegt anfühlt.</h2>
+
+        <p class="quality-claim__text">Unsere Aufgabe ist es, dafür zu sorgen, dass Ordnung im Gebäude nicht vom Zufall abhängt, sondern Teil eines verlässlichen Alltagszustands bleibt.</p>
+
+        <a class="link-button quality-claim__cta" href="#team">
+          <span class="link-button__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none" focusable="false">
+              <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Das Team kennenlernen</span>
+        </a>
       </div>
+
+      <div class="quality-claim__detail">
+        <div class="quality-claim__points" aria-label="Arbeitsprinzipien">
+          <article class="quality-point">
+            <h3 class="quality-point__title">Was uns wichtig ist</h3>
+            <p class="quality-point__text">Dass ein Gebäude nicht nur nach einer Aufgabenliste betreut wird, sondern jeden Tag in einem klaren, ordentlichen und gepflegten Zustand bleibt.</p>
+          </article>
+
+          <article class="quality-point">
+            <h3 class="quality-point__title">Wie wir arbeiten</h3>
+            <p class="quality-point__text">Aufmerksam, ruhig und mit Verantwortung für Details - von regelmäßigen Arbeiten bis zu Situationen, in denen es wichtig ist, rechtzeitig etwas zu bemerken und weiterzugeben.</p>
+          </article>
+        </div>
+
+        <picture class="quality-claim__media">
+          <source type="image/avif" srcset="/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.avif">
+          <img class="quality-claim__image" src="/assets/generated/berliner-innenhof-objektbetreuung-losoma-team.webp" alt="Losoma Mitarbeiter blickt in einen gepflegten Berliner Innenhof" title="Objektbetreuung mit Aufmerksamkeit für Berliner Wohnimmobilien" width="1600" height="1600" loading="lazy" decoding="async">
+        </picture>
+      </div>
+
+      <div class="experience-summary" aria-labelledby="experience-summary-title">
+        <p class="section-label section-label--blue">
+          <span class="section-label__dot" aria-hidden="true"></span>
+          <span>Kundenstimmen</span>
+        </p>
+
+        <div class="experience-summary__items" id="experience-summary-title">
+          <article class="experience-summary__item">
+            <h3 class="experience-summary__value">7+ Jahre Erfahrung</h3>
+            <p class="experience-summary__text">in der Betreuung von Wohn- und Gewerbeimmobilien</p>
+          </article>
+
+          <article class="experience-summary__item">
+            <h3 class="experience-summary__value">70+ betreute Objekte in Berlin</h3>
+            <p class="experience-summary__text">für Hausverwaltungen und Eigentümer im laufenden Betrieb</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-catalog" id="leistungen" aria-labelledby="services-catalog-title">
+      <div class="services-catalog__header">
+        <div>
+          <p class="section-label section-label--blue">
+            <span class="section-label__dot" aria-hidden="true"></span>
+            <span>Unsere Leistungen</span>
+          </p>
+          <h2 class="services-catalog__title" id="services-catalog-title">Gebäude funktionieren zuverlässig, wenn die täglichen Abläufe klar organisiert sind</h2>
+          <p class="services-catalog__text">Sauberkeit, Sicherheit und ein gepflegter Zustand sorgen dafür, dass sich Bewohner und Nutzer in einer Immobilie wohlfühlen. Unsere Leistungen decken genau die Aufgaben ab, die im laufenden Betrieb entscheidend sind.</p>
+        </div>
+        <div class="slider-controls services-catalog__controls" aria-label="Leistungen Slider Navigation">
+          <button class="slider-control services-slider__arrow services-slider__arrow--prev" type="button" aria-label="Vorherige Leistung">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+              <path d="M7.42408 2.15073C7.47671 2.09504 7.51785 2.02953 7.54516 1.95794C7.57247 1.88635 7.58541 1.81008 7.58324 1.73348C7.58107 1.65689 7.56384 1.58147 7.53253 1.51154C7.50122 1.44161 7.45644 1.37853 7.40075 1.3259C7.34505 1.27327 7.27954 1.23213 7.20795 1.20482C7.13636 1.17751 7.06009 1.16457 6.9835 1.16674C6.9069 1.1689 6.83149 1.18614 6.76155 1.21745C6.69162 1.24876 6.62854 1.29354 6.57591 1.34923L1.61758 6.59923C1.51518 6.70754 1.45813 6.85093 1.45813 6.99998C1.45813 7.14903 1.51518 7.29242 1.61758 7.40073L6.57591 12.6513C6.62819 12.7082 6.69126 12.7542 6.76145 12.7865C6.83164 12.8188 6.90756 12.8369 6.98479 12.8396C7.06202 12.8424 7.13902 12.8298 7.21133 12.8025C7.28364 12.7752 7.34981 12.7339 7.40599 12.6808C7.46218 12.6277 7.50727 12.5641 7.53863 12.4934C7.56999 12.4228 7.58701 12.3466 7.58869 12.2694C7.59038 12.1921 7.57669 12.1153 7.54843 12.0434C7.52017 11.9714 7.4779 11.9059 7.42408 11.8504L2.84375 6.99998L7.42408 2.15073Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="slider-control services-slider__arrow services-slider__arrow--next" type="button" aria-label="Nächste Leistung">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+              <path d="M6.57592 11.8493C6.52329 11.905 6.48215 11.9705 6.45484 12.0421C6.42753 12.1137 6.41459 12.1899 6.41676 12.2665C6.41893 12.3431 6.43616 12.4185 6.46747 12.4885C6.49878 12.5584 6.54356 12.6215 6.59925 12.6741C6.65495 12.7267 6.72046 12.7679 6.79205 12.7952C6.86364 12.8225 6.93991 12.8354 7.0165 12.8333C7.0931 12.8311 7.16851 12.8139 7.23845 12.7826C7.30838 12.7512 7.37146 12.7065 7.42409 12.6508L12.3824 7.40077C12.4848 7.29246 12.5419 7.14907 12.5419 7.00002C12.5419 6.85097 12.4848 6.70758 12.3824 6.59927L7.42409 1.34869C7.37181 1.29178 7.30874 1.24582 7.23855 1.21349C7.16836 1.18116 7.09244 1.1631 7.01521 1.16035C6.93799 1.15761 6.86098 1.17024 6.78867 1.19751C6.71636 1.22477 6.65019 1.26614 6.59401 1.31919C6.53782 1.37225 6.49273 1.43594 6.46137 1.50657C6.43001 1.5772 6.41299 1.65336 6.41131 1.73062C6.40963 1.80788 6.42331 1.8847 6.45157 1.95663C6.47983 2.02855 6.5221 2.09415 6.57592 2.1496L11.1563 7.00002L6.57592 11.8493Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="service-list splide" aria-label="Alle Leistungen" data-services-slider>
+        <div class="splide__track service-list__track">
+          <div class="splide__list service-list__list">
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">01</span>
+          <h3 class="service-catalog-card__title">Hausmeisterservice</h3>
+          <p class="service-catalog-card__text">Regelmäßige Objektkontrollen und Vor-Ort-Betreuung, damit Auffälligkeiten früh erkannt und weitere Schritte zuverlässig koordiniert werden können.</p>
+          <a class="details-link" href="/hausmeisterservice" aria-label="Details zum Hausmeisterservice ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.webp" alt="Gepflegte Berliner Wohnanlage für den Hausmeisterservice" title="Hausmeisterservice für Berliner Wohnanlagen von Losoma" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">02</span>
+          <h3 class="service-catalog-card__title">Treppenhaus- &amp; Gemeinschaftsreinigung</h3>
+          <p class="service-catalog-card__text">Regelmäßige Reinigung von Eingangsbereichen, Treppenhäusern und Gemeinschaftsflächen, damit gemeinsam genutzte Bereiche sauber und gepflegt bleiben.</p>
+          <a class="details-link" href="/treppenhausreinigung" aria-label="Details zur Treppenhaus- und Gemeinschaftsreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.webp" alt="Briefkastenanlage und Eingangsbereich für Treppenhausreinigung" title="Treppenhaus- und Gemeinschaftsreinigung in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">03</span>
+          <h3 class="service-catalog-card__title">Gewerbliche Reinigung</h3>
+          <p class="service-catalog-card__text">Regelmäßige Reinigung für Büros, Restaurants, Schulen und andere gewerbliche Flächen.</p>
+          <a class="details-link" href="/gewerbliche-reinigung" aria-label="Details zur gewerblichen Reinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.webp" alt="Helles Büro als Beispiel für gewerbliche Reinigung" title="Gewerbliche Reinigung für Büros und Geschäftsflächen in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">04</span>
+          <h3 class="service-catalog-card__title">Grundreinigung</h3>
+          <p class="service-catalog-card__text">Gründliche Reinigung von stark beanspruchten Flächen für eine intensive Pflege und sichtbare Auffrischung.</p>
+          <a class="details-link" href="/grundreinigung" aria-label="Details zur Grundreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.webp" alt="Bodenfläche für Grundreinigung und Pflege" title="Grundreinigung und Bodenpflege für Gebäude" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">05</span>
+          <h3 class="service-catalog-card__title">Industriereinigung</h3>
+          <p class="service-catalog-card__text">Reinigung für robuste gewerbliche und industrielle Bereiche mit klaren Abläufen und passender Ausrüstung.</p>
+          <a class="details-link" href="/industriereinigung" aria-label="Details zur Industriereinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/industriereinigung-gewerbeflaeche-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/industriereinigung-gewerbeflaeche-losoma.webp" alt="Gewerbefläche für Industriereinigung" title="Industriereinigung und Reinigung gewerblicher Flächen" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">06</span>
+          <h3 class="service-catalog-card__title">Winterdienst</h3>
+          <p class="service-catalog-card__text">Saisonale Betreuung von Wegen, Eingängen und Außenflächen bei Schnee und Glätte.</p>
+          <a class="details-link" href="/winterdienst" aria-label="Details zum Winterdienst ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.webp" alt="Winterdienst für Wege und Eingänge in Berlin" title="Winterdienst für Immobilien und Wohnanlagen in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">07</span>
+          <h3 class="service-catalog-card__title">Garten- &amp; Landschaftspflege</h3>
+          <p class="service-catalog-card__text">Pflege von Grünflächen, Höfen und Außenanlagen für einen ordentlichen Gesamteindruck.</p>
+          <a class="details-link" href="/garten-landschaftspflege" aria-label="Details zur Garten- und Landschaftspflege ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/garten-landschaftspflege-wohnanlage-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/garten-landschaftspflege-wohnanlage-losoma.webp" alt="Gepflegte Grünanlage einer Berliner Wohnimmobilie" title="Garten- und Landschaftspflege für Wohnanlagen" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">08</span>
+          <h3 class="service-catalog-card__title">Fassaden- &amp; Höhenarbeiten</h3>
+          <p class="service-catalog-card__text">Spezialisierte Arbeiten an Fassaden und schwer erreichbaren Bereichen mit sicherer Koordination.</p>
+          <a class="details-link" href="/fassaden-hoehenarbeiten" aria-label="Details zu Fassaden- und Höhenarbeiten ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.webp" alt="Fassaden- und Höhenarbeiten an einem Berliner Gebäude" title="Fassaden- und Höhenarbeiten für Gebäudeservice Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
+        </article>
+        <article class="service-catalog-card splide__slide">
+          <span class="service-catalog-card__number">09</span>
+          <h3 class="service-catalog-card__title">Solaranlagenreinigung</h3>
+          <p class="service-catalog-card__text">Reinigung von Solaranlagen für gepflegte Oberflächen und zuverlässige Nutzung.</p>
+          <a class="details-link" href="/solaranlagenreinigung" aria-label="Details zur Solaranlagenreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <picture class="service-catalog-card__media"><source type="image/avif" srcset="/assets/generated/solaranlagenreinigung-dachanlage-losoma.avif"><img class="service-catalog-card__image" src="/assets/generated/solaranlagenreinigung-dachanlage-losoma.webp" alt="Solaranlage auf einem Dach zur Reinigung" title="Solaranlagenreinigung für Immobilien und Gewerbeobjekte" width="2560" height="1429" loading="lazy" decoding="async"></picture>
+        </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="why-losoma" aria-labelledby="why-losoma-title">
+      <p class="section-label section-label--blue"><span class="section-label__dot" aria-hidden="true"></span><span>Warum Losoma gewählt wird</span></p>
+      <h2 class="why-losoma__title" id="why-losoma-title">Zuverlässiger Gebäudeservice beginnt mit Verantwortung</h2>
+      <div class="why-losoma__grid">
+        <article class="why-card why-card--reliable-partner"><picture class="why-card__media"><source type="image/avif" srcset="/assets/generated/warum-losoma-verantwortlicher-partner.avif"><img class="why-card__image" src="/assets/generated/warum-losoma-verantwortlicher-partner.webp" alt="Losoma Ansprechpartner vor einer Berliner Wohnimmobilie" title="Ein zuverlässiger Partner für Gebäudeservice in Berlin" width="1200" height="896" loading="lazy" decoding="async"></picture><div class="why-card__content"><h3>Ein zuverlässiger Partner</h3><p>Regelmäßige Kontrollen und persönliche Betreuung sorgen für Sauberkeit, Ordnung und den gepflegten Zustand Ihrer Immobilie</p></div></article>
+        <article class="why-card why-card--daily-work"><picture class="why-card__media"><source type="image/avif" srcset="/assets/generated/warum-losoma-stabile-arbeit-alltag.avif"><img class="why-card__image" src="/assets/generated/warum-losoma-stabile-arbeit-alltag.webp" alt="Gepflegter Innenhof einer Berliner Wohnanlage" title="Zuverlässige Abläufe im Alltag für Immobilienbetreuung" width="1200" height="896" loading="lazy" decoding="async"></picture><div class="why-card__content"><h3>Zuverlässige Abläufe im Alltag</h3><p>Alle Aufgaben werden zuverlässig und strukturiert ausgeführt - für ein sauberes und gepflegtes Gebäude</p></div></article>
+        <article class="why-card why-card--site-awareness"><picture class="why-card__media"><source type="image/avif" srcset="/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.avif"><img class="why-card__image" src="/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.webp" alt="Eingangsbereich einer Immobilie für aufmerksame Objektbetreuung" title="Frühzeitig erkennen und schnell informieren" width="2400" height="1792" loading="lazy" decoding="async"></picture><div class="why-card__content"><h3>Frühzeitig erkennen. Schnell informieren.</h3><p>Unser Team meldet Auffälligkeiten direkt an die Verwaltung</p></div></article>
+        <a class="why-contact-card" href="/kontakt" target="_blank" rel="noopener" aria-label="Kontakt aufnehmen und Anfrage senden">
+          <span class="section-label section-label--green why-contact-card__label"><span class="section-label__dot" aria-hidden="true"></span><span>Kontakt aufnehmen</span></span>
+          <span class="why-contact-card__content"><span class="why-contact-card__title">Benötigt Ihre Immobilie Unterstützung?</span><span class="why-contact-card__text">Beschreiben Sie uns kurz das Objekt und die Aufgabe. Wir prüfen den Umfang und schlagen den nächsten sinnvollen Schritt vor</span></span>
+          <span class="link-button link-button--green why-contact-card__cta"><span class="link-button__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none"><path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Anfrage senden</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="collaboration-process" aria-labelledby="collaboration-process-title">
+      <div class="collaboration-process__header">
+        <div class="collaboration-process__intro">
+          <p class="section-label section-label--blue">
+            <span class="section-label__dot" aria-hidden="true"></span>
+            <span>So beginnt die Zusammenarbeit</span>
+          </p>
+          <h2 class="collaboration-process__title" id="collaboration-process-title">Die Zusammenarbeit beginnt mit einem persönlichen Gespräch. Gemeinsam klären wir den Bedarf Ihrer Immobilie und die passende Unterstützung vor Ort</h2>
+        </div>
+
+        <a class="link-button collaboration-process__link" href="/kontakt" target="_blank" rel="noopener">
+          <span class="link-button__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+              <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Objekt besprechen</span>
+        </a>
+      </div>
+
+      <div class="process-steps" aria-label="Ablauf der Zusammenarbeit">
+        <article class="process-step-card">
+          <span class="process-step-card__number">1</span>
+          <div class="process-step-card__content">
+            <h3>Sie erzählen uns von Ihrem Objekt</h3>
+            <p>Sie beschreiben Ihre Immobilie, die aktuellen Aufgaben und den gewünschten Leistungsumfang</p>
+          </div>
+        </article>
+
+        <article class="process-step-card">
+          <span class="process-step-card__number">2</span>
+          <div class="process-step-card__content">
+            <h3>Wir klären den Umfang</h3>
+            <p>Wir prüfen den Bedarf, stellen die wichtigen Fragen und empfehlen bei Bedarf eine Objektbesichtigung</p>
+          </div>
+        </article>
+
+        <article class="process-step-card">
+          <span class="process-step-card__number">3</span>
+          <div class="process-step-card__content">
+            <h3>Sie erhalten einen klaren Plan</h3>
+            <p>Gemeinsam stimmen wir Leistungen, Kommunikation und die nächsten Schritte ab</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="team-reviews" id="team" aria-label="Team und Kundenstimmen">
+      <div class="team-overview">
+        <div class="team-overview__intro"><p class="section-label section-label--blue"><span class="section-label__dot" aria-hidden="true"></span><span>Unser Team</span></p><h2>Die Menschen hinter Losoma</h2><p>Guter Gebäudeservice entsteht durch Menschen, die Details wahrnehmen, Verantwortung übernehmen und jeden Tag mit Sorgfalt arbeiten.</p></div>
+        <div class="team-overview__members">
+          <article class="team-card"><div class="team-card__photo"></div><h3>Maxim Soga</h3><p>Technik &amp; Qualität</p></article>
+          <article class="team-card"><div class="team-card__photo"></div><h3>Alexandr Lozinschi</h3><p>Operative Leitung</p></article>
+          <article class="team-card"><div class="team-card__photo"></div><h3>Alexandr Lozinschi</h3><p>Operative Leitung</p></article>
+          <article class="team-card"><div class="team-card__photo"></div><h3>Alexandr Lozinschi</h3><p>Operative Leitung</p></article>
+          <article class="team-card"><div class="team-card__photo"></div><h3>Alexandr Lozinschi</h3><p>Operative Leitung</p></article>
+          <article class="team-card"><div class="team-card__photo"></div><h3>Alexandr Lozinschi</h3><p>Operative Leitung</p></article>
+        </div>
+      </div>
+      <div class="customer-review" id="bewertungen">
+        <div class="customer-review__meta">
+          <p class="section-label section-label--blue"><span class="section-label__dot" aria-hidden="true"></span><span>Kundenstimmen</span></p>
+          <div class="customer-review__author-panel">
+            <h3 data-review-author><span class="customer-review__author-current">Sascha P.</span><span class="customer-review__author-next" aria-hidden="true"></span></h3>
+            <div class="slider-controls customer-review__controls" aria-label="Kundenstimmen Slider Navigation">
+              <button class="slider-control customer-review__arrow customer-review__arrow--prev" type="button" aria-label="Vorherige Kundenstimme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M7.42408 2.15073C7.47671 2.09504 7.51785 2.02953 7.54516 1.95794C7.57247 1.88635 7.58541 1.81008 7.58324 1.73348C7.58107 1.65689 7.56384 1.58147 7.53253 1.51154C7.50122 1.44161 7.45644 1.37853 7.40075 1.3259C7.34505 1.27327 7.27954 1.23213 7.20795 1.20482C7.13636 1.17751 7.06009 1.16457 6.9835 1.16674C6.9069 1.1689 6.83149 1.18614 6.76155 1.21745C6.69162 1.24876 6.62854 1.29354 6.57591 1.34923L1.61758 6.59923C1.51518 6.70754 1.45813 6.85093 1.45813 6.99998C1.45813 7.14903 1.51518 7.29242 1.61758 7.40073L6.57591 12.6513C6.62819 12.7082 6.69126 12.7542 6.76145 12.7865C6.83164 12.8188 6.90756 12.8369 6.98479 12.8396C7.06202 12.8424 7.13902 12.8298 7.21133 12.8025C7.28364 12.7752 7.34981 12.7339 7.40599 12.6808C7.46218 12.6277 7.50727 12.5641 7.53863 12.4934C7.56999 12.4228 7.58701 12.3466 7.58869 12.2694C7.59038 12.1921 7.57669 12.1153 7.54843 12.0434C7.52017 11.9714 7.4779 11.9059 7.42408 11.8504L2.84375 6.99998L7.42408 2.15073Z" fill="currentColor"/>
+                </svg>
+              </button>
+              <button class="slider-control customer-review__arrow customer-review__arrow--next" type="button" aria-label="Nächste Kundenstimme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M6.57592 11.8493C6.52329 11.905 6.48215 11.9705 6.45484 12.0421C6.42753 12.1137 6.41459 12.1899 6.41676 12.2665C6.41893 12.3431 6.43616 12.4185 6.46747 12.4885C6.49878 12.5584 6.54356 12.6215 6.59925 12.6741C6.65495 12.7267 6.72046 12.7679 6.79205 12.7952C6.86364 12.8225 6.93991 12.8354 7.0165 12.8333C7.0931 12.8311 7.16851 12.8139 7.23845 12.7826C7.30838 12.7512 7.37146 12.7065 7.42409 12.6508L12.3824 7.40077C12.4848 7.29246 12.5419 7.14907 12.5419 7.00002C12.5419 6.85097 12.4848 6.70758 12.3824 6.59927L7.42409 1.34869C7.37181 1.29178 7.30874 1.24582 7.23855 1.21349C7.16836 1.18116 7.09244 1.1631 7.01521 1.16035C6.93799 1.15761 6.86098 1.17024 6.78867 1.19751C6.71636 1.22477 6.65019 1.26614 6.59401 1.31919C6.53782 1.37225 6.49273 1.43594 6.46137 1.50657C6.43001 1.5772 6.41299 1.65336 6.41131 1.73062C6.40963 1.80788 6.42331 1.8847 6.45157 1.95663C6.47983 2.02855 6.5221 2.09415 6.57592 2.1496L11.1563 7.00002L6.57592 11.8493Z" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="customer-review__content">
+          <svg class="customer-review__quote-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" data-review-quote-icon>
+            <path d="M21.7575 8.80988C15.8525 12.5909 12.9 17.1444 12.9 22.4704C12.9 24.1274 13.1885 24.9559 13.7655 24.9559L14.3595 24.7954C14.8265 24.6154 15.2045 24.5254 15.4935 24.5254C17.1855 24.5254 18.598 25.1404 19.731 26.3704C20.864 27.6004 21.431 29.1184 21.432 30.9244C21.431 32.6604 20.8185 34.1339 19.5945 35.3449C18.3705 36.5549 16.8945 37.1599 15.1665 37.1599C12.7545 37.1599 10.7645 36.1684 9.19653 34.1854C7.63253 32.2054 6.85053 29.7169 6.85053 26.7199C6.84953 23.3299 7.51453 20.2284 8.84553 17.4154C10.1795 14.6034 12.2135 12.0609 14.9475 9.78788C17.6835 7.51688 19.4295 6.38088 20.1855 6.37988C20.6895 6.37988 21.1035 6.62288 21.4275 7.10888C21.7515 7.59388 21.9135 8.01638 21.9135 8.37638L21.753 8.80838L21.7575 8.80988ZM41.1975 8.80988C35.2925 12.5899 32.3405 17.1439 32.3415 22.4719C32.3415 24.1289 32.63 24.9574 33.207 24.9574L33.801 24.7969C34.268 24.6169 34.646 24.5269 34.935 24.5269C36.591 24.5269 37.9945 25.1419 39.1455 26.3719C40.2985 27.5999 40.8745 29.1179 40.8735 30.9259C40.8725 32.6619 40.26 34.1354 39.036 35.3464C37.812 36.5564 36.336 37.1614 34.608 37.1614C32.196 37.1614 30.206 36.1699 28.638 34.1869C27.074 32.2069 26.292 29.7184 26.292 26.7214C26.29 23.2954 26.965 20.1674 28.317 17.3374C29.667 14.5064 31.7005 11.9729 34.4175 9.73688C37.1395 7.49988 38.877 6.38138 39.63 6.38138C40.135 6.38138 40.55 6.62438 40.875 7.11038C41.198 7.59638 41.3595 8.01938 41.3595 8.37938L41.1975 8.80988Z" fill="#0B6891"/>
+          </svg>
+          <div class="customer-review__slider splide" data-reviews-slider>
+            <div class="splide__track customer-review__track">
+              <div class="splide__list customer-review__list">
+                <blockquote class="customer-review__slide splide__slide" data-author="Sascha P.">
+                <svg class="customer-review__quote-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M21.7575 8.80988C15.8525 12.5909 12.9 17.1444 12.9 22.4704C12.9 24.1274 13.1885 24.9559 13.7655 24.9559L14.3595 24.7954C14.8265 24.6154 15.2045 24.5254 15.4935 24.5254C17.1855 24.5254 18.598 25.1404 19.731 26.3704C20.864 27.6004 21.431 29.1184 21.432 30.9244C21.431 32.6604 20.8185 34.1339 19.5945 35.3449C18.3705 36.5549 16.8945 37.1599 15.1665 37.1599C12.7545 37.1599 10.7645 36.1684 9.19653 34.1854C7.63253 32.2054 6.85053 29.7169 6.85053 26.7199C6.84953 23.3299 7.51453 20.2284 8.84553 17.4154C10.1795 14.6034 12.2135 12.0609 14.9475 9.78788C17.6835 7.51688 19.4295 6.38088 20.1855 6.37988C20.6895 6.37988 21.1035 6.62288 21.4275 7.10888C21.7515 7.59388 21.9135 8.01638 21.9135 8.37638L21.753 8.80838L21.7575 8.80988ZM41.1975 8.80988C35.2925 12.5899 32.3405 17.1439 32.3415 22.4719C32.3415 24.1289 32.63 24.9574 33.207 24.9574L33.801 24.7969C34.268 24.6169 34.646 24.5269 34.935 24.5269C36.591 24.5269 37.9945 25.1419 39.1455 26.3719C40.2985 27.5999 40.8745 29.1179 40.8735 30.9259C40.8725 32.6619 40.26 34.1354 39.036 35.3464C37.812 36.5564 36.336 37.1614 34.608 37.1614C32.196 37.1614 30.206 36.1699 28.638 34.1869C27.074 32.2069 26.292 29.7184 26.292 26.7214C26.29 23.2954 26.965 20.1674 28.317 17.3374C29.667 14.5064 31.7005 11.9729 34.4175 9.73688C37.1395 7.49988 38.877 6.38138 39.63 6.38138C40.135 6.38138 40.55 6.62438 40.875 7.11038C41.198 7.59638 41.3595 8.01938 41.3595 8.37938L41.1975 8.80988Z" fill="#0B6891"/>
+                </svg>
+                <p>Gute Beratung, alle Arbeiten wurden wie besprochen akkurat ausgeführt und angefallener Schnitt entsorgt. Sehr gerne arbeite ich bei weiteren Aufträgen wieder mit dem Team von Herrn Sogar zusammen.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Sabine Sasse">
+                <svg class="customer-review__quote-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M21.7575 8.80988C15.8525 12.5909 12.9 17.1444 12.9 22.4704C12.9 24.1274 13.1885 24.9559 13.7655 24.9559L14.3595 24.7954C14.8265 24.6154 15.2045 24.5254 15.4935 24.5254C17.1855 24.5254 18.598 25.1404 19.731 26.3704C20.864 27.6004 21.431 29.1184 21.432 30.9244C21.431 32.6604 20.8185 34.1339 19.5945 35.3449C18.3705 36.5549 16.8945 37.1599 15.1665 37.1599C12.7545 37.1599 10.7645 36.1684 9.19653 34.1854C7.63253 32.2054 6.85053 29.7169 6.85053 26.7199C6.84953 23.3299 7.51453 20.2284 8.84553 17.4154C10.1795 14.6034 12.2135 12.0609 14.9475 9.78788C17.6835 7.51688 19.4295 6.38088 20.1855 6.37988C20.6895 6.37988 21.1035 6.62288 21.4275 7.10888C21.7515 7.59388 21.9135 8.01638 21.9135 8.37638L21.753 8.80838L21.7575 8.80988ZM41.1975 8.80988C35.2925 12.5899 32.3405 17.1439 32.3415 22.4719C32.3415 24.1289 32.63 24.9574 33.207 24.9574L33.801 24.7969C34.268 24.6169 34.646 24.5269 34.935 24.5269C36.591 24.5269 37.9945 25.1419 39.1455 26.3719C40.2985 27.5999 40.8745 29.1179 40.8735 30.9259C40.8725 32.6619 40.26 34.1354 39.036 35.3464C37.812 36.5564 36.336 37.1614 34.608 37.1614C32.196 37.1614 30.206 36.1699 28.638 34.1869C27.074 32.2069 26.292 29.7184 26.292 26.7214C26.29 23.2954 26.965 20.1674 28.317 17.3374C29.667 14.5064 31.7005 11.9729 34.4175 9.73688C37.1395 7.49988 38.877 6.38138 39.63 6.38138C40.135 6.38138 40.55 6.62438 40.875 7.11038C41.198 7.59638 41.3595 8.01938 41.3595 8.37938L41.1975 8.80988Z" fill="#0B6891"/>
+                </svg>
+                <p>Wir haben ein Reihenmittelhaus, dessen Garten man nur durch das Haus bzw. durch einen wirklich engen zugewachsenen Hauswirtschaftsweg erreichen kann. An diesem Haus haben wir uns einen Anbau gesetzt. Für den Anbau musste der alte Wintergarten abgerissen werden und ein tiefes Loch mit Ringanker ausgehoben werden. Jede Firma, die wir anfragten, lehnte den Auftrag ab, da man dafür Maschinen benötigen würde, die man weder durch das Haus noch über den Hauswirtschaftsweg in unseren Garten bringen könne. Herr Soga jedoch hat händisch im Alleingang innerhalb weniger Tage den kompletten Abriss plus Aushub für unseren Anbau erledigt. Zudem hat er den Schutt und den Sand durch das Haus in einen Container gebracht. Durch das sehr gründliche Auslegen von Folien und Flies blieb alles sauber und der schöne alte Holzboden erlitt keinen Schaden. Zudem hat Herr Soga noch einen toten Baum und einen Baum, der drohte auf die Nachbargrundstücke zu fallen, professionell mitsamt den Wurzeln entfernt und den Garten nach unseren Wünschen hergerichtet. Bei der ganzen Arbeit war er durchgängig sehr fleißig und freundlich. Auch wenn wir spontan neue Ideen hatten, nahm er sich die Zeit, diese mit uns zu besprechen und sie dann gegebenenfalls umzusetzen. Herr Soga ist ein wirklich sehr guter, fleißiger, höflicher und sehr angenehmer Mensch, den wir schon einigen Freunden weiterempfohlen haben, da wir zu 110&nbsp;% zufrieden mit seiner Arbeit sind.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Sauberer Heckenschnitt">
+                <p>Das Angebot war sehr fair. Der ausgemachte Termin musste wetterbedingt abgesagt werden und ich habe sofort für 2 Tage später einen neuen Termin bekommen, toller Service. Die Kommunikation war sehr freundlich. Die Mitarbeiter haben absolut sauber gearbeitet und waren sehr pünktlich. Ich werde diese Firma auf jeden Fall weiterempfehlen. Und ich werde die Firma auch selber sicherlich wieder in Anspruch nehmen. Vielen Dank für die schnelle Ausführung.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Tobias">
+                <p>Toller und schneller Service (Fällen einer Eibe, Entfernen eines alten Baumstumpfes und Entsorgung). Ich bin sehr zufrieden und kann Maxim Soga absolut empfehlen.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Maria S.">
+                <p>Unser Garten-Projekt wurde super umgesetzt. Der Mitarbeiter von Herrn Soga hat wahre Wunder vollbracht und war sehr fleißig, schnell und super freundlich! Alle Informationen waren sehr ausführlich und Termine und Absprachen wurden eingehalten. Wir würden die Firma immer wieder beauftragen.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Bianca K.">
+                <p>Sehr zufrieden, Mitarbeiter sehr ordentlich, pünktlich und saubere Arbeit. Kann die Firma wirklich nur empfehlen. Es passt alles.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Jana Schult">
+                <p>Diese Jungs sind einfach die Besten der Besten! Ich habe einen kleinen Garten neben meinem Haus, aber noch nie hat jemand seine Arbeit so perfekt gemacht! Ich empfehle sie weiter! Wirklich gut.</p>
+                </blockquote>
+                <blockquote class="customer-review__slide splide__slide" data-author="Paula Davis">
+                <p>Die Besten der Besten! Mit der Ankunft von Max in meinem Garten hat der Garten begonnen, prächtig auszusehen! Und ich bin schon seit drei Jahren mit seiner Arbeit zufrieden! Ich bin dankbar für seine Arbeit und kann ihn jedem nur empfehlen!</p>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-faq" id="angebot">
+      <section class="contact-panel" aria-labelledby="contact-panel-title">
+        <div class="contact-panel__background"></div>
+        <form class="contact-form">
+          <p class="section-label section-label--green">
+            <span class="section-label__dot" aria-hidden="true"></span>
+            <span>Kontakt aufnehmen</span>
+          </p>
+          <h2 id="contact-panel-title">Lassen Sie uns über Ihre Immobilie sprechen</h2>
+          <p>Senden Sie uns eine kurze Anfrage mit Informationen zu Ihrer Immobilie und dem gewünschten Leistungsumfang. Wir prüfen Ihre Anfrage und kontaktieren Sie mit den nächsten Schritten.</p>
+          <div class="contact-form__honeypot" aria-hidden="true">
+            <label for="contact-company-website">Website</label>
+            <input id="contact-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off" data-honeypot-input>
+          </div>
+          <input type="text" name="name" placeholder="Vor- und Nachname *" aria-label="Vor- und Nachname" autocomplete="name" required data-name-input>
+          <div class="contact-form__row">
+            <input type="email" name="email" placeholder="E-Mail *" aria-label="E-Mail" autocomplete="email" required data-email-input>
+            <input type="tel" name="phone_display" placeholder="Telefon *" aria-label="Telefon" autocomplete="tel-national" inputmode="tel" required data-phone-input>
+            <input type="hidden" name="phone" data-phone-normalized-input>
+            <button class="contact-form__hint" type="button" data-email-suggestion hidden></button>
+          </div>
+          <div class="contact-form_select" data-service-dropdown>
+            <input type="hidden" name="service" data-service-dropdown-input>
+            <button class="contact-form_select-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="service-dropdown-list" data-service-dropdown-toggle>
+              <span data-service-dropdown-label>Welche Leistung benötigen Sie? *</span>
+              <span class="contact-form_select-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" focusable="false">
+                <path d="M2.15073 6.57592C2.09504 6.52329 2.02953 6.48215 1.95794 6.45484C1.88635 6.42753 1.81008 6.41459 1.73348 6.41676C1.65689 6.41893 1.58147 6.43616 1.51154 6.46747C1.44161 6.49878 1.37853 6.54356 1.3259 6.59925C1.27327 6.65495 1.23213 6.72046 1.20482 6.79205C1.17751 6.86364 1.16457 6.93991 1.16674 7.0165C1.1689 7.0931 1.18614 7.16851 1.21745 7.23845C1.24876 7.30838 1.29354 7.37146 1.34923 7.42409L6.59923 12.3824C6.70754 12.4848 6.85093 12.5419 6.99998 12.5419C7.14903 12.5419 7.29243 12.4848 7.40073 12.3824L12.6513 7.42409C12.7082 7.37181 12.7542 7.30874 12.7865 7.23855C12.8188 7.16836 12.8369 7.09244 12.8396 7.01521C12.8424 6.93798 12.8298 6.86098 12.8025 6.78867C12.7752 6.71636 12.7339 6.65019 12.6808 6.59401C12.6278 6.53782 12.5641 6.49273 12.4934 6.46137C12.4228 6.43001 12.3466 6.41299 12.2694 6.41131C12.1921 6.40962 12.1153 6.42331 12.0434 6.45157C11.9714 6.47983 11.9059 6.5221 11.8504 6.57592L6.99998 11.1563L2.15073 6.57592Z" fill="currentColor"/>
+              </svg>
+            </span>
+            </button>
+            <div class="contact-form_select-list" id="service-dropdown-list" role="listbox" aria-label="Leistung auswählen" data-service-dropdown-list>
+              <button class="contact-form_select-option" type="button" role="option" data-value="hausmeisterservice">Hausmeisterservice</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="treppenhausreinigung">Treppenhaus- &amp; Gemeinschaftsreinigung</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="gewerbliche-reinigung">Gewerbliche Reinigung</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="grundreinigung">Grundreinigung</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="industriereinigung">Industriereinigung</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="winterdienst">Winterdienst</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="garten-landschaftspflege">Garten- &amp; Landschaftspflege</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="fassaden-hoehenarbeiten">Fassaden- &amp; Höhenarbeiten</button>
+              <button class="contact-form_select-option" type="button" role="option" data-value="solaranlagenreinigung">Solaranlagenreinigung</button>
+            </div>
+          </div>
+          <textarea placeholder="Nachricht" aria-label="Nachricht"></textarea>
+          <label class="contact-form__check">
+            <input type="checkbox" required>
+            <span class="contact-form__check-mark" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none" focusable="false">
+                <path d="M0.5 3.35714L3 5.85714L8 0.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Angaben zu.</span>
+          </label>
+          <button class="link-button link-button--green contact-form__submit" type="submit">
+            <span class="link-button__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none" focusable="false">
+                <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Anfrage senden</span>
+          </button>
+        </form>
+      </section>
+      <section class="faq" aria-labelledby="faq-title" data-faq>
+        <div class="faq__intro">
+          <p class="section-label section-label--blue"><span class="section-label__dot" aria-hidden="true"></span><span>Fragen &amp; Antworten</span></p>
+          <h2 id="faq-title">Häufige Fragen zu Gebäudedienstleistungen in Berlin.</h2>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">
+                <span>Welche Leistungen gehören zur Gebäudebetreuung von Wohnimmobilien in Berlin?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
+              <p>Dazu gehören unter anderem Treppenhausreinigung, regelmäßige Reinigung von Gemeinschaftsflächen, Hausmeisterservice, Winterdienst, Gartenpflege sowie weitere operative Aufgaben, die eine Immobilie sauber, gepflegt und funktionsfähig halten.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-2" aria-expanded="false" aria-controls="faq-panel-2">
+                <span>Wie oft sollte die Treppenhausreinigung in Wohngebäuden erfolgen?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
+              <p>Die Häufigkeit hängt von der Anzahl der Bewohner und der Nutzung ab. Viele Wohngebäude in Berlin planen eine Reinigung ein- bis zweimal pro Woche.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-3" aria-expanded="false" aria-controls="faq-panel-3">
+                <span>Was umfasst ein Hausmeisterservice?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
+              <p>Typischerweise gehören dazu regelmäßige Objektkontrollen, kleinere technische Arbeiten, Koordination von Wartungen sowie die Sicherstellung eines gepflegten Zustands der Gemeinschaftsflächen.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-4" aria-expanded="false" aria-controls="faq-panel-4">
+                <span>Bieten Gebäudedienstleister in Berlin Winterdienst an?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
+              <p>Ja. Der Winterdienst umfasst in der Regel Schneeräumung und Streudienst für Wege, Eingänge und Zufahrten, um die Sicherheit bei Glätte zu gewährleisten.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-5" aria-expanded="false" aria-controls="faq-panel-5">
+                <span>Können Reinigung und Hausmeisterservice kombiniert werden?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
+              <p>Ja. Viele Hausverwaltungen kombinieren Reinigungsleistungen mit Hausmeisterservice und saisonalen Leistungen wie dem Winterdienst.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <h3>
+              <button class="faq-item__trigger" type="button" id="faq-trigger-6" aria-expanded="false" aria-controls="faq-panel-6">
+                <span>Arbeiten Sie mit Hausverwaltungen in Berlin zusammen?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" focusable="false">
+                    <path d="M5 10H10M10 10H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="faq-item__icon-line-vertical" d="M10 10V5M10 10V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div class="faq-item__panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6">
+              <p>Ja. Hausverwaltungen gehören zu unseren wichtigsten Kunden. Wir unterstützen sie bei der laufenden Betreuung und dem operativen Betrieb von Immobilien.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="footer__logo">
+          <a href="/" aria-label="Losoma Startseite">
+            <img src="/assets/static/losoma-logo.svg" alt="Losoma" width="233" height="50">
+          </a>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer Navigation">
+          <div class="footer__nav-column">
+            <h3>Leistungen</h3>
+            <div class="footer__links">
+              <a href="/hausmeisterservice">Hausmeisterservice</a>
+              <a href="/treppenhausreinigung">Treppenhaus- &amp; Gemeinschaftsreinigung</a>
+              <a href="/gewerbliche-reinigung">Gewerbliche Reinigung</a>
+              <a href="/grundreinigung">Grundreinigung</a>
+              <a href="/industriereinigung">Industriereinigung</a>
+              <a href="/winterdienst">Winterdienst</a>
+              <a href="/garten-landschaftspflege">Garten- &amp; Landschaftspflege</a>
+              <a href="/fassaden-hoehenarbeiten">Fassaden- &amp; Höhenarbeiten</a>
+              <a href="/solaranlagenreinigung">Solaranlagenreinigung</a>
+            </div>
+          </div>
+
+          <div class="footer__nav-column">
+            <h3>Navigation</h3>
+            <div class="footer__links">
+              <a href="#ueber-uns">Über uns</a>
+              <a href="#leistungen">Leistungen</a>
+              <a href="#team">Unser Team</a>
+              <a href="#einblicke">Einblicke</a>
+              <a href="#bewertungen">Bewertungen</a>
+              <a href="/kontakt" target="_blank" rel="noopener">Kontakt</a>
+            </div>
+          </div>
+
+          <div class="footer__nav-column">
+            <h3>Rechtliches</h3>
+            <div class="footer__links">
+              <a href="/impressum">Impressum</a>
+              <a href="/datenschutz">Datenschutzerklärung</a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="footer__service-summary">
+          <p>Gebäudeservice für Immobilien, die im Alltag zuverlässig betreut, gepflegt und in Ordnung gehalten werden sollen.</p>
+          <a class="link-button link-button--green footer__cta" href="/kontakt" target="_blank" rel="noopener">
+            <span class="link-button__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                <path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Kontakt aufnehmen</span>
+          </a>
+        </div>
+
+        <div class="footer__contact-area">
+          <div class="footer__contact">
+            <h3>Kontakt</h3>
+            <div class="footer__links">
+              <p>Falkenseer Chaussee 247C, 13583 Berlin, Deutschland</p>
+              <a href="mailto:losoma@web.de">losoma@web.de</a>
+              <a href="tel:+4917644434111">+49 176 44434111</a>
+            </div>
+          </div>
+
+          <div class="footer__social" aria-label="Social Links">
+            <a href="https://www.linkedin.com/in/maxim-soga-575478264/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+                <path d="M24.448 24.452H20.8947V18.8827C20.8947 17.5547 20.868 15.8453 19.0413 15.8453C17.1893 15.8453 16.9067 17.2907 16.9067 18.7853V24.452H13.352V13H16.7653V14.56H16.812C17.2893 13.6613 18.4493 12.7107 20.1827 12.7107C23.7827 12.7107 24.4493 15.0813 24.4493 18.1667L24.448 24.452ZM9.33867 11.4333C9.06741 11.4337 8.79875 11.3805 8.54808 11.2768C8.29742 11.1731 8.06969 11.021 7.87794 10.8291C7.6862 10.6372 7.5342 10.4094 7.43068 10.1587C7.32716 9.90795 7.27414 9.63926 7.27467 9.368C7.27493 8.95978 7.39624 8.5608 7.62325 8.22153C7.85027 7.88225 8.17279 7.61791 8.55004 7.46194C8.92729 7.30596 9.34232 7.26536 9.74264 7.34525C10.143 7.42515 10.5106 7.62197 10.7991 7.91081C11.0875 8.19965 11.2839 8.56755 11.3633 8.96798C11.4426 9.3684 11.4015 9.78338 11.245 10.1604C11.0886 10.5375 10.8238 10.8597 10.4843 11.0862C10.1447 11.3128 9.74555 11.4336 9.33733 11.4333M11.1187 24.452H7.556V13H11.12L11.1187 24.452ZM26.2267 4H5.77333C4.792 4 4 4.77333 4 5.72933V26.2707C4 27.2267 4.792 28 5.77067 28H26.2227C27.2 28 28 27.2267 28 26.2707V5.72933C28 4.77467 27.2 4 26.2213 4H26.2267Z" fill="white"/>
+              </svg>
+            </a>
+            <a href="#facebook" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+                <path d="M20.536 28V18.712H23.6467L24.112 15.1013H20.536V12.7987C20.536 11.7533 20.8267 11.04 22.3253 11.04H24.2373V7.80933C23.3118 7.71062 22.3815 7.66299 21.4507 7.66667C18.6947 7.66667 16.808 9.34933 16.808 12.44V15.1013H13.6907V18.712H16.808V28H5.33333C4.97971 28 4.64057 27.8595 4.39052 27.6095C4.14048 27.3594 4 27.0203 4 26.6667V5.33333C4 4.97971 4.14048 4.64057 4.39052 4.39052C4.64057 4.14048 4.97971 4 5.33333 4H26.6667C27.0203 4 27.3594 4.14048 27.6095 4.39052C27.8595 4.64057 28 4.97971 28 5.33333V26.6667C28 27.0203 27.8595 27.3594 27.6095 27.6095C27.3594 27.8595 27.0203 28 26.6667 28H20.536Z" fill="white"/>
+              </svg>
+            </a>
+            <a href="#instagram" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+                <path d="M16.285 2.5C17.6912 2.50375 18.405 2.51125 19.0212 2.52875L19.2637 2.5375C19.5437 2.5475 19.82 2.56 20.1537 2.575C21.4837 2.6375 22.3912 2.8475 23.1875 3.15625C24.0125 3.47375 24.7075 3.90375 25.4025 4.5975C26.0383 5.22217 26.5302 5.97809 26.8437 6.8125C27.1525 7.60875 27.3625 8.51625 27.425 9.8475C27.44 10.18 27.4525 10.4563 27.4625 10.7375L27.47 10.98C27.4887 11.595 27.4962 12.3088 27.4987 13.715L27.5 14.6475V16.285C27.503 17.1968 27.4934 18.1085 27.4712 19.02L27.4637 19.2625C27.4537 19.5437 27.4412 19.82 27.4262 20.1525C27.3637 21.4837 27.1512 22.39 26.8437 23.1875C26.5302 24.0219 26.0383 24.7778 25.4025 25.4025C24.7778 26.0384 24.0219 26.5302 23.1875 26.8438C22.3912 27.1525 21.4837 27.3625 20.1537 27.425L19.2637 27.4625L19.0212 27.47C18.405 27.4875 17.6912 27.4963 16.285 27.4988L15.3525 27.5H13.7162C12.8041 27.5032 11.8919 27.4936 10.98 27.4712L10.7375 27.4638C10.4407 27.4525 10.1441 27.4396 9.84748 27.425C8.51748 27.3625 7.60998 27.1525 6.81248 26.8438C5.97852 26.5301 5.22303 26.0382 4.59873 25.4025C3.96241 24.778 3.47011 24.022 3.15623 23.1875C2.84748 22.3912 2.63748 21.4837 2.57498 20.1525L2.53748 19.2625L2.53123 19.02C2.50819 18.1085 2.49777 17.1968 2.49998 16.285V13.715C2.49652 12.8033 2.50569 11.8915 2.52748 10.98L2.53623 10.7375C2.54623 10.4563 2.55873 10.18 2.57373 9.8475C2.63623 8.51625 2.84623 7.61 3.15498 6.8125C3.4696 5.97775 3.96276 5.2218 4.59998 4.5975C5.22392 3.96194 5.97896 3.47009 6.81248 3.15625C7.60998 2.8475 8.51623 2.6375 9.84748 2.575C10.18 2.56 10.4575 2.5475 10.7375 2.5375L10.98 2.53C11.8915 2.50779 12.8032 2.49821 13.715 2.50125L16.285 2.5ZM15 8.75C13.3424 8.75 11.7527 9.40848 10.5806 10.5806C9.40846 11.7527 8.74998 13.3424 8.74998 15C8.74998 16.6576 9.40846 18.2473 10.5806 19.4194C11.7527 20.5915 13.3424 21.25 15 21.25C16.6576 21.25 18.2473 20.5915 19.4194 19.4194C20.5915 18.2473 21.25 16.6576 21.25 15C21.25 13.3424 20.5915 11.7527 19.4194 10.5806C18.2473 9.40848 16.6576 8.75 15 8.75ZM15 11.25C15.4924 11.2499 15.9801 11.3468 16.4351 11.5352C16.8901 11.7236 17.3035 11.9997 17.6518 12.3479C18.0001 12.6961 18.2764 13.1094 18.4649 13.5644C18.6534 14.0193 18.7505 14.5069 18.7506 14.9994C18.7507 15.4918 18.6538 15.9795 18.4654 16.4345C18.277 16.8895 18.0009 17.3029 17.6527 17.6512C17.3045 17.9995 16.8912 18.2758 16.4362 18.4643C15.9813 18.6528 15.4937 18.7499 15.0012 18.75C14.0067 18.75 13.0528 18.3549 12.3496 17.6517C11.6463 16.9484 11.2512 15.9946 11.2512 15C11.2512 14.0054 11.6463 13.0516 12.3496 12.3483C13.0528 11.6451 14.0067 11.25 15.0012 11.25M21.5637 6.875C21.1493 6.875 20.7519 7.03962 20.4589 7.33265C20.1658 7.62567 20.0012 8.0231 20.0012 8.4375C20.0012 8.8519 20.1658 9.24933 20.4589 9.54235C20.7519 9.83538 21.1493 10 21.5637 10C21.9781 10 22.3756 9.83538 22.6686 9.54235C22.9616 9.24933 23.1262 8.8519 23.1262 8.4375C23.1262 8.0231 22.9616 7.62567 22.6686 7.33265C22.3756 7.03962 21.9781 6.875 21.5637 6.875Z" fill="white"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__legal">
+          <p>© <span data-current-year>2026</span> Losoma. Alle Rechte vorbehalten.</p>
+          <p>Design und Entwicklung von Gleb Tiidt</p>
+        </div>
+      </footer>
     </section>
   </main>
 
-  <footer>
-    <p>Built with <a href="https://www.ship.studio/">Ship Studio</a></p>
-  </footer>
-
+  <script src="/assets/vendor/lenis/lenis.min.js"></script>
+  <script src="/assets/vendor/splide/splide.min.js"></script>
+  <script src="/assets/vendor/intl-tel-input/js/intlTelInput.min.js"></script>
+  <script src="/assets/vendor/mailcheck/mailcheck.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

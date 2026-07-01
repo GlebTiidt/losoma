@@ -5,13 +5,23 @@
   "description": "Static website prepared for Cloudflare Pages deployment.",
   "scripts": {
     "assets:images": "node scripts/optimize-images.mjs",
-    "build": "npm run assets:images && node scripts/build-static.mjs",
-    "dev": "npm run build && npx wrangler pages dev dist --live-reload",
-    "deploy": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch main",
-    "deploy:preview": "npm run build && npx wrangler pages deploy dist --project-name losoma --branch preview"
+    "assets:images:force": "node scripts/optimize-images.mjs --force",
+    "build:static": "node scripts/build-static.mjs",
+    "build:images": "npm run assets:images && npm run build:static",
+    "build": "npm run build:static",
+    "audit:classes": "node scripts/audit-client-first-classes.mjs",
+    "audit:classes:strict": "node scripts/audit-client-first-classes.mjs --strict",
+    "dev": "npm run build:static && npx wrangler pages dev dist --live-reload",
+    "dev:images": "npm run build:images && npx wrangler pages dev dist --live-reload",
+    "deploy": "npm run build:images && npx wrangler pages deploy dist --project-name losoma --branch main",
+    "deploy:preview": "npm run build:images && npx wrangler pages deploy dist --project-name losoma --branch preview"
   },
   "devDependencies": {
     "sharp": "^0.35.1",
     "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "@splidejs/splide": "^4.1.4",
+    "lenis": "^1.3.23"
   }
 }
