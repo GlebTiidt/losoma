@@ -1,0 +1,17 @@
+.git
+.vercel
+node_modules
+
+# Local source media and generated build artifacts are not needed in deploy uploads.
+assets/source/*.mov
+assets/source/*.mp4
+assets/source/*.m4v
+assets/source/*.avi
+assets/source/*.mkv
+assets/normalized
+
+.DS_Store
+.shipstudio
+.wrangler
+.dev.vars
+.env
