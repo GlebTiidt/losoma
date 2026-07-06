@@ -26,7 +26,8 @@ for (const file of files) {
 }
 
 await cp(generatedAssetsDir, new URL("assets/generated/", outputDir), {
-  recursive: true
+  recursive: true,
+  filter: (source) => !source.endsWith("/manifest.json")
 });
 
 await cp(staticAssetsDir, new URL("assets/static/", outputDir), {

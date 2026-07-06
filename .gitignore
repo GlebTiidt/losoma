@@ -5,7 +5,6 @@ node_modules/
 dist/
 assets/generated/*
 !assets/generated/.gitkeep
-!assets/generated/manifest.json
 assets/normalized/*
 !assets/normalized/.gitkeep
 
