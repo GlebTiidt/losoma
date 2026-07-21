@@ -498,12 +498,6 @@ a {
     --type-body-small: clamp(0.875rem, calc(0.566rem + 0.482vw), 1rem);       /* 16 → 14 */
     --type-label: clamp(0.75rem, calc(0.441rem + 0.482vw), 0.875rem);         /* 14 → 12 */
   }
-
-  .hero_title,
-  .blog-index_title,
-  .blog-article_title {
-    font-size: clamp(2.5rem, 3.9vw, var(--type-hero-title));
-  }
 }
 
 .hero_text {
@@ -675,10 +669,15 @@ a {
 
 .blog-index_title,
 .blog-article_title {
-  font-size: var(--type-hero-title);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.03em;
+}
+
+.hero_title,
+.blog-index_title,
+.blog-article_title {
+  font-size: clamp(2.5rem, 3.9vw, var(--type-hero-title));
 }
 
 .blog-grid {
