@@ -3152,15 +3152,10 @@ a {
   }
 
   /* Why Losoma (Figma 29:432): single-column stack — three image cards then
-     the contact card. The cards are full-bleed at tablet/phone widths, while
-     the section label and heading keep the regular responsive gutter. */
+     the contact card. The section keeps the regular tablet gutter and every
+     card fills the resulting content width. */
   .why-losoma {
-    width: 100%;
-  }
-
-  .why-losoma > .section-label,
-  .why-losoma_title {
-    margin-inline: 1.5rem;
+    width: calc(100% - 3rem);
   }
 
   .why-losoma_title {
@@ -3175,9 +3170,11 @@ a {
     margin-top: 2.5rem;
   }
 
-  .why-card,
+  .why-card.is-reliable-partner,
+  .why-card.is-daily-work,
+  .why-card.is-site-awareness,
   .why-contact-card {
-    grid-column: auto;
+    grid-column: 1 / -1;
     width: 100%;
     max-width: none;
     border-radius: var(--radius-soft);
@@ -3747,18 +3744,13 @@ a {
     height: 15rem;
   }
 
-  /* Phone why-losoma (Figma 29:957): full-bleed single-column cards with a
-     16px gutter retained only for the label and heading. Three image cards
-     (350px tall) then the navy contact card (300px, already set on tablet).
-     Card gradient overlays stay the component's own gradient. */
+  /* Phone why-losoma (Figma 29:957): single-column cards inside the shared
+     16px section gutter. Three image cards (350px tall) then the navy contact
+     card (300px, already set on tablet). Card gradient overlays stay the
+     component's own gradient. */
   .why-losoma {
     width: 100%;
-    padding-inline: 0;
-  }
-
-  .why-losoma > .section-label,
-  .why-losoma_title {
-    margin-inline: 1rem;
+    padding-inline: 1rem;
   }
 
   .why-losoma_title {
