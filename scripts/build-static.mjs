@@ -5,6 +5,7 @@ const outputDir = new URL("../dist/", import.meta.url);
 const generatedAssetsDir = new URL("../assets/generated/", import.meta.url);
 const staticAssetsDir = new URL("../assets/static/", import.meta.url);
 const vendorAssetsDir = new URL("../assets/vendor/", import.meta.url);
+const blogPagesDir = new URL("../blog/", import.meta.url);
 
 // Every page is a root-level .html file — auto-discover them so new service pages
 // (hausmeisterservice.html, …) ship without editing this list.
@@ -25,6 +26,12 @@ await mkdir(outputDir, { recursive: true });
 for (const file of files) {
   await copyFile(new URL(`../${file}`, import.meta.url), new URL(file, outputDir));
 }
+
+// Blog routes keep their nested, SEO-friendly URLs (`/blog` and
+// `/blog/<article-slug>`) instead of flattening article filenames at the root.
+await cp(blogPagesDir, new URL("blog/", outputDir), {
+  recursive: true
+});
 
 await cp(generatedAssetsDir, new URL("assets/generated/", outputDir), {
   recursive: true,

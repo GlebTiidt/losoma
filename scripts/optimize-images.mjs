@@ -20,6 +20,7 @@ const imageMaxWidthByBaseName = {
   "garten-rasenpflege-rasenmaeher-wohnanlage-losoma": 1200,
   "fassadenreinigung-wohngebaeude-ziegelfassade-losoma": 1200,
   "grundreinigung-teppichboden-buero-losoma": 1600,
+  "hausmeister-externer-spezialist-wohnimmobilie-berlin": 1600,
   "hausmeisterservice-berliner-wohnanlage-losoma": 900,
   "treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma": 900,
   "gewerbliche-reinigung-buero-berlin-losoma": 900,
