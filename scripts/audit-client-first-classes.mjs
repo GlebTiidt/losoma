@@ -3,8 +3,10 @@ import path from "node:path";
 
 const root = process.cwd();
 const strict = process.argv.includes("--strict");
-const targetFiles = ["index.html", "styles.css", "script.js"];
-const allowedExternalPrefixes = ["splide__", "splide--"];
+const targetFiles = fs.readdirSync(root)
+  .filter((file) => file.endsWith(".html"))
+  .concat(["styles.css", "script.js"]);
+const allowedExternalPrefixes = ["splide__", "splide--", "iti__", "cc__", "cm__", "pm__"];
 const forbiddenNameParts = [
   "block-left",
   "block-right",
@@ -46,7 +48,7 @@ for (const file of targetFiles) {
     match[1].split(/\s+/).forEach((className) => addClass(className, file));
   }
 
-  for (const match of content.matchAll(/\.([_a-zA-Z][\w-]*(?:__[\w-]+|--[\w-]+)?)/g)) {
+  for (const match of content.matchAll(/(?<![\w$])\.([_a-zA-Z][\w-]*(?:__[\w-]+|--[\w-]+)?)/g)) {
     addClass(match[1], file);
   }
 
@@ -63,11 +65,11 @@ const findings = [...classNames.entries()]
     const reasons = [];
 
     if (className.includes("__")) {
-      reasons.push("uses BEM element separator `__`");
+      reasons.push("uses legacy project-owned separator `__`");
     }
 
     if (className.includes("--")) {
-      reasons.push("uses BEM modifier separator `--`");
+      reasons.push("uses legacy project-owned separator `--`");
     }
 
     if (forbiddenNameParts.some((part) => className.includes(part))) {

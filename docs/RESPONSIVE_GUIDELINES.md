@@ -26,7 +26,7 @@ per-section Figma frame is the source of truth — never eyeball adaptive layout
 - Pull concrete CSS from the **per-section Figma frame** via the Figma MCP `get_design_context`. Build **section by section**; ask for the node id of the section's phone/tablet frame before starting.
 - Figma px are **design measurements, not implementation**. Convert to `rem` / `clamp()` / grid / flex / `aspect-ratio` and the shared tokens. (1rem = 16px.)
 - Do **not** rewrite copy during a responsive pass, even if the Figma node shows different wording — the live HTML copy is shared across all breakpoints.
-- After edits: `npm run build:static` (local server `http://localhost:61440` serves `dist/`). Deploy to Vercel only when explicitly asked.
+- After edits: `npm run build` / `npm run build:static` and run the relevant audits. Vercel is staging/backend only; Hostinger production launch requires explicit approval and the backup checklist.
 
 ---
 
@@ -65,16 +65,16 @@ Match the section's Figma frame, but these are the recurring values — reuse th
 | Card title (overlay cards) | **24px** (`1.5rem`) |
 | Card / secondary text | **16px**, sometimes **14px** (catalog card body) |
 | Metric value (e.g. "7+ Jahre") | **40px** (`2.5rem`) |
-| Link-button / CTA text | **16px** — set per section: `.section__cta { font-size: 1rem; }` (the shared `.link-button` base stays 18px) |
+| Link-button / CTA text | **16px** — set per section: `.section_cta { font-size: 1rem; }` (the shared `.link-button` base stays 18px) |
 | Footer column headings | **14px** (`0.875rem`) |
 | Footer links / body | **16px** (`1rem`) |
 | **Mobile-menu heading** | **14px** (`0.875rem`) — matches the footer heading |
 | **Mobile-menu links / tagline** | **16px** (`1rem`) — matches footer links/body |
 | Form fields + placeholder + **dropdown options** | **16px** (`1rem`) — size them together |
 
-- **Mobile menu = footer, per breakpoint.** The open burger menu mirrors the **footer's** type sizes at each breakpoint (tablet heading 16px / links 18px; phone heading 14px / links + tagline 16px), and its link **hover matches the footer's `opacity: 0.72`** (shared hover block, `@media (hover:hover) and (pointer:fine)`, with `transition: opacity` on `.mobile-menu__link`). Don't invent a separate menu scale.
+- **Mobile menu = footer, per breakpoint.** The open burger menu mirrors the **footer's** type sizes at each breakpoint (tablet heading 16px / links 18px; phone heading 14px / links + tagline 16px), and its link **hover matches the footer's `opacity: 0.72`** (shared hover block, `@media (hover:hover) and (pointer:fine)`, with `transition: opacity` on `.mobile-menu_link`). Don't invent a separate menu scale.
 - **Dropdown options must match the field/placeholder size on phone.** The phone form rule sizes `.contact-form input/textarea/_select-toggle` **and** `.contact-form_select-option` to `1rem` in one selector list — drop the option and the open list renders 18px while everything else is 16px.
-- **Section labels** (`.section-label`, the small uppercase eyebrow): **12px**, dot 12px, gap 8px — set once, globally, in the phone block. **Keep 12px even when a Figma frame shows 14px** (a few frames — team, reviews, CTA, footer "KONTAKT" — show 14px; we kept the shared 12px for consistency across the page). Hero uses its own `.hero__service-label`.
+- **Section labels** (`.section-label`, the small uppercase eyebrow): **12px**, dot 12px, gap 8px — set once, globally, in the phone block. **Keep 12px even when a Figma frame shows 14px** (a few frames — team, reviews, CTA, footer "KONTAKT" — show 14px; we kept the shared 12px for consistency across the page). Hero uses its own `.hero_service-label`.
 - **Long German compounds** ("Gebäudedienstleistungen", "betreute Objekte…") clip easily — add `overflow-wrap: break-word` to large headings on phone as a safety net (matches Figma's `word-break` on those nodes).
 
 ---
@@ -91,55 +91,55 @@ Match the section's Figma frame, but these are the recurring values — reuse th
 
 ## 7. Buttons — three families, keep them separate
 
-1. **`.button` / `.button--accent`** — solid green with the **slide animation** (absolute icon, `::before` dark fill). Used for "Angebot anfragen" (hero/header). Needs width slack.
-2. **`.button--static`** — the clean **static** solid button: inline `icon + 12px gap + text`, no slide. Use for tablet/menu CTAs.
-3. **`.link-button` / `.link-button--green`** — square icon + text, the square expands on hover. Used for "Anfrage senden", footer CTA, contact submit.
+1. **`.button` / `.button.is-accent`** — solid green with the **slide animation** (absolute icon, `::before` dark fill). Used for "Angebot anfragen" (hero/header). Needs width slack.
+2. **`.button.is-static`** — the clean **static** solid button: inline `icon + 12px gap + text`, no slide. Use for tablet/menu CTAs.
+3. **`.link-button` / `.link-button.is-green`** — square icon + text, the square expands on hover. Used for "Anfrage senden", footer CTA, contact submit.
 
 ### ⚠️ The hero-CTA hover bug (this bit us twice — read this)
 
-The hero CTA is the animated `.button` on desktop/tablet and must become **static only on phone** — but you **cannot swap classes per breakpoint**, so it's made static via a `@media (max-width: 560px)` override on `.hero__cta`.
+The hero CTA is the animated `.button` on desktop/tablet and must become **static only on phone** — but you **cannot swap classes per breakpoint**, so it's made static via a `@media (max-width: 560px)` override on `.hero_cta`.
 
 **Making `.button` static per-breakpoint MUST also cancel the `:hover` / `:focus-visible` transforms**, not just the resting position. Otherwise the base rule
 
 ```css
-.button:hover .button__icon { transform: translate3d(9rem, -50%, 0); }
+.button:hover .button_icon { transform: translate3d(9rem, -50%, 0); }
 ```
 
-has **higher specificity** than a plain `.hero__cta .button__icon`, so on any pointer hover (narrow desktop window, touch-laptop, device emulation) the arrow **slides to the right** — the classic "why did the button behavior change" complaint.
+has **higher specificity** than a plain `.hero_cta .button_icon`, so on any pointer hover (narrow desktop window, touch-laptop, device emulation) the arrow **slides to the right** — the classic "why did the button behavior change" complaint.
 
-The phone block therefore mirrors the **full** `.button--static` treatment, including:
+The phone block therefore mirrors the **full** `.button.is-static` treatment, including:
 
 ```css
-.hero__cta:hover .button__icon,
-.hero__cta:focus-visible .button__icon,
-.hero__cta:hover span,
-.hero__cta:focus-visible span { transform: none; }
+.hero_cta:hover .button_icon,
+.hero_cta:focus-visible .button_icon,
+.hero_cta:hover span,
+.hero_cta:focus-visible span { transform: none; }
 
-.hero__cta.button--accent:hover,
-.hero__cta.button--accent:focus-visible { color: var(--color-ink); }
+.hero_cta.button.is-accent:hover,
+.hero_cta.button.is-accent:focus-visible { color: var(--color-ink); }
 ```
 
-**Do not drop these.** Touch alone suppresses the slide (`@media (hover:hover) and (pointer:fine)` gate), but pointer/emulation hover does not — the neutralization above is required. The general rule: **whenever you statically override `.button` at a breakpoint, cancel its hover/focus transforms too** (or, on a fresh element that can be static at all sizes, just use `.button--static`).
+**Do not drop these.** Touch alone suppresses the slide (`@media (hover:hover) and (pointer:fine)` gate), but pointer/emulation hover does not — the neutralization above is required. The general rule: **whenever you statically override `.button` at a breakpoint, cancel its hover/focus transforms too** (or, on a fresh element that can be static at all sizes, just use `.button.is-static`).
 
 ---
 
 ## 7b. Contact form (shared component)
 
 - **One `.contact-form` everywhere.** The CTA panel (main + service pages) and the standalone `/kontakt` page reuse the SAME form markup with all `data-*` hooks, so validation / dropdown / intl-tel-input / mailcheck behave identically. Re-theme via a scoped parent class (e.g. `.contact-page .contact-form { … }`) — never fork the markup or JS.
-- **Phone (≤560): E-Mail + Telefon stack.** `.contact-form__row { grid-template-columns: 1fr; gap: 0; }` — side by side they're too cramped. Each field keeps its own `0.5rem` top-margin, so zero the row gap to avoid doubling. Shared rule → every page.
+- **Phone (≤560): E-Mail + Telefon stack.** `.contact-form_row { grid-template-columns: 1fr; gap: 0; }` — side by side they're too cramped. Each field keeps its own `0.5rem` top-margin, so zero the row gap to avoid doubling. Shared rule → every page.
 - **Phone: field, placeholder and dropdown options are all 16px.** Size `.contact-form input/textarea/_select-toggle` **and** `.contact-form_select-option` together (`font-size: 1rem`). Forgetting the option leaves the open list at 18px.
-- **Re-theming a field's colour:** flip `background` / `border-color` / typed-text `color`, but **leave `.contact-form_select-toggle`'s `color` to the base rules** — it must stay the muted placeholder (`#848a8c`) until `.is-selected`. The light `/kontakt` submit is the base `.link-button` **without** `--green` (= blue square); the checkbox gets a visible border on the light background.
+- **Re-theming a field's colour:** flip `background` / `border-color` / typed-text `color`, but **leave `.contact-form_select-toggle`'s `color` to the base rules** — it must stay the muted placeholder (`#848a8c`) until `.is-selected`. The light `/kontakt` submit is the base `.link-button` **without** `.is-green` (= blue square); the checkbox gets a visible border on the light background.
 
-## 7c. Solid-header pages (no hero) — `body.page--solid-header`
+## 7c. Solid-header pages (no hero) — `body.is-solid-header`
 
 Pages with no dark hero (Kontakt, Impressum) need the header solid from the very top:
 
-- Ink logo at every breakpoint: `.page--solid-header .header__logo--light { opacity: 0 }` — set statically (no fade on load).
-- Desktop (≥1151px): frosted bar + ink nav **permanently on** — `.page--solid-header .header::before { opacity: 1 }`, `.page--solid-header .nav__link { color: var(--color-ink) }`.
-- **Open mobile menu → logo white again:** `.page--solid-header.is-menu-open .header__logo--light { opacity: 1 }` (over the navy overlay).
+- Ink logo at every breakpoint: `.is-solid-header .header_logo.is-light { opacity: 0 }` — set statically (no fade on load).
+- Desktop (≥1151px): frosted bar + ink nav **permanently on** — `.is-solid-header .header::before { opacity: 1 }`, `.is-solid-header .nav_link { color: var(--color-ink) }`.
+- **Open mobile menu → logo white again:** `.is-solid-header.is-menu-open .header_logo.is-light { opacity: 1 }` (over the navy overlay).
 - `initHeaderScrollState()` is hero-optional: skips the `.is-scrolled` hero observer when `.hero` is absent, still runs the footer slide-up.
 - Standalone section spacing: ~100px of breathing room under the fixed header and above the footer (desktop `padding: 11.5rem 0 6.25rem`); the burger header is in flow on tablet/phone, so the top padding drops accordingly.
-- **Legal pages (`/impressum`, later `/datenschutz`) reuse this exact shell** via the `.legal-page` component (12-col grid, left H1 / right `.legal-page__content` stack of `.legal-block`s, each closed by a `#c0c0c0` bottom divider; two-up `.legal-block__row` for Adresse|Kontakt and USt-ID|Steuernummer uses a `404fr / 523fr` split that stacks to one column ≤560px). No form → drop the splide/intl-tel-input/mailcheck vendors.
+- **Legal pages (`/impressum`, later `/datenschutz`) reuse this exact shell** via the `.legal-page` component (12-col grid, left H1 / right `.legal-page_content` stack of `.legal-block`s, each closed by a `#c0c0c0` bottom divider; two-up `.legal-block_row` for Adresse|Kontakt and USt-ID|Steuernummer uses a `404fr / 523fr` split that stacks to one column ≤560px). No form → drop the splide/intl-tel-input/mailcheck vendors.
 
 ## 7d. Cross-page anchors
 
@@ -152,13 +152,13 @@ Landing on `/#leistungen` from another page: `initSmoothScroll` sets `history.sc
 - **Card gradient overlays are the component's own gradient** — keep them on every breakpoint (service cards, why-losoma cards, etc.).
 - The **"no gradient" rule was Hero-only**: the hero overlay stays the uniform `rgba(4,23,31, 0.3)` from the desktop/tablet pass; the Figma hero gradient is intentionally ignored.
 - `picture` with AVIF first, WebP fallback. Do not run the image pipeline for HTML/CSS/JS-only edits.
-- **Cropping a wide source into the portrait `.quality-claim__media` box**: the box is `aspect-ratio:523/600` + `object-fit:cover`, which by default crops to the image **center**. When the Figma frame shows the image shifted (e.g. a wide shot positioned to show its LEFT part — `left:-27.78%` in Figma), add the reusable modifier **`.quality-claim__image--align-left`** (`object-position: left center`) to the `<img>`. Square sources still center fine with no modifier (Treppenhausreinigung elevator, Gewerbliche besprechungsraum). Always still cap the wide source in `optimize-images.mjs` (e.g. Grundreinigung teppichboden 2752×1536 → 1600 wide).
+- **Cropping a wide source into the portrait `.quality-claim_media` box**: the box is `aspect-ratio:523/600` + `object-fit:cover`, which by default crops to the image **center**. When the Figma frame shows the image shifted (e.g. a wide shot positioned to show its LEFT part — `left:-27.78%` in Figma), add the reusable modifier **`.quality-claim_image.is-align-left`** (`object-position: left center`) to the `<img>`. Square sources still center fine with no modifier (Treppenhausreinigung elevator, Gewerbliche besprechungsraum). Always still cap the wide source in `optimize-images.mjs` (e.g. Grundreinigung teppichboden 2752×1536 → 1600 wide).
 
 ---
 
 ## 9. Class naming on new pages
 
-Follow `docs/SEO_AND_CLASS_GUIDELINES.md` (Finsweet Client-First: utilities no underscore, component classes one underscore, `is-*` state classes, JS via `data-*`). The home page still has legacy BEM (`__`, `--`); keep a touched section internally consistent, don't half-migrate.
+Follow `docs/SEO_AND_CLASS_GUIDELINES.md`: project-owned classes use Client-First-style naming (`block`, `block_element`, `is-*`) and JS behavior should prefer `data-*` hooks. Third-party classes such as `splide__*` and `iti__*` stay unchanged because they belong to their libraries.
 
 ---
 
@@ -166,6 +166,6 @@ Follow `docs/SEO_AND_CLASS_GUIDELINES.md` (Finsweet Client-First: utilities no u
 
 - Home page: desktop + tablet (≤1024) + phone (≤560) are **all complete**.
 - Service pages (Hausmeisterservice, Treppenhausreinigung): reuse the home components, responsive via the shared classes.
-- **Contact page (`/kontakt`): desktop + tablet + phone done** — `body.page--solid-header`, light re-themed `.contact-form`. See §7b / §7c.
-- **Impressum (`/impressum`): desktop + tablet + phone done** — `body.page--solid-header`, `.legal-page` component. See §7c.
+- **Contact page (`/kontakt`): desktop + tablet + phone done** — `body.is-solid-header`, light re-themed `.contact-form`. See §7b / §7c.
+- **Impressum (`/impressum`): desktop + tablet + phone done** — `body.is-solid-header`, `.legal-page` component. See §7c.
 - Devices to spot-check on phone: **320 / 360 / 390 / 414 px**.

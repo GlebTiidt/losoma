@@ -2,6 +2,37 @@
 
 Рабочий чеклист для проекта: верстка сайта, небольшой backend для автоматизации, Cloudflare, аналитика, Turnstile, cookies/consent и production launch.
 
+## 0. Правило хостинга и релиза
+
+- [x] **Текущий рабочий контур — только предпродакшн Vercel:** `https://losoma-pi.vercel.app`.
+- [x] **WordPress полностью вне текущего scope:** не открывать админку, не инспектировать, не тестировать формы/API, не изменять файлы/БД и не отправлять запросы на WordPress без отдельного прямого разрешения пользователя.
+- [x] Все текущие QA-проверки сайта, формы, API, cookies, analytics и legal-страниц выполнять только на Vercel staging.
+- [x] Не отправлять тестовые формы и не создавать внешние данные (Google Sheets, email, analytics events) без предварительного предупреждения и разрешения пользователя.
+- [x] Зафиксировать: текущий production `losoma.de` остаётся на Hostinger до финального запуска нового сайта.
+- [x] Зафиксировать: текущий Hostinger `public_html` содержит WordPress (`wp-admin`, `wp-content`, `wp-includes`) и не должен удаляться/перезаписываться в процессе обычной разработки.
+- [x] Зафиксировать: Vercel используется только как staging/preview (`losoma-pi.vercel.app`), не как финальный production.
+- [x] Зафиксировать: финальный хостинг нового сайта — Hostinger, чтобы не переводить клиента на Cloudflare Pages.
+- [x] Зафиксировать: Cloudflare Pages не используем как финальную площадку, если клиент явно не изменит решение.
+- [x] Hostinger/SFTP/SSH, WordPress admin и доступ к базе существуют. Не использовать их без отдельного прямого разрешения пользователя на backup/launch-задачу.
+- [x] Доступ к базе текущего WordPress для будущего бэкапа подтверждён; сам бэкап ещё не выполнялся.
+- [ ] До отдельного разрешения пользователя вообще не обращаться к WordPress/`public_html`; резервную копию и read-only инспекцию выполнять только как отдельную согласованную задачу перед релизом.
+- [ ] Не запускать финальную замену сайта, пока не готовы legal, Google account/profile/map requirements, формы, SEO и QA.
+- [ ] Перед любой миграцией Google-сервисов читать и обновлять
+  `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`; не удалять существующий Business Profile и не менять
+  почтовые DNS/форму до выполнения его проверок.
+
+Финальная схема:
+
+```text
+Development repo -> npm run build -> dist/
+dist/ -> Hostinger public_html
+Current WordPress -> backup / rollback copy
+```
+
+Важно: обычный deploy/build **не должен** запускать image pipeline. Изображения уже сгенерированы;
+`npm run build:images` использовать только вручную, когда реально добавлены/изменены исходники в
+`assets/source/`. Для обычных правок HTML/CSS/JS/текста: `npm run build`.
+
 ## 1. Входные данные
 
 - [ ] Получить ссылку на дизайн.
@@ -14,7 +45,7 @@
 - [x] Получить или создать доступ к Cloudflare.
 - [ ] Уточнить, какие страницы нужны.
 - [ ] Уточнить, какие формы нужны.
-- [ ] Уточнить, куда отправлять заявки: email, Telegram, CRM, Google Sheets или другое.
+- [x] Уточнить, куда отправлять заявки: Google Sheets работает; email нужен на `losoma@web.de`, SMTP ждёт доступ к WEB.DE.
 - [ ] Уточнить, нужна ли CMS или контент будет меняться через код.
 - [ ] Уточнить языковые версии.
 - [ ] Уточнить юридические страницы: Privacy Policy, Cookie Policy, Terms.
@@ -41,7 +72,7 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 
 - [ ] Проверить текущую структуру проекта.
 - [ ] Добавить или обновить README.
-- [ ] Добавить `.env.example`, если появится backend.
+- [x] Добавить `.env.example`, если появится backend.
 - [x] Проверить `.gitignore`.
 - [x] Зафиксировать команды запуска и деплоя.
 - [x] Описать структуру проекта.
@@ -52,8 +83,8 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 - [ ] Разобрать дизайн на компоненты.
 - [x] Зафиксировать правило верстки: сначала Figma `get_design_context` / CSS Dev Mode values, затем перевод в веб-систему через semantic classes, grid/flex, `rem` и `clamp()`.
 - [x] Зафиксировать Finsweet Client-First как стандарт нейминга классов.
-- [ ] Мигрировать существующие project-owned классы с BEM `__` / `--` на Client-First.
-- [ ] После миграции включить `npm run audit:classes:strict` в проверочный процесс.
+- [x] Мигрировать существующие project-owned классы с `__` / `--` на Client-First.
+- [x] После миграции включить `npm run audit:classes:strict` в проверочный процесс.
 - [ ] Зафиксировать дизайн-токены: цвета, типографика, spacing, breakpoints, radius.
 - [ ] Подключить шрифты.
 - [ ] Оптимизировать изображения.
@@ -82,7 +113,7 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 - [ ] Заполнить `description` для каждой страницы.
 - [ ] Настроить Open Graph.
 - [ ] Настроить favicon.
-- [ ] Добавить `robots.txt`.
+- [x] Добавить `robots.txt`.
 - [ ] Добавить `sitemap.xml`.
 - [ ] Проверить canonical URL.
 - [ ] Проверить 404 страницу.
@@ -92,16 +123,16 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 
 - [ ] Определить endpoint'ы.
 - [ ] Добавить `GET /api/health`.
-- [ ] Добавить endpoint для формы, например `POST /api/contact`.
-- [ ] Добавить server-side validation.
-- [ ] Добавить Cloudflare Turnstile verification.
-- [ ] Добавить rate limiting.
+- [x] Добавить endpoint для формы: `POST /api/contact`.
+- [x] Добавить server-side validation.
+- [ ] Добавить Cloudflare Turnstile verification, если реально понадобится антибот-слой сильнее honeypot/rate limit.
+- [x] Добавить rate limiting.
 - [ ] Настроить CORS.
-- [ ] Настроить отправку заявок.
+- [ ] Настроить отправку заявок: Google Sheet через Apps Script работает; email на `losoma@web.de` ждёт SMTP WEB.DE.
 - [ ] Настроить логирование.
 - [ ] Настроить обработку ошибок.
 - [ ] Проверить fallback на случай ошибки email/Telegram/CRM.
-- [ ] Подготовить `.env.example`.
+- [x] Подготовить `.env.example`.
 - [ ] Проверить backend локально.
 - [ ] Проверить backend на staging.
 
@@ -119,7 +150,10 @@ GA_MEASUREMENT_ID=
 GTM_ID=
 ```
 
-## 7. Cloudflare
+## 7. Cloudflare DNS/security only (optional)
+
+Cloudflare Pages is **not** the final hosting target. Use this section only if Cloudflare is needed for DNS,
+SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 
 - [ ] Добавить домен в Cloudflare.
 - [ ] Поменять nameservers у регистратора.
@@ -131,11 +165,11 @@ GTM_ID=
 - [ ] Настроить caching.
 - [ ] Настроить Redirect Rules, если нужны.
 - [ ] Настроить WAF, если нужен.
-- [ ] Настроить environment variables для Pages/Workers.
-- [ ] Настроить preview/staging deployments.
-- [x] Подготовить Cloudflare Pages headers.
-- [x] Подготовить Cloudflare Pages redirects.
-- [x] Создать Cloudflare Pages project `losoma`.
+- [ ] Настроить environment variables для Workers, если появится Cloudflare backend.
+- [ ] Настроить preview/staging deployments, если клиент явно вернёт Cloudflare Pages в работу.
+- [x] Исторически подготовлены Cloudflare Pages headers.
+- [x] Исторически подготовлены Cloudflare Pages redirects.
+- [x] Исторически создан Cloudflare Pages project `losoma`; сейчас не финальный hosting target.
 - [x] Выполнить Cloudflare Wrangler login.
 
 ## 8. Cloudflare Turnstile
@@ -164,7 +198,7 @@ GTM_ID=
 - [x] Связать Vercel project с GitHub repo.
 - [x] Проверить Vercel production URL.
 - [x] Проверить, что в Vercel остался только alias `losoma-pi.vercel.app`.
-- [ ] Добавить env variables.
+- [x] Добавить env variables для текущей формы: Apps Script webhook + secret + recipient.
 - [x] Выполнить первый staging deploy.
 - [ ] Проверить staging URL.
 - [ ] Подключить custom domain.
@@ -193,59 +227,80 @@ GTM_ID=
 
 ## 11. Формы
 
-- [ ] Подключить frontend-формы к backend.
-- [ ] Добавить client-side validation.
-- [ ] Добавить server-side validation.
-- [ ] Добавить Turnstile widget.
-- [ ] Проверить Turnstile verification на backend.
-- [ ] Добавить состояния: idle, submitting, success, validation error, server error.
-- [ ] Защитить от повторной отправки.
-- [ ] Проверить rate limit.
-- [ ] Проверить доставку заявки.
-- [ ] Проверить ошибку доставки.
+- [x] Подключить frontend-формы к backend.
+- [x] Добавить client-side validation.
+- [x] Добавить server-side validation.
+- [ ] Добавить Turnstile widget, если honeypot/rate limit окажутся недостаточными.
+- [ ] Проверить Turnstile verification на backend, если Turnstile будет включён.
+- [x] Добавить состояния: idle, submitting, success, validation error, server error.
+- [x] Защитить от повторной отправки.
+- [ ] Проверить rate limit на live endpoint после настройки доставки.
+- [ ] Проверить доставку заявки: Sheet проверен, email pending.
+- [x] Проверить ошибку доставки.
 - [ ] Проверить UX после успешной отправки.
 
 ## 12. Analytics
 
-- [ ] Создать или получить GA4 property.
-- [ ] Получить Measurement ID.
-- [ ] Решить: прямой GA4 или Google Tag Manager.
-- [ ] Подключить GTM/GA4.
-- [ ] Настроить page view.
-- [ ] Настроить form start.
-- [ ] Настроить form submit.
-- [ ] Настроить form success.
-- [ ] Настроить form error.
-- [ ] Настроить CTA click.
-- [ ] Настроить phone click.
-- [ ] Настроить email click.
-- [ ] Настроить messenger click.
-- [ ] Настроить outbound click, если нужен.
+- [x] Создать GA4 account/property/web stream в business Google account.
+- [x] Account name: `Losoma Gebäudeservice`.
+- [x] Property name: `Losoma Website`.
+- [x] Reporting timezone: Germany/Berlin.
+- [x] Currency: EUR.
+- [x] Industry category: `Immobilien`.
+- [x] Business size: `Klein: 1 bis 10 Mitarbeiter`.
+- [x] Business goals: `Leads generieren` и `Web- und/oder App-Traffic analysieren`.
+- [x] Web stream URL: `https://losoma.de`.
+- [x] Web stream name: `Losoma Website`.
+- [x] Enhanced measurement left enabled.
+- [x] Получить Measurement ID: `G-ST55QF95VS`.
+- [x] Решить: прямой GA4 через `gtag.js`, без Google Tag Manager на текущем этапе.
+- [x] Подключить GA4 только после consent.
+- [x] Добавить Consent Mode v2 default denied до загрузки/активации GA4.
+- [x] Настроить default denied для `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`.
+- [x] После согласия на `Statistik` выдавать только `analytics_storage: granted`; ads fields оставить denied.
+- [x] Настроить page view через GA4 config после consent.
+- [x] Настроить form start.
+- [x] Настроить form submit.
+- [x] Настроить form success.
+- [x] Настроить form error.
+- [x] Настроить CTA click.
+- [x] Настроить phone click.
+- [x] Настроить email click.
+- [ ] Настроить messenger click, если появится реальный messenger link.
+- [x] Настроить outbound click.
 - [ ] Настроить conversions в GA4.
 - [ ] Проверить события через GA4 DebugView.
 - [ ] Проверить события после consent.
 
 ## 13. Cookies / Consent
 
-- [ ] Определить категории cookies: necessary, analytics, marketing, preferences.
-- [ ] Добавить cookie banner.
-- [ ] Добавить хранение выбора пользователя.
-- [ ] Добавить возможность изменить выбор.
-- [ ] Интегрировать Google Consent Mode v2.
-- [ ] Не грузить analytics/marketing до согласия, если выбран строгий режим.
-- [ ] Проверить отказ пользователя.
-- [ ] Проверить повторный визит.
-- [ ] Подготовить Cookie Policy.
-- [ ] Подготовить Privacy Policy.
+- [x] Определить категории cookies: только `necessary` и `statistics` для текущего сайта.
+- [x] Зафиксировать первый слой: `Ihre Privatsphäre ist uns wichtig`, ссылка на `/datenschutz`, кнопки `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, без close icon до первого выбора.
+- [x] Зафиксировать второй слой: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, кнопки `Alle akzeptieren` и primary `Auswahl speichern`.
+- [x] Зафиксировать cookie icon: после сохранённого выбора открывает сразу второй слой настроек.
+- [x] Зафиксировать: баннер закрывается только после явного выбора (`Alle ablehnen`, `Alle akzeptieren`, `Auswahl speichern`).
+- [x] Зафиксировать: на первом визите нет `X`/close icon; после сохранённого выбора settings panel можно закрывать без изменений, если UI это предусматривает.
+- [x] Зафиксировать: `Marketing`, `Externe Medien`, `Preferences` не добавлять, пока реально нет Ads, внешних media/maps или preference storage.
+- [x] Добавить cookie banner.
+- [x] Добавить хранение выбора пользователя.
+- [x] Добавить возможность изменить выбор.
+- [x] Интегрировать Google Consent Mode v2.
+- [x] Не грузить/не активировать analytics до согласия на `Statistik`.
+- [x] При отзыве `Statistik` выставлять consent denied и удалять GA cookies (`_ga`, `_ga_*`).
+- [ ] Проверить отказ пользователя вручную в браузере.
+- [ ] Проверить повторный визит вручную в браузере.
+- [ ] Проверить повторное открытие настроек через cookie icon и footer button вручную в браузере.
+- [x] Подготовить/обновить Cookie/Consent section в Datenschutzerklärung.
+- [ ] Подготовить Privacy Policy к боевой публикации.
 
 ## 14. Безопасность
 
 - [ ] Проверить, что секреты не попали в код.
 - [ ] Проверить `.env` и `.gitignore`.
 - [ ] Ограничить CORS.
-- [ ] Добавить rate limit.
-- [ ] Валидировать все backend inputs.
-- [ ] Проверять Turnstile server-side.
+- [x] Добавить rate limit.
+- [x] Валидировать все backend inputs.
+- [ ] Проверять Turnstile server-side, только если Turnstile будет включён.
 - [ ] Настроить security headers.
 - [ ] Проверить HTTPS.
 - [ ] Проверить доступ к служебным endpoint'ам.
@@ -305,21 +360,30 @@ Permissions-Policy
 
 ## 17. Production Launch
 
-- [ ] Сделать финальный build.
-- [ ] Проверить staging.
-- [ ] Подключить production domain.
-- [ ] Проверить DNS propagation.
-- [ ] Проверить SSL.
-- [ ] Проверить redirects.
+- [ ] Сделать финальный build: `npm run build` для обычного релиза. `npm run build:images`
+      запускать только если перед релизом добавлялись/менялись исходные изображения.
+- [ ] Проверить, что `dist/` содержит только публичные файлы сайта и не содержит `assets/source`, `assets/normalized`, `.vercel`, `node_modules`, локальные `.env`.
+- [ ] Проверить staging на Vercel/preview URL.
+- [ ] Сделать полный файловый бэкап Hostinger `public_html`.
+- [ ] Сделать бэкап базы данных WordPress.
+- [ ] Отдельно сохранить `.htaccess`, `wp-config.php`, `wp-content/uploads`.
+- [ ] Зафиксировать точный rollback-план: как вернуть текущий WordPress, если новый сайт нужно откатить.
+- [ ] Перевести текущий WordPress в безопасное состояние для отката: скачать архив или переместить файлы в timestamped backup folder, если позволяет место.
+- [ ] Залить содержимое `dist/` в корень Hostinger `public_html`.
+- [ ] Проверить, что корень `public_html` отдаёт новый `index.html`, а не старый WordPress `index.php`.
+- [ ] Проверить `.htaccess`/rewrite rules для clean URLs (`/hausmeisterservice`, `/kontakt`, `/datenschutz`, `/impressum`).
+- [ ] Проверить `losoma.de` по HTTPS.
+- [ ] Проверить redirects и canonical URL.
+- [ ] Проверить все основные страницы на production.
 - [ ] Проверить формы на production.
-- [ ] Проверить Turnstile на production domain.
-- [ ] Проверить GA4 realtime.
-- [ ] Проверить cookie banner.
-- [ ] Проверить sitemap.
+- [ ] Проверить Turnstile на production domain, если он включён.
+- [ ] Проверить GA4 realtime, если аналитика включена.
+- [ ] Проверить cookie banner, если он включён.
+- [ ] Проверить `robots.txt` и `sitemap.xml`.
 - [ ] Добавить сайт в Google Search Console.
 - [ ] Подтвердить ownership в Search Console.
 - [ ] Отправить sitemap в Search Console.
-- [ ] Зафиксировать launch date.
+- [ ] Зафиксировать launch date и список файлов/бэкапов.
 
 ## 18. После запуска
 

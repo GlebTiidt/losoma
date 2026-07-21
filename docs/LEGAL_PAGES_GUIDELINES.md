@@ -42,12 +42,12 @@
 
 ```html
 <section class="legal-page" aria-labelledby="legal-page-title">
-  <div class="legal-page__inner">                 <!-- 12-кол. грид -->
-    <h1 class="legal-page__title" id="legal-page-title">Заголовок</h1>   <!-- слева 1/6 -->
-    <div class="legal-page__content">              <!-- справа 6/-1, flex-column gap 2.5rem -->
+  <div class="legal-page_inner">                 <!-- 12-кол. грид -->
+    <h1 class="legal-page_title" id="legal-page-title">Заголовок</h1>   <!-- слева 1/6 -->
+    <div class="legal-page_content">              <!-- справа 6/-1, flex-column gap 2.5rem -->
       <section class="legal-block" aria-label="…"> <!-- одна секция = один legal-block -->
-        <h2 class="legal-block__title">N. Überschrift</h2>
-        <div class="legal-block__group">           <!-- текст 18px, gap 0.25rem -->
+        <h2 class="legal-block_title">N. Überschrift</h2>
+        <div class="legal-block_group">           <!-- текст 18px, gap 0.25rem -->
           <p>…</p>
           <ul><li>…</li></ul>                      <!-- маркеры = синий кружок (см. ниже) -->
         </div>
@@ -63,10 +63,10 @@
   одна колонка (`1 / -1`).
 - **Разделители** между секциями — `border-bottom: 1px solid #c0c0c0` на `.legal-block`.
 - **Двухколоночные блоки** (как в Impressum: Adresse|Kontakt, USt-ID|Steuernummer) —
-  `.legal-block__row` (`404fr / 523fr`, схлопывается в одну колонку ≤560px) + `.legal-block__col`.
+  `.legal-block_row` (`404fr / 523fr`, схлопывается в одну колонку ≤560px) + `.legal-block_col`.
 - **Приглушённые инлайн-лейблы** («Telefon:», «E-Mail:») — `<span class="legal-label">` (`#767a7b`).
-- **Маркеры списков** = синий кружок, как у точки `.section-label__dot`. Реализовано на
-  `.legal-block__group li::before` (8px круг, `background: var(--color-blue)`, `list-style: none`,
+- **Маркеры списков** = синий кружок, как у точки `.section-label_dot`. Реализовано на
+  `.legal-block_group li::before` (8px круг, `background: var(--color-blue)`, `list-style: none`,
   `padding-left: 1.5rem`). Для новых legal-списков просто использовать `<ul><li>` — стиль применится.
 - **Отступы страницы:** `.legal-page { padding: 11.5rem 0 6.25rem }` (≈100px под фикс-шапкой и
   над футером); планшет/телефон — меньше (см. медиазапросы в `styles.css`).
@@ -75,8 +75,8 @@
 
 ## 3. Оболочка страницы (shell) — копировать у Impressum/Datenschutz
 
-- `<body class="page--solid-header">` — **нет тёмного hero**, поэтому шапка тёмная (ink-логотип
-  + ink-навигация) и frosted с самого верха, статично (без перехода). Детали `page--solid-header`
+- `<body class="is-solid-header">` — **нет тёмного hero**, поэтому шапка тёмная (ink-логотип
+  + ink-навигация) и frosted с самого верха, статично (без перехода). Детали `is-solid-header`
   см. в `SITE.md` / `docs/RESPONSIVE_GUIDELINES.md` §7c.
 - **Шапка + бургер + мобильное меню + футер** — идентичны другим страницам (тот же markup).
 - **Вендоры:** только `lato.css` (self-hosted шрифт) + `lenis` + `script.js`. **Никаких
@@ -92,14 +92,14 @@
 - **Язык — немецкий.** Один `<h1>` на страницу. Заголовки секций — `<h2>` с нумерацией `N.`.
 - **Meta (уникальные на страницу):** `<title>`, `<meta name="description">`,
   `<meta name="robots" content="index, follow">`, `<link rel="canonical">` (абсолютный,
-  чистый, без якорей: `https://losoma-pi.vercel.app/<slug>`), OG (`type/url/title/description/locale=de_DE`).
+  чистый, без якорей: `https://losoma.de/<slug>`), OG (`type/url/title/description/locale=de_DE`).
 - **Favicon/иконки/манифест** — те же 4 строки в `<head>`, что и на всех страницах
   (favicon 32/16, apple-touch-icon, manifest).
 - **Footer «Rechtliches»:** `Impressum` (`/impressum`) + `Datenschutzerklärung` (`/datenschutz`).
   Текущая страница помечает себя `aria-current="page"`. Ссылка на Datenschutz — `/datenschutz`
   на ВСЕХ страницах сайта (не якорь).
-- **Класс-нейминг — BEM** (как и весь проект): `legal-page`, `legal-page__inner`, `legal-block`,
-  `legal-block__title`, `legal-block__group`, `legal-block__row`, `legal-block__col`, `legal-label`.
+- **Класс-нейминг — Client-First-style** (как и весь проект): `legal-page`, `legal-page_inner`, `legal-block`,
+  `legal-block_title`, `legal-block_group`, `legal-block_row`, `legal-block_col`, `legal-label`.
   См. `docs/SEO_AND_CLASS_GUIDELINES.md`.
 
 ---
@@ -108,11 +108,12 @@
 
 - Блок **Verantwortlicher** в Datenschutz должен совпадать с данными **Impressum**
   (имя/форма/адрес/телефон/e-mail). Если меняется Impressum — синхронно меняется Datenschutz.
-- **Открытая нестыковка:** Impressum указывает «Rechtsform: Einzelunternehmen», но перечисляет
-  ДВОИХ (Maxim Soga / Alexandr Lozinschi). Einzelunternehmen = один владелец; двое = обычно GbR.
-  Решить и привести в порядок (см. `LEGALS_CHECKLIST.md`).
-- В Impressum указаны **два адреса** без пояснения (Falkenseer Chaussee 247C / Mindener Strasse 5).
-  В Datenschutz/футере используется `Falkenseer Chaussee 247C, 13583 Berlin`. Уточнить юридический.
+- Текущая публичная версия: **Losoma. Maxim Soga / Alexandr Lozinschi**, Rechtsform: **Einzelunternehmen**. Формулировку владельца/Verantwortlicher сверить с регистрационными документами перед запуском.
+- Подтверждённый текущий адрес на сайте: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`; это Geschäftsadresse, клиентского офиса по адресу нет.
+  Это адрес Александра как бизнес-адрес; отдельного офиса у компании нет. Перед финальной
+  публикацией и Google Business Profile обязательно проверить, можно ли использовать этот адрес
+  в Impressum/Datenschutz, должен ли он быть скрыт в Google как service-area business, и совпадает
+  ли он с регистрационными/налоговыми документами.
 
 ---
 
@@ -120,7 +121,7 @@
 
 | Что | Факт | Раздел политики |
 |---|---|---|
-| Хостинг | **Vercel Inc.** (США), демо `losoma-pi.vercel.app`. Cloudflare — позже. | Hosting + Server-Logfiles, передача в США (DPF/SCC) |
+| Хостинг | **Hostinger / HOSTINGER INTERNATIONAL LIMITED** (Cyprus), final production `losoma.de`. Vercel остаётся staging/backend для формы, если endpoint `/api/contact` продолжает использоваться. | Hosting + Server-Logfiles, AVV/DPA, возможные subprocessors/передачи вне EU/EWR |
 | Шрифты | **Self-hosted Lato** (`assets/vendor/lato/`) — внешних запросов нет | (раздел Google Fonts НЕ нужен) |
 | Форма | План: Cloudflare Function (Turnstile) → Apps Script → **Google Sheet + письмо** на `losoma@web.de`. Бэкенда пока нет. | Kontaktformular (Google как Auftragsverarbeiter) |
 | Спам | План: **Cloudflare Turnstile** | Spam-Schutz / Turnstile |
@@ -128,7 +129,7 @@
 | Cookies | Сейчас нет; с GA появятся → нужен **consent-баннер (CMP)** | Cookies und Einwilligungsverwaltung |
 | Соцсети | Простые ссылки (LinkedIn реальный, FB/IG — заглушки), не виджеты | Links zu sozialen Netzwerken |
 | Надзорный орган | **Berliner Beauftragte für Datenschutz und Informationsfreiheit**, Alt-Moabit 59–61, 10555 Berlin | Beschwerderecht |
-| Передача в США | Vercel / Google / Cloudflare — все США → **EU-US Data Privacy Framework + SCC** | в каждом релевантном разделе |
+| Передача вне EU/EWR | Hostinger subprocessors / Vercel backend / Google / Cloudflare (если включён) → проверять по реальным провайдерам; базовая гарантия — SCC, DPF только где применимо. | в каждом релевантном разделе |
 
 ---
 
@@ -153,12 +154,12 @@
 ## 8. Как добавлять / активировать раздел
 
 1. Текст брать из `DATENSCHUTZ_DRAFT.md` (там полные немецкие формулировки + RU-комментарии).
-2. Новая секция = новый `<section class="legal-block">` с `<h2 class="legal-block__title">N. …</h2>`
-   и `.legal-block__group`. Перенумеровать последующие.
+2. Новая секция = новый `<section class="legal-block">` с `<h2 class="legal-block_title">N. …</h2>`
+   и `.legal-block_group`. Перенумеровать последующие.
 3. При **запуске** сервиса: убедиться, что сервис реально работает И подписан AVV/DPA,
    синхронно обновить раздел; при необходимости включить баннер до GA.
 4. При **отключении/смене** (напр. переезд на Cloudflare) — обновить раздел Hosting
-   (Vercel → Cloudflare), добавить EU-локализацию, проверить адреса обработчиков.
+   (Hostinger → Cloudflare), добавить EU-локализацию, проверить адреса обработчиков.
 5. Дату «Stand: …» ставить актуальную при каждой публикации.
 
 ---

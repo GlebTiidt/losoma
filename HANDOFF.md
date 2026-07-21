@@ -1,426 +1,353 @@
-# Losoma Handoff
+# LOSOMA Handoff
 
-## Current State
+## Immediate Handoff — 2026-07-20
 
-- Static one-page website for Losoma, a Berlin building-services company.
-- Production alias: `https://losoma-pi.vercel.app`
-- Main working directory: `/Users/glebstepanovich/ShipStudio/losoma`
-- Current deploy path is Vercel, not Cloudflare Pages.
-- `about.html` was removed. The site is intentionally one page only.
+This section is the current source of truth and supersedes conflicting historical notes below.
 
-## What The Site Contains
+### Google Account Transfer
 
-1. Hero with full-bleed image, top navigation, and CTA.
-2. Services overview cards.
-3. Quality / brand statement section.
-4. Services catalog slider built with Splide.
-5. "Why Losoma" credibility section.
-6. Collaboration process section.
-7. Team section.
-8. Reviews slider built with Splide.
-9. Contact section with form, dropdown, FAQ, and footer.
+- New managed Google Workspace account confirmed: `maxim@losoma.de`; Google Admin Console is
+  accessible.
+- Existing Google Business Profile remains safe under primary owner `losoma@web.de`.
+- On 2026-07-20, `maxim@losoma.de` was invited to the existing profile as `Inhaber`. The last
+  confirmed state is pending (`AUSSTEHEND`); it has not yet been accepted and is not primary owner.
+- Do not delete/recreate the Business Profile. After acceptance, wait 7 days before transferring
+  `Primärer Inhaber`; keep the old account as a temporary backup.
+- Workspace showed a payment-method/payment warning with a stated suspension risk on 2026-08-03.
+  The SEPA confirmation flow was opened, but successful completion has not been confirmed. Do not
+  record bank details and do not make the Workspace account primary owner until billing is stable.
+- Public DNS checked 2026-07-20 still has Hostinger MX and Hostinger SPF; Google DKIM was absent.
+  Therefore Gmail receipt at `maxim@losoma.de` is not yet proven. Do not enable WEB.DE forwarding
+  or change form recipients until Gmail activation/DNS and an authorized external test succeed.
+- GA4 must be shared to the new account, not recreated. Keep account/property/history and
+  measurement ID `G-ST55QF95VS`. Search Console, Sheets and Apps Script access transfer separately.
+- Full state, safety rules and resume order: `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
-## Section Map
+### Environment And Deployment
 
-### Hero
+- Work and QA **only** on Vercel staging: `https://losoma-pi.vercel.app`.
+- The existing WordPress site on `losoma.de` is completely out of scope. Do not open, inspect, test, edit, deploy to, or send requests to WordPress/Hostinger unless the user explicitly authorizes a specific task.
+- Hostinger/SFTP/SSH, WordPress admin and database access exist, but must not be used until the user separately authorizes backup/launch work.
+- Do not submit the staging form or create Google Sheet rows, emails or analytics test events without warning the user and receiving permission first.
+- Vercel CLI authentication was restored on 2026-07-15. Deploy only when explicitly requested, using `vercel --prod --yes`; in this project that updates the staging alias, not the WordPress site.
+- Current ready staging deployment: `dpl_2CX6guQmQs2jub2kPPuMiRM1Rjwm`, immutable URL `https://losoma-ibz5wu1le-gleb-projects-work.vercel.app`, alias `https://losoma-pi.vercel.app`.
 
-- Classes: `hero`, `hero__media`, `hero__image`, `hero__overlay`, `hero__content`, `hero__service-label`, `hero__service-dot`, `hero__copy`, `hero__title`, `hero__text`, `hero__cta`
-- Top header classes: `header`, `header__brand`, `header__logo`, `nav`, `nav__link`
-- CTA button classes: `button`, `button--accent`, `button__icon`
+### Current Cookie UI
 
-### Services Overview
+- Custom CMP only; implementation is in `script.js` and `styles.css`.
+- First layer has `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`; no close/X before the first decision. `Statistik` defaults OFF and GA4 stays inactive until consent.
+- The footer `Cookie-Einstellungen` control was deliberately removed. Reopening settings is done only with the floating cookie button.
+- Floating button: `44×44px`; cookie SVG: `32×32px`, centered; button background `var(--color-page)` (`#fdfdfc`), icon `var(--color-ink)`, neutral hover `var(--color-surface-hover)` (`#ededed`), no shadow.
+- Desktop: button and panel bottom-left with `var(--content-gutter)` offset.
+- Tablet `≤1024px`: button and panel bottom-right with `24px` inset.
+- Phone `≤560px`: button and panel bottom-right with `16px` inset.
+- Panel: up to `500px`, `16px` padding, `4px` radius, `rgba(253,253,252,.9)` background and `4px` backdrop blur. No dark full-screen visual backdrop.
+- Legal UX note: the reject action is already on the first layer and takes one click. Before launch, consider giving accept/reject comparable visual prominence to reduce nudging risk.
 
-- Section classes: `services-overview`, `services-overview__header`, `services-overview__intro`, `services-overview__title`, `services-overview__text`, `services-overview__cta`, `services-overview__cards`
-- Card classes: `service-card`, `service-card__media`, `service-card__image`, `service-card__overlay`, `service-card__content`, `service-card__title`, `service-card__text`
+### Current Legal And Business Data
 
-### Quality Claim
+- Public names: `Maxim Soga / Alexandr Lozinschi`; legal form shown as `Einzelunternehmen`. Confirm the exact owner/Verantwortlicher wording against registration documents or with a lawyer before launch.
+- Business address: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`.
+- The address is marked `Geschäftsadresse · kein Kundenbüro vor Ort`; there is no customer office.
+- Phone: `+49 176 44434111`; email: `losoma@web.de`; USt-IdNr. `DE357950597`; Steuernummer `19/537/02292`.
+- `impressum.html`, `datenschutz.html`, `kontakt.html`, the homepage, all service pages and every shared footer use the updated address.
+- Final legal review is still required. Confirm that no Datenschutzbeauftragter is appointed, and confirm AVV/DPA for Hostinger, Vercel and Google.
 
-- Section classes: `quality-claim`, `quality-claim__intro`, `quality-claim__title`, `quality-claim__text`, `quality-claim__cta`, `quality-claim__detail`, `quality-claim__points`, `quality-claim__media`, `quality-claim__image`
-- Support classes: `quality-point`, `quality-point__title`, `quality-point__text`
-- Metrics/summary classes: `experience-summary`, `experience-summary__items`, `experience-summary__item`, `experience-summary__value`, `experience-summary__text`
+### Form, Analytics And Launch Blockers
 
-### Services Catalog
+- `POST /api/contact` is implemented with server validation, honeypot, rate limit, duplicate protection and frontend submit locking.
+- Google Sheets delivery through Apps Script works. Email delivery to `losoma@web.de` is still pending WEB.DE SMTP/app password.
+- GA4 measurement ID is `G-ST55QF95VS`; direct `gtag.js` + Consent Mode v2 is implemented. Default consent is denied; only `analytics_storage` is granted after `Statistik` consent.
+- Turnstile is not enabled. Do not enable it unless spam/paid traffic requires it; if enabled, update code, DPA and Datenschutz together.
+- Remaining before launch: SMTP email, permitted form QA, GA4 DebugView/manual consent QA, final legal review, DPA/AVV checks, responsive legal/cookie QA, `sitemap.xml`, absolute OG images, structured data after hours/coordinates/price/founding facts, full backup/rollback, then explicit Hostinger launch authorization.
+- The privacy page currently contains a Turnstile section although Turnstile is not enabled; final legal review must either remove that inactive section or enable the described service.
 
-- Section classes: `services-catalog`, `services-catalog__header`, `services-catalog__title`, `services-catalog__text`, `services-catalog__controls`
-- Slider classes: `service-list`, `service-list__track`, `service-list__list`, `service-catalog-card`, `service-catalog-card__number`, `service-catalog-card__title`, `service-catalog-card__text`, `service-catalog-card__media`, `service-catalog-card__image`
-- Control classes: `slider-controls`, `slider-control`, `services-slider__arrow`, `services-slider__arrow--prev`, `services-slider__arrow--next`
-- Detail link: `details-link`
+## Current Source Of Truth
 
-### Why Losoma
+- Repository: `/Users/glebstepanovich/ShipStudio/losoma`
+- Site type: static HTML/CSS/JS.
+- **Current work and QA target only:** Vercel staging `https://losoma-pi.vercel.app`.
+- **WordPress is completely out of scope:** do not open, inspect, test, edit, deploy to, or send requests to the current WordPress site unless the user explicitly authorizes a specific WordPress task.
+- Do not submit forms or create external test data on staging without warning the user and receiving permission first.
+- Production domain/canonical: `https://losoma.de`.
+- Final hosting target: Hostinger `public_html`.
+- Current Hostinger production still contains the old WordPress site. Do not overwrite it during ordinary development.
+- Vercel `https://losoma-pi.vercel.app` is staging/preview and currently hosts `/api/contact`.
+- Cloudflare Pages references are historical/optional, not the current production plan.
 
-- Section classes: `why-losoma`, `why-losoma__title`, `why-losoma__grid`
-- Card classes: `why-card`, `why-card__media`, `why-card__image`, `why-card__content`, `why-contact-card`, `why-contact-card__label`, `why-contact-card__content`, `why-contact-card__title`, `why-contact-card__text`, `why-contact-card__cta`
+Read `SITE.md`, `CLAUDE.md`, `DEPLOYMENT_CHECKLIST.md`, `SEO_CHECKLIST.md`, `LEGALS_CHECKLIST.md`, and `docs/*` before larger changes.
 
-### Collaboration Process
+## Pages
 
-- Section classes: `collaboration-process`, `collaboration-process__header`, `collaboration-process__intro`, `collaboration-process__title`, `collaboration-process__link`
-- Step classes: `process-steps`, `process-step-card`, `process-step-card__number`, `process-step-card__content`
+- `index.html` — homepage.
+- Service pages:
+  - `hausmeisterservice.html`
+  - `garten-landschaftspflege.html`
+  - `treppenhausreinigung.html`
+  - `gewerbliche-reinigung.html`
+  - `grundreinigung.html`
+  - `industriereinigung.html`
+  - `fassaden-hoehenarbeiten.html`
+  - `winterdienst.html`
+  - `solaranlagenreinigung.html`
+- Contact/legal:
+  - `kontakt.html`
+  - `impressum.html`
+  - `datenschutz.html`
 
-### Team / Reviews
+All pages use clean canonical URLs on `https://losoma.de`.
 
-- Wrapper classes: `team-reviews`, `team-overview`, `team-overview__intro`, `team-overview__members`, `team-card`, `team-card__photo`
-- Reviews classes: `customer-review`, `customer-review__meta`, `customer-review__author-panel`, `customer-review__author-current`, `customer-review__author-next`, `customer-review__controls`, `customer-review__content`, `customer-review__quote-icon`, `customer-review__slider`, `customer-review__track`, `customer-review__list`, `customer-review__slide`
-- Review navigation classes: `customer-review__arrow`, `customer-review__arrow--prev`, `customer-review__arrow--next`
+## Build And QA
 
-### Contact + FAQ
+Use for ordinary work:
 
-- Wrapper classes: `contact-faq`, `contact-panel`, `contact-panel__background`, `contact-form`
-- Form classes: `contact-form__honeypot`, `contact-form__row`, `contact-form_select`, `contact-form_select-toggle`, `contact-form_select-icon`, `contact-form_select-list`, `contact-form_select-option`, `contact-form__check`, `contact-form__check-mark`, `contact-form__submit`
-- Data hooks: `data-honeypot-input`, `data-email-input`, `data-phone-input`, `data-phone-normalized-input`, `data-service-dropdown`, `data-service-dropdown-toggle`, `data-service-dropdown-label`, `data-service-dropdown-list`, `data-service-dropdown-input`
-- FAQ classes: `faq`, `faq__intro`, `faq-list`, `faq-item`, `faq-item__trigger`, `faq-item__icon`, `faq-item__panel`
+```text
+npm run build
+npm run audit:classes
+npm run audit:classes:strict
+node --check script.js
+```
 
-### Footer
+Do not edit `dist/` directly. Do not run the image pipeline unless `assets/source/` changed.
 
-- Footer classes: `footer`, `footer__logo`, `footer__nav`, `footer__nav-column`, `footer__links`, `footer__service-summary`, `footer__cta`, `footer__contact-area`, `footer__contact`, `footer__social`, `footer__legal`
+Image commands:
 
-## Design Tokens
+```text
+npm run assets:images
+npm run build:images
+```
 
-Main CSS variables in `styles.css`:
+## Styling System
 
-- `--color-page`, `--color-ink`, `--color-white`, `--color-accent`, `--color-blue`, `--color-muted`, `--color-surface-hover`, `--color-focus`
-- `--font-sans`
-- `--content-gutter`, `--grid-column-gap`, `--content-column-large`, `--content-column-medium`, `--content-column-small`, `--service-card-width`, `--form-width`, `--header-height`, `--container-width`
-- `--section-gap`, `--section-gap-tight`, `--section-block-padding`
-- `--divider-subtle`, `--divider-on-dark`
-- `--radius-card`, `--radius-soft`, `--radius-field`
-- `--button-height`, `--field-height`, `--control-size`, `--quote-icon-size`
-- `--type-hero-title`, `--type-section-title`, `--type-metric`, `--type-card-title`, `--type-panel-title`, `--type-body-large`, `--type-body`, `--type-body-small`, `--type-caption`, `--type-label`
-- `--motion-fast`, `--motion-medium`, `--motion-cta`
+The project has been migrated to Client-First-style class naming for project-owned classes.
 
-## File Map
+- Blocks: `hero`, `contact-form`, `legal-page`.
+- Elements: one underscore, e.g. `hero_content`, `contact-form_submit`.
+- States/variants: `is-*`, e.g. `button is-accent`, `body.is-solid-header`, `is-open`.
+- Forbidden for project-owned classes: `__` and `--` separators.
+- Allowed exceptions: third-party classes such as `splide__*`, `iti__*`, `cc__*`.
+- JavaScript should prefer `data-*` hooks for behavior.
 
-- `index.html` — complete page structure and copy.
-- `styles.css` — all layout, motion, spacing, typography, and section states.
-- `script.js` — all interactivity, sliders, validation, FAQ, and dropdown logic.
-- `SITE.md` — short live context; keep this synced after edits.
-- `HANDOFF.md` — long-form transfer document.
-- `README.md` — operational notes and deployment references.
-- `CLAUDE.md` — older instruction file; some lines are historical.
-- `docs/SEO_AND_CLASS_GUIDELINES.md` — SEO and naming guidance.
-- `scripts/build-static.mjs` — copies static files into `dist/`.
-- `scripts/optimize-images.mjs` — generates AVIF/WebP variants.
-- `scripts/audit-client-first-classes.mjs` — scans for legacy class patterns.
+Run `npm run audit:classes:strict` after class work.
 
-## Vendor And Library Notes
+## Design Rules
 
-- Lenis: smooth page scrolling.
-- Splide: services slider and reviews slider.
-- intl-tel-input: phone input with Germany-first flag/country selector.
-- Keep these vendored assets in `assets/vendor/`.
-- Do not replace them with custom implementations unless the user explicitly asks.
+- Use existing tokens in `styles.css`.
+- Lato is self-hosted in `assets/vendor/lato/`; do not add Google Fonts links.
+- Typography uses `rem` and `clamp()`, not viewport font sizing.
+- Letter spacing stays `0` unless an existing token explicitly says otherwise.
+- Cards keep restrained radii.
+- Prefer grid/flex and semantic layout. Use absolute positioning only for real overlays, media layers and animation internals.
+- Keep the responsive breakpoints from `docs/RESPONSIVE_GUIDELINES.md`.
 
-## Styling Rules
+## JavaScript Inventory
 
-- Font family: `Lato`, loaded from Google Fonts.
-- Main colors:
-  - `--color-ink`: deep navy
-  - `--color-page`: off-white
-  - `--color-white`
-  - `--color-accent`: green accent
-  - `--color-blue`: brand blue
-  - `--color-muted`
-- Layout uses CSS variables for container width, spacing, border radii, typography scales, and motion.
-- Typography uses `rem`/`clamp`, not viewport font sizing.
-- Do not introduce negative letter-spacing.
-- Keep card radii small and restrained.
-- Prefer semantic grid/flex layout. Avoid unnecessary absolute positioning except for overlays and animation layers.
-- Use `picture` with AVIF first, WebP fallback.
-- Do not run image optimization for pure HTML/CSS/JS edits.
-
-## Class Naming Rules
-
-This repo has a mixed naming reality:
-
-- Existing code still contains many legacy BEM-style selectors such as `__` and `--`.
-- The documentation in `docs/SEO_AND_CLASS_GUIDELINES.md` asks for Client-First style for new project-owned code.
-- In practice, do not trigger a large naming migration unless explicitly requested.
-- If you touch a section, keep selectors consistent inside that section and avoid inventing extra class layers.
-- Bind behavior through `data-*` hooks whenever possible.
-- Keep third-party selectors such as `splide__track`, `splide__list`, `splide__slide` intact.
-
-Preferred pattern for new behavior hooks:
-
-- Use `data-*` for JS selectors.
-- Use `is-*` for state classes.
-- Avoid attaching JS to purely visual selectors when a data hook exists.
-
-## JavaScript Rules
-
-Startup flow from `script.js`:
+Startup flow in `script.js`:
 
 1. `initCurrentYear()`
 2. `initSmoothScroll()`
-3. `initServicesSlider()`
-4. `initReviewsSlider()`
-5. `initServiceDropdown()`
-6. `initFormHoneypot()`
-7. `initEmailValidation()`
-8. `initPhoneValidation()`
-9. `initFaq()`
+3. `initCookieConsent()`
+4. `initHeroVideo()`
+5. `initHeaderScrollState()`
+6. `initServicesSlider()`
+7. `initReviewsSlider()`
+8. `initServiceDropdown()`
+9. `initMobileMenu()`
+10. `initFormHoneypot()`
+11. `initNameValidation()`
+12. `initEmailValidation()`
+13. `initPhoneValidation()`
+14. `initContactFormSubmit()`
+15. `initAnalyticsEventTracking()`
+16. `initFaq()`
 
-### Smooth Scroll
+Behavior hooks include:
 
-- Uses Lenis when available.
-- Skips Lenis for `prefers-reduced-motion: reduce`.
+- `[data-services-slider]`
+- `[data-reviews-slider]`
+- `[data-review-author]`
+- `[data-service-dropdown]`
+- `[data-service-dropdown-toggle]`
+- `[data-service-dropdown-label]`
+- `[data-service-dropdown-list]`
+- `[data-service-dropdown-input]`
+- `[data-honeypot-input]`
+- `[data-email-input]`
+- `[data-phone-input]`
+- `[data-phone-normalized-input]`
+- `[data-contact-form]`
+- `[data-faq]`
 
-### Services Slider
+Keep Splide for the services and reviews sliders. Keep intl-tel-input for phone country/validation UI. Keep Lenis disabled for users with `prefers-reduced-motion: reduce`.
 
-- Uses Splide with `autoWidth`, `trimSpace`, and custom nav buttons.
-- Service cards are clickable and keyboard-activatable.
-- Controls are disabled/enabled based on real slider position, not just index.
-- Pagination is removed after mount.
+## Forms
 
-### Reviews Slider
-
-- Uses Splide and must stay on Splide.
-- Do not replace it with a manual slider unless explicitly requested.
-- Review author animation must stay on the same single crossfade path as review text.
-- Do not reintroduce staggered fade-out/fade-in logic for the author label.
-- Slider height is synced from `scrollHeight` of the active slide.
-
-### Service Dropdown
-
-- Uses a custom dropdown in the contact form.
-- `data-lenis-prevent` is required on the scrollable list so page smooth-scroll does not steal wheel events.
-- Dropdown closes on outside click and supports keyboard navigation.
-
-### Form Validation
-
+- Endpoint: `POST /api/contact`.
 - Honeypot field: `company_website`.
-- Email:
-  - spaces are blocked on input,
-  - whitespace is stripped before validation,
-  - invalid addresses are rejected with `setCustomValidity`.
-- Phone:
-  - Germany is default country,
-  - visible field is digit-only,
-  - `intl-tel-input` provides country/flag UI and validation,
-  - normalized number is stored in hidden `name="phone"` field.
+- Current backend protection: server validation, honeypot, rate limit, duplicate detection and frontend submit locking.
+- Google Sheets delivery works via Apps Script.
+- Email delivery to `losoma@web.de` is pending WEB.DE SMTP/app password.
+- Turnstile is deferred unless the current protections become insufficient.
 
-### FAQ
+## Analytics And Cookie Consent
 
-- Only one FAQ item opens at a time.
-- Height animation is based on measured panel height.
-- Open state keeps the icon hover color and rotates the plus into a cross-like state.
+- GA4 is required and has been created in the business Google account.
+- Measurement ID: `G-ST55QF95VS`.
+- GA4 setup choices: account `Losoma Gebäudeservice`, property `Losoma Website`, web stream `https://losoma.de`, timezone Germany/Berlin, currency EUR, industry `Immobilien`, size `Klein: 1 bis 10 Mitarbeiter`, business goals `Leads generieren` and `Web- und/oder App-Traffic analysieren`.
+- Implementation rule: direct `gtag.js` + Consent Mode v2, not GTM at this stage.
+- Consent default before user choice: `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization` all denied.
+- After `Statistik` consent: grant only `analytics_storage`. Ads fields stay denied unless Google Ads is added later.
+- If the user revokes `Statistik`, set analytics consent back to denied and delete GA cookies (`_ga`, `_ga_*`).
+- Cookie banner UI is implemented in `script.js`/`styles.css` from the approved Figma direction.
+- Approved UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before first choice. Second layer `Cookie-Einstellungen`: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, secondary `Alle akzeptieren`, primary `Auswahl speichern`. Cookie icon/footer button reopen the settings layer directly after a saved choice.
+- Verification done: `node --check script.js`, `npm run build`, `npm run audit:classes:strict`. Browser-plugin visual QA was blocked by the local Node runtime being below the browser plugin requirement; run manual browser QA or retry after updating the runtime.
 
-## JavaScript Behavior Inventory
+## Historical Session Handoff: Cookie/Figma Implementation — 2026-07-11
 
-Startup order in `script.js`:
+Historical reference only. The 2026-07-16 Immediate Handoff above overrides conflicting dimensions, positioning and footer-control notes. Figma access was restored under `stepanovich_gleb@icloud.com`; the Losoma team seat is View, which is enough for design context/screenshots but not Figma edits.
 
-1. `initCurrentYear()`
-2. `initSmoothScroll()`
-3. `initServicesSlider()`
-4. `initReviewsSlider()`
-5. `initServiceDropdown()`
-6. `initFormHoneypot()`
-7. `initEmailValidation()`
-8. `initPhoneValidation()`
-9. `initFaq()`
+### Cookie Banner Rules
 
-### Important JS hooks
+- Figma source of truth: file `I6ham48xlFvt4cEQmf75i7`; main context `178:99`; first layer `178:55`; second layer `178:66`; OFF toggle `178:83`; ON toggle `178:90`; default cookie icon `178:92`; cookie-icon hover `178:95`.
+- Desktop panel for both layers: width `500px`, padding `16px`, radius `4px`, background `rgba(253,253,252,0.9)`, `backdrop-filter: blur(4px)`, no box shadow. Both layers use the same translucency and blur.
+- Desktop panel/button stay bottom-left. Tablet and phone panel/button are intentionally bottom-right; see the current handoff above.
+- Figma typography/spacing used in the banner: title `22px` bold, body `18px` light, option title `18px` bold, option description `14px` light, `Immer aktiv` `12px` bold; primary structural gaps are `8px`, `12px`, and `16px`; action buttons are about `44px` high with `18px` text.
+- Exact Figma toggle rule (`178:83` OFF / `178:90` ON): track is `40×20px`; thumb is `16×16px` and must stay vertically centered with `top:50%` + `translateY(-50%)`. The thumb starts 2px from the left and travels 18px, leaving the same 2px inset at the right in ON. OFF uses page `#fdfdfc` with blue `#0b6891` border/thumb. ON uses green `#86e83d` with blue `#0b6891` border/thumb. The disabled necessary toggle is checked, non-clickable, and `opacity:40%`; an enabled checked statistics toggle stays at `opacity:100%`.
+- Current floating button overrides the old Figma size: `44×44px`, internal icon `32×32px`, page-color background, ink icon, neutral surface hover, no shadow.
+- Do not restore a full-page dark consent backdrop: the approved main-screen composition (`178:99`) keeps the site/hero visible behind the translucent panel.
 
-- Services slider root: `[data-services-slider]`
-- Reviews slider root: `[data-reviews-slider]`
-- Reviews author label: `[data-review-author]`
-- Service dropdown root: `[data-service-dropdown]`
-- Service dropdown toggle: `[data-service-dropdown-toggle]`
-- Service dropdown label: `[data-service-dropdown-label]`
-- Service dropdown list: `[data-service-dropdown-list]`
-- Service dropdown hidden value: `[data-service-dropdown-input]`
-- Honeypot: `[data-honeypot-input]`
-- Email field: `[data-email-input]`
-- Phone field: `[data-phone-input]`
-- Normalized phone hidden field: `[data-phone-normalized-input]`
-- FAQ root: `[data-faq]`
+- Custom cookie banner only; no external CMP.
+- Categories:
+  - `Notwendige Cookies` / necessary: always active, cannot be disabled.
+  - `Statistik`: Google Analytics / GA4, default OFF.
+- Do not add `Marketing`, `Externe Medien`, or `Preferences` until the site actually uses Google Ads, embedded external media/maps, or preference storage.
+- First layer:
+  - Heading: `Ihre Privatsphäre ist uns wichtig`
+  - Body: `Wir nutzen notwendige Cookies. Google Analytics verwenden wir nur mit Ihrer Einwilligung. Mehr dazu in unserer Datenschutzerklärung.`
+  - `Datenschutzerklärung` links to `/datenschutz`.
+  - Buttons: `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`.
+  - No close/X before the first explicit choice.
+- Second layer:
+  - Heading: `Cookie-Einstellungen`
+  - Intro: `Hier können Sie festlegen, welche Dienste wir verwenden dürfen.`
+  - `Notwendige Cookies` shown ON and disabled, with `Immer aktiv`.
+  - `Statistik` OFF by default.
+  - Secondary button: `Alle akzeptieren`.
+  - Primary button: `Auswahl speichern`.
+- `Alle ablehnen` saves only necessary cookies.
+- `Auswahl speichern` saves the current toggle state.
+- The banner closes only after explicit `Alle ablehnen`, `Alle akzeptieren`, or `Auswahl speichern`.
+- After a saved choice, the floating cookie icon opens the second settings layer directly. There is no footer cookie button.
+- No separate cookie page.
 
-### Services slider rules
+### GA4 Rules
 
-- Splide is used with `autoWidth`, `trimSpace`, and custom arrows.
-- Cards are clickable and keyboard-activatable.
-- Controls are disabled or enabled based on the actual slider position, not just the index.
-- Pagination is removed after mount.
+- Measurement ID: `G-ST55QF95VS`.
+- Account: `Losoma Gebäudeservice`.
+- Property: `Losoma Website`.
+- Web stream: `https://losoma.de`.
+- Timezone: Germany/Berlin.
+- Currency: EUR.
+- Industry: `Immobilien`.
+- Size: `Klein: 1 bis 10 Mitarbeiter`.
+- Goals: `Leads generieren` + `Web- und/oder App-Traffic analysieren`.
+- Use direct `gtag.js`; no GTM at this stage.
+- Consent Mode v2 default before any user choice:
+  - `analytics_storage: denied`
+  - `ad_storage: denied`
+  - `ad_user_data: denied`
+  - `ad_personalization: denied`
+- After `Statistik` consent, grant only `analytics_storage`; keep ads fields denied unless Google Ads is added later.
+- Do not load/activate GA4 before `Statistik` consent.
+- If `Statistik` is revoked, set consent back to denied and delete `_ga` / `_ga_*`.
+- Gated events currently intended:
+  - page view / GA4 config after consent
+  - `form_start`
+  - `form_submit`
+  - `form_success`
+  - `form_error`
+  - `cta_click`
+  - `phone_click`
+  - `email_click`
+  - `outbound_click`
+  - `messenger_click` only if a real messenger link appears later.
 
-### Reviews slider rules
+### Legal Rules
 
-- Splide must stay on reviews.
-- Do not replace reviews with a manual slider unless the user explicitly asks.
-- Review author animation must stay on the same single crossfade path as review text.
-- Do not reintroduce staggered fade-out/fade-in logic for the author label.
-- The author label uses a stacked `current` and `next` span during transition, then collapses back to one span.
-- Slider height is synced from `scrollHeight` of the active slide.
+- `/datenschutz` must describe the real current implementation:
+  - necessary cookies
+  - custom consent banner
+  - GA4 only after consent
+  - Google Sheets/form processing where applicable
+- `datenschutz.html` Stand date is `Juli 2026`.
+- Final legal review is still needed via e-Recht24 / activeMind / lawyer.
+- Confirm AVV/DPA before final launch:
+  - Hostinger
+  - Google for GA4 / Sheets / Apps Script / Gmail or Workspace
+  - Vercel while `/api/contact` processes submissions
+- Turnstile is not enabled now; add only if spam or paid traffic requires it.
+- Google Maps is not embedded now.
 
-### Service dropdown rules
+### Current Implementation
 
-- `data-lenis-prevent` is required on the dropdown list so page smooth-scroll does not steal wheel input.
-- Dropdown closes on outside click.
-- Keyboard support includes ArrowDown, ArrowUp, Enter, Space, and Escape.
+- Cookie/GA code is in `script.js`.
+- Cookie UI styles are in `styles.css`.
+- No footer cookie settings button is injected; it was deliberately removed.
+- Floating cookie icon is injected by JS.
+- Consent is stored in `localStorage` under `losoma_cookie_consent`.
+- `dist/` has been rebuilt with `npm run build`.
+- Verification passed:
+  - `node --check script.js`
+  - `npm run build`
+  - `npm run audit:classes:strict`
+- Figma connector is working again. The supplied desktop states were compared with Figma and iteratively checked by the user on Vercel screenshots. The in-app browser runtime was unavailable, so there was no separate automated local screenshot pass.
+- Current staging deployment is recorded in the 2026-07-16 Immediate Handoff above.
+- Hostinger / `losoma.de` was not touched.
 
-### Form validation rules
+### Remaining QA
 
-- Honeypot field name: `company_website`.
-- Email:
-  - spaces are removed on input,
-  - whitespace is stripped before validation,
-  - invalid addresses are rejected with `setCustomValidity`.
-- Phone:
-  - Germany is default country,
-  - visible field is digit-only,
-  - `intl-tel-input` provides the country/flag UI,
-  - normalized number is stored in hidden `name="phone"` field.
+- Recheck the final 2px right inset of the ON thumb on Vercel after cache refresh; the last correction changed checked travel from 20px to 18px.
+- Do a final responsive/manual pass at tablet and phone widths (320/360/390/414px), including long German copy, scrolling of the settings panel, focus states, reject/accept/save, repeated visit and floating-icon reopen.
+- Verify GA4 behavior separately in DebugView: no analytics before consent, events after Statistik consent, and cookie deletion after revocation.
 
-## Content / SEO Rules
+## SEO
 
-- Main language is German.
-- Keep one H1 on the page.
-- Use direct, specific headings and CTAs.
-- Avoid generic marketing filler.
-- The page is about building services in Berlin, primarily for residential and commercial property management.
-- Current public alias for all user-facing references: `https://losoma-pi.vercel.app`
+- Production canonical and `og:url`: `https://losoma.de`.
+- Main page canonical: `https://losoma.de/`.
+- Service/legal/contact pages use flat clean URLs.
+- `robots.txt` exists.
+- `sitemap.xml` is still pending.
+- Structured data is pending final business facts.
 
-## Assets And Build Rules
+## Explicit Final Launch Sequence
 
-- `assets/source/` contains original PNG/JPEG inputs.
-- `assets/generated/` contains Sharp outputs, one AVIF and one WebP per source.
-- `assets/static/` contains static non-generated files like the logo.
-- `assets/vendor/` contains vendored third-party assets:
-  - Lenis
-  - Splide
-  - intl-tel-input
-- Build command: `npm run build:static`
-- Image pipeline command: `npm run assets:images`
-- Full deploy command: `npm run deploy`
-- Preview deploy command: `npm run deploy:preview`
-- `dist/` is generated output and should not be edited directly.
-- Run the image pipeline only when `assets/source/` changes.
+Do not execute this sequence until the user explicitly authorizes a Hostinger/WordPress launch task.
 
-## Known Runtime Notes
+1. Close launch blockers: legal owner/Verantwortlicher wording, DPO confirmation, final privacy review, real-service alignment, Hostinger/Vercel/Google DPA/AVV, WEB.DE SMTP, permitted form/GA4 QA, sitemap/OG/Schema decisions and final responsive/accessibility QA.
+2. Record the current Vercel staging deployment and run `npm run build`, `node --check script.js`, and `npm run audit:classes:strict`.
+3. Inspect Hostinger/WordPress only after authorization. Make a full backup of files and database; include `public_html`, `.htaccess`, `wp-config.php`, `wp-content/uploads` and a database export. Verify the backup is readable before changing production.
+4. Prepare a rollback path that can restore both files and database. Do not delete the only WordPress copy.
+5. Upload the generated `dist/` contents to the production web root using the authorized Hostinger method. Do not run the image pipeline unless source images changed.
+6. Verify `https://losoma.de`: HTTPS, clean URLs, canonical/OG, robots/sitemap, every page, legal pages, responsive layouts, cookies/GA consent, forms/email, headers, favicon, 404 and no unexpected external requests.
+7. Keep rollback materials until the user confirms the new production site is accepted.
 
-- The live production site is on Vercel.
-- The working production alias is `https://losoma-pi.vercel.app`.
-- Old Cloudflare Pages references in older notes are historical, not the current source of truth.
-- `about.html` is gone. Do not bring it back without an explicit request.
-- The repo still contains some legacy BEM-style classes because the project already uses them heavily.
-- New work should keep the touched section internally consistent instead of starting a broad naming migration.
-- When a section is edited deeply, keep its class family coherent and avoid half-migrating only part of it.
+## Legal
 
-## Section Content Notes
+- `impressum.html` and `datenschutz.html` use the shared `.legal-page` component.
+- Datenschutz hosting provider is Hostinger / `HOSTINGER INTERNATIONAL LIMITED`, Cyprus.
+- Hostinger AVV/DPA must be activated or confirmed before final launch.
+- Vercel DPA remains relevant while `/api/contact` processes submissions there.
+- The privacy page intentionally includes not-yet-live services for lawyer review: consent banner, GA and Turnstile.
 
-### Hero
+## Launch Rule
 
-- Full-viewport image hero.
-- Top navigation links to main sections.
-- Primary CTA leads to the contact form.
+Do not launch to Hostinger unless explicitly requested.
 
-### Services overview
+Before final launch:
 
-- Three cards: object care/handyman, cleaning, specialized services.
-- This is a high-level overview, not the detailed carousel.
-
-### Quality claim
-
-- Brand statement section with two principle cards plus a supporting image.
-- Also includes proof points for experience and number of objects.
-
-### Services catalog
-
-- Horizontal Splide carousel of nine services.
-- Cards are wide and clickable.
-- Each card has number, title, description, details link, and image.
-
-### Why Losoma
-
-- Four-card credibility block with one CTA card.
-
-### Collaboration process
-
-- Three steps describing how work starts.
-
-### Team / reviews
-
-- Team block currently shows repeated placeholder team cards in the HTML.
-- Reviews block is the section most recently fixed.
-- The author label must stay synchronized with the slide text timing.
-
-### Contact / FAQ
-
-- Form has service dropdown, email, phone, checkbox, and submit CTA.
-- FAQ uses height animation only, no fade.
-
-## Current Source Files Worth Reading First
-
-- `index.html` for structure and copy
-- `styles.css` for layout and motion
-- `script.js` for interaction and validation
-- `SITE.md` for the short current context
-- `docs/SEO_AND_CLASS_GUIDELINES.md` for naming and SEO rules
-- `package.json` for available commands
-
-## Adaptive, Forms & Components (added 2026-06-17)
-
-This block supersedes older notes where they conflict.
-
-### Responsive breakpoints
-- Desktop ≥ 1025px (base). Tablet `@media (max-width: 1024px)`. Phone `@media (max-width: 560px)`. No landscape-phone breakpoint.
-- Header collapses to the burger at `@media (max-width: 1150px)` (where the fluid desktop nav stops fitting — tunable).
-- Status: **tablet (≤1024) is complete for the whole page** — header, mobile menu, Hero, services-overview, quality-claim, services-catalog, why-losoma, collaboration-process, team-reviews, customer-reviews, the contact CTA panel (Figma 29:573), the FAQ block (Figma 29:610), and the footer (Figma 29:668). **Phone (≤560): Hero (Figma 29:733) + services-overview (Figma 29:756) are DONE** (`@media (max-width: 560px)` block at the end of `styles.css`, with a phone `:root`). Phone `:root` tokens: `--section-gap` + `--section-gap-tight` = 5rem (**80px between every section on phone**), `--button-height` = 2.5rem (40px). Phone side gutter = 16px. Hero: content padding 16px, title 32px, body 18px, CTA static layout inline, overlay kept uniform `rgba(4,23,31,0.3)` (Figma gradient ignored by request). services-overview: single column, title 28px, body 16px, link-button text 16px, cards 400px tall. quality-claim (Figma 29:790/29:791/29:819): single column 16px gutters, intro title 28px / body 16px, **intro divider full-bleed** (negative inline margin on `.quality-claim__intro`) with all other dividers inset, principle titles 20px / text 16px, image 500px, metric values 40px / text 18px. services-catalog slider (Figma 29:835, card 29:854): 16px gutters, peek-next-card kept (card capped 360px), title 28px, card number 44px / title 20px / text 14px, **both gaps around "Details ansehen" = 16px (above text→link and below link→image; user override of the 24px export)**, image 240px. why-losoma (Figma 29:957): single column 16px gutters, title 28px, 3 image cards 350px (titles 24px / text 16px), navy contact card 300px with title 28px / text 16px / green link-button text 16px. collaboration-process (Figma 29:999): single column 16px gutters, title 28px, CTA link-button text 16px, 3 step cards 200px (step title 20px / text 16px). team-overview (Figma 29:1033): 16px gutter on the whole `.team-reviews` wrapper, team cards 2-col→1-col with 24px row gap, photo fixed 350px, title 28px (name 24px / role 18px already matched). customer-reviews (29:1073): quote text 20px, top+bottom borders kept (24px to bottom border) with 50px off-white below it (`.contact-faq margin-top`) so the border stays visible against the dark CTA. contact CTA panel (29:1092): full-bleed dark, navy form 16px padding, h2 28px. FAQ (29:1129): 32px below the CTA, top border inset 16px (gutter via margin, not padding, so the border isn't edge-to-edge), h2 28px, question 20px, plus icon 32px. All phone dividers are real borders, not absolute lines. footer (29:1187): single column, link groups stacked, headings 14px / body 16px. **Phone (≤560) responsive is now COMPLETE for the whole page** (alongside desktop + tablet). Spacing exceptions: reviews 50px under team; CTA + FAQ + footer run flush as one stack. Build each from its Figma frame (ask for node ids) — never eyeball adaptive layouts.
-
-### Desktop fluid typography (one place)
-- In `@media (min-width: 1025px) :root` the type tokens are redefined as clamps that max at the Figma value and shrink ~2px (section H2 ~6px) toward 1025px: `--type-section-title` 42→36, `--type-card-title` 28→26, `--type-panel-title` 24→22, `--type-body-large` 22→20, `--type-body` 18→16, `--type-body-small` 16→14, `--type-label` 14→12.
-- Hero H1 (`.hero__title`) has its own desktop clamp `clamp(2.5rem, 3.9vw, var(--type-hero-title))`.
-- These are desktop-only by design — tablet/phone take Figma sizes per section. To scale type on tablet/phone too, extend in those media queries.
-
-### Header structure
-- `.header` (desktop): grid; `.header__brand` (logo) + `.header__actions` (grid-column `6 / -1`, flex `space-between`) wrapping `.nav` + `.header__cta`. The actions group keeps the nav left edge aligned with the hero heading and prevents nav/CTA collision.
-- `≤1150px`: `.header` becomes flex `space-between`, `.header__actions` is `display:none`, `.menu-toggle` is `display:grid`.
-- `.header` z-index is 3 (above the mobile menu).
-
-### Desktop header scroll behaviour (>1150px, added 2026-06-20)
-- The header is `position: fixed` and a **fixed 80px bar** at all times — `min-height: 5rem; padding-top: 0` inside the `@media (min-width: 1151px)` block. The height never animates.
-- **Frosted blur on scroll:** a full-bleed `.header::before` (`width: 100vw`, `left: 50%` + `translateX(-50%)`, `z-index: -1`) carries `background: rgba(253,253,252,0.72)` + `backdrop-filter: blur(14px) saturate(1.08)`. It's `opacity: 0` over the hero and fades to `1` on `.header.is-scrolled` (`transition: opacity var(--motion-medium)`). No border, shadow, or gradient mask — plain solid blur.
-- **Colour crossfade:** on `.is-scrolled`, `.nav__link` → ink and `.header__logo--light` → `opacity: 0` (reveals the always-solid dark logo underneath).
-- **Footer hide:** `.header.is-hidden { transform: translateY(-100%) }` slides the whole bar up out of view; `.header` has `transition: transform var(--motion-medium)`.
-- **JS** (`initHeaderScrollState`): one IntersectionObserver on `.hero` (negative top rootMargin = header height, recomputed on resize) toggles `.is-scrolled`; a second on `.footer` (rootMargin `0px 0px -35% 0px`) toggles `.is-hidden`. All visual rules gated to `@media (min-width: 1151px)`, so tablet/phone burger header is untouched.
-- **Rejected this session — do NOT reintroduce:** header shrink/height animation; hairline/shadow under the bar; gradual/progressive blur (Josh Comeau `mask-image` technique). The user reviewed each and chose the plain fixed-height solid-blur version.
-
-### Burger toggle
-- Markup: `.menu-toggle > .menu-toggle__box > 3× .menu-toggle__line`, hook `data-menu-toggle`.
-- Style: 40px `--color-accent` button, `--radius-card`; lines 1.5px tall, 20px wide, `--color-ink`, `transform-origin: center`.
-- Open (`.menu-toggle.is-open`): line1 `translateY(5.25px) rotate(45deg)`, line2 `opacity:0`, line3 `translateY(-5.25px) rotate(-45deg)` → centred X. (We tried the CodePen `#nav-icon4` left-hinge first; the user wanted it centred.)
-
-### Mobile menu overlay
-- Markup: `.mobile-menu` (id `mobile-menu`, hooks `data-mobile-menu` + `data-lenis-prevent`) inside `.hero`, after the header. Contains `.mobile-menu__nav` (`.mobile-menu__heading` "Leistungen" + `.mobile-menu__links` with 9 `.mobile-menu__link`) and `.mobile-menu__footer` (`.mobile-menu__tagline` + `.mobile-menu__cta`).
-- Style (in the ≤1150 block): `position:fixed; inset:0; z-index:2; background:#0a163e; overflow-y:auto`, hidden via opacity/visibility until `body.is-menu-open`. Nav pushed down with `margin-top:auto`; footer at the bottom.
-- z-index inside `.hero`: header (3) > mobile-menu (2) > hero__content (1) so logo + burger stay visible above the open overlay.
-- Built from Figma 46:62. **Note:** the Figma menu shows only services (no Über uns / Unser Team / Einblicke / Bewertungen). Links currently go to `#leistungen`.
-
-### Button components (keep separate — do not hack one into the other)
-- `.button` / `.button--accent`: solid green + slide animation (absolute icon, centred text, `::before` dark fill). For "Angebot anfragen" (hero/header). Needs width slack; bad for long text.
-- `.button--static`: clean modifier on `.button` — cancels the slide, makes it inline `icon + 12px gap + text`, `min-width:auto`, `justify-content:center`, and neutralises the hover transforms. Defined once (after the hover `@media` block). For tablet/menu CTAs (Figma 29:226 / 46:65). The mobile menu "Kontakt aufnehmen" uses `button button--accent button--static`.
-- `.link-button` / `.link-button--green`: square icon + text, square expands on hover. For "Anfrage senden", footer "Kontakt aufnehmen", contact submit, why-contact-card.
-
-### Tablet Hero (≤1024, Figma 29:208)
-- `.hero__content` becomes `position:absolute; inset:auto 0 0 0; flex column; gap 1.5rem; padding 1.5rem`. `.hero__copy` flex column: title, text (`margin-top:1rem`, 20px), CTA (`margin-top:1.5rem`, `align-self:flex-start`). Title `clamp(2.25rem, 6.4vw, 3rem)`. Overlay inherited from desktop (uniform `rgba(4,23,31,0.3)`).
-
-### Forms (current behaviour)
-- **Name** (`data-name-input`, `name="name"`, `required`): `initNameValidation()` allows only letters (incl. umlauts/accents), spaces, hyphens, apostrophes, dots; blocks other chars on input, strips on paste, rejects on submit. Pure regex, no library.
-- **Email** (`data-email-input`, `required`): `initEmailValidation()` — regex format validation + space blocking, **plus** the vendored `mailcheck` (`assets/vendor/mailcheck/mailcheck.min.js`, loaded before `script.js`) suggesting domain-typo corrections on blur via `[data-email-suggestion]` (Germany-first domain lists).
-- **Phone** (`data-phone-input`, `required`): intl-tel-input owns it — `strictMode`, `formatAsYouType`, `formatOnDisplay`, `autoPlaceholder:"aggressive"`, `countrySearch:false`, `separateDialCode`. Normalized E.164 stored in hidden `name="phone"` (`data-phone-normalized-input`). No custom digit-stripping. The email/phone row `.contact-form__row` has `position:relative; z-index:3` so the country dropdown layers above the service field; `.iti__dropdown-content` has an 8px top gap; the country button's left corners are rounded to match.
-- **Service dropdown**: hidden input can't be native-`required` (type=hidden is barred from validation), so `initServiceDropdown()` enforces it on submit — empty → preventDefault + `.is-invalid` (red border) + opens.
-- **Required**: all fields required **except** the message textarea.
-
-### JS startup order (`script.js`)
-`initCurrentYear, initSmoothScroll (exposes window.__lenis), initServicesSlider, initReviewsSlider, initServiceDropdown, initMobileMenu, initFormHoneypot, initNameValidation, initEmailValidation, initPhoneValidation, initFaq`.
-
-### Build & deploy workflow
-- Default: **local build only** — `npm run build:static`. Local server: `http://localhost:61440` (serves `dist/`).
-- Deploy to Vercel (`npx vercel --prod --yes`) **only when the user explicitly asks**. `vercel.json` + project link kept intact.
-- `_headers`: `index.html` / `styles.css` / `script.js` are `max-age=0, must-revalidate` (unhashed names); only `assets/vendor|generated|static` are long-cache immutable.
-
-## Recent Important Decisions
-
-- Reviews stay on Splide.
-- The author label now uses the same crossfade timing path as the review text.
-- Form validation is client-side and intentionally strict.
-- The project is intentionally a single-page site.
-- The current production alias is always `https://losoma-pi.vercel.app`.
-- `HANDOFF.md` is the long transfer file; `SITE.md` is the short live context.
+1. Build with `npm run build`.
+2. Back up current Hostinger `public_html`.
+3. Back up the current WordPress database.
+4. Preserve `.htaccess`, `wp-config.php`, and `wp-content/uploads`.
+5. Upload `dist/` to Hostinger `public_html`.
+6. Verify HTTPS, clean URLs, canonical URLs, forms, legal pages, robots/sitemap and rollback.

@@ -16,14 +16,14 @@
 
 | Тема | Решение |
 |---|---|
-| **Хостинг** | Склоняемся к **Cloudflare Pages** (спам-защита Turnstile/WAF, всё в одном кабинете, EU-локализация). Финально не подтверждён. Текущий рабочий — Vercel. |
+| **Хостинг** | Финальный production-хостинг: **Hostinger** (`losoma.de`). Vercel остаётся staging/backend для формы, пока `/api/contact` используется. |
 | **Шрифты** | ✅ **СДЕЛАНО (2026-06-22).** Lato self-hosted: woff2 + `lato.css` в `assets/vendor/lato/`, внешние `fonts.googleapis.com`/`gstatic.com` убраны со всех 13 страниц. → передачи IP в Google из-за шрифтов больше нет; раздел Google Fonts на странице не нужен. |
-| **Форма** | `Cloudflare Pages Function` (проверка **Turnstile** + honeypot) → **Google Apps Script** → запись строки в **Google Sheet** + письмо на `losoma@web.de`. Отдельный почтовый сервис не нужен (письмо шлёт сам Apps Script). |
-| **Обработчики формы** | Google (Sheets + Gmail/Apps Script) и Cloudflare (Turnstile). |
-| **Аналитика** | **Google Analytics будет подключён 100%** → обязателен **consent-баннер**; GA грузится только после согласия (§ 25 TDDDG). |
-| **Cookies** | Появятся вместе с GA → нужен CMP/баннер (Klaro / CookieConsent бесплатные, либо Cookiebot/Usercentrics платные). |
+| **Форма** | Vercel endpoint `POST /api/contact` (server-side validation + honeypot + rate limit + duplicate protection) → **Google Apps Script** → запись строки в **Google Sheet**. Email через Apps Script не дошёл; следующий шаг — WEB.DE SMTP/app password. |
+| **Обработчики формы** | Vercel endpoint, Google (Sheets + Apps Script); Cloudflare Turnstile только если будет включён позже. |
+| **Аналитика** | ✅ **СДЕЛАНО (2026-07-11).** GA4 создан и подключён напрямую через `gtag.js` с Consent Mode v2. Measurement ID: `G-ST55QF95VS`. GA грузится только после согласия на `Statistik` (§ 25 TDDDG). |
+| **Cookies** | ✅ **СДЕЛАНО (2026-07-11).** Кастомный consent-баннер реализован в `script.js`/`styles.css`, без внешнего CMP. Категории: `necessary` и `statistics`. |
 | **Google Maps** | Пока **не встраиваем**. Если позже встроим карту — +обработчик +согласие. |
-| **Cookie-Einstellungen** | **Отдельной страницы НЕТ.** Это кнопка в футере, которая заново открывает consent-баннер (отзыв/изменение согласия — обязателен по §25 TDDDG). Технически — `<button>`, вызывающий API CMP (напр. `window.klaro.show()`). Появляется вместе с баннером и GA («шаг 2»). Список самих куки — таблицей внутри Datenschutz (раздел 4) или авто-генерацией CMP, не отдельной страницей. |
+| **Cookie-Einstellungen** | **Отдельной страницы НЕТ.** Это кнопка в футере + floating cookie icon, которые заново открывают второй слой consent-баннера (отзыв/изменение согласия — обязателен по §25 TDDDG). Технически — `<button>`, вызывающий локальную функцию баннера. Список самих куки — внутри Datenschutz/consent-текста, не отдельной страницей. |
 
 > **Итог по техническим страницам:** одна реальная страница — `/datenschutz`.
 > «Cookie-Einstellungen» — это футер-кнопка-триггер, не контент-страница.
@@ -32,13 +32,11 @@
 
 ## 2. Открытые вопросы (нужны ответы)
 
-1. **Порядок запуска Datenschutz — НЕТ ОТВЕТА.**
-   - Вариант **A**: опубликовать минимальную политику сейчас (хостинг + логи + форма, **без** GA), а раздел GA + баннер добавить в день подключения аналитики. *(сайт станет легальным уже сейчас)*
-   - Вариант **B**: написать сразу финальную версию и опубликовать всё вместе с GA позже.
-2. **Юрлицо Verantwortlicher — НЕТ ОТВЕТА.** Один ИП (Einzelunternehmen) или **GbR** из двоих (Maxim Soga / Alexandr Lozinschi)? В Impressum сейчас стоит «Einzelunternehmen», но указаны двое — это нестыковка, касается и Impressum.
-3. **Подтвердить хостинг** (Cloudflare Pages?) и **финальный домен** (напр. `losoma.de`).
-4. **«Бизнес-аккаунт Google»** — это Google **Workspace** (бизнес-почта, один AVV покроет Sheets+GA) или Google **Business Profile** (карточка в Maps)? Скорее оба.
-5. **Какой CMP/баннер** выбираем для согласия на GA.
+1. **Юрлицо Verantwortlicher — рабочая версия:** Einzelunternehmen; публично указаны Maxim Soga / Alexandr Lozinschi. Перед финальной публикацией сверить точную формулировку владельца/Verantwortlicher с регистрационными/налоговыми документами.
+2. **Юридический/бизнес-адрес подтверждён владельцем:** `Falkenseer Chaussee 247C, 13583 Berlin`; отдельного клиентского офиса нет. На сайте адрес обозначается как Geschäftsadresse / kein Kundenbüro vor Ort.
+3. **Подтвердить AVV/DPA Hostinger** и финальную server-log/subprocessor формулировку.
+4. **Подтвердить Google AVV/DPA** для GA4 и используемых Google-сервисов (Sheets/Apps Script/Gmail/Workspace, если будет Workspace).
+5. **Финальная legal-сверка**: прогнать `/datenschutz` через e-Recht24 / activeMind или юриста после запуска GA4/banner QA.
 
 ---
 
@@ -46,18 +44,17 @@
 
 - `[ВЛАДЕЛЕЦ / RECHTSFORM]` — имя(имена) + форма (ИП или GbR) → вопрос 2.
 - `[АДРЕС]` — какой из двух адресов Impressum юридический.
-- `[ХОСТЕР]` — Cloudflare, Inc. или Vercel Inc. (после решения по хостингу).
+- `[ХОСТЕР]` — Hostinger / HOSTINGER INTERNATIONAL LIMITED, 61 Lordou Vironos str., 6023 Larnaca, Cyprus.
 - `[STAND-Datum]` — месяц и год публикации (напр. «Juni 2026»).
-- Разделы, помеченные **`⚠️ AKTIVIEREN erst wenn GA + Banner live`**, публиковать только когда аналитика и баннер реально работают (это и есть развилка A/B).
+- Разделы про cookies/GA публиковать только вместе с реально работающим баннером и GA4 consent-гейтом. На 2026-07-11 кодовая часть уже реализована, остаётся ручная browser QA и юридическая сверка.
 
 ---
 
 ## 4. Полный текст (целевое состояние)
 
-> Немецкий текст — для копирования в страницу. Разделы с пометкой
-> **`⚠️ AKTIVIEREN …`** — это «шаг 2» (включаются вместе с GA). Для варианта A
-> на старте берём всё, КРОМЕ помеченных разделов (4 и 7), и слегка правим раздел 5
-> (см. примечание в нём).
+> Немецкий текст — для копирования в страницу. Разделы про cookies и GA4 соответствуют
+> текущей реализации: кастомный consent-баннер, Consent Mode v2 default denied,
+> GA4 только после согласия на `Statistik`.
 
 ---
 
@@ -94,10 +91,7 @@ nicht.
 Diese Website wird bei einem externen Dienstleister gehostet:
 
 [ХОСТЕР]
-— Variante Cloudflare: Cloudflare, Inc., 101 Townsend St, San Francisco,
-  CA 94107, USA
-— Variante Vercel:    Vercel Inc., 340 S Lemon Ave #4133, Walnut,
-  CA 91789, USA
+HOSTINGER INTERNATIONAL LIMITED, 61 Lordou Vironos str., 6023 Larnaca, Cyprus
 
 Beim Aufruf unserer Website werden durch den Hosting-Anbieter automatisch
 Informationen in sogenannten Server-Logfiles erfasst, die Ihr Browser
@@ -120,16 +114,18 @@ gelöscht, soweit sie nicht zur Aufklärung oder Abwehr von Sicherheitsvorfälle
 benötigt werden.
 
 Der Hosting-Anbieter ist für uns als Auftragsverarbeiter tätig; ein
-entsprechender Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) liegt vor.
+entsprechender Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) muss vor der
+finalen Veröffentlichung abgeschlossen bzw. aktiviert sein.
 
-Hinweis zur Datenübermittlung in die USA: Der Anbieter verarbeitet Daten auch
-in den USA. Die Übermittlung wird auf den EU-US Data Privacy Framework bzw.
-ergänzend auf die Standardvertragsklauseln der EU-Kommission gestützt.
+Soweit Hostinger oder eingesetzte Unterauftragnehmer personenbezogene Daten
+außerhalb der EU bzw. des EWR verarbeiten, erfolgt dies auf Grundlage
+geeigneter Garantien, insbesondere der Standardvertragsklauseln der
+EU-Kommission.
 ```
 
 > RU: «Vertrag zur Auftragsverarbeitung liegt vor» подразумевает, что AVV/DPA с
-> хостером реально подписан — у Cloudflare и Vercel есть стандартный DPA, надо
-> активировать в аккаунте.
+> хостером реально подписан/активирован. Для Hostinger проверить AVV/DPA,
+> subprocessor list и фактическую server-location в аккаунте.
 
 ### 3. SSL- bzw. TLS-Verschlüsselung
 
@@ -143,7 +139,7 @@ ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelese
 werden.
 ```
 
-### 4. Cookies und Einwilligungsverwaltung  ⚠️ AKTIVIEREN erst wenn GA + Banner live
+### 4. Cookies und Einwilligungsverwaltung
 
 ```text
 4. Cookies und Einwilligungsverwaltung
@@ -160,8 +156,8 @@ oder widerrufen. Rechtsgrundlage ist Ihre Einwilligung
 (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
 ```
 
-> RU: раздел включается только когда баннер и GA реально работают (вариант B
-> или «шаг 2» варианта A).
+> RU: раздел оставляем, потому что баннер и GA4 consent-гейт реализованы. Перед production
+> остаётся ручная browser QA и legal-сверка формулировок.
 
 ### 5. Kontaktaufnahme und Kontaktformular
 
@@ -224,7 +220,7 @@ EU-US Data Privacy Framework bzw. die Standardvertragsklauseln gestützt.
 
 > RU: если в итоге хостинг останется Vercel и Turnstile не используется — раздел убрать.
 
-### 7. Google Analytics  ⚠️ AKTIVIEREN erst wenn GA live
+### 7. Google Analytics
 
 ```text
 7. Webanalyse mit Google Analytics
@@ -304,7 +300,7 @@ E-Mail: mailbox@datenschutz-berlin.de
 ```text
 11. Aktualität und Änderung dieser Datenschutzerklärung
 
-Diese Datenschutzerklärung ist aktuell gültig (Stand: [STAND-Datum]). Durch die
+Diese Datenschutzerklärung ist aktuell gültig (Stand: Juli 2026). Durch die
 Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher Vorgaben
 kann es notwendig werden, diese Datenschutzerklärung anzupassen.
 ```

@@ -3,8 +3,11 @@
 Thumbs.db
 node_modules/
 dist/
-assets/generated/*
-!assets/generated/.gitkeep
+# Browser-ready AVIF/WebP files are the canonical deployable image assets.
+# Heavy originals and intermediate normalized files stay local only.
+assets/source/*.jpg
+assets/source/*.jpeg
+assets/source/*.png
 assets/normalized/*
 !assets/normalized/.gitkeep
 

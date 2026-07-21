@@ -1,254 +1,170 @@
-# Ship Studio Project
+# Losoma Project Rules
 
-This is a plain HTML/CSS/JS project. You're helping a **non-developer** build a website. Keep explanations simple and jargon-free.
+This is a plain HTML/CSS/JS website for LOSOMA Gebäudeservice in Berlin.
+The user is not a developer, so explanations should stay practical and clear.
 
----
+## Read First
 
-## Environment: Ship Studio App
+Before changing code, read:
 
-You are running inside the **Ship Studio app**, which handles the development environment automatically.
+- `HANDOFF.md`, starting with `Immediate Handoff`, for the latest environment, deployment and launch state.
+- `SITE.md` for current project state and recent decisions.
+- `DEPLOYMENT_CHECKLIST.md` for launch blockers and hosting rules.
+- `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` before Google Workspace, Google Business Profile,
+  Gmail/DNS, Analytics, Search Console, Sheets or Apps Script ownership/access work.
+- `SEO_CHECKLIST.md` before SEO, canonical, sitemap, Schema.org or Google Business Profile work.
+- `LEGALS_CHECKLIST.md` and `docs/LEGAL_PAGES_GUIDELINES.md` before legal-page or privacy-policy work.
+- `docs/RESPONSIVE_GUIDELINES.md` before layout/responsive work.
+- `docs/SEO_AND_CLASS_GUIDELINES.md` before adding or renaming classes.
 
-**Important things to know:**
-- A preview server is **already running** - you don't need to start one
-- The user sees a live preview of their site in the app
-- You don't need to run any server commands
-- Changes to files are reflected when the user clicks Refresh in the preview
+Update `SITE.md` after meaningful code or rule changes.
 
-**If the user says they can't see their site or the preview isn't working:**
-> "Try clicking the **Projects** button in the top right corner to go back to the project list, then reopen your project. This restarts the preview."
+## Current Hosting Rule
 
----
+- **Active work scope is Vercel staging only:** `https://losoma-pi.vercel.app`.
+- **Do not touch the current WordPress site at all.** Do not edit, deploy, upload, inspect through the admin panel, test forms, send requests to WordPress endpoints, or use Hostinger/WordPress access unless the user explicitly changes this rule for a specific task.
+- Do not use `https://losoma.de` for current QA. All browser, form, API, cookie, analytics, legal-page and deployment checks must target the Vercel staging URL.
+- Do not submit live/staging forms or create rows, emails, analytics events, or other external test data without explicitly warning the user first and receiving permission.
+- Final production target: Hostinger `public_html` for `https://losoma.de`.
+- Current Hostinger production contains the old WordPress site and must not be overwritten during ordinary development.
+- Vercel `https://losoma-pi.vercel.app` is staging/preview and currently also hosts the `/api/contact` endpoint.
+- Cloudflare Pages is not the final hosting target unless the client explicitly changes that decision.
+- Do not deploy or upload to Hostinger unless explicitly asked and the backup/rollback steps are ready.
 
-## FIRST: Check for Onboarding
+Before Hostinger launch:
 
-**Before doing anything else**, check if `SITE.md` exists.
+- Obtain explicit task-specific authorization; existing access does not authorize touching WordPress/Hostinger.
+- Build with `npm run build`.
+- Back up Hostinger `public_html`, `.htaccess`, `wp-config.php`, `wp-content/uploads`, and the WordPress database.
+- Keep a clear rollback path before replacing WordPress files with `dist/`.
 
-- If `SITE.md` **does NOT exist**: Ask the user about their business, goals, and what they want to build. Create `SITE.md` with their answers, including brand personality, colors, fonts, and page plans.
-- If `SITE.md` **exists**: Read it to understand the project before making changes.
+## Build Workflow
 
----
+Use:
 
-## Your Skills
-
-You have specialized knowledge for building sites. **Use these constantly:**
-
-| Skill | When to Use |
-|-------|-------------|
-| **brand-identity** | Choosing colors, fonts, visual direction |
-| **copywriting** | Writing any text for the site |
-| **marketing-site-design** | Planning page layouts, sections |
-| **frontend-design** | Creating any visual component or page |
-| **documentation-writer** | After EVERY code change - update SITE.md |
-
-### Workflow for Every Build Task
-
-1. Check `SITE.md` for brand personality and preferences
-2. Plan section architecture (what sections, what order)
-3. Select colors/fonts using brand identity principles (follow design principles below)
-4. Write specific, human-sounding text using copywriting principles
-5. Build with clean, semantic HTML and organized CSS
-6. Update SITE.md after changes
-
----
-
-## Human-First Design Principles
-
-Great design feels intentional and distinctive. These guidelines help create sites that stand out and feel memorable.
-
-### The Goal
-
-Sites should feel:
-- **Intentional** - Every choice has a reason
-- **Distinctive** - Not a copy of common patterns
-- **Memorable** - Something visitors remember
-- **Human** - Warm and approachable
-
-### Typography Guidance
-
-Common fonts like Inter, Roboto, and system fonts work well but are everywhere. For distinction, explore alternatives:
-
-**Modern & Clean:**
-- Space Grotesk + DM Sans
-- Outfit + Source Sans 3
-- Sora + Nunito
-
-**Elegant & Refined:**
-- Playfair Display + Lato
-- Cormorant Garamond + Montserrat
-- Fraunces + Work Sans
-
-**Warm & Approachable:**
-- Poppins + Nunito Sans
-- Quicksand + Open Sans
-- Comfortaa + Mulish
-
-Load fonts via Google Fonts in the `<head>` of every HTML page:
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+```text
+npm run build
+npm run audit:classes
+npm run audit:classes:strict
 ```
 
-Then set them in `styles.css`:
-```css
-:root {
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-}
+Do not run the image pipeline for ordinary HTML/CSS/JS/text edits.
+
+Use image commands only when source images changed:
+
+```text
+npm run assets:images
+npm run build:images
 ```
 
-These aren't rules—they're starting points. The right font depends on the brand.
+`dist/` is generated output. Do not edit `dist/` directly.
 
-### Color Guidance
+Do not auto-deploy to Vercel or Hostinger. Deploy only when explicitly requested.
 
-**Think twice about these common defaults:**
-- `#3B82F6` (Tailwind blue-500) as primary accent - it's everywhere
-- Purple-to-blue gradients on white backgrounds - very common
-- Pure black `#000000` on pure white `#FFFFFF` - can feel harsh
+## Class Naming
 
-**Consider instead:**
-- Off-black (`#1C1917`) on off-white (`#FAFAF9`) for softer contrast
-- Custom accent colors that reflect the brand's personality
-- The 60-30-10 rule: 60% dominant, 30% secondary, 10% accent
+Project-owned classes use Client-First-style naming:
 
-### Layout Guidance
+- Block: `hero`, `contact-form`, `legal-page`.
+- Element: one underscore, e.g. `hero_content`, `contact-form_submit`, `legal-page_inner`.
+- Variant/state: `is-*`, e.g. `button is-accent`, `link-button is-green`, `body.is-solid-header`, `is-open`, `is-invalid`.
+- JS behavior should prefer `data-*` hooks. Styling classes can be queried only when no practical data hook exists.
 
-**Common patterns to use thoughtfully:**
-- 3-column feature grids with generic icons - try alternatives like 2-column, asymmetric, or bento layouts
-- Centered everything - vary alignment for visual interest
-- Equal spacing throughout - vary spacing for rhythm
+Forbidden for project-owned classes:
 
-**Background patterns that feel dated:**
-- Abstract blob SVGs
-- Wave section dividers
-- Gradient mesh backgrounds
+- Project-owned `__` and `--` class separators.
+- Visual/throwaway names such as `block-left`, `blue-text`, `div-block`, `section-1`.
 
-Alternatives: geometric shapes, grain textures, solid colors with intentional variation, or high-quality photography.
+Allowed exceptions:
 
-### Writing Guidance
+- Third-party library classes such as `splide__*`, `iti__*`, `cc__*`.
+- CSS custom properties such as `--section-gap`.
+- JS object/property names such as `window.__lenis`.
 
-**Overused words to consider alternatives for:**
-revolutionize, leverage, synergy, cutting-edge, seamless, empower, game-changer, next-generation, best-in-class, world-class, unlock, elevate, transform, streamline, robust, scalable, innovative, disrupt, holistic, ecosystem, paradigm, optimize, dynamic, curated, bespoke
+Run `npm run audit:classes:strict` after class work.
 
-**Instead:** Be specific. Use numbers. Focus on outcomes. Write like a human talking to another human.
+## Design And Responsive Rules
 
----
+- Keep the site plain HTML/CSS/JS. Do not introduce React/Vue/Vite/Webpack.
+- Use existing tokens in `styles.css` for spacing, color, radius and type.
+- Breakpoints are fixed:
+  - Desktop base: `>= 1025px`.
+  - Tablet: `@media (max-width: 1024px)`.
+  - Phone: `@media (max-width: 560px)`.
+  - Header burger: `@media (max-width: 1150px)`.
+- Phone side gutter is 16px.
+- Preserve the existing button families:
+  - `.button.is-accent`
+  - `.button.is-static`
+  - `.link-button` / `.link-button.is-green`
+- Do not reintroduce the rejected desktop header shrink animation, shadow/hairline, or progressive blur.
+- Avoid external Google Fonts. Lato is self-hosted in `assets/vendor/lato/`.
 
-## CRITICAL: Maintain Documentation
+## Forms
 
-**You MUST keep documentation updated.** This is essential for non-technical users.
+- Every contact form uses the shared `.contact-form` markup and `data-*` hooks.
+- Form endpoint: `POST /api/contact`.
+- Current backend protection: server validation, honeypot, rate limit, duplicate protection, frontend submit lock.
+- Google Sheet delivery works through Apps Script.
+- Email notification to `losoma@web.de` is still pending WEB.DE SMTP/app password.
+- Turnstile is intentionally deferred unless spam or paid traffic makes it necessary.
 
-### Files to Maintain
+## Analytics And Cookie Consent
 
-1. **`SITE.md`** - The main documentation file. Update EVERY time you make changes:
-   ```markdown
-   # [Site Name]
+- GA4 is required. Measurement ID: `G-ST55QF95VS`.
+- Google Analytics setup already exists: account `Losoma Gebäudeservice`, property `Losoma Website`, web stream `https://losoma.de`, timezone Germany/Berlin, currency EUR, industry `Immobilien`, size `Klein: 1 bis 10 Mitarbeiter`, goals `Leads generieren` + `Web- und/oder App-Traffic analysieren`.
+- Use direct `gtag.js` with Google Consent Mode v2. Do not add GTM unless requirements grow.
+- Default consent must be denied for `analytics_storage`, `ad_storage`, `ad_user_data`, and `ad_personalization`.
+- Grant only `analytics_storage` after the user enables/accepts `Statistik`; keep ads fields denied unless Google Ads is added later.
+- Do not load or activate GA4 before cookie consent. If `Statistik` is revoked, set consent denied and delete `_ga` / `_ga_*` cookies.
+- Cookie banner UI is implemented in `script.js`/`styles.css`; keep future edits aligned with the approved Figma direction and existing Client-First naming.
+- Approved consent UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before the first choice. Second layer: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, secondary `Alle akzeptieren`, primary `Auswahl speichern`. Only the floating cookie icon reopens the second layer after a saved choice; there is no footer cookie button.
+- Floating cookie UI: button `44×44px`, icon `32×32px`, page-color background, ink icon, neutral hover. Desktop is bottom-left; tablet `≤1024px` and phone `≤560px` are bottom-right, with the panel aligned to the same side.
 
-   > [One-sentence tagline]
+## Google Account Transfer
 
-   ## Brand Identity
-   - Personality: [from onboarding]
-   - Colors: [what we're using]
-   - Fonts: [what we're using]
+- Current Google Business Profile primary owner is `losoma@web.de`.
+- Managed Workspace account `maxim@losoma.de` exists and has access to Google Admin Console.
+- An invitation was sent to `maxim@losoma.de` as Google Business Profile `Inhaber`; last known
+  status on 2026-07-20 is pending (`AUSSTEHEND`), not accepted.
+- Never delete or recreate the existing Business Profile to move accounts. Add the new account as
+  owner, accept, wait Google's required 7 days, transfer primary ownership, and keep the old account
+  as a temporary backup.
+- Workspace billing/payment verification must be stable before making it the primary owner of
+  business assets. Never store or expose payment details in repository files or handoff notes.
+- Transfer GA4/Search Console/Sheets/Apps Script access separately. Do not create a replacement GA4
+  property or change measurement ID `G-ST55QF95VS` merely because the managing account changes.
+- As of 2026-07-20, public DNS still routes `losoma.de` mail to Hostinger and authorizes Hostinger in
+  SPF; Gmail receipt at `maxim@losoma.de` is not proven. Do not forward WEB.DE or switch form email
+  until Gmail is activated, DNS is correct, and an explicitly authorized external delivery test passes.
+- Keep `losoma@web.de` and copies of forwarded messages during the transition. Remove old access or
+  change public/legal email only after every dependent service has been verified.
+- The detailed source of truth and resume order is `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
-## Pages
-- **Homepage** (`index.html`) - [description of what's on it]
+## SEO Rules
 
-   ## Recent Changes
-   - [Date]: Added hero section with [description]
-   - [Date]: Created contact page
+- Production canonical domain is `https://losoma.de`.
+- `canonical` and `og:url` must use `https://losoma.de`.
+- `og:image` should be absolute before final production SEO QA.
+- `robots.txt` exists; `sitemap.xml` is still pending.
+- Structured data is pending required business facts: opening hours, coordinates, address/legal confirmation, founding date/price range if used.
+- Do not add `FAQPage` JSON-LD unless visible FAQ content and current Google requirements justify it.
+- Blog/Einblicke content is deferred until after production launch. Keep the commented header/footer links disabled until the user explicitly reopens that work.
 
-   ## How to Customize
-   - To change colors: Edit the CSS variables in styles.css
-   - To add a new page: Create a new .html file and add nav links
-   ```
+## Legal Rules
 
-2. **Create `SITE.md` immediately** if it doesn't exist (via onboarding).
+- `impressum.html` and `datenschutz.html` use the shared `.legal-page` component.
+- Current public legal names: Maxim Soga / Alexandr Lozinschi; legal form: Einzelunternehmen. Final owner wording still needs registration/lawyer confirmation.
+- Confirmed current business address: `Falkenseer Chaussee 247C, 13583 Berlin`. There is no customer office at this address.
+- Datenschutz hosting text now targets Hostinger / `HOSTINGER INTERNATIONAL LIMITED`, Cyprus.
+- Hostinger AVV/DPA must be activated or confirmed before final launch.
+- Vercel DPA is still relevant while `/api/contact` processes form submissions there.
+- The current Datenschutz page intentionally includes not-yet-live services for lawyer review: consent banner, GA, Turnstile.
+- Before launch, remove the Turnstile section if Turnstile remains disabled, or enable and contractually document the service.
 
-3. **Update `SITE.md` after EVERY change** - no exceptions.
+## Git And Safety
 
-4. **Use simple language** - Say "the main page" not "index.html". Say "the navigation bar at the top" not "the nav element".
-
----
-
-## SEO Checklist
-
-The repo has **`SEO_CHECKLIST.md`** in the root — the single source of truth for SEO and Schema.org work (structured data, robots.txt, sitemap, Google Business Profile, on-page review, AI-SEO rules). **Read it before doing any SEO/Schema task** and keep its checkboxes up to date as items get done. The production domain for all canonical/og/sitemap/schema is **https://losoma.de**.
-
----
-
-## Project Structure
-
-```
-index.html       # Homepage
-styles.css       # All styles (uses CSS variables for theming)
-script.js        # All JavaScript
-images/          # Images folder (create when needed)
-```
-
----
-
-## Rules for Building
-
-### DO:
-- Check SITE.md before every task for brand context
-- Use the design principles above for visual decisions
-- Edit HTML files directly for content and structure
-- Use `styles.css` for all styling via CSS custom properties
-- Use `script.js` for all interactivity
-- Put images in an `images/` folder
-- Use semantic HTML (`<header>`, `<main>`, `<section>`, `<footer>`, etc.)
-- Keep the nav consistent across all pages
-- Load custom fonts via Google Fonts in the `<head>` of every page
-- Update `SITE.md` after every change
-- Explain what you did in simple terms
-- Make intentional, distinctive design choices
-
-### DON'T:
-- Don't use frameworks (React, Vue, etc.) - this is plain HTML
-- Don't create a `package.json` - this project has no dependencies
-- Don't use build tools (webpack, vite, etc.)
-- Don't use inline styles when CSS classes will work
-- Don't leave the user confused about what changed
-- Don't use technical jargon without explaining it
-- Don't skip updating SITE.md
-
----
-
-## Adding Sections
-
-The site is currently a one-page build.
-
-If the user asks for a new section:
-
-1. Check `SITE.md` for brand personality
-2. Plan what the section needs
-3. Add the content to `index.html`
-4. Add any new styles to `styles.css`
-5. Write copy using the copywriting guidelines
-6. **Update `SITE.md`** with the change
-8. Tell the user: "I created a Contact page. Click Refresh in the preview and navigate to it from the menu."
-
----
-
-## After Every Task
-
-1. Make the requested changes (using your skills, following design principles)
-2. Update `SITE.md` with what changed
-3. Tell the user what you did in plain English
-4. Remind them to click Refresh in the preview to see changes
-
----
-
-## Remember
-
-The user is NOT a developer. They're using Ship Studio to build a website without coding knowledge. Your job is to:
-
-1. **Onboard them properly** (if no SITE.md)
-2. **Build what they ask for** (using your skills and design principles)
-3. **Make it feel distinctive and intentional** (not generic)
-4. **Keep everything documented** so they understand their site
-5. **Explain things simply**
-6. **Make them feel confident** about their project
-
-**Always follow design principles. Always update SITE.md.**
+- The worktree may contain user changes. Do not revert unrelated changes.
+- Do not use destructive git commands unless explicitly requested.
+- Keep changes scoped.
+- After finishing, summarize changed files and verification commands.

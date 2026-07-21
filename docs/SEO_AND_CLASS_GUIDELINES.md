@@ -12,7 +12,8 @@
 - Primary audience: Hausverwaltungen, Eigentümer, managers of residential and commercial properties.
 - Positioning: reliable, responsible, detail-focused service provider for ongoing building care.
 - Core proof points from current copy: `7+ Jahre am Markt`, `70+ Objekte in laufender Betreuung in Berlin`.
-- Current public Vercel alias: `https://losoma-pi.vercel.app`.
+- Production canonical domain: `https://losoma.de`.
+- Current public Vercel alias for staging/review: `https://losoma-pi.vercel.app`.
 
 ## SEO Principles
 
@@ -54,7 +55,6 @@ Recommended schema types:
 - `Service` for service pages.
 - `FAQPage` for visible FAQ blocks.
 - `BreadcrumbList` when there are nested pages.
-- `BlogPosting` for blog articles.
 
 Required source facts before final JSON-LD:
 
@@ -67,51 +67,51 @@ Required source facts before final JSON-LD:
 - Logo URL.
 - Social profile URLs.
 
-## Class Naming Rules (BEM — the project standard)
+## Class Naming Rules (Client-First — the project standard)
 
-**The project's actual and official class-naming standard is BEM**, not Finsweet Client-First. The whole codebase (home, service pages, contact, impressum — 140+ classes) is BEM, and we keep it that way for consistency. Classes are not SEO signals by themselves, but they must be semantic, reusable, predictable and easy to scale across sections and future pages.
+**The project's official class-naming standard is now Client-First-style naming.** Project-owned classes use semantic block names, single-underscore element names, and `is-*` state/variant classes. Classes are not SEO signals by themselves, but they must be semantic, reusable, predictable and easy to scale across sections and future pages.
 
-> History: the project once aspired to Client-First, but nothing was actually built that way (only the stray `contact-form_select*` family uses single-underscore — a known leftover; leave it, JS depends on `.contact-form_select-option`). Decision (2026-06-22): **standardize on BEM**. From Client-First we keep only two genuinely useful conventions — `is-*` for dynamic state and `data-*` for JS hooks (see below).
+> Decision (2026-07-10): project-owned classes use Client-First-style names. Third-party classes such as Splide (`splide__*`) and intl-tel-input (`iti__*`) are external library API and must not be renamed.
 
 ### Naming Layers
 
 - **Block (component / section)**: a semantic, domain-aware name, no underscore — `hero`, `header`, `nav`, `mobile-menu`, `contact-form`, `contact-panel`, `service-card`, `why-card`, `faq`, `footer`, `contact-page`, `legal-page`, `legal-block`.
-- **Element**: `block__element` (double underscore) — `hero__content`, `contact-form__row`, `footer__links`, `legal-block__title`, `contact-page__inner`.
-- **Static variant/modifier**: `block--modifier` (double dash), set in the markup — `button--accent`, `link-button--green`, `section-label--blue`, `why-card--daily-work`, `page--solid-header`, `header__logo--light`.
-- **Dynamic state** (toggled by JS at runtime via `classList`): **`is-*`** — `is-open`, `is-scrolled`, `is-hidden`, `is-selected`, `is-menu-open`, `is-invalid`. Use `is-*` for things that flip at runtime; use `--modifier` for fixed variants chosen in the HTML.
+- **Element**: `block_element` (single underscore) — `hero_content`, `contact-form_row`, `footer_links`, `legal-block_title`, `contact-page_inner`.
+- **Static variant/modifier**: `is-*`, set alongside the block/element class — `button is-accent`, `link-button is-green`, `section-label is-blue`, `why-card is-daily-work`, `body.is-solid-header`, `header_logo is-light`.
+- **Dynamic state** (toggled by JS at runtime via `classList`): **`is-*`** — `is-open`, `is-scrolled`, `is-hidden`, `is-selected`, `is-menu-open`, `is-invalid`.
 - **Shared global classes** stay generic and reusable across pages — `.button`, `.link-button`, `.section-label`, `.heading-1`, `.heading-2`.
 
-`__` and `--` ARE allowed (that's BEM). Keep a block internally consistent.
+Project-owned `__` and `--` class separators are not allowed. Use `npm run audit:classes` to check this.
 
 ### Layout & typography come from TOKENS, not utility classes
 
 This project does NOT use Client-First-style utility classes (`.padding-global`, `.container-large`, etc. do **not** exist). Instead:
 
 - **Spacing / sizing / colour / type** are CSS custom-property tokens in `:root` (and redefined per breakpoint): `--section-gap`, `--section-gap-tight`, `--content-gutter`, `--grid-column-gap`, `--container-width`, `--type-section-title`, `--type-body`, `--color-ink`, `--color-blue`, etc. Desktop type is fluid via clamps in `@media (min-width: 1025px) :root`.
-- **Layout** is per-component CSS (grid/flex on the block class), e.g. the 12-col grid on `.contact-page__inner` / `.legal-page__inner`.
-- A handful of **shared, reusable classes** carry cross-page UI: `.heading-1`, `.heading-2`, `.button` (+`--accent`), `.link-button` (+`--green`), `.section-label` (+`--blue`/`--green`).
+- **Layout** is per-component CSS (grid/flex on the block class), e.g. the 12-col grid on `.contact-page_inner` / `.legal-page_inner`.
+- A handful of **shared, reusable classes** carry cross-page UI: `.heading-1`, `.heading-2`, `.button` + `.is-accent` / `.is-static`, `.link-button` + `.is-green`, `.section-label` + `.is-blue` / `.is-green`.
 
-### Component (block) classes — BEM
+### Component (block) classes — Client-First
 
-Pattern: `block`, `block__element`, `block--modifier`.
+Pattern: `block`, `block_element`, `is-variant`.
 
 ```text
-hero            hero__media   hero__overlay   hero__content   hero__title   hero__cta
-contact-form    contact-form__row   contact-form__check   contact-form__submit
-contact-panel   contact-panel__background
-service-card    service-card__image
-why-card        why-card__content   why-card--daily-work
-footer          footer__nav   footer__links   footer__contact   footer__legal
-contact-page    contact-page__inner   contact-page__intro   contact-page__details   contact-page__social
-legal-page      legal-page__inner   legal-page__title   legal-page__content
-legal-block     legal-block__title  legal-block__row   legal-block__col
+hero            hero_media   hero_overlay   hero_content   hero_title   hero_cta
+contact-form    contact-form_row   contact-form_check   contact-form_submit
+contact-panel   contact-panel_background
+service-card    service-card_image
+why-card        why-card_content   why-card is-daily-work
+footer          footer_nav   footer_links   footer_contact   footer_legal
+contact-page    contact-page_inner   contact-page_intro   contact-page_details   contact-page_social
+legal-page      legal-page_inner   legal-page_title   legal-page_content
+legal-block     legal-block_title  legal-block_row   legal-block_col
 ```
 
 Use domain meaning where it improves clarity (`service-card`, `reviews`, `contact-form`, `faq`, `footer`, `legal-block`). Avoid visual-only names. **Spacing and type come from CSS custom-property tokens** (`--section-gap`, `--type-section-title`, `--content-gutter`, …) defined in `:root` and the breakpoint `:root` blocks — NOT from utility classes. There are a few shared cross-page classes: `.heading-1`, `.heading-2`, `.button`, `.link-button`, `.section-label`.
 
 ### State & variant classes
 
-Static variants chosen in the HTML use `--modifier` (`button--accent`, `section-label--blue`, `page--solid-header`). Dynamic states toggled by JS at runtime use `is-`:
+Static variants and dynamic states both use `is-*`. Scope variant rules by the component selector when needed, e.g. `.button.is-accent`, `.section-label.is-blue`, `.why-card.is-daily-work`.
 
 ```text
 is-active
@@ -127,15 +127,15 @@ is-hidden
 Examples:
 
 ```html
-<!-- static variant chosen in the markup → --modifier -->
-<a class="button button--accent" href="/kontakt">Angebot anfragen</a>
+<!-- static variant chosen in the markup → is-* -->
+<a class="button is-accent" href="/kontakt">Angebot anfragen</a>
 <!-- dynamic state toggled by JS at runtime → is- -->
 <article class="faq-item is-open">...</article>
 <header class="header is-scrolled is-hidden">...</header>
 <button class="contact-form_select-toggle is-selected">...</button>
 ```
 
-Rule of thumb: if the markup author picks it once → `--modifier`; if JS flips it at runtime → `is-*`. `.button--accent`, `.why-card--daily-work`, `.section-label--blue`, `.page--solid-header` are all correct.
+Rule of thumb: the block/element class says what the component is; `is-*` says which variant or runtime state it is in. `.button.is-accent`, `.why-card.is-daily-work`, `.section-label.is-blue`, `.is-solid-header` are all correct.
 
 ### JavaScript Hooks
 
@@ -161,13 +161,13 @@ document.querySelector(".reviews_slider");
 
 This keeps style naming flexible and prevents JS from breaking during class refactors.
 
-### No migration
+### Migration Status
 
-BEM is the standard — do **not** migrate existing classes to Client-First (that was the old, abandoned plan). New code uses BEM too. When you touch a section, keep its classes as they are and stay internally consistent. The one stray Client-First family (`contact-form_select*`) is intentionally left alone because `script.js` selects `.contact-form_select-option`; only rename it if you also update that selector.
+The project-owned classes were migrated to Client-First-style naming on 2026-07-10. The `contact-form_select*` family already matched the single-underscore element convention and remains as-is. New code must follow the same naming system.
 
 ### Forbidden Class Patterns
 
-Do not use (these are about vague/throwaway names, NOT about BEM — `__`/`--` are fine):
+Do not use:
 
 - `.section-1`
 - `.block-left`
@@ -185,7 +185,7 @@ Do not use (these are about vague/throwaway names, NOT about BEM — `__`/`--` a
 - `.site-header`
 - `.site-footer`
 
-Exception: third-party classes such as `.splide__track`, `.splide__list`, `.splide__slide` are allowed because they belong to the library API.
+Exception: third-party classes such as `.splide__track`, `.splide__list`, `.splide__slide`, `.iti__selected-country` are allowed because they belong to library APIs.
 
 ## Image Rules
 
@@ -276,9 +276,9 @@ Gepflegtes Treppenhaus einer Berliner Wohnimmobilie nach der Reinigung
 
 ## Font Rules
 
-- Prefer local WOFF2 when the final Figma font files are available and licensing allows self-hosting.
-- Use Google Fonts only when the font is open, stable, and the design does not require custom licensed files.
-- For German-market performance and privacy, self-hosted WOFF2 is preferred over external Google Fonts requests.
+- Lato is self-hosted from `assets/vendor/lato/`; keep using the local WOFF2 files.
+- Do not add external Google Fonts links or preconnects.
+- If a future redesign changes the typeface, prefer licensed/local WOFF2 files and update the legal/privacy notes before launch.
 - Keep font weights limited to what the design actually uses.
 - Use `font-display: swap`.
 - Preload only critical above-the-fold font files.
@@ -368,5 +368,5 @@ Sources read for this project:
 
 - Local SEO base: `/Users/glebstepanovich/Desktop/Работа/seo-master`.
 - Notion page: `Losoma`.
-- Notion child pages: `Project Overview`, `Main Page`, `About Us`, `Blog Copyright`.
+- Notion child pages: `Project Overview`, `Main Page`, `About Us`.
 - SEO rules: title/meta/OG/canonical, AI SEO, NN/g UX SEO notes, schema.org notes.

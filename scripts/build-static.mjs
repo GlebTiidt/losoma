@@ -14,6 +14,7 @@ const files = [
   ...htmlPages,
   "styles.css",
   "script.js",
+  "robots.txt",
   "_headers",
   "_redirects"
 ];

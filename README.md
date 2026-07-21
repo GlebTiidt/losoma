@@ -1,201 +1,115 @@
-# Losoma Website
+# LOSOMA Website
 
-Рабочий README проекта. Здесь фиксируем все детали по сайту, backend-автоматизации, Cloudflare, аналитике, cookies/consent и деплою.
+Рабочий репозиторий статического сайта LOSOMA Gebäudeservice.
 
-## Project Notes
+## Current State
 
-- Статус: подготовка к верстке и деплою.
-- Дизайн: ожидается ссылка.
-- Домен: ожидается.
-- Cloudflare: Pages project `losoma` создан.
-- Backend: планируется небольшой backend для автоматизации.
-- Analytics: планируется Google Analytics / Google Tag Manager.
-- Anti-spam: планируется Cloudflare Turnstile.
-- Cookies/consent: планируется cookie banner и связка с аналитикой.
+- **Active work/QA target is only Vercel staging:** `https://losoma-pi.vercel.app`.
+- **WordPress/Hostinger are out of scope** until the user explicitly authorizes a specific backup or launch task. Existing access is not permission to inspect or change production.
+- Production domain/canonical: `https://losoma.de`.
+- Final hosting target: Hostinger `public_html`.
+- Current live Hostinger site is still the old WordPress install; do not overwrite it during ordinary development.
+- Vercel `https://losoma-pi.vercel.app` is staging/preview and currently hosts `/api/contact`.
+- Cloudflare Pages is historical/optional and is not the final hosting target unless the client explicitly changes the decision.
+- Project-owned CSS classes use Client-First-style naming.
 
-## Working Checklist
+## Read First
 
-Основной чеклист процесса: [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)
-
-SEO и правила нейминга классов: [docs/SEO_AND_CLASS_GUIDELINES.md](./docs/SEO_AND_CLASS_GUIDELINES.md)
-
-Правила адаптива (брейкпоинты, телефонные токены, гаттеры, типографика, бордеры, баг hover-кнопки): [docs/RESPONSIVE_GUIDELINES.md](./docs/RESPONSIVE_GUIDELINES.md) — обязательно для любых новых страниц.
+- `HANDOFF.md` — start with `Immediate Handoff` for the latest deployment, cookie, legal, form and launch state.
+- `SITE.md` — current site context and recent decisions.
+- `CLAUDE.md` — project rules for agents.
+- `DEPLOYMENT_CHECKLIST.md` — launch blockers, hosting, backup and release steps.
+- `SEO_CHECKLIST.md` — SEO tasks and domain/canonical status.
+- `LEGALS_CHECKLIST.md` — legal/privacy launch checks.
+- `docs/SEO_AND_CLASS_GUIDELINES.md` — SEO and class naming rules.
+- `docs/RESPONSIVE_GUIDELINES.md` — responsive layout rules.
+- `docs/LEGAL_PAGES_GUIDELINES.md` — legal-page rules.
 
 ## Project Structure
 
+```text
+*.html                              Static pages
+styles.css                          Global styles
+script.js                           Site interactivity
+api/contact.js                      Vercel contact-form endpoint
+assets/source/                      Source images
+assets/generated/                   Generated AVIF/WebP images
+assets/static/                      Static assets
+assets/vendor/                      Vendored libraries and self-hosted Lato
+scripts/build-static.mjs            Builds dist/
+scripts/optimize-images.mjs         Image pipeline
+scripts/audit-client-first-classes.mjs
+dist/                               Generated output, do not edit directly
 ```
-index.html       # Homepage
-styles.css       # All styles
-script.js        # All JavaScript
-CLAUDE.md        # Instructions for Claude Code
-SITE.md          # Current site context and brand notes
-README.md        # Project notes and operational details
-DEPLOYMENT_CHECKLIST.md
-docs/SEO_AND_CLASS_GUIDELINES.md
-```
 
-## Local Development
-
-Проект работает как статический сайт с быстрым static build. Image pipeline запускается отдельно и только когда менялись исходные изображения.
-
-Команды:
+## Local Commands
 
 ```text
-npm run dev           # fast static rebuild + Cloudflare Pages dev, no image optimization
-npm run build         # fast static rebuild, no image optimization
-npm run assets:images # optimize images only when assets/source changes
-npm run build:images  # image optimization + static rebuild
-npm run deploy:preview
-npm run deploy
+npm run build                 # static build into dist/
+npm run audit:classes         # class naming audit
+npm run audit:classes:strict  # strict Client-First audit
+npm run assets:images         # image optimization only when source images changed
+npm run build:images          # image optimization + static build
 ```
 
-Image pipeline:
+Do not run the image pipeline for ordinary HTML/CSS/JS/text edits.
+
+`npm run dev` still uses Wrangler Pages dev as a local/static preview helper. It is not a production hosting decision.
+
+`npm run deploy` and `npm run deploy:preview` are intentionally disabled to prevent accidental Cloudflare Pages uploads. Use Hostinger launch steps from `DEPLOYMENT_CHECKLIST.md` for production, and Vercel staging only when explicitly requested.
+
+## Styling Rules
+
+- Project-owned classes follow Client-First-style naming:
+  - block: `hero`, `contact-form`, `legal-page`
+  - element: one underscore, e.g. `hero_content`
+  - state/variant: `is-*`, e.g. `button is-accent`
+- Do not add project-owned `__` or `--` class separators.
+- Third-party API classes stay unchanged, e.g. `splide__*`, `iti__*`.
+- Prefer `data-*` hooks for JavaScript behavior.
+- Use existing CSS variables and responsive rules from `styles.css`.
+- Lato is self-hosted from `assets/vendor/lato/`; do not add external Google Fonts.
+
+## Deployment Rule
+
+Ordinary development ends at:
 
 ```text
-assets/source/      # Original PNG/JPEG source images
-assets/generated/   # One AVIF + one WebP per image generated by Sharp
+npm run build
+npm run audit:classes:strict
 ```
 
-The generated HTML pattern is AVIF first and WebP fallback in `<img>`.
+Final Hostinger launch requires explicit approval and must follow `DEPLOYMENT_CHECKLIST.md`:
 
-Do not rerun image optimization for HTML/CSS/JS edits. AVIF conversion uses high-quality settings and can take a long time.
+1. Build `dist/`.
+2. Back up current Hostinger WordPress files and database.
+3. Preserve rollback files: `.htaccess`, `wp-config.php`, `wp-content/uploads`.
+4. Upload `dist/` to Hostinger `public_html`.
+5. Verify HTTPS, clean URLs, canonical URLs, forms, legal pages, robots/sitemap and rollback path.
 
-## Design Implementation Rules
+## Forms
 
-- Figma `get_design_context` is the source of truth for section CSS values: typography, spacing, colors, card sizes, grid proportions and states.
-- Figma pixel values are design measurements, not implementation strategy. Convert them into semantic CSS using `rem`, `clamp()`, grid, flex, aspect-ratio and shared tokens.
-- Avoid absolute layout except for real overlays, media layers and animation internals.
-- Use Finsweet Client-First naming for project-owned classes: utilities without underscores, component classes with one underscore, state/variant classes as `is-*`.
-- Do not add new BEM classes with `__` or `--`; third-party classes such as Splide are the exception.
-- Keep class names semantic and tied to content/domain meaning, not visual position names.
-- Run `npm run audit:classes` before larger class refactors; use `npm run audit:classes:strict` after the Client-First migration is complete.
-- Do not run the image pipeline for HTML/CSS/JS layout edits.
+- Frontend submits to `POST /api/contact`.
+- Server validation, honeypot, rate limit, duplicate protection and frontend submit locking are implemented.
+- Google Sheets delivery works via Apps Script.
+- Email delivery to `losoma@web.de` is pending WEB.DE SMTP/app-password access.
+- Turnstile is deferred unless spam or paid traffic makes it necessary.
 
-## Deployment Plan
+## Analytics And Consent
 
-Предварительная схема:
+- GA4 is required and already created in the business Google account.
+- Measurement ID: `G-ST55QF95VS`.
+- Current GA4 setup: account `Losoma Gebäudeservice`, property `Losoma Website`, web stream `https://losoma.de`, timezone Germany/Berlin, currency EUR.
+- Use direct `gtag.js` + Consent Mode v2. Do not use GTM unless requirements grow.
+- Cookie banner UI and GA4 consent wiring are implemented in `script.js`/`styles.css`.
+- GA4 does not load or activate before the user grants `Statistik` consent in the cookie banner.
 
-```text
-Frontend -> Cloudflare Pages or static hosting
-Backend -> Cloudflare Workers or small Node.js service
-DNS/CDN/SSL -> Cloudflare
-Anti-spam -> Cloudflare Turnstile
-Analytics -> Google Tag Manager / GA4
-Consent -> Cookie banner + Google Consent Mode
-```
+## Open Launch Items
 
-Текущий Cloudflare Pages project name:
-
-```text
-losoma
-```
-
-Production URL:
-
-```text
-https://losoma.pages.dev
-```
-
-Latest production deployment:
-
-```text
-https://3b280962.losoma.pages.dev
-```
-
-Latest preview deployment:
-
-```text
-https://69844c6b.losoma.pages.dev
-```
-
-Preview alias:
-
-```text
-https://preview.losoma.pages.dev
-```
-
-Direct Upload deploy command:
-
-```text
-npm run deploy
-```
-
-Preview deploy command:
-
-```text
-npm run deploy:preview
-```
-
-Vercel production URL:
-
-```text
-https://losoma-pi.vercel.app
-```
-
-GitHub repository:
-
-```text
-https://github.com/glebtiidt-work/losoma
-```
-
-## Access And Services
-
-Заполняем по мере появления доступов.
-
-```text
-Domain registrar:
-Cloudflare account: gleb.tiidt.freelance@gmail.com
-Cloudflare account ID: 2bedcd032916f6e9d1b1b63562113a3d
-Hosting: Cloudflare Pages, project `losoma`
-Vercel account: glebtiidt-work
-Vercel project: gleb-projects-work/losoma
-Vercel production URL: https://losoma-pi.vercel.app
-GitHub repository: https://github.com/glebtiidt-work/losoma
-Backend hosting:
-GA4 property:
-GTM container:
-Turnstile site:
-Email/Telegram/CRM destination:
-```
-
-## Environment Variables
-
-Заполняем после выбора backend и интеграций. Секреты не записываем в README, только названия переменных и где они используются.
-
-```text
-TURNSTILE_SECRET_KEY=
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASS=
-GA_MEASUREMENT_ID=
-GTM_ID=
-```
-
-## Decisions Log
-
-- 2026-06-12: Создан общий чеклист процесса и README для фиксации деталей проекта.
-- 2026-06-12: Для первого Cloudflare-подключения выбран Cloudflare Pages Direct Upload с project name `losoma`. Backend позже добавляем отдельно как Worker или Pages Functions.
-- 2026-06-12: Wrangler 4.100.0 установлен локально, Cloudflare login выполнен, Pages project `losoma` создан, production deploy доступен на `https://losoma.pages.dev`.
-- 2026-06-12: Vercel CLI перелогинен на `glebtiidt-work`, проект `gleb-projects-work/losoma` связан с GitHub repo.
-- 2026-06-12: GitHub repo `glebtiidt-work/losoma` создан и запушен чистой историей без `node_modules`.
-- 2026-06-12: Vercel production deployment от GitHub push готов и отвечает `200` на `https://losoma-pi.vercel.app`.
-- 2026-06-12: Из SEO-базы и Notion собран контекст Losoma для Германии/Berlin, AI-search и правил нейминга CSS-классов.
-- 2026-06-13: Правило верстки обновлено: все новые секции сначала сверяются через Figma `get_design_context`, затем значения Dev Mode переводятся в масштабируемую CSS-систему сайта.
-
-## Known Issues
-
-- 2026-06-12: Production URL отвечает `200`. Preview deployment создан, но `curl` с этой машины получил SSL handshake failure на preview URL; перепроверить позже, возможно SSL/alias еще прогревается.
-- 2026-06-12: Первый Vercel CLI deploy упал из-за output directory `public`, затем resolved через `vercel.json`, GitHub push и новый Vercel deployment.
-
-## Open Questions
-
-- Какой финальный домен?
-- Где зарегистрирован домен?
-- Где будет хоститься frontend?
-- Backend делаем на Cloudflare Workers или на отдельном сервере?
-- Куда отправлять заявки?
-- GA4/GTM уже созданы или создаем с нуля?
-- Нужны ли CMS и многоязычность?
+- Hostinger/SFTP/SSH and database access exist; backup/rollback execution still requires explicit launch authorization.
+- Final legal/lawyer review and Hostinger AVV/DPA confirmation.
+- WEB.DE SMTP/app password for email notifications.
+- Cookie banner / GA4 manual browser QA and final legal/privacy review.
+- `sitemap.xml`.
+- Final production QA on `losoma.de`.
+- Google Search Console setup after launch.

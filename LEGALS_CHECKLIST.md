@@ -11,34 +11,47 @@
 
 ## A. Юридические данные (подтвердить у владельца)
 
-- [ ] **Форма юрлица для Verantwortlicher/Impressum:** Einzelunternehmen (один владелец) или
-      **GbR** (двое: Maxim Soga / Alexandr Lozinschi)? Сейчас в Impressum нестыковка
-      (написано «Einzelunternehmen», но двое). → исправить и в Impressum, и в Datenschutz.
-- [ ] **Юридический адрес:** в Impressum два адреса (Falkenseer Chaussee 247C / Mindener Strasse 5).
-      Какой основной/юридический? Привести к одному виду с индексом во всех местах.
+- [x] **Форма юрлица для Verantwortlicher/Impressum:** текущая рабочая версия —
+      `Einzelunternehmen`; на сайте указаны **Maxim Soga / Alexandr Lozinschi**. Перед финальным
+      запуском сверить формулировку владельца/Verantwortlicher с регистрационными документами.
+- [x] **Юридический/бизнес-адрес:** владелец подтвердил текущий публичный адрес —
+      `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`. Отдельного клиентского офиса нет;
+      на сайте адрес помечен как Geschäftsadresse / kein Kundenbüro vor Ort.
 - [ ] **Datenschutzbeauftragter (DPO):** подтвердить, что не назначается (для малого бизнеса —
       норма; сейчас в тексте так и написано).
-- [ ] **Финальный домен:** остаётся `losoma-pi.vercel.app` или будет свой (напр. `losoma.de`)?
-      → обновить canonical/OG на всех страницах и адреса в политике.
+- [x] **Финальный домен:** staging остаётся `losoma-pi.vercel.app`, production — `losoma.de`.
+      Canonical и `og:url` на всех HTML-страницах переключены на `https://losoma.de`.
 
 ## B. Сервисы — запустить ИЛИ убрать из политики
 
 Каждый пункт = решение «активируем (и тогда раздел остаётся)» или «не используем (раздел убрать)».
 
-- [ ] **Consent-баннер (CMP).** Библиотека уже вендорена: `assets/vendor/cookieconsent/`
-      (vanilla-cookieconsent v3), но НЕ подключена. Настроить категории (necessary + analytics),
-      немецкий текст, подключить на всех страницах. Баннер обязателен ДО GA.
-- [ ] **Google Analytics.** Завести GA4, подключить загрузку ТОЛЬКО после согласия из баннера.
-      Включить IP-анонимизацию. (Если позже Google Ads → **Consent Mode v2**.)
-- [ ] **Форма → бэкенд.** Реализовать: Cloudflare Function (проверка Turnstile + honeypot) →
-      Google Apps Script → запись в Google Sheet + письмо на `losoma@web.de`.
-- [ ] **Cloudflare Turnstile.** Завести ключи, встроить в форму, проверять на стороне функции.
-- [ ] **Cookie-Einstellungen — кнопка в футере.** Добавить `<button>`, переоткрывающий баннер
-      (отзыв согласия), на всех страницах — вместе с баннером. (Отдельной страницы НЕ делать.)
+- [x] **Consent-баннер (CMP).** Реализован кастомный баннер в `script.js`/`styles.css` без внешнего CMP.
+      UX: первый слой `Ihre Privatsphäre ist uns wichtig` + `Alle ablehnen` / `Alle akzeptieren` /
+      `Einstellungen`; второй слой `Notwendige Cookies` (disabled ON, `Immer aktiv`) + `Statistik`
+      (OFF по умолчанию) с `Alle akzeptieren` и primary `Auswahl speichern`. До первого выбора нет close icon.
+      Перед production ещё нужна ручная browser QA и финальная legal-сверка текста.
+- [x] **Google Analytics.** GA4 подключён в коде через direct `gtag.js` + Consent Mode v2:
+      default denied, `analytics_storage` granted только после согласия на `Statistik`.
+      При отзыве согласия код ставит denied и удаляет GA cookies (`_ga`, `_ga_*`).
+      Если позже Google Ads → отдельно добавить/пересмотреть Consent Mode fields и Datenschutzerklärung.
+- [ ] **Форма → бэкенд.** Vercel endpoint `POST /api/contact` добавлен:
+      server-side validation, honeypot, rate limit, защита от дублей, защита от повторного клика.
+      Google Sheet через Apps Script работает. Email-уведомление через Apps Script не дошло;
+      следующий шаг — SMTP через WEB.DE после получения логина/app password.
+- [ ] **Cloudflare Turnstile.** Пока не включать: без CF-инфраструктуры в проекте он не обязателен.
+      Вернуться к нему, если появится спам или начнётся платный трафик; тогда добавить widget,
+      server-side verification и обновить Datenschutzerklärung/DPA.
+- [x] **Cookie-Einstellungen — только floating cookie icon.** Кнопка в футере намеренно удалена.
+      После сохранённого выбора floating icon открывает второй слой настроек и имеет
+      `aria-label="Cookie-Einstellungen öffnen"`. Отдельной cookie-страницы НЕ делать.
 
 ## C. Договоры обработки (AVV / DPA) — подписать/активировать
 
-- [ ] **Vercel** — активировать DPA в аккаунте (хостинг, server-logs, передача в США).
+- [ ] **Hostinger** — активировать/проверить AVV/DPA в аккаунте (хостинг, server-logs,
+      возможные subprocessors/передачи вне EU/EWR).
+- [ ] **Vercel** — активировать DPA в аккаунте, пока `POST /api/contact` работает как
+      staging/backend endpoint и обрабатывает заявки.
 - [ ] **Google** — AVV на используемые сервисы (Sheets/Apps Script/Gmail + Analytics).
       Удобно одним Workspace-аккаунтом.
 - [ ] **Cloudflare** — DPA на Turnstile (и на хостинг, если переедем на Pages).
@@ -47,11 +60,12 @@
 
 ## D. Техническая увязка на сайте
 
-- [ ] **Чекбокс согласия в форме** должен ссылаться на `/datenschutz` (текст «… Datenschutz­erklärung …»
-      со ссылкой). Сейчас чекбокс без ссылки.
-- [ ] **Stand-дата** в разделе 11 — ставить актуальную при публикации боевой версии.
-- [ ] Если переедем на **Cloudflare Pages** — обновить раздел Hosting (Vercel → Cloudflare,
-      EU-локализация), пересобрать/передеплоить.
+- [x] **Чекбокс согласия в форме** ссылается на `/datenschutz`: кликабелен только сам чекбокс,
+      слово `Datenschutzerklärung` подчёркнуто и ведёт на одноимённую страницу.
+- [x] **Stand-дата** в разделе 11 — обновлена на `Juli 2026` после подключения GA4/cookie banner.
+- [x] Раздел Hosting обновлён под финальный Hostinger production вместо Vercel.
+      Если позже переедем на Cloudflare Pages — обновить раздел Hosting ещё раз
+      (Hostinger → Cloudflare, EU-локализация), пересобрать/передеплоить.
 - [ ] Проверить, что **нигде нет внешних запросов** (Google Fonts уже убраны; следить, чтобы
       новые виджеты/карты не добавляли скрытых обращений без согласия).
 
@@ -61,7 +75,7 @@
 - [ ] После сверки: привести live-страницу в соответствие с реальным состоянием
       (убрать неактивные разделы ИЛИ убедиться, что все сервисы запущены).
 - [ ] Проверить адаптив legal-страницы на 320/360/390/414px (как для всех страниц).
-- [ ] Финальный деплой на прод (`losoma-pi.vercel.app`) и проверка ссылок/иконок/шрифта.
+- [ ] Финальный деплой на Hostinger production (`https://losoma.de`) и проверка ссылок/иконок/шрифта.
 
 ---
 

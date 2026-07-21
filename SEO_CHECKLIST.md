@@ -2,7 +2,7 @@
 
 > Домен: **https://losoma.de**
 > Составлено: 2026-06-23. Источники: Google Search Essentials, Google AI Optimization Guide, schema.org, Zapier SEO Guide.
-> Статус сайта: on-page SEO уже сильное (title/description/alt/canonical/og — везде есть). Главные пробелы — **structured data, robots.txt, sitemap.xml** и подключение домена `losoma.de`.
+> Статус сайта: on-page SEO уже сильное (title/description/alt/canonical/og — везде есть). Главные пробелы — **structured data, sitemap.xml** и подключение домена `losoma.de`. `robots.txt` уже создан.
 
 ---
 
@@ -19,29 +19,43 @@
 
 Без блока 🔴 нельзя собрать полную разметку `LocalBusiness`.
 
-- [ ] 🔴 👤 **Домен `losoma.de`** — подтверждён. Подключить к Vercel через Cloudflare-прокси (схема проекта). *Дальше всё строим на этом адресе.*
+- [x] 🔴 👤 **Домен `losoma.de`** — подтверждён как production domain для canonical/OG.
+  Финальный hosting target по launch-чеклисту — Hostinger; Vercel остаётся staging/backend.
 - [ ] 🔴 👤 **Google-аккаунт для бизнеса** (лучше отдельный, не личный). Нужен для Search Console и Business Profile.
-- [ ] 🔴 👤 **Google Business Profile** (Google Unternehmensprofil — карточка в Google Картах). Зарегистрировать: https://www.google.com/business/. Даёт: карточку в Картах, отзывы, часы работы, **гео-координаты**.
+- [x] 🔴 👤 **Google Business Profile** (Google Unternehmensprofil — карточка в Google Картах) создан
+  и одобрен Google.
+- [x] 🔴 👤 **Дубль Google Business Profile удалён.** Оставлен один рабочий профиль.
+- [x] 🔴 👤 **Услуги в Google Business Profile добавлены:** Treppenhausreinigung,
+  Gewerbliche Reinigung, Grundreinigung, Industriereinigung, Winterdienst,
+  Garten- und Landschaftspflege, Fassadenreinigung, Höhenarbeiten, Solaranlagenreinigung,
+  Photovoltaik-Reinigung, Büroreinigung, Wohnblockreinigung, Gemeinschaftsflächenreinigung,
+  Wohnanlagenbetreuung, Objektbetreuung.
 - [ ] 🔴 👤 **Координаты из Google Maps** — широта/долгота, минимум 5 знаков после запятой (напр. `52.53412, 13.18234`). Берутся из пункта на карте после регистрации профиля.
-- [ ] 🔴 👤 **Подтвердить ОДИН основной адрес.** В Impressum их два:
-  - `Falkenseer Chaussee 247C, 13583 Berlin` ← по умолчанию (это адрес из раздела Steuerangaben)
-  - `Mindener Strasse 5`
+- [ ] 🔴 👤 **Подтвердить основной бизнес-адрес для Google/Schema/Legals.**
+  Подтверждённая текущая версия на сайте: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`.
+  Это Geschäftsadresse; клиентского офиса по адресу нет.
+  Это адрес Александра как бизнес-адрес; отдельного офиса у компании нет. В Google Business Profile
+  адрес для клиентов скрыт, профиль ведём как service-area business с зоной `Berlin, Germany`.
+  Юридически ещё проверить, можно ли использовать этот адрес в Impressum/Datenschutz и Schema.
 - [ ] 🔴 👤 **Часы работы** (Öffnungszeiten), напр. `Mo–Fr 08:00–18:00`. Если работа «по договорённости» — так и скажи, часы в разметке опустим.
+- [ ] 🔴 👤 **Реальные фотографии для Google Business Profile:** добавить логотип и реальные фото
+  объектов/работ/команды. Отложено до появления реальных материалов.
 - [ ] 🟡 👤 **Ценовой диапазон** (`priceRange`), напр. `€€`.
 - [ ] 🟡 👤 **Год основания** компании (`foundingDate`).
 - [ ] 🟡 👤 **Соцсети** для `sameAs`: LinkedIn уже есть (`linkedin.com/in/maxim-soga-575478264`). Есть ли **Instagram / Facebook**?
 - [x] 🟡 💻 **Логотип-растр** для Schema (≥112×112) — используем существующий `assets/static/icon-512.png`.
 
 **Контактные данные (уже в Impressum, для справки):**
-Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · +49 176 44434111 · losoma@web.de · USt-IdNr. DE357950597.
+Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · losoma@web.de · USt-IdNr. DE357950597.
 
 ---
 
 ## 2. Домен и индексация
 
-- [ ] 🔴 👤💻 Подключить `losoma.de` к Vercel (DNS через Cloudflare-прокси).
-- [ ] 🔴 💻 Обновить `canonical`, `og:url`, `og:image` на абсолютные URL вида `https://losoma.de/...` на всех 13 страницах.
-- [ ] 🔴 💻 Создать **`robots.txt`** (разрешить индексацию + ссылка на sitemap).
+- [ ] 🔴 👤💻 Подключить/проверить `losoma.de` на финальном Hostinger production.
+- [x] 🔴 💻 Обновить `canonical` и `og:url` на абсолютные URL вида `https://losoma.de/...` на всех 13 страницах.
+- [ ] 🟡 💻 `og:image` сделать абсолютным URL вида `https://losoma.de/...` на всех страницах.
+- [x] 🔴 💻 Создать **`robots.txt`** (пока без ссылки на sitemap, sitemap отложен).
 - [ ] 🔴 💻 Создать **`sitemap.xml`** (автогенерация в `scripts/build-static.mjs` по всем страницам).
 - [ ] ⚙️ 👤 Подтвердить сайт в **Google Search Console** (DNS или meta-тег) и отправить sitemap.
 - [ ] ⚙️ 👤 Отправить запрос на индексацию главных страниц в Search Console.
@@ -99,7 +113,7 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · +49 176 444341
 
 ## 7. Порядок действий (рекомендуемый)
 
-1. 👤 Подключить домен `losoma.de` к Vercel.
+1. 👤 Подключить/проверить домен `losoma.de` на Hostinger production.
 2. 👤 Завести Google Business Profile → получить координаты, часы, основной адрес.
 3. 💻 robots.txt + sitemap.xml + перевод canonical/og на `losoma.de` + OG-фиксы.
 4. 💻 JSON-LD: Organization/WebSite/Service/Breadcrumb (база), затем LocalBusiness (когда есть гео/часы).

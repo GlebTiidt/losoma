@@ -2,7 +2,7 @@
   "name": "losoma",
   "version": "0.1.0",
   "private": true,
-  "description": "Static website prepared for Cloudflare Pages deployment.",
+  "description": "Static LOSOMA website for Hostinger production with Vercel staging.",
   "scripts": {
     "assets:images": "node scripts/optimize-images.mjs",
     "assets:images:force": "node scripts/optimize-images.mjs --force",
@@ -13,8 +13,8 @@
     "audit:classes:strict": "node scripts/audit-client-first-classes.mjs --strict",
     "dev": "npm run build:static && npx wrangler pages dev dist --live-reload",
     "dev:images": "npm run build:images && npx wrangler pages dev dist --live-reload",
-    "deploy": "npm run build:images && npx wrangler pages deploy dist --project-name losoma --branch main",
-    "deploy:preview": "npm run build:images && npx wrangler pages deploy dist --project-name losoma --branch preview"
+    "deploy": "npm run build && node -e \"console.error('Production deploy is Hostinger-only. Follow DEPLOYMENT_CHECKLIST.md.'); process.exit(1)\"",
+    "deploy:preview": "npm run build && node -e \"console.error('Cloudflare Pages preview deploy is disabled. Use Vercel staging only when explicitly requested.'); process.exit(1)\""
   },
   "devDependencies": {
     "sharp": "^0.35.1",
