@@ -50,6 +50,9 @@ Section spacing is driven by these tokens (each section's top margin uses `var(-
 - Standard pattern for a section: `width: 100%; padding-inline: 1rem;`
 - Slider/full-bleed sections: set `padding-left: 1rem` on the section and `padding-right: 1rem` on the track.
 - Tablet side gutter is 24px (`1.5rem`); phone tightens to 16px.
+- The collaboration-process cards are a deliberate exception to the general tablet
+  stack: they remain three columns from `768px` through `1024px`, and stack below
+  `768px`.
 
 ---
 

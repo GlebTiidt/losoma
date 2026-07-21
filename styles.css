@@ -3420,6 +3420,18 @@ a {
   }
 }
 
+/* Medium tablet: keep the three collaboration steps in one full-width row.
+   Below 768px the tablet single-column rule remains in force. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .process-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-step-card {
+    min-height: 20rem;
+  }
+}
+
 /* Phone Hero (Figma 29:733): single column, content pinned to the bottom, burger
    header. Header sits at the frame top with 16px side gutters / 24px top. The
    overlay stays the uniform rgba(4,23,31,0.3) from the desktop/tablet pass — the

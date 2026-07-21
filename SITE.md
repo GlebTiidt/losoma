@@ -123,6 +123,9 @@
 
 ## Adaptive Status (where we are)
 - **Done (tablet):** the **whole page** — header → burger, mobile menu overlay, Hero, desktop fluid type tokens, and every section layout: services-overview, quality-claim, services-catalog, why-losoma, collaboration-process, team-reviews, customer-reviews, the contact CTA panel (Figma 29:573), the FAQ block (Figma 29:610), and the footer (Figma 29:668).
+- **Collaboration-process tablet exception:** its three step cards stay in one row
+  from `768px` through `1024px` on every page; below `768px` they stack in one
+  column. The section itself still fills the shared tablet container.
 - **Done (phone ≤560): the WHOLE page.** Hero (29:733), services-overview (29:756), quality-claim (29:790/791/819), services-catalog slider (29:835, card 29:854), why-losoma (29:957), collaboration-process (29:999), team-overview (29:1033), customer-reviews (29:1073), contact CTA panel (29:1092), FAQ (29:1129) and footer (29:1187). Phone `:root` tokens in the `@media (max-width: 560px)` block: `--section-gap`/`--section-gap-tight` = 5rem (**80px between sections**, per spec) and `--button-height` = 2.5rem (40px). Intentional spacing on phone: the reviews block keeps its top + bottom **borders** (inset 16px, like desktop) with **50px of off-white below the bottom border** (`.contact-faq margin-top`) so it stays visible against the dark CTA panel; the **FAQ sits 32px below the CTA** and its top **border is inset 16px** (gutter is a margin, not padding, so the border isn't edge-to-edge); the footer is flush under the FAQ. All dividers are real borders, never absolutely-positioned lines.
 - **Phone responsive: COMPLETE.** Desktop, tablet (≤1024) and phone (≤560) are all done for the whole page.
 
