@@ -15,6 +15,7 @@ Before changing code, read:
 - `SEO_CHECKLIST.md` before SEO, canonical, sitemap, Schema.org or Google Business Profile work.
 - `LEGALS_CHECKLIST.md` and `docs/LEGAL_PAGES_GUIDELINES.md` before legal-page or privacy-policy work.
 - `docs/RESPONSIVE_GUIDELINES.md` before layout/responsive work.
+- `docs/BLOG_GUIDELINES.md` before blog index, article, editorial layout or article SEO work.
 - `docs/SEO_AND_CLASS_GUIDELINES.md` before adding or renaming classes.
 
 Update `SITE.md` after meaningful code or rule changes.
@@ -99,6 +100,14 @@ Run `npm run audit:classes:strict` after class work.
   - `.link-button` / `.link-button.is-green`
 - Do not reintroduce the rejected desktop header shrink animation, shadow/hairline, or progressive blur.
 - Avoid external Google Fonts. Lato is self-hosted in `assets/vendor/lato/`.
+- Reuse component typography instead of duplicating declarations. The article lead
+  `.blog-article_lead` deliberately shares font size, weight, line-height and tracking with
+  `.quality-claim_title`; only article grid placement and spacing are unique.
+- Blog article media, H1/subtitle, lead and long-form body use 8 of 12 columns on desktop and
+  the full container at `<=1024px`.
+- `.hero_title`, `.blog-index_title` and `.blog-article_title` share the same responsive H1
+  clamps. Keep the shared desktop clamp after the blog title's base typography so the cascade
+  cannot replace it with a fixed token. The article subtitle has its own responsive clamp.
 
 ## Forms
 
@@ -118,7 +127,7 @@ Run `npm run audit:classes:strict` after class work.
 - Grant only `analytics_storage` after the user enables/accepts `Statistik`; keep ads fields denied unless Google Ads is added later.
 - Do not load or activate GA4 before cookie consent. If `Statistik` is revoked, set consent denied and delete `_ga` / `_ga_*` cookies.
 - Cookie banner UI is implemented in `script.js`/`styles.css`; keep future edits aligned with the approved Figma direction and existing Client-First naming.
-- Approved consent UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before the first choice. Second layer: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, secondary `Alle akzeptieren`, primary `Auswahl speichern`. Only the floating cookie icon reopens the second layer after a saved choice; there is no footer cookie button.
+- Approved consent UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before the first choice. Second layer: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default; `Auswahl speichern` is the secondary left button and `Alle akzeptieren` is the primary right button. Only the floating cookie icon reopens the second layer after a saved choice; there is no footer cookie button.
 - Floating cookie UI: button `44×44px`, icon `32×32px`, page-color background, ink icon, neutral hover. Desktop is bottom-left; tablet `≤1024px` and phone `≤560px` are bottom-right, with the panel aligned to the same side.
 
 ## Google Account Transfer
@@ -149,7 +158,11 @@ Run `npm run audit:classes:strict` after class work.
 - `robots.txt` exists; `sitemap.xml` is still pending.
 - Structured data is pending required business facts: opening hours, coordinates, address/legal confirmation, founding date/price range if used.
 - Do not add `FAQPage` JSON-LD unless visible FAQ content and current Google requirements justify it.
-- Blog/Einblicke content is deferred until after production launch. Keep the commented header/footer links disabled until the user explicitly reopens that work.
+- Blog/Einblicke is active. Keep `/blog` in the desktop header, footer navigation and burger menu
+  on every page. Six SEO articles are planned; only the published article may appear as a live card.
+- Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,
+  canonical/OG/Twitter fields, `BlogPosting`, `WebPage` and `BreadcrumbList` schema, plus processed
+  AVIF/WebP imagery with useful `alt`, `title`, width and height.
 
 ## Legal Rules
 

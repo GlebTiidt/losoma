@@ -1,6 +1,6 @@
 # LOSOMA Handoff
 
-## Immediate Handoff — 2026-07-20
+## Immediate Handoff — 2026-07-21
 
 This section is the current source of truth and supersedes conflicting historical notes below.
 
@@ -30,12 +30,13 @@ This section is the current source of truth and supersedes conflicting historica
 - Hostinger/SFTP/SSH, WordPress admin and database access exist, but must not be used until the user separately authorizes backup/launch work.
 - Do not submit the staging form or create Google Sheet rows, emails or analytics test events without warning the user and receiving permission first.
 - Vercel CLI authentication was restored on 2026-07-15. Deploy only when explicitly requested, using `vercel --prod --yes`; in this project that updates the staging alias, not the WordPress site.
-- Current ready staging deployment: `dpl_2CX6guQmQs2jub2kPPuMiRM1Rjwm`, immutable URL `https://losoma-ibz5wu1le-gleb-projects-work.vercel.app`, alias `https://losoma-pi.vercel.app`.
+- Current ready staging deployment: `dpl_9cZavsPFwviqcgkaPEcjGuZyVkPh`, immutable URL `https://losoma-3215fwdqu-gleb-projects-work.vercel.app`, alias `https://losoma-pi.vercel.app`.
 
 ### Current Cookie UI
 
 - Custom CMP only; implementation is in `script.js` and `styles.css`.
 - First layer has `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`; no close/X before the first decision. `Statistik` defaults OFF and GA4 stays inactive until consent.
+- In second-layer settings, `Auswahl speichern` is the secondary left button and `Alle akzeptieren` is the primary right button. Turning `Statistik` off and saving is the granular rejection path; the explicit one-click `Alle ablehnen` remains on the first layer.
 - The footer `Cookie-Einstellungen` control was deliberately removed. Reopening settings is done only with the floating cookie button.
 - Floating button: `44×44px`; cookie SVG: `32×32px`, centered; button background `var(--color-page)` (`#fdfdfc`), icon `var(--color-ink)`, neutral hover `var(--color-surface-hover)` (`#ededed`), no shadow.
 - Desktop: button and panel bottom-left with `var(--content-gutter)` offset.
@@ -43,6 +44,17 @@ This section is the current source of truth and supersedes conflicting historica
 - Phone `≤560px`: button and panel bottom-right with `16px` inset.
 - Panel: up to `500px`, `16px` padding, `4px` radius, `rgba(253,253,252,.9)` background and `4px` backdrop blur. No dark full-screen visual backdrop.
 - Legal UX note: the reject action is already on the first layer and takes one click. Before launch, consider giving accept/reject comparable visual prominence to reduce nudging risk.
+
+### Current Blog And Editorial Rules
+
+- Blog index: `/blog`; first article: `/blog/hausmeister-vs-externer-spezialist`.
+- `Einblicke → /blog` is enabled in the desktop header, footer and burger menu on every page.
+- Six SEO articles are planned, but only the first is published and shown as a card.
+- Desktop article H1/subtitle, image, two-paragraph lead and body align to 8 of the shared 12 columns. At `<=1024px` they use the full content container.
+- `.blog-article_lead` reuses the exact `.quality-claim_title` typography from all service pages. Do not give it independent font size, weight, line-height or letter-spacing.
+- `.hero_title`, `.blog-index_title` and `.blog-article_title` share the same desktop/tablet/phone `clamp()` behavior. The article subtitle also uses `clamp()`. Preserve CSS source order so a later fixed `font-size` cannot override the desktop H1 clamp.
+- The article image is the processed 1600px AVIF/WebP pair. Do not restore the heavy original PNG to the repository.
+- Article SEO includes unique metadata plus `BlogPosting`, `WebPage` and `BreadcrumbList`; see `docs/BLOG_GUIDELINES.md`.
 
 ### Current Legal And Business Data
 
@@ -94,6 +106,9 @@ Read `SITE.md`, `CLAUDE.md`, `DEPLOYMENT_CHECKLIST.md`, `SEO_CHECKLIST.md`, `LEG
   - `kontakt.html`
   - `impressum.html`
   - `datenschutz.html`
+- Blog:
+  - `blog/index.html`
+  - `blog/hausmeister-vs-externer-spezialist.html`
 
 All pages use clean canonical URLs on `https://losoma.de`.
 
@@ -135,6 +150,8 @@ Run `npm run audit:classes:strict` after class work.
 - Use existing tokens in `styles.css`.
 - Lato is self-hosted in `assets/vendor/lato/`; do not add Google Fonts links.
 - Typography uses `rem` and `clamp()`, not viewport font sizing.
+- Reuse existing component rules. In particular, article lead typography is shared with
+  `.quality-claim_title`, and blog H1 sizing is shared with `.hero_title`.
 - Letter spacing stays `0` unless an existing token explicitly says otherwise.
 - Cards keep restrained radii.
 - Prefer grid/flex and semantic layout. Use absolute positioning only for real overlays, media layers and animation internals.
@@ -199,7 +216,7 @@ Keep Splide for the services and reviews sliders. Keep intl-tel-input for phone 
 - After `Statistik` consent: grant only `analytics_storage`. Ads fields stay denied unless Google Ads is added later.
 - If the user revokes `Statistik`, set analytics consent back to denied and delete GA cookies (`_ga`, `_ga_*`).
 - Cookie banner UI is implemented in `script.js`/`styles.css` from the approved Figma direction.
-- Approved UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before first choice. Second layer `Cookie-Einstellungen`: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, secondary `Alle akzeptieren`, primary `Auswahl speichern`. Cookie icon/footer button reopen the settings layer directly after a saved choice.
+- Approved UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before first choice. Second layer `Cookie-Einstellungen`: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default, secondary-left `Auswahl speichern`, primary-right `Alle akzeptieren`. Only the floating cookie icon reopens the settings layer directly after a saved choice; there is no footer cookie button.
 - Verification done: `node --check script.js`, `npm run build`, `npm run audit:classes:strict`. Browser-plugin visual QA was blocked by the local Node runtime being below the browser plugin requirement; run manual browser QA or retry after updating the runtime.
 
 ## Historical Session Handoff: Cookie/Figma Implementation — 2026-07-11
