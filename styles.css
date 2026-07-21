@@ -652,7 +652,7 @@ a {
 
 /* ── Blog index + article ────────────────────────────────────────────────────
    Desktop geometry follows Figma 190:2 / 190:27 / 190:106. Both pages reuse
-   the solid header and footer; the article body keeps a 9-of-12 reading column. */
+   the solid header and footer; article media and copy share an 8-of-12 column. */
 .nav_link[aria-current]::after {
   transform: scaleX(1);
 }
@@ -673,7 +673,7 @@ a {
 
 .blog-index_title,
 .blog-article_title {
-  font-size: var(--type-hero-title);
+  font-size: clamp(2.5rem, 3.9vw, var(--type-hero-title));
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -758,7 +758,7 @@ a {
 }
 
 .blog-article_media {
-  grid-column: 1 / span 9;
+  grid-column: 1 / span 8;
   width: 100%;
   aspect-ratio: 1196 / 600;
   margin-top: 2.5rem;
@@ -783,7 +783,7 @@ a {
 }
 
 .blog-article_lead {
-  grid-column: 1 / -1;
+  grid-column: 1 / span 8;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -793,7 +793,7 @@ a {
 }
 
 .article-prose {
-  grid-column: 1 / span 9;
+  grid-column: 1 / span 8;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
@@ -3147,7 +3147,7 @@ a {
 
   .blog-index_title,
   .blog-article_title {
-    font-size: 3rem;
+    font-size: clamp(2.25rem, 6.4vw, 3rem);
   }
 
   .blog-grid {
@@ -3159,6 +3159,7 @@ a {
   }
 
   .blog-article_media,
+  .blog-article_lead,
   .article-prose {
     grid-column: 1 / -1;
   }
@@ -3752,7 +3753,7 @@ a {
 
   .blog-index_title,
   .blog-article_title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 8.2vw, 2rem);
     overflow-wrap: break-word;
   }
 

@@ -164,8 +164,8 @@ function createCookieConsentElements() {
         </div>
 
         <div class="cookie-consent_actions is-settings">
-          <button class="cookie-consent_button is-secondary" type="button" data-cookie-settings-accept>Alle akzeptieren</button>
-          <button class="cookie-consent_button is-primary" type="button" data-cookie-save>Auswahl speichern</button>
+          <button class="cookie-consent_button is-secondary" type="button" data-cookie-save>Auswahl speichern</button>
+          <button class="cookie-consent_button is-primary" type="button" data-cookie-settings-accept>Alle akzeptieren</button>
         </div>
       </div>
     </div>

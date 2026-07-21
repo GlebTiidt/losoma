@@ -20,7 +20,7 @@
 - The subtitle is a paragraph, not another heading.
 - Use H2 for every primary section. Add H3 only for a real subsection inside an H2.
 - Keep the opening two-paragraph `.blog-article_lead` direct and scannable.
-- The long-form `.article-prose` occupies 9 of 12 desktop columns and the full tablet/phone container.
+- Article media, the opening `.blog-article_lead` and the long-form `.article-prose` occupy 8 of 12 desktop columns and the full tablet/phone container.
 - Use semantic `<ul>` lists; never fake bullets with plain paragraphs.
 
 ## SEO and schema
