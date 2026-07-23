@@ -1,323 +1,141 @@
-# Datenschutzerklärung — рабочий черновик (Losoma)
+# Datenschutzerklärung — технический и юридический source of truth
 
-> Рабочий документ для подготовки страницы `/datenschutz`. Здесь: зафиксированные
-> решения, открытые вопросы и полный немецкий текст под реальный сценарий сайта.
-> Это НЕ финальная страница — сначала закрыть плейсхолдеры `[…]` и сверить с
-> юристом/генератором.
+Последнее обновление: 2026-07-22.
 
-**⚠️ Дисклеймер:** я не юрист. Текст составлен под технические факты сайта и по
-стандартной структуре немецких Datenschutz-генераторов. Перед публикацией прогнать
-через e-Recht24 / activeMind или показать юристу — ответственность за точность на
-владельце.
+> Это технически выверенный рабочий материал, а не индивидуальная юридическая
+> консультация. Перед Hostinger launch текст должен проверить клиент и желательно
+> немецкий юрист/Datenschutz-специалист.
 
----
+## 1. Фактически активные процессы
 
-## 1. Зафиксированные решения
+### Hosting
 
-| Тема | Решение |
-|---|---|
-| **Хостинг** | Финальный production-хостинг: **Hostinger** (`losoma.de`). Vercel остаётся staging/backend для формы, пока `/api/contact` используется. |
-| **Шрифты** | ✅ **СДЕЛАНО (2026-06-22).** Lato self-hosted: woff2 + `lato.css` в `assets/vendor/lato/`, внешние `fonts.googleapis.com`/`gstatic.com` убраны со всех 13 страниц. → передачи IP в Google из-за шрифтов больше нет; раздел Google Fonts на странице не нужен. |
-| **Форма** | Vercel endpoint `POST /api/contact` (server-side validation + honeypot + rate limit + duplicate protection) → **Google Apps Script** → запись строки в **Google Sheet**. Email через Apps Script не дошёл; следующий шаг — WEB.DE SMTP/app password. |
-| **Обработчики формы** | Vercel endpoint, Google (Sheets + Apps Script); Cloudflare Turnstile только если будет включён позже. |
-| **Аналитика** | ✅ **СДЕЛАНО (2026-07-11).** GA4 создан и подключён напрямую через `gtag.js` с Consent Mode v2. Measurement ID: `G-ST55QF95VS`. GA грузится только после согласия на `Statistik` (§ 25 TDDDG). |
-| **Cookies** | ✅ **СДЕЛАНО (2026-07-11).** Кастомный consent-баннер реализован в `script.js`/`styles.css`, без внешнего CMP. Категории: `necessary` и `statistics`. |
-| **Google Maps** | Пока **не встраиваем**. Если позже встроим карту — +обработчик +согласие. |
-| **Cookie-Einstellungen** | **Отдельной страницы НЕТ.** Это кнопка в футере + floating cookie icon, которые заново открывают второй слой consent-баннера (отзыв/изменение согласия — обязателен по §25 TDDDG). Технически — `<button>`, вызывающий локальную функцию баннера. Список самих куки — внутри Datenschutz/consent-текста, не отдельной страницей. |
+- `losoma.de`: текущий production остаётся на Hostinger/WordPress до отдельного launch.
+- `losoma-pi.vercel.app`: публичная preproduction-версия нового сайта на Vercel.
+- `POST /api/contact` пока выполняется на Vercel.
+- После Hostinger launch legal-текст нужно обновить под реальный production backend;
+  Vercel удаляется из active processing только если форма больше через него не проходит.
 
-> **Итог по техническим страницам:** одна реальная страница — `/datenschutz`.
-> «Cookie-Einstellungen» — это футер-кнопка-триггер, не контент-страница.
+### Contact form
 
----
-
-## 2. Открытые вопросы (нужны ответы)
-
-1. **Юрлицо Verantwortlicher — рабочая версия:** Einzelunternehmen; публично указаны Maxim Soga / Alexandr Lozinschi. Перед финальной публикацией сверить точную формулировку владельца/Verantwortlicher с регистрационными/налоговыми документами.
-2. **Юридический/бизнес-адрес подтверждён владельцем:** `Falkenseer Chaussee 247C, 13583 Berlin`; отдельного клиентского офиса нет. На сайте адрес обозначается как Geschäftsadresse / kein Kundenbüro vor Ort.
-3. **Подтвердить AVV/DPA Hostinger** и финальную server-log/subprocessor формулировку.
-4. **Подтвердить Google AVV/DPA** для GA4 и используемых Google-сервисов (Sheets/Apps Script/Gmail/Workspace, если будет Workspace).
-5. **Финальная legal-сверка**: прогнать `/datenschutz` через e-Recht24 / activeMind или юриста после запуска GA4/banner QA.
-
----
-
-## 3. Плейсхолдеры, которые надо заменить перед публикацией
-
-- `[ВЛАДЕЛЕЦ / RECHTSFORM]` — имя(имена) + форма (ИП или GbR) → вопрос 2.
-- `[АДРЕС]` — какой из двух адресов Impressum юридический.
-- `[ХОСТЕР]` — Hostinger / HOSTINGER INTERNATIONAL LIMITED, 61 Lordou Vironos str., 6023 Larnaca, Cyprus.
-- `[STAND-Datum]` — месяц и год публикации (напр. «Juni 2026»).
-- Разделы про cookies/GA публиковать только вместе с реально работающим баннером и GA4 consent-гейтом. На 2026-07-11 кодовая часть уже реализована, остаётся ручная browser QA и юридическая сверка.
-
----
-
-## 4. Полный текст (целевое состояние)
-
-> Немецкий текст — для копирования в страницу. Разделы про cookies и GA4 соответствуют
-> текущей реализации: кастомный consent-баннер, Consent Mode v2 default denied,
-> GA4 только после согласия на `Statistik`.
-
----
+Реальный поток на 2026-07-22:
 
 ```text
-Datenschutzerklärung
+Browser
+  -> Vercel POST /api/contact
+  -> Google Apps Script Web App
+  -> Google Sheet "Anfragen"
+  -> Gmail notification to maxim@losoma.de
 ```
 
-### 1. Datenschutz auf einen Blick / Verantwortlicher
+Обрабатываются:
+
+- name;
+- email;
+- phone;
+- requested service;
+- optional message;
+- submission timestamp;
+- source path;
+- User-Agent;
+- IP address temporarily for delivery/security/rate limiting at hosting/backend level.
+
+Защита: server validation, body limit, honeypot, per-IP rate limit, short duplicate window,
+submit lock. Webhook secret rotated and synchronized on 2026-07-22. Test returned
+`HTTP 200 {"ok":true}`; email and Sheet row were visually confirmed.
+
+Checkbox wording is an acknowledgement, not a separate legal consent:
 
 ```text
-1. Datenschutz auf einen Blick
-
-Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Diese Datenschutz-
-erklärung informiert Sie darüber, welche Daten wir beim Besuch dieser Website
-erheben, wie wir sie verwenden und welche Rechte Ihnen zustehen.
-
-Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
-
-Losoma
-[ВЛАДЕЛЕЦ / RECHTSFORM]
-[АДРЕС], Berlin
-Telefon: +49 176 444 34 111
-E-Mail: losoma@web.de
-
-Eine Verpflichtung zur Benennung eines Datenschutzbeauftragten besteht für uns
-nicht.
+Ich habe die Datenschutzerklärung zur Kenntnis genommen.
 ```
 
-### 2. Hosting und Server-Logfiles
+Processing basis:
 
-```text
-2. Hosting und Server-Logfiles
+- Art. 6(1)(b) GDPR for contract/pre-contract inquiries;
+- Art. 6(1)(f) GDPR for general business inquiries.
 
-Diese Website wird bei einem externen Dienstleister gehostet:
+Open retention decision: client must approve a deletion schedule for Google Sheets and Gmail.
+Until then, the public policy uses purpose/mandatory-retention criteria and does not claim an
+unimplemented fixed deletion period.
 
-[ХОСТЕР]
-HOSTINGER INTERNATIONAL LIMITED, 61 Lordou Vironos str., 6023 Larnaca, Cyprus
+### Cookies / local storage
 
-Beim Aufruf unserer Website werden durch den Hosting-Anbieter automatisch
-Informationen in sogenannten Server-Logfiles erfasst, die Ihr Browser
-übermittelt. Dies sind:
+- Custom consent UI, no external CMP.
+- Consent choice stored in Local Storage as `losoma_cookie_consent`.
+- Homepage intro state stored in Session Storage as `losoma_intro_seen`.
+- Google Analytics is default denied and loaded only after `Statistik` consent.
+- Withdrawal sets analytics consent to denied and removes `_ga` / `_ga_*` cookies.
 
-- IP-Adresse des zugreifenden Geräts
-- Datum und Uhrzeit des Zugriffs
-- Name und URL der abgerufenen Datei
-- übertragene Datenmenge
-- Meldung über erfolgreichen Abruf
-- verwendeter Browsertyp und dessen Version
-- Betriebssystem
-- die zuvor besuchte Seite (Referrer-URL)
+### Google Analytics
 
-Diese Daten dienen der technischen Auslieferung, der Stabilität und der
-Sicherheit der Website. Die Verarbeitung erfolgt auf Grundlage unseres
-berechtigten Interesses an einem zuverlässigen und sicheren Betrieb der Website
-(Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden nach kurzer Zeit automatisch
-gelöscht, soweit sie nicht zur Aufklärung oder Abwehr von Sicherheitsvorfällen
-benötigt werden.
+- GA4 measurement ID: `G-QPX35L2ZGK`.
+- Direct `gtag.js`, Consent Mode v2.
+- `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization` default denied;
+  only analytics storage is granted for Statistics consent.
+- GA4 standard property event/user retention is at most 14 months, but the exact Admin setting
+  (2 or 14 months) must be checked before launch.
+- Google states that individual EU/EEA IP addresses are discarded before logging.
 
-Der Hosting-Anbieter ist für uns als Auftragsverarbeiter tätig; ein
-entsprechender Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) muss vor der
-finalen Veröffentlichung abgeschlossen bzw. aktiviert sein.
+### Not active
 
-Soweit Hostinger oder eingesetzte Unterauftragnehmer personenbezogene Daten
-außerhalb der EU bzw. des EWR verarbeiten, erfolgt dies auf Grundlage
-geeigneter Garantien, insbesondere der Standardvertragsklauseln der
-EU-Kommission.
-```
+- reCAPTCHA v3 is active on Hostinger production with server-side verification; its processing
+  text is published in `datenschutz.html`.
+- Turnstile is not used.
+- Google Maps is not embedded.
+- Lato is self-hosted; no Google Fonts request exists.
+- Social icons are simple outbound links, not embedded plugins.
 
-> RU: «Vertrag zur Auftragsverarbeitung liegt vor» подразумевает, что AVV/DPA с
-> хостером реально подписан/активирован. Для Hostinger проверить AVV/DPA,
-> subprocessor list и фактическую server-location в аккаунте.
+## 2. Current processors / recipients
 
-### 3. SSL- bzw. TLS-Verschlüsselung
+| Provider | Current purpose | Required internal action |
+|---|---|---|
+| Vercel Inc. | Legacy preproduction only; not in the active production form path | DPA needed only if staging processes real personal data again |
+| Google Ireland / Google Workspace | Apps Script, Sheets and Gmail form delivery | Confirm Workspace data-processing terms, access list and retention |
+| Google Analytics | Consent-based analytics | Confirm data-processing terms and exact retention setting |
+| Hostinger | Current `losoma.de` hosting and future new-site production | Confirm DPA before migration and document server/runtime/subprocessors |
 
-```text
-3. SSL- bzw. TLS-Verschlüsselung
+International transfers are described using Art. 44 ff. GDPR, applicable adequacy decisions
+and/or EU Standard Contractual Clauses. Do not promise DPF coverage for a provider without
+checking its current certification and contract.
 
-Diese Website nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung.
-Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des
-Browsers von „http://“ auf „https://“ wechselt. Wenn die Verschlüsselung aktiv
-ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen
-werden.
-```
+## 3. Open legal blockers
 
-### 4. Cookies und Einwilligungsverwaltung
+1. Confirm exact owner/controller wording from registration documents. `Einzelunternehmen`
+   with `Maxim Soga / Alexandr Lozinschi` is potentially inconsistent and must be resolved.
+2. Confirm whether a Datenschutzbeauftragter is appointed or legally required.
+3. Approve a concrete deletion/retention policy for contact requests in Sheets and Gmail.
+4. Confirm/accept DPA/AVV for Hostinger, Vercel, Google Workspace and Google Analytics.
+5. Confirm who has access to the Sheet, Apps Script and `maxim@losoma.de`.
+6. Obtain final lawyer/privacy review before Hostinger production launch.
 
-```text
-4. Cookies und Einwilligungsverwaltung
+## 4. Official references checked 2026-07-22
 
-Unsere Website verwendet Cookies und vergleichbare Technologien nur, soweit dies
-für den Betrieb der Website technisch erforderlich ist oder Sie zuvor eingewilligt
-haben. Technisch notwendige Cookies werden auf Grundlage unseres berechtigten
-Interesses gesetzt (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 TDDDG).
+- GDPR consolidated text, especially Arts. 5, 6, 13, 21, 28 and 44 ff.:
+  `https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679`
+- § 25 TDDDG:
+  `https://www.gesetze-im-internet.de/ttdsg/__25.html`
+- Berlin supervisory authority contact:
+  `https://www.datenschutz-berlin.de/ueber-uns/kontakt/`
+- Google Workspace data processing terms:
+  `https://workspace.google.com/terms/10292019/dpa_terms/`
+- Google Analytics EU/UK/CH privacy information:
+  `https://support.google.com/analytics/answer/12017362`
+- Google Consent Mode implementation:
+  `https://developers.google.com/tag-platform/security/guides/consent`
+- Vercel DPA (current version must be rechecked at launch):
+  `https://vercel.com/legal/dpa`
+- Hostinger DPA (current account/version must be rechecked at launch):
+  `https://www.hostinger.com/legal/dpa`
 
-Einwilligungspflichtige Dienste (z. B. Web-Analyse) werden erst geladen, nachdem
-Sie über unser Einwilligungs-Banner zugestimmt haben. Ihre Auswahl können Sie
-jederzeit mit Wirkung für die Zukunft über die Einstellungen des Banners ändern
-oder widerrufen. Rechtsgrundlage ist Ihre Einwilligung
-(Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
-```
+## 5. Update rule
 
-> RU: раздел оставляем, потому что баннер и GA4 consent-гейт реализованы. Перед production
-> остаётся ручная browser QA и legal-сверка формулировок.
+Whenever hosting, form routing, analytics, CAPTCHA, maps, CRM, email provider, cookie storage,
+social embeds or retention changes:
 
-### 5. Kontaktaufnahme und Kontaktformular
-
-```text
-5. Kontaktaufnahme und Kontaktformular
-
-Wenn Sie uns über das Kontaktformular, per E-Mail oder telefonisch kontaktieren,
-verarbeiten wir die von Ihnen mitgeteilten Daten, um Ihre Anfrage zu bearbeiten
-und zu beantworten.
-
-Über das Kontaktformular erheben wir folgende Angaben:
-
-- Name (Vor- und Nachname)
-- E-Mail-Adresse
-- Telefonnummer
-- gewünschte Leistung
-- Ihre Nachricht (sofern angegeben)
-
-Pflichtangaben sind als solche gekennzeichnet; ohne diese Angaben können wir Ihre
-Anfrage nicht bearbeiten. Die übrigen Angaben sind freiwillig.
-
-Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage auf den
-Abschluss oder die Durchführung eines Vertrags gerichtet ist, im Übrigen unser
-berechtigtes Interesse an der Beantwortung Ihrer Anfrage
-(Art. 6 Abs. 1 lit. f DSGVO).
-
-Zur Verarbeitung und Speicherung der über das Formular eingegangenen Anfragen
-nutzen wir Dienste der Google Ireland Limited, Gordon House, Barrow Street,
-Dublin 4, Irland („Google“). Die Formulardaten werden hierzu in einer Google-
-Tabelle (Google Sheets) gespeichert und per E-Mail an uns übermittelt. Google
-kann Daten dabei auch auf Servern in den USA verarbeiten; die Übermittlung wird
-auf den EU-US Data Privacy Framework bzw. die Standardvertragsklauseln gestützt.
-Mit Google besteht ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO).
-
-Ihre Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und
-keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
-```
-
-> RU (вариант A на старте — пока формы/Google ещё нет в проде): убрать абзац про
-> Google Sheets и заменить на нейтральное:
-> «Die im Zusammenhang mit Ihrer Anfrage übermittelten Daten verarbeiten wir
-> ausschließlich zur Bearbeitung Ihres Anliegens und geben sie nicht ohne Ihre
-> Einwilligung an Dritte weiter.»
-> Когда форма заработает через Apps Script → Google Sheet — вернуть абзац про Google.
-
-### 6. Spam-Schutz (Cloudflare Turnstile)  — если хостинг Cloudflare
-
-```text
-6. Spam-Schutz / Cloudflare Turnstile
-
-Zum Schutz unseres Kontaktformulars vor missbräuchlicher automatisierter Nutzung
-(Spam, Bots) setzen wir „Turnstile“ der Cloudflare, Inc., 101 Townsend St,
-San Francisco, CA 94107, USA ein. Turnstile prüft, ob eine Eingabe von einem
-Menschen stammt. Dabei werden technische Informationen (u. a. IP-Adresse, Browser-
-und Geräteinformationen) an Cloudflare übermittelt und ausgewertet. Rechtsgrundlage
-ist unser berechtigtes Interesse an der Abwehr von Spam und Missbrauch
-(Art. 6 Abs. 1 lit. f DSGVO). Eine Datenübermittlung in die USA wird auf den
-EU-US Data Privacy Framework bzw. die Standardvertragsklauseln gestützt.
-```
-
-> RU: если в итоге хостинг останется Vercel и Turnstile не используется — раздел убрать.
-
-### 7. Google Analytics
-
-```text
-7. Webanalyse mit Google Analytics
-
-Diese Website nutzt — nur nach Ihrer Einwilligung — den Webanalysedienst Google
-Analytics der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
-Irland. Google Analytics verwendet Cookies und ähnliche Technologien, die eine
-Analyse Ihrer Nutzung der Website ermöglichen. Die erzeugten Informationen über
-Ihre Nutzung (einschließlich gekürzter IP-Adresse) werden an Google übertragen
-und dort gespeichert; eine Übermittlung in die USA wird auf den EU-US Data Privacy
-Framework bzw. die Standardvertragsklauseln gestützt.
-
-Wir verwenden Google Analytics mit aktivierter IP-Kürzung (Anonymisierung), sodass
-Ihre IP-Adresse von Google innerhalb der EU/des EWR vor der Übertragung gekürzt
-wird.
-
-Rechtsgrundlage ist ausschließlich Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a
-DSGVO und § 25 Abs. 1 TDDDG. Sie können Ihre Einwilligung jederzeit mit Wirkung
-für die Zukunft über unser Einwilligungs-Banner widerrufen. Mit Google besteht
-ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO).
-```
-
-> RU: подключение GA → обязателен Consent Mode v2, если позже добавишь Google Ads.
-
-### 8. Links zu sozialen Netzwerken
-
-```text
-8. Links zu sozialen Netzwerken
-
-Auf unserer Website finden Sie Verweise auf unsere Profile in sozialen
-Netzwerken (z. B. LinkedIn, Facebook, Instagram). Es handelt sich dabei um
-einfache Verlinkungen, nicht um eingebundene Plugins. Eine Datenübertragung an
-die jeweiligen Anbieter findet erst statt, wenn Sie auf einen dieser Links klicken
-und auf die externe Seite weitergeleitet werden. Für die Datenverarbeitung auf den
-verlinkten Seiten ist der jeweilige Anbieter verantwortlich.
-```
-
-### 9. Ihre Rechte als betroffene Person
-
-```text
-9. Ihre Rechte als betroffene Person
-
-Sie haben jederzeit das Recht:
-
-- auf Auskunft über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO),
-- auf Berichtigung unrichtiger Daten (Art. 16 DSGVO),
-- auf Löschung Ihrer Daten (Art. 17 DSGVO),
-- auf Einschränkung der Verarbeitung (Art. 18 DSGVO),
-- auf Datenübertragbarkeit (Art. 20 DSGVO),
-- der Verarbeitung Ihrer Daten zu widersprechen (Art. 21 DSGVO).
-
-Soweit die Verarbeitung auf einer Einwilligung beruht, können Sie diese jederzeit
-mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der bis zum Widerruf
-erfolgten Verarbeitung bleibt davon unberührt.
-
-Zur Ausübung Ihrer Rechte genügt eine formlose Mitteilung an die oben genannten
-Kontaktdaten.
-```
-
-### 10. Beschwerderecht bei der Aufsichtsbehörde
-
-```text
-10. Beschwerderecht bei der Aufsichtsbehörde
-
-Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die
-Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die für uns zuständige
-Aufsichtsbehörde ist:
-
-Berliner Beauftragte für Datenschutz und Informationsfreiheit
-Alt-Moabit 59–61, 10555 Berlin
-Telefon: +49 30 13889-0
-E-Mail: mailbox@datenschutz-berlin.de
-```
-
-### 11. Aktualität und Änderung dieser Datenschutzerklärung
-
-```text
-11. Aktualität und Änderung dieser Datenschutzerklärung
-
-Diese Datenschutzerklärung ist aktuell gültig (Stand: Juli 2026). Durch die
-Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher Vorgaben
-kann es notwendig werden, diese Datenschutzerklärung anzupassen.
-```
-
----
-
-## 5. Технические TODO (когда дойдём до реализации)
-
-- [ ] Перенести Lato в self-host (`@font-face`, убрать `<link>` на Google Fonts во всех HTML).
-- [ ] Решить хостинг (Cloudflare Pages?) + закоммитить исходники/готовые картинки, чтобы CI-сборка из git работала.
-- [ ] Cloudflare Pages Function для формы: Turnstile + honeypot → Apps Script.
-- [ ] Google Apps Script: запись в Sheet + письмо на `losoma@web.de`.
-- [ ] Активировать AVV/DPA с хостером и с Google.
-- [ ] Подключить consent-баннер (CMP) перед GA.
-- [ ] Собрать страницу `datenschutz.html` на компоненте `.legal-page` (как Impressum:
-      `body.page--solid-header`, тот же header/footer, без form-вендоров).
-- [ ] Добавить ссылку «Datenschutz» в футер на ВСЕХ страницах.
-- [ ] В чекбоксе-согласии формы поставить ссылку на `/datenschutz`.
-- [ ] Поставить `[STAND-Datum]` при публикации.
-```
+1. change the technical implementation;
+2. verify the real network/data flow;
+3. update `datenschutz.html` and this file in the same change;
+4. update `LEGALS_CHECKLIST.md`, `HANDOFF.md`, `SITE.md` and the launch checklist;
+5. deploy to Vercel only with explicit approval;
+6. deploy to Hostinger only after backup, legal `GO` and explicit launch approval.

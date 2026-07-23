@@ -4,24 +4,15 @@
   "private": true,
   "description": "Static LOSOMA website for Hostinger production with Vercel staging.",
   "scripts": {
-    "assets:images": "node scripts/optimize-images.mjs",
-    "assets:images:force": "node scripts/optimize-images.mjs --force",
     "build:static": "node scripts/build-static.mjs",
-    "build:images": "npm run assets:images && npm run build:static",
     "build": "npm run build:static",
     "audit:classes": "node scripts/audit-client-first-classes.mjs",
     "audit:classes:strict": "node scripts/audit-client-first-classes.mjs --strict",
-    "dev": "npm run build:static && npx wrangler pages dev dist --live-reload",
-    "dev:images": "npm run build:images && npx wrangler pages dev dist --live-reload",
-    "deploy": "npm run build && node -e \"console.error('Production deploy is Hostinger-only. Follow DEPLOYMENT_CHECKLIST.md.'); process.exit(1)\"",
-    "deploy:preview": "npm run build && node -e \"console.error('Cloudflare Pages preview deploy is disabled. Use Vercel staging only when explicitly requested.'); process.exit(1)\""
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "deploy": "npm run build && node -e \"console.error('Production deploy is Hostinger-only. Follow HOSTINGER_LAUNCH_CHECKLIST.md.'); process.exit(1)\"",
+    "deploy:preview": "npm run build && node -e \"console.error('Legacy preview deploy is disabled. Use Vercel preproduction only when explicitly requested.'); process.exit(1)\""
   },
   "devDependencies": {
-    "sharp": "^0.35.1",
-    "wrangler": "^4.0.0"
-  },
-  "dependencies": {
-    "@splidejs/splide": "^4.1.4",
-    "lenis": "^1.3.23"
+    "esbuild": "^0.28.1"
   }
 }

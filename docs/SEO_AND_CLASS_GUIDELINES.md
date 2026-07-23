@@ -27,7 +27,7 @@
 - Canonical URLs must be absolute, clean, and without anchors or tracking parameters.
 - Use descriptive links and buttons, not generic `Mehr`, `Mehr erfahren`, or `Weiter` when context is unclear.
 - Keep FAQ questions close to real user wording.
-- Use visible FAQ content if adding `FAQPage` JSON-LD.
+- Keep FAQ content visible and semantic, but do not add `FAQPage` JSON-LD under the current project decision unless current Google guidance and the site's eligibility are rechecked.
 
 ## AI Search Principles
 
@@ -53,7 +53,7 @@ Recommended schema types:
 - `Organization`.
 - `WebSite`.
 - `Service` for service pages.
-- `FAQPage` for visible FAQ blocks.
+- `FAQPage` is currently excluded; reconsider only after a fresh eligibility/guidance review.
 - `BreadcrumbList` when there are nested pages.
 
 Required source facts before final JSON-LD:
@@ -198,15 +198,15 @@ Every meaningful image needs:
 - `loading="lazy"` except for the primary above-the-fold image.
 - `decoding="async"` for non-critical images.
 
-Source image naming:
+Deployable image naming:
 
-- Put original PNG/JPEG files into `assets/source/`.
+- Store only final browser-ready AVIF/WebP files in `assets/generated/`.
 - Use German, semantic, lowercase names.
 - Separate words with hyphens.
 - Include the entity and context, not generic visual labels.
 - Do not include dimensions unless the same image needs multiple art-directed crops.
 
-Good source names:
+Good asset names:
 
 ```text
 losoma-team-gebaeudebetreuung-berlin.jpg
@@ -224,12 +224,10 @@ cleaning-photo-1.jpg
 image-large.png
 ```
 
-Image optimization pipeline:
+Image delivery:
 
-- Run `npm run assets:images`.
-- Source: `assets/source/`.
-- Output: `assets/generated/`.
-- Formats generated: one AVIF and one WebP per source image.
+- Original media and the old repository image pipeline were removed before Hostinger launch.
+- Keep one final AVIF and one final WebP per image in `assets/generated/` when both formats are used.
 - Browser fallback order: AVIF first, WebP in `<img>`.
 - Do not generate multiple responsive copies by default. Create art-directed variants only when a specific layout requires a separate crop.
 - Do not upscale images above the original width.

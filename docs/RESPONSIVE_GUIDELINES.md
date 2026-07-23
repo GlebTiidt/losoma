@@ -26,7 +26,7 @@ per-section Figma frame is the source of truth — never eyeball adaptive layout
 - Pull concrete CSS from the **per-section Figma frame** via the Figma MCP `get_design_context`. Build **section by section**; ask for the node id of the section's phone/tablet frame before starting.
 - Figma px are **design measurements, not implementation**. Convert to `rem` / `clamp()` / grid / flex / `aspect-ratio` and the shared tokens. (1rem = 16px.)
 - Do **not** rewrite copy during a responsive pass, even if the Figma node shows different wording — the live HTML copy is shared across all breakpoints.
-- After edits: `npm run build` / `npm run build:static` and run the relevant audits. Vercel is staging/backend only; Hostinger production launch requires explicit approval and the backup checklist.
+- After edits: `npm run build` / `npm run build:static` and run the relevant audits. Vercel is staging/current form backend only; Hostinger production launch requires explicit approval and `HOSTINGER_LAUNCH_CHECKLIST.md`.
 
 ---
 
@@ -157,8 +157,8 @@ Landing on `/#leistungen` from another page: `initSmoothScroll` sets `history.sc
 
 - **Card gradient overlays are the component's own gradient** — keep them on every breakpoint (service cards, why-losoma cards, etc.).
 - The **"no gradient" rule was Hero-only**: the hero overlay stays the uniform `rgba(4,23,31, 0.3)` from the desktop/tablet pass; the Figma hero gradient is intentionally ignored.
-- `picture` with AVIF first, WebP fallback. Do not run the image pipeline for HTML/CSS/JS-only edits.
-- **Cropping a wide source into the portrait `.quality-claim_media` box**: the box is `aspect-ratio:523/600` + `object-fit:cover`, which by default crops to the image **center**. When the Figma frame shows the image shifted (e.g. a wide shot positioned to show its LEFT part — `left:-27.78%` in Figma), add the reusable modifier **`.quality-claim_image.is-align-left`** (`object-position: left center`) to the `<img>`. Square sources still center fine with no modifier (Treppenhausreinigung elevator, Gewerbliche besprechungsraum). Always still cap the wide source in `optimize-images.mjs` (e.g. Grundreinigung teppichboden 2752×1536 → 1600 wide).
+- `picture` with AVIF first, WebP fallback. Deployable media is canonical; the repository no longer contains original media or an image pipeline.
+- **Cropping a wide asset into the portrait `.quality-claim_media` box**: the box is `aspect-ratio:523/600` + `object-fit:cover`, which by default crops to the image **center**. When the Figma frame shows the image shifted, add the reusable modifier **`.quality-claim_image.is-align-left`** (`object-position: left center`) to the `<img>`. Square assets still center fine with no modifier.
 
 ---
 

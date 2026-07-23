@@ -1,6 +1,25 @@
 # Deployment Checklist
 
-Рабочий чеклист для проекта: верстка сайта, небольшой backend для автоматизации, Cloudflare, аналитика, Turnstile, cookies/consent и production launch.
+Рабочий чеклист для проекта: верстка сайта, server-side форма, аналитика, reCAPTCHA v3, cookies/consent, полный QA на Vercel preproduction и последующий production launch на Hostinger.
+
+Для фактической миграции production обязательным и более детальным источником является
+`HOSTINGER_LAUNCH_CHECKLIST.md`. Этот общий чеклист не заменяет backup/go-no-go/rollback порядок.
+
+## Production checkpoint — 2026-07-23
+
+- [x] Новый статический сайт запущен на Hostinger `https://losoma.de`; WordPress сохранён в
+      проверенных rollback backup.
+- [x] Hostinger PHP endpoint, reCAPTCHA v3 и обе production-формы работают.
+- [x] Cookie consent и GA4 `G-QPX35L2ZGK` проверены; Realtime получил `page_view`, `cta_click`,
+      `form_start` только после согласия на Statistik.
+- [x] Search Console подтверждён; production sitemap обработан без ошибок, найдено 15 страниц.
+- [x] Все 15 canonical URL возвращают 200, `index, follow`, не имеют блокирующего
+      `X-Robots-Tag`; robots разрешает обход.
+- [x] `npm run build`, class audits и `npm run audit:seo` проходят.
+- [ ] Остаются post-launch legal/operations вопросы из `MAXIM_QUESTIONS.md` и мониторинг 72 часа.
+
+Исторические prelaunch-пункты ниже сохранены как журнал миграции; этот checkpoint имеет приоритет
+при любом конфликте.
 
 ## 0. Правило хостинга и релиза
 
@@ -11,8 +30,8 @@
 - [x] Зафиксировать: текущий production `losoma.de` остаётся на Hostinger до финального запуска нового сайта.
 - [x] Зафиксировать: текущий Hostinger `public_html` содержит WordPress (`wp-admin`, `wp-content`, `wp-includes`) и не должен удаляться/перезаписываться в процессе обычной разработки.
 - [x] Зафиксировать: Vercel используется только как staging/preview (`losoma-pi.vercel.app`), не как финальный production.
-- [x] Зафиксировать: финальный хостинг нового сайта — Hostinger, чтобы не переводить клиента на Cloudflare Pages.
-- [x] Зафиксировать: Cloudflare Pages не используем как финальную площадку, если клиент явно не изменит решение.
+- [x] Зафиксировать: финальный хостинг нового сайта — только Hostinger.
+- [x] Зафиксировать: архитектура — Vercel preproduction → Hostinger production.
 - [x] Hostinger/SFTP/SSH, WordPress admin и доступ к базе существуют. Не использовать их без отдельного прямого разрешения пользователя на backup/launch-задачу.
 - [x] Доступ к базе текущего WordPress для будущего бэкапа подтверждён; сам бэкап ещё не выполнялся.
 - [ ] До отдельного разрешения пользователя вообще не обращаться к WordPress/`public_html`; резервную копию и read-only инспекцию выполнять только как отдельную согласованную задачу перед релизом.
@@ -29,9 +48,8 @@ dist/ -> Hostinger public_html
 Current WordPress -> backup / rollback copy
 ```
 
-Важно: обычный deploy/build **не должен** запускать image pipeline. Изображения уже сгенерированы;
-`npm run build:images` использовать только вручную, когда реально добавлены/изменены исходники в
-`assets/source/`. Для обычных правок HTML/CSS/JS/текста: `npm run build`.
+Deployable AVIF/WebP/MP4 являются каноническими файлами. Исходные медиа и старый image pipeline
+удалены перед Hostinger release; для сборки использовать только `npm run build`.
 
 ## 1. Входные данные
 
@@ -42,10 +60,9 @@ Current WordPress -> backup / rollback copy
 - [ ] Уточнить шрифты и способ подключения.
 - [ ] Получить домен.
 - [ ] Уточнить регистратора домена.
-- [x] Получить или создать доступ к Cloudflare.
 - [ ] Уточнить, какие страницы нужны.
 - [ ] Уточнить, какие формы нужны.
-- [x] Уточнить, куда отправлять заявки: Google Sheets работает; email нужен на `losoma@web.de`, SMTP ждёт доступ к WEB.DE.
+- [x] Уточнить, куда отправлять заявки: Google Sheets + email на `maxim@losoma.de`.
 - [ ] Уточнить, нужна ли CMS или контент будет меняться через код.
 - [ ] Уточнить языковые версии.
 - [ ] Уточнить юридические страницы: Privacy Policy, Cookie Policy, Terms.
@@ -54,7 +71,7 @@ Current WordPress -> backup / rollback copy
 
 - [ ] Зафиксировать стек frontend.
 - [ ] Зафиксировать стек backend.
-- [ ] Решить, нужен ли отдельный сервер или достаточно Cloudflare Workers.
+- [x] Preproduction backend проверяется на Vercel; production endpoint переносится на Hostinger только после полного QA.
 - [ ] Решить, нужна ли база данных.
 - [ ] Спроектировать поток заявки.
 - [ ] Спроектировать поток аналитики.
@@ -64,7 +81,7 @@ Current WordPress -> backup / rollback copy
 Рекомендуемая базовая схема:
 
 ```text
-User -> Website -> Cloudflare Turnstile -> Backend -> Email / Telegram / CRM / Sheets
+User -> Website -> reCAPTCHA v3 -> server-side endpoint -> Google Sheets + email
 User -> Cookie Consent -> Google Tag Manager / GA4
 ```
 
@@ -122,13 +139,14 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 ## 6. Backend
 
 - [ ] Определить endpoint'ы.
-- [ ] Добавить `GET /api/health`.
+- [x] Добавить `GET /api/health` для Hostinger PHP backend.
 - [x] Добавить endpoint для формы: `POST /api/contact`.
 - [x] Добавить server-side validation.
-- [ ] Добавить Cloudflare Turnstile verification, если реально понадобится антибот-слой сильнее honeypot/rate limit.
+- [ ] Включить подготовленную reCAPTCHA v3 verification после staged upload на Hostinger;
+      базовый form/email QA завершён 2026-07-22.
 - [x] Добавить rate limiting.
 - [ ] Настроить CORS.
-- [ ] Настроить отправку заявок: Google Sheet через Apps Script работает; email на `losoma@web.de` ждёт SMTP WEB.DE.
+- [x] Подтвердить end-to-end отправку: `HTTP 200`, письмо на `maxim@losoma.de` и строка в Google Sheet визуально проверены 2026-07-22.
 - [ ] Настроить логирование.
 - [ ] Настроить обработку ошибок.
 - [ ] Проверить fallback на случай ошибки email/Telegram/CRM.
@@ -139,7 +157,9 @@ User -> Cookie Consent -> Google Tag Manager / GA4
 Возможные переменные окружения:
 
 ```text
-TURNSTILE_SECRET_KEY=
+RECAPTCHA_SITE_KEY=
+RECAPTCHA_SECRET_KEY=
+RECAPTCHA_MIN_SCORE=0.5
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 SMTP_HOST=
@@ -150,39 +170,24 @@ GA_MEASUREMENT_ID=
 GTM_ID=
 ```
 
-## 7. Cloudflare DNS/security only (optional)
+## 7. Preproduction Vercel → Production Hostinger
 
-Cloudflare Pages is **not** the final hosting target. Use this section only if Cloudflare is needed for DNS,
-SSL, caching, WAF, Turnstile, or other security/infrastructure features.
+- [x] Vercel используется только для полного preproduction QA.
+- [x] На Vercel проверить текущую форму, email и Sheets.
+- [ ] На Vercel завершить общий page/responsive QA, cookies/consent и GA4; reCAPTCHA
+      настраивается уже на Hostinger.
+- [x] Подготовить Hostinger-совместимый PHP endpoint формы.
+- [x] Перед переносом сделать полный backup WordPress/public_html и базы.
+- [ ] Только по прямому разрешению пользователя загрузить проверенный `dist/` и backend на Hostinger.
 
-- [ ] Добавить домен в Cloudflare.
-- [ ] Поменять nameservers у регистратора.
-- [ ] Настроить DNS.
-- [ ] Настроить SSL/TLS.
-- [ ] Включить HTTPS redirect.
-- [ ] Настроить canonical redirect: `www` -> root или root -> `www`.
-- [ ] Включить Brotli.
-- [ ] Настроить caching.
-- [ ] Настроить Redirect Rules, если нужны.
-- [ ] Настроить WAF, если нужен.
-- [ ] Настроить environment variables для Workers, если появится Cloudflare backend.
-- [ ] Настроить preview/staging deployments, если клиент явно вернёт Cloudflare Pages в работу.
-- [x] Исторически подготовлены Cloudflare Pages headers.
-- [x] Исторически подготовлены Cloudflare Pages redirects.
-- [x] Исторически создан Cloudflare Pages project `losoma`; сейчас не финальный hosting target.
-- [x] Выполнить Cloudflare Wrangler login.
+## 8. reCAPTCHA v3
 
-## 8. Cloudflare Turnstile
-
-- [ ] Создать Turnstile site.
-- [ ] Получить site key.
-- [ ] Получить secret key.
-- [ ] Добавить production domain.
-- [ ] Добавить staging domain.
-- [ ] Подключить widget на frontend.
-- [ ] Проверять token только на backend.
-- [ ] Проверить ошибочный token.
-- [ ] Проверить успешную отправку.
+- [ ] После staged upload на Hostinger создать production reCAPTCHA v3 key pair.
+- [ ] Добавить production domain; Vercel не является обязательным доменом для этого этапа.
+- [ ] Подключить невидимый token на Hostinger frontend непосредственно при submit.
+- [ ] Проверять token, action, hostname и score только на Hostinger backend.
+- [ ] Проверить ошибочный, просроченный и повторно использованный token.
+- [ ] Обновить Datenschutzerklärung одновременно с фактическим включением.
 
 ## 9. Деплой frontend
 
@@ -206,38 +211,24 @@ SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 
 ## 10. Деплой backend
 
-Если Cloudflare Workers:
-
-- [ ] Подготовить `wrangler.toml`.
-- [ ] Настроить routes.
-- [ ] Добавить secrets.
-- [ ] Задеплоить Worker.
-- [ ] Проверить endpoint'ы.
-- [ ] Проверить логи.
-
-Если VPS:
-
-- [ ] Подготовить сервер.
-- [ ] Установить Node.js.
-- [ ] Настроить process manager: `pm2` или `systemd`.
-- [ ] Настроить reverse proxy: Nginx или Caddy.
-- [ ] Настроить SSL.
-- [ ] Закрыть прямой доступ к серверу, если Cloudflare проксирует.
-- [ ] Настроить deploy через GitHub Actions, rsync или SSH.
+- [x] Проверить текущий endpoint на Vercel preproduction.
+- [ ] Реализовать эквивалентный Hostinger-совместимый endpoint перед production launch.
+- [ ] Перенести webhook URL, secret, recipient и reCAPTCHA secret в защищённые Hostinger variables/config вне public repository.
+- [ ] Проверить endpoint и логи на Hostinger до переключения формы.
 
 ## 11. Формы
 
 - [x] Подключить frontend-формы к backend.
 - [x] Добавить client-side validation.
 - [x] Добавить server-side validation.
-- [ ] Добавить Turnstile widget, если honeypot/rate limit окажутся недостаточными.
-- [ ] Проверить Turnstile verification на backend, если Turnstile будет включён.
+- [ ] Добавить невидимую reCAPTCHA v3 после staged upload на Hostinger.
+- [ ] Проверить reCAPTCHA v3 server-side непосредственно на Hostinger до публичного запуска.
 - [x] Добавить состояния: idle, submitting, success, validation error, server error.
 - [x] Защитить от повторной отправки.
 - [ ] Проверить rate limit на live endpoint после настройки доставки.
-- [ ] Проверить доставку заявки: Sheet проверен, email pending.
+- [x] Проверить доставку заявки: Google Sheet + email на `maxim@losoma.de` подтверждены 2026-07-22.
 - [x] Проверить ошибку доставки.
-- [ ] Проверить UX после успешной отправки.
+- [x] Проверить UX после успешной отправки: вся форма заменяется зелёной плашкой с чёрным увеличенным текстом до перезагрузки.
 
 ## 12. Analytics
 
@@ -252,7 +243,7 @@ SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 - [x] Web stream URL: `https://losoma.de`.
 - [x] Web stream name: `Losoma Website`.
 - [x] Enhanced measurement left enabled.
-- [x] Получить Measurement ID: `G-ST55QF95VS`.
+- [x] Получить Measurement ID: `G-QPX35L2ZGK`.
 - [x] Решить: прямой GA4 через `gtag.js`, без Google Tag Manager на текущем этапе.
 - [x] Подключить GA4 только после consent.
 - [x] Добавить Consent Mode v2 default denied до загрузки/активации GA4.
@@ -270,7 +261,7 @@ SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 - [x] Настроить outbound click.
 - [ ] Настроить conversions в GA4.
 - [ ] Проверить события через GA4 DebugView.
-- [ ] Проверить события после consent.
+- [x] Проверить события после consent: production Realtime подтвердил `page_view`, `cta_click` и `form_start` 2026-07-23; 1Blocker корректно блокирует GA4 у пользователей с активной защитой.
 
 ## 13. Cookies / Consent
 
@@ -291,7 +282,8 @@ SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 - [ ] Проверить повторный визит вручную в браузере.
 - [ ] Проверить повторное открытие настроек через cookie icon и footer button вручную в браузере.
 - [x] Подготовить/обновить Cookie/Consent section в Datenschutzerklärung.
-- [ ] Подготовить Privacy Policy к боевой публикации.
+- [x] Синхронизировать Privacy Policy с фактически активным потоком данных (2026-07-22).
+- [ ] Получить финальное юридическое подтверждение владельца/формы, DPO, retention и DPA/AVV.
 
 ## 14. Безопасность
 
@@ -300,7 +292,7 @@ SSL, caching, WAF, Turnstile, or other security/infrastructure features.
 - [ ] Ограничить CORS.
 - [x] Добавить rate limit.
 - [x] Валидировать все backend inputs.
-- [ ] Проверять Turnstile server-side, только если Turnstile будет включён.
+- [ ] Проверять reCAPTCHA token/action/score только server-side.
 - [ ] Настроить security headers.
 - [ ] Проверить HTTPS.
 - [ ] Проверить доступ к служебным endpoint'ам.
@@ -318,7 +310,7 @@ Permissions-Policy
 
 ## 15. Performance
 
-- [x] Добавить Sharp image pipeline.
+- [x] Удалить старый Sharp image pipeline и исходные медиа; оставить канонические deployable assets.
 - [x] Настроить AVIF + WebP + JPEG/PNG fallback.
 - [x] Зафиксировать правила нейминга изображений.
 - [ ] Использовать WebP/AVIF, где возможно.
@@ -360,8 +352,10 @@ Permissions-Policy
 
 ## 17. Production Launch
 
-- [ ] Сделать финальный build: `npm run build` для обычного релиза. `npm run build:images`
-      запускать только если перед релизом добавлялись/менялись исходные изображения.
+Выполнять этот раздел только вместе с `HOSTINGER_LAUNCH_CHECKLIST.md` и после отдельного
+прямого разрешения пользователя на конкретное окно переноса.
+
+- [ ] Сделать финальный build: `npm run build`.
 - [ ] Проверить, что `dist/` содержит только публичные файлы сайта и не содержит `assets/source`, `assets/normalized`, `.vercel`, `node_modules`, локальные `.env`.
 - [ ] Проверить staging на Vercel/preview URL.
 - [ ] Сделать полный файловый бэкап Hostinger `public_html`.
@@ -376,12 +370,13 @@ Permissions-Policy
 - [ ] Проверить redirects и canonical URL.
 - [ ] Проверить все основные страницы на production.
 - [ ] Проверить формы на production.
-- [ ] Проверить Turnstile на production domain, если он включён.
+- [ ] Проверить reCAPTCHA v3 на production domain после переноса на Hostinger.
 - [ ] Проверить GA4 realtime, если аналитика включена.
 - [ ] Проверить cookie banner, если он включён.
 - [ ] Проверить `robots.txt` и `sitemap.xml`.
-- [ ] Добавить сайт в Google Search Console.
-- [ ] Подтвердить ownership в Search Console.
+- [ ] Уже после загрузки сайта на Hostinger добавить сайт в Google Search Console.
+- [ ] Подтвердить ownership в Search Console через DNS TXT либо размещённый на Hostinger
+      HTML/meta verification.
 - [ ] Отправить sitemap в Search Console.
 - [ ] Зафиксировать launch date и список файлов/бэкапов.
 

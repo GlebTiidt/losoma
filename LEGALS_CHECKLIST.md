@@ -1,87 +1,70 @@
-# Legals Checklist — что нужно для полноценной legals-страницы
+# Legals Checklist
 
-Чеклист доведения `/datenschutz` (+ `/impressum`) до **боевого** состояния.
-Правила и обоснования — в `docs/LEGAL_PAGES_GUIDELINES.md`. Исходник текста — `DATENSCHUTZ_DRAFT.md`.
+Чек-лист для `/impressum` и `/datenschutz`. Последнее обновление: 2026-07-23.
 
-> Сейчас `/datenschutz` опубликована в **полной 11-секционной версии для проверки юристом**,
-> но она описывает сервисы, которые ещё НЕ запущены. Пока все пункты ниже не закрыты —
-> это не «боевая» политика. ⚠️
+## A. Controller / Impressum
 
----
+- [ ] Сверить по регистрационным документам точное имя Inhaber и Rechtsform.
+      Текущая пара `Einzelunternehmen` + `Maxim Soga / Alexandr Lozinschi` требует
+      обязательного подтверждения: Einzelunternehmen обычно имеет одного Inhaber.
+- [x] Адрес на сайте: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`.
+- [x] Адрес обозначен как `Geschäftsadresse · kein Kundenbüro vor Ort`.
+- [x] Телефон: `+49 176 44434111`.
+- [x] Email: `maxim@losoma.de`.
+- [x] USt-IdNr.: `DE357950597`.
+- [x] Steuernummer: `19/537/02292`.
+- [ ] Подтвердить, назначен ли Datenschutzbeauftragter; до подтверждения не заявлять
+      публично, что обязанности точно нет.
 
-## A. Юридические данные (подтвердить у владельца)
+## B. Реальные сервисы
 
-- [x] **Форма юрлица для Verantwortlicher/Impressum:** текущая рабочая версия —
-      `Einzelunternehmen`; на сайте указаны **Maxim Soga / Alexandr Lozinschi**. Перед финальным
-      запуском сверить формулировку владельца/Verantwortlicher с регистрационными документами.
-- [x] **Юридический/бизнес-адрес:** владелец подтвердил текущий публичный адрес —
-      `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`. Отдельного клиентского офиса нет;
-      на сайте адрес помечен как Geschäftsadresse / kein Kundenbüro vor Ort.
-- [ ] **Datenschutzbeauftragter (DPO):** подтвердить, что не назначается (для малого бизнеса —
-      норма; сейчас в тексте так и написано).
-- [x] **Финальный домен:** staging остаётся `losoma-pi.vercel.app`, production — `losoma.de`.
-      Canonical и `og:url` на всех HTML-страницах переключены на `https://losoma.de`.
+- [x] Hostinger production и текущий `/api/contact` отражены в Datenschutz.
+- [x] Старый WordPress и переходная Vercel-схема не описываются как активный production.
+- [x] Contact flow описан: Hostinger PHP endpoint → Google Apps Script → Google Sheets + Gmail.
+- [x] Recipient указан: `maxim@losoma.de`.
+- [x] Технические form metadata и IP-based security processing раскрыты.
+- [x] Обязательный checkbox изменён на Kenntnisnahme, а не фиктивное Einwilligung.
+- [x] Custom cookie settings, Local Storage и Session Storage описаны.
+- [x] GA4 `G-QPX35L2ZGK` + Consent Mode v2 описаны как consent-only.
+- [x] Self-hosted Lato; раздел Google Fonts не нужен.
+- [x] Социальные ссылки описаны как обычные links, не plugins.
+- [x] Turnstile и Maps не описаны как активные.
+- [x] reCAPTCHA v3 включена для Hostinger production и одновременно добавлен legal-раздел.
 
-## B. Сервисы — запустить ИЛИ убрать из политики
+## C. DPA / AVV и international transfers
 
-Каждый пункт = решение «активируем (и тогда раздел остаётся)» или «не используем (раздел убрать)».
+- [ ] Подтвердить/принять Hostinger DPA в аккаунте.
+- [ ] Подтвердить Vercel DPA только если Vercel staging снова будет обрабатывать реальные данные.
+- [ ] Подтвердить Google Workspace data-processing terms для Apps Script/Sheets/Gmail.
+- [ ] Подтвердить Google Analytics data-processing terms.
+- [ ] Проверить актуальные subprocessors и transfer safeguards каждого provider.
+- [ ] Зафиксировать дату проверки договоров и ответственного.
 
-- [x] **Consent-баннер (CMP).** Реализован кастомный баннер в `script.js`/`styles.css` без внешнего CMP.
-      UX: первый слой `Ihre Privatsphäre ist uns wichtig` + `Alle ablehnen` / `Alle akzeptieren` /
-      `Einstellungen`; второй слой `Notwendige Cookies` (disabled ON, `Immer aktiv`) + `Statistik`
-      (OFF по умолчанию) с `Alle akzeptieren` и primary `Auswahl speichern`. До первого выбора нет close icon.
-      Перед production ещё нужна ручная browser QA и финальная legal-сверка текста.
-- [x] **Google Analytics.** GA4 подключён в коде через direct `gtag.js` + Consent Mode v2:
-      default denied, `analytics_storage` granted только после согласия на `Statistik`.
-      При отзыве согласия код ставит denied и удаляет GA cookies (`_ga`, `_ga_*`).
-      Если позже Google Ads → отдельно добавить/пересмотреть Consent Mode fields и Datenschutzerklärung.
-- [ ] **Форма → бэкенд.** Vercel endpoint `POST /api/contact` добавлен:
-      server-side validation, honeypot, rate limit, защита от дублей, защита от повторного клика.
-      Google Sheet через Apps Script работает. Email-уведомление через Apps Script не дошло;
-      следующий шаг — SMTP через WEB.DE после получения логина/app password.
-- [ ] **Cloudflare Turnstile.** Пока не включать: без CF-инфраструктуры в проекте он не обязателен.
-      Вернуться к нему, если появится спам или начнётся платный трафик; тогда добавить widget,
-      server-side verification и обновить Datenschutzerklärung/DPA.
-- [x] **Cookie-Einstellungen — только floating cookie icon.** Кнопка в футере намеренно удалена.
-      После сохранённого выбора floating icon открывает второй слой настроек и имеет
-      `aria-label="Cookie-Einstellungen öffnen"`. Отдельной cookie-страницы НЕ делать.
+## D. Retention и доступы
 
-## C. Договоры обработки (AVV / DPA) — подписать/активировать
+- [x] Клиент утвердил срок хранения заявок без договора: 12 месяцев после
+      закрытия обращения, если нет иной обязанности хранения.
+- [x] Ответственный за регулярное удаление из Sheet и Gmail: Maxim Soga.
+- [ ] Проверен список лиц с доступом к Sheet, Apps Script, Gmail, GA4, Search Console и Hostinger.
+- [ ] Включена 2FA для административных аккаунтов.
+- [ ] Проверена GA4 retention setting (2 или 14 месяцев).
 
-- [ ] **Hostinger** — активировать/проверить AVV/DPA в аккаунте (хостинг, server-logs,
-      возможные subprocessors/передачи вне EU/EWR).
-- [ ] **Vercel** — активировать DPA в аккаунте, пока `POST /api/contact` работает как
-      staging/backend endpoint и обрабатывает заявки.
-- [ ] **Google** — AVV на используемые сервисы (Sheets/Apps Script/Gmail + Analytics).
-      Удобно одним Workspace-аккаунтом.
-- [ ] **Cloudflare** — DPA на Turnstile (и на хостинг, если переедем на Pages).
-- [ ] Сверить во всех разделах формулировку про передачу в США (DPF + SCC) с реальными
-      провайдерами.
+## E. Production QA и финальная legal-проверка
 
-## D. Техническая увязка на сайте
+- [x] Form test 2026-07-22: `HTTP 200`, email и Sheet row подтверждены.
+- [x] После success форма заменяется зелёной плашкой до reload на всех страницах.
+- [x] reCAPTCHA production QA и работа форм подтверждены 2026-07-23.
+- [x] Cookie/GA4 production QA подтверждён: GA Realtime получил события после consent; revoke и
+      визуальная синхронизация переключателя проверены.
+- [ ] Проверить legal pages на desktop/tablet/mobile и с клавиатуры.
+- [x] Hosting/Form sections обновлены под Hostinger backend и активную reCAPTCHA.
+- [ ] Получить финальную проверку немецким юристом/Datenschutz-специалистом.
+- [x] Production switch выполнен; rollback backup сохранён.
 
-- [x] **Чекбокс согласия в форме** ссылается на `/datenschutz`: кликабелен только сам чекбокс,
-      слово `Datenschutzerklärung` подчёркнуто и ведёт на одноимённую страницу.
-- [x] **Stand-дата** в разделе 11 — обновлена на `Juli 2026` после подключения GA4/cookie banner.
-- [x] Раздел Hosting обновлён под финальный Hostinger production вместо Vercel.
-      Если позже переедем на Cloudflare Pages — обновить раздел Hosting ещё раз
-      (Hostinger → Cloudflare, EU-локализация), пересобрать/передеплоить.
-- [ ] Проверить, что **нигде нет внешних запросов** (Google Fonts уже убраны; следить, чтобы
-      новые виджеты/карты не добавляли скрытых обращений без согласия).
+## F. Правила актуализации
 
-## E. Проверка и публикация
-
-- [ ] **Сверка с генератором** (e-Recht24 / activeMind) ИЛИ **юристом** — финальная.
-- [ ] После сверки: привести live-страницу в соответствие с реальным состоянием
-      (убрать неактивные разделы ИЛИ убедиться, что все сервисы запущены).
-- [ ] Проверить адаптив legal-страницы на 320/360/390/414px (как для всех страниц).
-- [ ] Финальный деплой на Hostinger production (`https://losoma.de`) и проверка ссылок/иконок/шрифта.
-
----
-
-## Опционально / на будущее
-
-- [ ] Отдельная политика для **соискателей** (Bewerberdatenschutz), если появится найм через сайт.
-- [ ] Если встроим **Google Maps** — добавить раздел + согласие (сейчас Maps НЕ встроена).
-- [ ] Реальные ссылки соцсетей **Facebook/Instagram** (сейчас заглушки `#facebook`/`#instagram`).
-- [ ] `FAQPage` / прочий JSON-LD — это для контентных страниц, для legals не требуется.
+- Legal page описывает только реально активный processing.
+- reCAPTCHA section добавляется только вместе с фактическим включением.
+- При отключении Vercel backend Vercel удаляется из active form-processing текста.
+- При смене email/Sheet/CRM/hosting/analytics обновлять страницу и документацию одновременно.
+- Stand-дата меняется при каждом содержательном legal update.

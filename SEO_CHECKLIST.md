@@ -1,7 +1,7 @@
 # SEO & Schema Checklist — Losoma
 
 > Домен: **https://losoma.de**
-> Составлено: 2026-06-23. Источники: Google Search Essentials, Google AI Optimization Guide, schema.org, Zapier SEO Guide.
+> Составлено: 2026-06-23; operational status reconciled 2026-07-22. Источники: Google Search Essentials, Google AI Optimization Guide, schema.org, Zapier SEO Guide.
 > Статус сайта: on-page SEO уже сильное (title/description/alt/canonical/og — везде есть). Главные пробелы — **structured data, sitemap.xml** и подключение домена `losoma.de`. `robots.txt` уже создан.
 
 ---
@@ -20,8 +20,8 @@
 Без блока 🔴 нельзя собрать полную разметку `LocalBusiness`.
 
 - [x] 🔴 👤 **Домен `losoma.de`** — подтверждён как production domain для canonical/OG.
-  Финальный hosting target по launch-чеклисту — Hostinger; Vercel остаётся staging/backend.
-- [ ] 🔴 👤 **Google-аккаунт для бизнеса** (лучше отдельный, не личный). Нужен для Search Console и Business Profile.
+  Финальный hosting target по `HOSTINGER_LAUNCH_CHECKLIST.md` — Hostinger; Vercel пока остаётся staging и текущим form backend.
+- [x] 🔴 👤 **Google-аккаунт для бизнеса:** `maxim@losoma.de`; Search Console и новая GA4 property настроены в нём. Перенос Business Profile ещё открыт.
 - [x] 🔴 👤 **Google Business Profile** (Google Unternehmensprofil — карточка в Google Картах) создан
   и одобрен Google.
 - [x] 🔴 👤 **Дубль Google Business Profile удалён.** Оставлен один рабочий профиль.
@@ -46,19 +46,19 @@
 - [x] 🟡 💻 **Логотип-растр** для Schema (≥112×112) — используем существующий `assets/static/icon-512.png`.
 
 **Контактные данные (уже в Impressum, для справки):**
-Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · losoma@web.de · USt-IdNr. DE357950597.
+Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · maxim@losoma.de · USt-IdNr. DE357950597.
 
 ---
 
 ## 2. Домен и индексация
 
-- [ ] 🔴 👤💻 Подключить/проверить `losoma.de` на финальном Hostinger production.
+- [x] 🔴 👤💻 `losoma.de` запущен и проверен на финальном Hostinger production 2026-07-23.
 - [x] 🔴 💻 Обновить `canonical` и `og:url` на абсолютные URL вида `https://losoma.de/...` на всех 13 страницах.
-- [ ] 🟡 💻 `og:image` сделать абсолютным URL вида `https://losoma.de/...` на всех страницах.
-- [x] 🔴 💻 Создать **`robots.txt`** (пока без ссылки на sitemap, sitemap отложен).
-- [ ] 🔴 💻 Создать **`sitemap.xml`** (автогенерация в `scripts/build-static.mjs` по всем страницам).
-- [ ] ⚙️ 👤 Подтвердить сайт в **Google Search Console** (DNS или meta-тег) и отправить sitemap.
-- [ ] ⚙️ 👤 Отправить запрос на индексацию главных страниц в Search Console.
+- [x] 🟡 💻 `og:image` использует абсолютные production URL на всех страницах.
+- [x] 🔴 💻 Создан и опубликован **`robots.txt`** с разрешением обхода и production sitemap.
+- [x] 🔴 💻 Создан и опубликован **`sitemap.xml`** с 15 canonical URL.
+- [x] ⚙️ 👤 Domain property подтверждён в **Google Search Console**; sitemap обработан без ошибок, найдено 15 страниц.
+- [x] ⚙️ 👤 Запрос на повторную индексацию главной страницы отправлен 2026-07-23.
 - [ ] 🟡 👤 **Bing Webmaster Tools** (Bing питает ChatGPT/Copilot) — опционально.
 
 ---
@@ -67,11 +67,11 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 
 > Формат — **JSON-LD** в `<head>` (Google рекомендует именно его). Разметка не меняет вид сайта.
 
-- [ ] 🔴 💻 **`LocalBusiness`** (подтип `HomeAndConstructionBusiness`) на главной: name, address, telephone, email, geo, openingHours, areaServed=Berlin, sameAs (соцсети), logo, url. ← *требует данные из блока 1.*
-- [ ] 🔴 💻 **`Organization`** + **`WebSite`** (объединяется с LocalBusiness; SearchAction НЕ нужен — поиска по сайту нет).
-- [ ] 🔴 💻 **`Service`** на каждой из 9 страниц услуг: serviceType, provider=Losoma, areaServed=Berlin, описание.
-- [ ] 🟡 💻 **`BreadcrumbList`** (Home → Услуга) — помогает навигации AI.
-- [ ] ❌ **`FAQPage` — НЕ делаем.** Google отключил FAQ-сниппеты (с мая 2026 не показываются в выдаче). Размечать ради «звёздочек» смысла нет.
+- [x] 🔴 💻 Главная содержит `Organization`, `HomeAndConstructionBusiness` и `WebSite` с подтверждёнными данными. Неподтверждённые `geo`, `openingHours`, `foundingDate` и `priceRange` пока не выдумываем.
+- [x] 🔴 💻 **`Organization`** + **`WebSite`** объединены в общий граф; `SearchAction` не добавлен.
+- [x] 🔴 💻 **`Service`** присутствует на каждой из 9 страниц услуг.
+- [x] 🟡 💻 **`BreadcrumbList`** присутствует на всех 14 не-главных страницах.
+- [x] 🟡 💻 **`FAQPage`** добавлен на главной и всех 9 сервисных страницах строго по видимому FAQ. Это семантическая разметка; расширенный FAQ-сниппет Google не обещается.
 - [ ] ⚙️ 💻👤 Проверить всю разметку в **Rich Results Test** (https://search.google.com/test/rich-results) и Schema Markup Validator (https://validator.schema.org/).
 
 ---
@@ -84,7 +84,7 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] 💻 **title** у изображений — есть.
 - [x] 💻 `canonical`, `meta robots`, `lang="de"`, семантический HTML, внутренняя перелинковка.
 - [ ] 🟡 💻 Добавить `og:site_name` и Twitter-card теги (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`).
-- [ ] 🟡 💻 `og:image` сделать абсолютным URL (сейчас относительный путь — в соцсетях превью не подтянется).
+- [x] 🟡 💻 `og:image` использует абсолютный URL.
 - [ ] 🟡 💻 Добавить `og:image:width`/`height` и `image alt` для OG.
 
 ---

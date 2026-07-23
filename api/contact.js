@@ -151,7 +151,7 @@ async function deliverSubmission(payload, req) {
       ...payload,
       service_label: serviceLabels[payload.service],
       submitted_at: new Date().toISOString(),
-      recipient: process.env.CONTACT_TO_EMAIL || "losoma@web.de",
+      recipient: process.env.CONTACT_TO_EMAIL || "maxim@losoma.de",
       user_agent: req.headers["user-agent"] || "",
       webhook_secret: process.env.CONTACT_WEBHOOK_SECRET || "",
     }),
@@ -176,6 +176,11 @@ async function deliverSubmission(payload, req) {
   }
 
   if (result.ok !== true) {
+    const rejectionMessage = typeof result.message === "string"
+      ? result.message.slice(0, 200)
+      : "No rejection message provided";
+
+    console.error(`Contact webhook rejection: ${rejectionMessage}`);
     throw new Error("Contact webhook rejected the submission.");
   }
 }

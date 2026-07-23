@@ -1,11 +1,70 @@
-const GA_MEASUREMENT_ID = "G-ST55QF95VS";
+const GA_MEASUREMENT_ID = "G-QPX35L2ZGK";
+const RECAPTCHA_SITE_KEY = "6LeN1GAtAAAAAH7KhsyHhWqNCROF5la2DSA2mfJw";
+const RECAPTCHA_ACTION = "contact";
+const RECAPTCHA_HOSTNAMES = new Set(["losoma.de", "www.losoma.de"]);
 const COOKIE_CONSENT_STORAGE_KEY = "losoma_cookie_consent";
 const COOKIE_CONSENT_VERSION = 1;
 let isGoogleAnalyticsLoaded = false;
+let recaptchaScriptPromise = null;
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
   window.dataLayer.push(arguments);
+}
+
+function loadRecaptcha() {
+  if (!RECAPTCHA_HOSTNAMES.has(window.location.hostname)) {
+    return Promise.resolve(null);
+  }
+
+  if (window.grecaptcha) {
+    return Promise.resolve(window.grecaptcha);
+  }
+
+  if (!recaptchaScriptPromise) {
+    recaptchaScriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+
+      script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(RECAPTCHA_SITE_KEY)}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve(window.grecaptcha);
+      script.onerror = () => reject(new Error("recaptcha_load"));
+      document.head.append(script);
+    });
+  }
+
+  return recaptchaScriptPromise;
+}
+
+async function getRecaptchaToken() {
+  const recaptcha = await loadRecaptcha();
+
+  if (!recaptcha) {
+    return "";
+  }
+
+  return new Promise((resolve, reject) => {
+    const timeout = window.setTimeout(() => reject(new Error("recaptcha_timeout")), 10000);
+
+    recaptcha.ready(() => {
+      recaptcha.execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION })
+        .then((token) => {
+          window.clearTimeout(timeout);
+
+          if (!token) {
+            reject(new Error("recaptcha_empty"));
+            return;
+          }
+
+          resolve(token);
+        })
+        .catch((error) => {
+          window.clearTimeout(timeout);
+          reject(error);
+        });
+    });
+  });
 }
 
 gtag("consent", "default", {
@@ -20,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCurrentYear();
   initSmoothScroll();
   initCookieConsent();
+  initAnalyticsEventTracking();
   initHeroVideo();
   initHeaderScrollState();
   initServicesSlider();
@@ -31,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initEmailValidation();
   initPhoneValidation();
   initContactFormSubmit();
-  initAnalyticsEventTracking();
   initFaq();
 });
 
@@ -119,7 +178,7 @@ function createCookieConsentElements() {
 
   root.innerHTML = `
     <div class="cookie-consent_backdrop" aria-hidden="true"></div>
-    <div class="cookie-consent_panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cookie-consent-title">
+    <div class="cookie-consent_panel" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="cookie-consent-title">
       <div class="cookie-consent_view is-intro" data-cookie-view="intro">
         <div class="cookie-consent_header">
           <h2 class="cookie-consent_title" id="cookie-consent-title">Ihre Privatsphäre ist uns wichtig</h2>
@@ -194,27 +253,29 @@ function openCookiePanel(elements, view) {
   const isSettings = view === "settings";
   const currentConsent = readCookieConsent();
 
+  if (isSettings) {
+    elements.root.classList.add("is-syncing");
+    elements.statisticsInput.checked = Boolean(currentConsent?.statistics);
+  }
+
   elements.root.classList.add("is-open");
   elements.root.classList.toggle("is-settings", isSettings);
   elements.panel.setAttribute("aria-hidden", "false");
   elements.floatingButton.hidden = true;
   document.body.classList.add("is-cookie-panel-open");
-  window.__lenis?.stop();
-
-  if (isSettings) {
-    elements.statisticsInput.checked = Boolean(currentConsent?.statistics);
-  }
 
   const focusTarget = isSettings ? elements.statisticsInput : elements.rejectButton;
-  window.requestAnimationFrame(() => focusTarget.focus());
+  window.requestAnimationFrame(() => {
+    focusTarget.focus();
+    window.requestAnimationFrame(() => elements.root.classList.remove("is-syncing"));
+  });
 }
 
 function closeCookiePanel(elements) {
-  elements.root.classList.remove("is-open", "is-settings");
+  elements.root.classList.remove("is-open", "is-settings", "is-syncing");
   elements.panel.setAttribute("aria-hidden", "true");
   elements.floatingButton.hidden = false;
   document.body.classList.remove("is-cookie-panel-open");
-  window.__lenis?.start();
 }
 
 function saveCookieConsent(statistics, elements) {
@@ -306,7 +367,11 @@ function sendAnalyticsEvent(eventName, parameters = {}) {
     return;
   }
 
-  gtag("event", eventName, parameters);
+  gtag("event", eventName, {
+    ...parameters,
+    send_to: GA_MEASUREMENT_ID,
+    transport_type: "beacon",
+  });
 }
 
 function initCurrentYear() {
@@ -1216,7 +1281,9 @@ function initPhoneValidation() {
     ? window.intlTelInput(phoneInput, {
       initialCountry: "de",
       separateDialCode: true,
-      strictMode: true,
+      // Keep native paste available for contacts, password managers and assistive
+      // tools. The plugin and server still validate the complete number.
+      strictMode: false,
       formatAsYouType: true,
       formatOnDisplay: true,
       autoPlaceholder: "aggressive",
@@ -1291,7 +1358,33 @@ function initContactFormSubmit() {
   const submitButton = form.querySelector(".contact-form_submit");
   const submitLabel = submitButton?.querySelector("span:last-child");
   const statusElement = form.querySelector("[data-contact-form-status]");
+  let successPanel = form.parentElement?.querySelector("[data-contact-form-success]");
   const defaultSubmitText = submitLabel?.textContent || "Anfrage senden";
+
+  if (RECAPTCHA_HOSTNAMES.has(window.location.hostname)) {
+    const recaptchaNotice = document.createElement("p");
+
+    recaptchaNotice.className = "contact-form_recaptcha-notice";
+    recaptchaNotice.innerHTML = `Diese Website ist durch reCAPTCHA geschützt. Es gelten die <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung</a> und <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Nutzungsbedingungen</a> von Google.`;
+
+    if (statusElement) {
+      statusElement.insertAdjacentElement("beforebegin", recaptchaNotice);
+    } else {
+      form.append(recaptchaNotice);
+    }
+  }
+
+  if (!successPanel) {
+    successPanel = document.createElement("div");
+    successPanel.className = "contact-form_success";
+    successPanel.hidden = true;
+    successPanel.tabIndex = -1;
+    successPanel.setAttribute("role", "status");
+    successPanel.setAttribute("aria-live", "polite");
+    successPanel.setAttribute("data-contact-form-success", "");
+    successPanel.innerHTML = "<p>Danke, Ihre Anfrage wurde gesendet. Wir melden uns zeitnah.</p>";
+    form.insertAdjacentElement("afterend", successPanel);
+  }
 
   const setStatus = (message, state = "") => {
     if (!statusElement) {
@@ -1345,6 +1438,8 @@ function initContactFormSubmit() {
     });
 
     try {
+      payload.recaptcha_token = await getRecaptchaToken();
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -1365,8 +1460,19 @@ function initContactFormSubmit() {
         throw new Error("delivery");
       }
 
+      const formHeight = Math.ceil(form.getBoundingClientRect().height);
+
       form.reset();
-      setStatus("Danke, Ihre Anfrage wurde gesendet. Wir melden uns zeitnah.", "success");
+
+      if (successPanel) {
+        successPanel.style.minHeight = `${formHeight}px`;
+        form.hidden = true;
+        successPanel.hidden = false;
+        successPanel.focus({ preventScroll: true });
+      } else {
+        setStatus("Danke, Ihre Anfrage wurde gesendet. Wir melden uns zeitnah.", "success");
+      }
+
       sendAnalyticsEvent("form_success", {
         form_id: form.id || "contact_form",
         form_location: window.location.pathname,
@@ -1376,7 +1482,7 @@ function initContactFormSubmit() {
         ? "Zu viele Anfragen. Bitte versuchen Sie es in einigen Minuten erneut."
         : error.message === "duplicate"
           ? "Diese Anfrage wurde bereits gesendet."
-          : "Die Anfrage konnte nicht gesendet werden. Bitte schreiben Sie uns direkt an losoma@web.de.";
+          : "Die Anfrage konnte nicht gesendet werden. Bitte schreiben Sie uns direkt an maxim@losoma.de.";
 
       setStatus(message, "error");
       sendAnalyticsEvent("form_error", {

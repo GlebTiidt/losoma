@@ -1,36 +1,92 @@
 # LOSOMA Handoff
 
-## Immediate Handoff — 2026-07-21
+## Immediate Handoff — 2026-07-23 (production live)
 
-This section is the current source of truth and supersedes conflicting historical notes below.
+This section supersedes conflicting historical launch and Vercel/WordPress notes below.
+
+### Production
+
+- The static LOSOMA site is live at `https://losoma.de` on Hostinger. Document root:
+  `domains/losoma.de/public_html`; backend: PHP on Hostinger shared hosting.
+- The old WordPress site was replaced after verified file and database backups. Keep all rollback
+  copies until a separate retention/removal decision is made.
+- reCAPTCHA v3 is active with server-side verification. Both contact forms were confirmed working
+  in production. The badge is hidden only together with the required Google Privacy/Terms notice
+  directly below the form privacy acknowledgement.
+- Custom cookie consent stays interactive without blocking the rest of the site. GA4 loads only
+  after `Statistik` consent and can be revoked from the floating cookie control.
+- Active GA4 property belongs to Maxim's account. Measurement ID: `G-QPX35L2ZGK`. Production
+  Realtime confirmed `page_view`, `cta_click` and `form_start`. Safari/1Blocker correctly blocks GA
+  unless the site is allowlisted; this is expected and must not be bypassed.
+
+### Search and structured data
+
+- Google Search Console domain ownership is verified. `https://losoma.de/sitemap.xml` was processed
+  successfully with 15 discovered pages, and reindexing of the homepage was requested.
+- Production SEO audit on 2026-07-23: all 15 sitemap pages return HTTP 200, `index, follow`, a unique
+  production canonical and no blocking `X-Robots-Tag`. `robots.txt` allows all crawlers and points
+  to the production sitemap.
+- JSON-LD parses on every page. Breadcrumbs exist on every non-home page. Homepage and all nine
+  service pages contain `FAQPage` matching the visible FAQ HTML. Organization links include the
+  currently confirmed LinkedIn and legal/document URLs.
+- Pending structured facts: confirmed opening hours, price range, founding year, final service area,
+  additional real social URLs, and Google Maps/Business Profile URL after ownership transfer.
+
+### Remaining client/legal work
+
+- The current short question list is `MAXIM_QUESTIONS.md`. Main blockers are exact registered owner
+  and legal form, DPO status, AVV/DPA confirmations, access/2FA review and final lawyer review.
+- Google Business Profile transfer to `maxim@losoma.de` remains open under support case
+  `2-2514000041594`. Never delete or recreate the existing profile.
+- Standard GA4 reports can take 24–48 hours; Realtime already proves collection. A browser content
+  blocker may intentionally suppress analytics for that browser.
+
+## Historical Handoff — 2026-07-22
+
+Historical record only. The 2026-07-23 production section above is the current source of truth.
 
 ### Google Account Transfer
 
 - New managed Google Workspace account confirmed: `maxim@losoma.de`; Google Admin Console is
   accessible.
 - Existing Google Business Profile remains safe under primary owner `losoma@web.de`.
-- On 2026-07-20, `maxim@losoma.de` was invited to the existing profile as `Inhaber`. The last
-  confirmed state is pending (`AUSSTEHEND`); it has not yet been accepted and is not primary owner.
+- A fresh `Inhaber` invitation to `maxim@losoma.de` remains pending (`AUSSTEHEND`) but is not
+  delivered and does not appear in the invited account. Google Business Profile Support case
+  `2-2514000041594` was submitted on 2026-07-21. Do not create a duplicate profile or repeatedly
+  revoke/reissue the invite; resume from the support response.
 - Do not delete/recreate the Business Profile. After acceptance, wait 7 days before transferring
   `Primärer Inhaber`; keep the old account as a temporary backup.
-- Workspace showed a payment-method/payment warning with a stated suspension risk on 2026-08-03.
-  The SEPA confirmation flow was opened, but successful completion has not been confirmed. Do not
-  record bank details and do not make the Workspace account primary owner until billing is stable.
-- Public DNS checked 2026-07-20 still has Hostinger MX and Hostinger SPF; Google DKIM was absent.
-  Therefore Gmail receipt at `maxim@losoma.de` is not yet proven. Do not enable WEB.DE forwarding
-  or change form recipients until Gmail activation/DNS and an authorized external test succeed.
+- Workspace payment verification succeeded; the confirmed bank account is the primary payment
+  method and the paid period starts 2026-08-03. No bank details are stored in the repository.
+- Gmail for `losoma.de` is active. Authoritative MX points to `smtp.google.com`; SPF authorizes
+  Google; Google DKIM (2048-bit) is published; DMARC remains `p=none`. Direct inbound/outbound tests
+  passed. Permanent WEB.DE forwarding to `maxim@losoma.de` is active with copies retained, and an
+  independent test arrived in both mailboxes. Keep WEB.DE active as a forwarding/backup mailbox;
+  the public/legal/form address is now `maxim@losoma.de`.
 - GA4 must be shared to the new account, not recreated. Keep account/property/history and
-  measurement ID `G-ST55QF95VS`. Search Console, Sheets and Apps Script access transfer separately.
+  measurement ID `G-QPX35L2ZGK`. Search Console, Sheets and Apps Script access transfer separately.
 - Full state, safety rules and resume order: `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
 ### Environment And Deployment
 
 - Work and QA **only** on Vercel staging: `https://losoma-pi.vercel.app`.
-- The existing WordPress site on `losoma.de` is completely out of scope. Do not open, inspect, test, edit, deploy to, or send requests to WordPress/Hostinger unless the user explicitly authorizes a specific task.
-- Hostinger/SFTP/SSH, WordPress admin and database access exist, but must not be used until the user separately authorizes backup/launch work.
+- The user authorized read-only Hostinger inspection and a full backup on 2026-07-22. Those tasks
+  are complete. This does not authorize staging upload, production replacement, database writes or
+  DNS changes; obtain a new explicit permission for the next mutation.
+- Hostinger is Business shared hosting with PHP 8.2.30 and no Node.js. The production backend is
+  therefore implemented in PHP. Document root: `domains/losoma.de/public_html`.
+- Current WordPress 7.0.2 remains untouched and live. After backup it returned HTTP 200 and still
+  exposed the WordPress API headers. Do not remove, move or overwrite it without a later explicit GO.
+- Server backup: `~/backups/losoma-prelaunch-20260722-1836/`. Persistent local copy:
+  `/Users/glebstepanovich/ShipStudio/backups/losoma-prelaunch-20260722-1836/`. Both file and DB
+  archives passed SHA-256 and gzip verification; exact hashes are in `HOSTINGER_LAUNCH_CHECKLIST.md`.
+- Hostinger release archive: `/Users/glebstepanovich/ShipStudio/releases/losoma-hostinger-rc-20260722.tar.gz`.
+  It is 27 MB compressed and its SHA-256 is recorded in `HOSTINGER_LAUNCH_CHECKLIST.md`.
+- Next session: capture read-only DNS/SSL/redirect/cron state, then request permission to create a
+  protected `staging.losoma.de`; do not upload into the active `public_html`.
 - Do not submit the staging form or create Google Sheet rows, emails or analytics test events without warning the user and receiving permission first.
 - Vercel CLI authentication was restored on 2026-07-15. Deploy only when explicitly requested, using `vercel --prod --yes`; in this project that updates the staging alias, not the WordPress site.
-- Current ready staging deployment: `dpl_9cZavsPFwviqcgkaPEcjGuZyVkPh`, immutable URL `https://losoma-3215fwdqu-gleb-projects-work.vercel.app`, alias `https://losoma-pi.vercel.app`.
+- Current verified Vercel preproduction deployment (2026-07-22): deployment ID `dpl_Dv1BKwGY6zkakE4zQNEwn32Pr4a6`, immutable URL `https://losoma-l62y0mv24-gleb-projects-work.vercel.app`, alias `https://losoma-pi.vercel.app`. The alias returned the updated Datenschutz page and `/kontakt` returned HTTP 200 after deployment.
 
 ### Current Cookie UI
 
@@ -61,18 +117,30 @@ This section is the current source of truth and supersedes conflicting historica
 - Public names: `Maxim Soga / Alexandr Lozinschi`; legal form shown as `Einzelunternehmen`. Confirm the exact owner/Verantwortlicher wording against registration documents or with a lawyer before launch.
 - Business address: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`.
 - The address is marked `Geschäftsadresse · kein Kundenbüro vor Ort`; there is no customer office.
-- Phone: `+49 176 44434111`; email: `losoma@web.de`; USt-IdNr. `DE357950597`; Steuernummer `19/537/02292`.
+- Phone: `+49 176 44434111`; email: `maxim@losoma.de`; USt-IdNr. `DE357950597`; Steuernummer `19/537/02292`.
 - `impressum.html`, `datenschutz.html`, `kontakt.html`, the homepage, all service pages and every shared footer use the updated address.
-- Final legal review is still required. Confirm that no Datenschutzbeauftragter is appointed, and confirm AVV/DPA for Hostinger, Vercel and Google.
+- Final legal review is still required. Confirm the registered proprietor/legal form, whether a Datenschutzbeauftragter has been appointed, the operational retention period and the AVV/DPA status for Hostinger, Vercel and Google.
 
 ### Form, Analytics And Launch Blockers
 
 - `POST /api/contact` is implemented with server validation, honeypot, rate limit, duplicate protection and frontend submit locking.
-- Google Sheets delivery through Apps Script works. Email delivery to `losoma@web.de` is still pending WEB.DE SMTP/app password.
-- GA4 measurement ID is `G-ST55QF95VS`; direct `gtag.js` + Consent Mode v2 is implemented. Default consent is denied; only `analytics_storage` is granted after `Statistik` consent.
-- Turnstile is not enabled. Do not enable it unless spam/paid traffic requires it; if enabled, update code, DPA and Datenschutz together.
-- Remaining before launch: SMTP email, permitted form QA, GA4 DebugView/manual consent QA, final legal review, DPA/AVV checks, responsive legal/cookie QA, `sitemap.xml`, absolute OG images, structured data after hours/coordinates/price/founding facts, full backup/rollback, then explicit Hostinger launch authorization.
-- The privacy page currently contains a Turnstile section although Turnstile is not enabled; final legal review must either remove that inactive section or enable the described service.
+- Public/legal/form email and Vercel recipient are `maxim@losoma.de`. A new empty Google Sheet and bound Apps Script were created under Workspace `maxim@losoma.de`; the Sheet ID is `1yaw-UptCIAixOORNwTrwnbrqoeraSiU4iEoV8HMyvxU`. The new Web App `/exec` URL is stored in Vercel Production and the staging alias was redeployed successfully.
+- The form delivery path was repaired and fully verified on 2026-07-22. The webhook secret was rotated and synchronized, the Apps Script was republished with the Spreadsheet ID fixed in code, and the controlled request at 10:45 ICT returned `HTTP 200` with `{"ok":true}`. The email arrived at `maxim@losoma.de`, and the new row was visually confirmed in the `Anfragen` sheet.
+- After a successful submission, every form is replaced by a green confirmation panel with black, larger text. It remains visible until the page is reloaded. Do not restore the old inline success message beneath a visible form.
+- The mandatory privacy checkbox is an acknowledgement, not a separate consent: `Ich habe die Datenschutzerklärung zur Kenntnis genommen.` Keep the legal basis in the privacy notice as Art. 6(1)(b)/(f) GDPR.
+- GA4 measurement ID is `G-QPX35L2ZGK`; direct `gtag.js` + Consent Mode v2 is implemented. Default consent is denied; only `analytics_storage` is granted after `Statistik` consent.
+- Turnstile is not used. The agreed next anti-spam stage is invisible reCAPTCHA v3; configure it
+  on Hostinger after staged upload and enable it only together with server-side verification,
+  Hostinger secrets and a synchronized Datenschutz update.
+- Completed in the current migration pass: Hostinger-compatible PHP backend, `GET /api/health`,
+  `.htaccess`, `sitemap.xml`, cleaned deploy assets, release archive and verified file/database backup.
+- Remaining before launch: protected Hostinger staging, secrets/config, routing and form validation,
+  reCAPTCHA v3, GA4 DebugView/manual consent QA, final legal review, DPA/AVV checks, responsive
+  legal/cookie QA, absolute OG images, structured-data decisions and explicit production GO.
+- `datenschutz.html` was reconciled on 2026-07-22 with the actual active flow: Vercel validation → Google Apps Script → Sheet `Anfragen` + Gmail `maxim@losoma.de`, plus the active consent-controlled GA4 setup. Reconcile it again when reCAPTCHA or the final Hostinger backend is enabled.
+- Confirmed launch order as of 2026-07-22: prepare and stage the release on Hostinger first;
+  then configure and verify invisible reCAPTCHA v3 and Google Search Console on Hostinger,
+  updating Datenschutz in the same change as CAPTCHA; then complete go/no-go and switch production.
 
 ## Current Source Of Truth
 
@@ -85,9 +153,8 @@ This section is the current source of truth and supersedes conflicting historica
 - Final hosting target: Hostinger `public_html`.
 - Current Hostinger production still contains the old WordPress site. Do not overwrite it during ordinary development.
 - Vercel `https://losoma-pi.vercel.app` is staging/preview and currently hosts `/api/contact`.
-- Cloudflare Pages references are historical/optional, not the current production plan.
 
-Read `SITE.md`, `CLAUDE.md`, `DEPLOYMENT_CHECKLIST.md`, `SEO_CHECKLIST.md`, `LEGALS_CHECKLIST.md`, and `docs/*` before larger changes.
+Read `SITE.md`, `CLAUDE.md`, `DEPLOYMENT_CHECKLIST.md`, `HOSTINGER_LAUNCH_CHECKLIST.md`, `SEO_CHECKLIST.md`, `LEGALS_CHECKLIST.md`, `DATENSCHUTZ_DRAFT.md`, and `docs/*` before larger changes.
 
 ## Pages
 
@@ -123,14 +190,8 @@ npm run audit:classes:strict
 node --check script.js
 ```
 
-Do not edit `dist/` directly. Do not run the image pipeline unless `assets/source/` changed.
-
-Image commands:
-
-```text
-npm run assets:images
-npm run build:images
-```
+Do not edit `dist/` directly. Deployable media is canonical; original media and the old image
+pipeline were removed before the Hostinger release.
 
 ## Styling System
 
@@ -203,13 +264,13 @@ Keep Splide for the services and reviews sliders. Keep intl-tel-input for phone 
 - Honeypot field: `company_website`.
 - Current backend protection: server validation, honeypot, rate limit, duplicate detection and frontend submit locking.
 - Google Sheets delivery works via Apps Script.
-- Email delivery to `losoma@web.de` is pending WEB.DE SMTP/app password.
-- Turnstile is deferred unless the current protections become insufficient.
+- Recipient and public/legal email are `maxim@losoma.de`; staging delivery to both Inbox and Google Sheet was fully verified on 2026-07-22.
+- Turnstile is excluded; reCAPTCHA v3 is the next planned anti-spam layer.
 
 ## Analytics And Cookie Consent
 
 - GA4 is required and has been created in the business Google account.
-- Measurement ID: `G-ST55QF95VS`.
+- Measurement ID: `G-QPX35L2ZGK`.
 - GA4 setup choices: account `Losoma Gebäudeservice`, property `Losoma Website`, web stream `https://losoma.de`, timezone Germany/Berlin, currency EUR, industry `Immobilien`, size `Klein: 1 bis 10 Mitarbeiter`, business goals `Leads generieren` and `Web- und/oder App-Traffic analysieren`.
 - Implementation rule: direct `gtag.js` + Consent Mode v2, not GTM at this stage.
 - Consent default before user choice: `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization` all denied.
@@ -259,7 +320,7 @@ Historical reference only. The 2026-07-16 Immediate Handoff above overrides conf
 
 ### GA4 Rules
 
-- Measurement ID: `G-ST55QF95VS`.
+- Measurement ID: `G-QPX35L2ZGK`.
 - Account: `Losoma Gebäudeservice`.
 - Property: `Losoma Website`.
 - Web stream: `https://losoma.de`.
@@ -302,7 +363,7 @@ Historical reference only. The 2026-07-16 Immediate Handoff above overrides conf
   - Hostinger
   - Google for GA4 / Sheets / Apps Script / Gmail or Workspace
   - Vercel while `/api/contact` processes submissions
-- Turnstile is not enabled now; add only if spam or paid traffic requires it.
+- Turnstile is not used. Add reCAPTCHA v3 next, with server-side verification and matching privacy text.
 - Google Maps is not embedded now.
 
 ### Current Implementation
@@ -340,7 +401,7 @@ Historical reference only. The 2026-07-16 Immediate Handoff above overrides conf
 
 Do not execute this sequence until the user explicitly authorizes a Hostinger/WordPress launch task.
 
-1. Close launch blockers: legal owner/Verantwortlicher wording, DPO confirmation, final privacy review, real-service alignment, Hostinger/Vercel/Google DPA/AVV, WEB.DE SMTP, permitted form/GA4 QA, sitemap/OG/Schema decisions and final responsive/accessibility QA.
+1. Close pre-upload blockers: legal owner/Verantwortlicher wording, DPO confirmation, final privacy review, real-service alignment, Hostinger/Vercel/Google DPA/AVV, permitted form/GA4 QA, sitemap/OG/Schema decisions and final responsive/accessibility QA. Configure reCAPTCHA v3 and Search Console after staged upload on Hostinger, before final production sign-off.
 2. Record the current Vercel staging deployment and run `npm run build`, `node --check script.js`, and `npm run audit:classes:strict`.
 3. Inspect Hostinger/WordPress only after authorization. Make a full backup of files and database; include `public_html`, `.htaccess`, `wp-config.php`, `wp-content/uploads` and a database export. Verify the backup is readable before changing production.
 4. Prepare a rollback path that can restore both files and database. Do not delete the only WordPress copy.
@@ -354,7 +415,7 @@ Do not execute this sequence until the user explicitly authorizes a Hostinger/Wo
 - Datenschutz hosting provider is Hostinger / `HOSTINGER INTERNATIONAL LIMITED`, Cyprus.
 - Hostinger AVV/DPA must be activated or confirmed before final launch.
 - Vercel DPA remains relevant while `/api/contact` processes submissions there.
-- The privacy page intentionally includes not-yet-live services for lawyer review: consent banner, GA and Turnstile.
+- The privacy page describes only live services. The cookie banner and consent-gated GA4 are live; reCAPTCHA text must be added only when reCAPTCHA is enabled.
 
 ## Launch Rule
 

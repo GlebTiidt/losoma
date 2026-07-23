@@ -1,5 +1,7 @@
 .git
 .vercel
+api/*.php
+server/
 node_modules
 
 # Local source media and generated build artifacts are not needed in deploy uploads.
