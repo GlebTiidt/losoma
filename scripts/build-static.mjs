@@ -8,7 +8,6 @@ const staticAssetsDir = new URL("../assets/static/", import.meta.url);
 const vendorAssetsDir = new URL("../assets/vendor/", import.meta.url);
 const blogPagesDir = new URL("../blog/", import.meta.url);
 const apiDir = new URL("api/", rootDir);
-const isVercelBuild = process.env.LOSOMA_BUILD_TARGET === "vercel";
 
 // Every page is a root-level .html file — auto-discover them so new service pages
 // (hausmeisterservice.html, …) ship without editing this list.
@@ -18,9 +17,9 @@ const files = [
   ...htmlPages,
   "robots.txt",
   "sitemap.xml",
-  ...(!isVercelBuild ? [".htaccess"] : [])
+  ".htaccess"
 ];
-const apiFiles = !isVercelBuild ? ["contact.php", "health.php"] : [];
+const apiFiles = ["contact.php", "health.php"];
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });

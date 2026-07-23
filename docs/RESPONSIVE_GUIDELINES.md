@@ -26,7 +26,7 @@ per-section Figma frame is the source of truth — never eyeball adaptive layout
 - Pull concrete CSS from the **per-section Figma frame** via the Figma MCP `get_design_context`. Build **section by section**; ask for the node id of the section's phone/tablet frame before starting.
 - Figma px are **design measurements, not implementation**. Convert to `rem` / `clamp()` / grid / flex / `aspect-ratio` and the shared tokens. (1rem = 16px.)
 - Do **not** rewrite copy during a responsive pass, even if the Figma node shows different wording — the live HTML copy is shared across all breakpoints.
-- After edits: `npm run build` / `npm run build:static` and run the relevant audits. Vercel is staging/current form backend only; Hostinger production launch requires explicit approval and `HOSTINGER_LAUNCH_CHECKLIST.md`.
+- After edits: `npm run build` / `npm run build:static` and run the relevant audits. Hostinger production deployment requires explicit approval and `HOSTINGER_LAUNCH_CHECKLIST.md`.
 
 ---
 

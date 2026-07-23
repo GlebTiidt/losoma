@@ -28,8 +28,6 @@ Update `SITE.md` after meaningful code or rule changes.
 - The old WordPress installation was replaced on 2026-07-23 only after a verified file/database
   backup. Keep the rollback copies; do not delete the WordPress backup or database without a
   separate explicit decision.
-- Vercel is legacy preproduction/rollback only. Do not treat it as the active form or production
-  environment and do not deploy there unless the user explicitly requests it.
 - Production deployments require an explicit request, `npm run build`, all audits, and a production
   smoke test. Upload generated `dist/`; never edit generated production files as the source of truth.
 - Do not submit a real form or create Google Sheet/email test data without warning the user and
@@ -52,7 +50,7 @@ image pipeline were removed before the Hostinger release.
 
 `dist/` is generated output. Do not edit `dist/` directly.
 
-Do not auto-deploy to Vercel or Hostinger. Deploy only when explicitly requested.
+Do not auto-deploy to Hostinger. Deploy only when explicitly requested.
 
 ## Class Naming
 
@@ -111,7 +109,7 @@ Run `npm run audit:classes:strict` after class work.
 - Apps Script requires only the synchronized `CONTACT_WEBHOOK_SECRET` Script Property; the Sheet ID is fixed in the deployed code and local template.
 - On success, hide the complete form and keep the green confirmation panel with larger black text visible until reload.
 - The privacy checkbox is an acknowledgement (`zur Kenntnis genommen`), not a separate consent.
-- Turnstile is not used. The next protection stage is invisible reCAPTCHA v3 with server-side verification.
+- Turnstile is not used. Invisible reCAPTCHA v3 is active with server-side verification.
 
 ## Analytics And Cookie Consent
 
@@ -168,10 +166,9 @@ Run `npm run audit:classes:strict` after class work.
 - Confirmed current business address: `Falkenseer Chaussee 247C, 13583 Berlin`. There is no customer office at this address.
 - Datenschutz documents the current Hostinger → Google Apps Script → Sheet `Anfragen` + Gmail
   flow, consent storage, consent-gated GA4 and active reCAPTCHA v3.
-- Hostinger and Google AVV/DPA acceptance still needs written client confirmation. Vercel is no
-  longer in the production request path.
+- Hostinger and Google AVV/DPA status must be documented against the exact legal entity.
 - Do not assert that no DPO is required. Ask whether one has been appointed and obtain legal confirmation.
-- Next-session order: reCAPTCHA v3 with server verification and matching Datenschutz update; then client answers and `HOSTINGER_LAUNCH_CHECKLIST.md`.
+- Keep legal facts synchronized with confirmed client answers before every production release.
 
 ## Git And Safety
 

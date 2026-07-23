@@ -13,7 +13,7 @@
 - Positioning: reliable, responsible, detail-focused service provider for ongoing building care.
 - Core proof points from current copy: `7+ Jahre am Markt`, `70+ Objekte in laufender Betreuung in Berlin`.
 - Production canonical domain: `https://losoma.de`.
-- Current public Vercel alias for staging/review: `https://losoma-pi.vercel.app`.
+- Current production domain: `https://losoma.de` on Hostinger.
 
 ## SEO Principles
 

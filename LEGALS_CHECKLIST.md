@@ -12,14 +12,15 @@
 - [x] Телефон: `+49 176 44434111`.
 - [x] Email: `maxim@losoma.de`.
 - [x] USt-IdNr.: `DE357950597`.
-- [x] Steuernummer: `19/537/02292`.
+- [x] Обычная Steuernummer удалена с публичной страницы как не требуемая § 5 DDG;
+      USt-IdNr. `DE357950597` оставлена.
 - [ ] Подтвердить, назначен ли Datenschutzbeauftragter; до подтверждения не заявлять
       публично, что обязанности точно нет.
 
 ## B. Реальные сервисы
 
 - [x] Hostinger production и текущий `/api/contact` отражены в Datenschutz.
-- [x] Старый WordPress и переходная Vercel-схема не описываются как активный production.
+- [x] Предыдущая инфраструктура не описывается как активный production.
 - [x] Contact flow описан: Hostinger PHP endpoint → Google Apps Script → Google Sheets + Gmail.
 - [x] Recipient указан: `maxim@losoma.de`.
 - [x] Технические form metadata и IP-based security processing раскрыты.
@@ -34,7 +35,6 @@
 ## C. DPA / AVV и international transfers
 
 - [ ] Подтвердить/принять Hostinger DPA в аккаунте.
-- [ ] Подтвердить Vercel DPA только если Vercel staging снова будет обрабатывать реальные данные.
 - [ ] Подтвердить Google Workspace data-processing terms для Apps Script/Sheets/Gmail.
 - [ ] Подтвердить Google Analytics data-processing terms.
 - [ ] Проверить актуальные subprocessors и transfer safeguards каждого provider.
@@ -45,9 +45,12 @@
 - [x] Клиент утвердил срок хранения заявок без договора: 12 месяцев после
       закрытия обращения, если нет иной обязанности хранения.
 - [x] Ответственный за регулярное удаление из Sheet и Gmail: Maxim Soga.
-- [ ] Проверен список лиц с доступом к Sheet, Apps Script, Gmail, GA4, Search Console и Hostinger.
-- [ ] Включена 2FA для административных аккаунтов.
-- [ ] Проверена GA4 retention setting (2 или 14 месяцев).
+- [x] По ответу пользователя административный доступ к Sheet, Apps Script, Gmail, GA4,
+      Search Console и Hostinger имеет Maxim Soga; при настройке проверить отсутствие лишних ролей.
+- [ ] Включена 2FA для административных аккаунтов. На 2026-07-23 пользователь подтвердил, что 2FA
+      пока не включена.
+- [x] Клиент выбрал GA4 retention **14 месяцев**.
+- [ ] Настройка 14 месяцев фактически сохранена в GA4 Admin и проверена повторным открытием.
 
 ## E. Production QA и финальная legal-проверка
 
@@ -65,6 +68,5 @@
 
 - Legal page описывает только реально активный processing.
 - reCAPTCHA section добавляется только вместе с фактическим включением.
-- При отключении Vercel backend Vercel удаляется из active form-processing текста.
 - При смене email/Sheet/CRM/hosting/analytics обновлять страницу и документацию одновременно.
 - Stand-дата меняется при каждом содержательном legal update.

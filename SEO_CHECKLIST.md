@@ -20,7 +20,7 @@
 Без блока 🔴 нельзя собрать полную разметку `LocalBusiness`.
 
 - [x] 🔴 👤 **Домен `losoma.de`** — подтверждён как production domain для canonical/OG.
-  Финальный hosting target по `HOSTINGER_LAUNCH_CHECKLIST.md` — Hostinger; Vercel пока остаётся staging и текущим form backend.
+  Единственный production hosting target по `HOSTINGER_LAUNCH_CHECKLIST.md` — Hostinger.
 - [x] 🔴 👤 **Google-аккаунт для бизнеса:** `maxim@losoma.de`; Search Console и новая GA4 property настроены в нём. Перенос Business Profile ещё открыт.
 - [x] 🔴 👤 **Google Business Profile** (Google Unternehmensprofil — карточка в Google Картах) создан
   и одобрен Google.
@@ -105,7 +105,7 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 
 - [x] 💻 Mobile-first / адаптив (desktop + tablet + phone).
 - [x] 💻 Скорость: оптимизированные изображения (AVIF/WebP), self-hosted шрифты, минимум зависимостей.
-- [x] 💻 Безопасные заголовки (`X-Content-Type-Options`, `Referrer-Policy` и т.д. в `vercel.json`).
+- [x] 💻 Безопасные заголовки (`X-Content-Type-Options`, `Referrer-Policy` и т.д. в `.htaccess`).
 - [x] 💻 Фавикон + webmanifest + apple-touch-icon.
 - [ ] ⚙️ 👤 После запуска — проверить **Core Web Vitals** в PageSpeed Insights / Search Console.
 
