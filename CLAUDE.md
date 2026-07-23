@@ -153,6 +153,8 @@ Run `npm run audit:classes:strict` after class work.
 - Do not invent opening hours, coordinates, founding date or price range. Add them after Maxim
   confirms the business facts. Add the Google Maps/Business Profile URL to `sameAs` after ownership
   transfer and the final public profile URL are confirmed.
+- Keep the Facebook and Instagram footer markup commented out until their real profile URLs are
+  confirmed; do not activate placeholder links.
 - Blog/Einblicke is active. Keep `/blog` in the desktop header, footer navigation and burger menu
   on every page. Six SEO articles are planned; only the published article may appear as a live card.
 - Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,
