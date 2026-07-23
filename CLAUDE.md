@@ -14,6 +14,7 @@ Before changing code, read:
 - `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` before Google Workspace, Google Business Profile,
   Gmail/DNS, Analytics, Search Console, Sheets or Apps Script ownership/access work.
 - `SEO_CHECKLIST.md` before SEO, canonical, sitemap, Schema.org or Google Business Profile work.
+- `SEO_RANKING_CHECKLIST.md` before keyword-position monitoring or Search Console performance work.
 - `LEGALS_CHECKLIST.md`, `DATENSCHUTZ_DRAFT.md` and `docs/LEGAL_PAGES_GUIDELINES.md` before legal-page or privacy-policy work.
 - `docs/RESPONSIVE_GUIDELINES.md` before layout/responsive work.
 - `docs/BLOG_GUIDELINES.md` before blog index, article, editorial layout or article SEO work.
@@ -160,6 +161,9 @@ Run `npm run audit:classes:strict` after class work.
 - Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,
   canonical/OG/Twitter fields, `BlogPosting`, `WebPage` and `BreadcrumbList` schema, plus processed
   AVIF/WebP imagery with useful `alt`, `title`, width and height.
+- Use `SEO_RANKING_CHECKLIST.md` as the stable keyword-to-page map. Measure 28-day trends in
+  impressions, clicks, CTR and average position, filtered to Germany and checked by device; do not
+  treat a personalized manual Google search as authoritative ranking data.
 
 ## Legal Rules
 

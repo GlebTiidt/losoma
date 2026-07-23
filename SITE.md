@@ -52,3 +52,6 @@ node --check script.js
 
 Production deployment выполнять только по явному запросу и по
 `HOSTINGER_LAUNCH_CHECKLIST.md`.
+
+Мониторинг позиций и утверждённая карта ключевых запросов находятся в
+`SEO_RANKING_CHECKLIST.md`.
