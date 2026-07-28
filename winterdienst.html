@@ -23,18 +23,10 @@
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebPage", "@id": "https://losoma.de/winterdienst#webpage", "url": "https://losoma.de/winterdienst", "name": "Winterdienst in Berlin für Gehwege, Eingänge und Zugangswege", "description": "Winterdienst von Losoma: Schneeräumung und rutschhemmende Behandlung für Gehwege, Eingänge und Zugangswege in Berlin und an weiteren Standorten — nach Wetterlage und Objektstruktur organisiert.", "inLanguage": "de-DE", "isPartOf": { "@id": "https://losoma.de/#website" }, "mainEntity": { "@id": "https://losoma.de/winterdienst#service" }, "breadcrumb": { "@id": "https://losoma.de/winterdienst#breadcrumb" }, "primaryImageOfPage": { "@type": "ImageObject", "url": "https://losoma.de/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.webp" } },
-      { "@type": "Service", "@id": "https://losoma.de/winterdienst#service", "name": "Winterdienst", "serviceType": "Winterdienst", "description": "Schneeräumung und rutschhemmende Behandlung für Gehwege, Eingänge und Zugangswege.", "provider": { "@id": "https://losoma.de/#organization" }, "areaServed": { "@type": "City", "name": "Berlin" }, "url": "https://losoma.de/winterdienst" },
+      { "@type": "Service", "@id": "https://losoma.de/winterdienst#service", "name": "Winterdienst", "serviceType": "Winterdienst", "description": "Schneeräumung und rutschhemmende Behandlung für Gehwege, Eingänge und Zugangswege.", "mainEntityOfPage": { "@id": "https://losoma.de/winterdienst#webpage" }, "provider": { "@id": "https://losoma.de/#organization" }, "areaServed": { "@type": "City", "name": "Berlin" }, "image": "https://losoma.de/assets/generated/winterdienst-schneeraeumung-gehweg-berlin-losoma.webp", "url": "https://losoma.de/winterdienst" },
       { "@type": "BreadcrumbList", "@id": "https://losoma.de/winterdienst#breadcrumb", "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://losoma.de/" },
         { "@type": "ListItem", "position": 2, "name": "Winterdienst", "item": "https://losoma.de/winterdienst" }
-      ] },
-      { "@type": "FAQPage", "@id": "https://losoma.de/winterdienst#faq", "mainEntity": [
-        { "@type": "Question", "name": "Was gehört zum Winterdienst?", "acceptedAnswer": { "@type": "Answer", "text": "Zum Winterdienst gehört in der Regel das Räumen von Schnee auf Gehwegen, Gebäudeeingängen, Zugangswegen und weiteren Fußgängerbereichen rund um die Immobilie. Wenn Flächen vereist oder rutschig werden, können geeignete rutschhemmende Maßnahmen eingesetzt werden." } },
-        { "@type": "Question", "name": "Wer ist in Deutschland für die Schneeräumung verantwortlich?", "acceptedAnswer": { "@type": "Answer", "text": "Eigentümer und Hausverwaltungen sind in der Regel dafür verantwortlich, Fußgängerbereiche rund um ihre Immobilien bei winterlichen Bedingungen sicher nutzbar zu halten. Winterdienst unterstützt diese Verantwortung durch geplante Schneeräumung und rutschhemmende Maßnahmen." } },
-        { "@type": "Question", "name": "Wann beginnt der Winterdienst bei Schneefall?", "acceptedAnswer": { "@type": "Answer", "text": "Winterdienst wird in der Regel durchgeführt, wenn Schneefall, Eis oder rutschige Bedingungen Gehwege, Eingänge und Zugangswege beeinträchtigen. Die genaue Reaktion hängt von der Wetterlage, lokalen Anforderungen und der vereinbarten Serviceroutine ab." } },
-        { "@type": "Question", "name": "Welche Bereiche werden beim Winterdienst normalerweise geräumt?", "acceptedAnswer": { "@type": "Answer", "text": "Typische Bereiche sind Gehwege, Gebäudeeingänge, Zugangswege, gemeinsam genutzte Außenbereiche und weitere Fußgängerwege rund um die Immobilie." } },
-        { "@type": "Question", "name": "Kann Winterdienst für Wohn- und Gewerbeimmobilien organisiert werden?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Winterdienst kann für Wohnimmobilien, Bürogebäude, Gewerbeobjekte und gemischt genutzte Immobilien organisiert werden." } },
-        { "@type": "Question", "name": "Kann die Winterdienstroutine an die Immobilie angepasst werden?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Routine hängt von der Größe der Immobilie, den Außenbereichen, Zugangspunkten, Fußgängerwegen und den lokalen Winterbedingungen ab." } }
       ] }
     ]
   }
@@ -518,10 +510,10 @@
               </svg>
             </a>
 
-            <!-- Optional social links: uncomment only after the real profile URLs are confirmed.
+            <!-- Optional Facebook link: uncomment only after the real profile URL is confirmed.
             <a href="#facebook" aria-label="Facebook"><img src="/assets/static/social-facebook.svg" alt="" width="32" height="32" aria-hidden="true"></a>
-            <a href="#instagram" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
             -->
+            <a href="https://www.instagram.com/losomagebaudeservice/" target="_blank" rel="noopener" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
           </div>
         </div>
 

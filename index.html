@@ -32,32 +32,67 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "HomeAndConstructionBusiness"],
         "@id": "https://losoma.de/#organization",
         "name": "Losoma",
+        "legalName": "Losoma",
+        "alternateName": "LOSOMA Gebäudeservice",
+        "description": "Gebäudedienstleistungen, Reinigung, Hausmeisterservice und laufende Objektbetreuung für Wohn- und Gewerbeimmobilien in Berlin.",
         "url": "https://losoma.de/",
         "logo": {
           "@type": "ImageObject",
+          "@id": "https://losoma.de/#logo",
           "url": "https://losoma.de/assets/static/icon-512.png",
+          "contentUrl": "https://losoma.de/assets/static/icon-512.png",
           "width": 512,
-          "height": 512
+          "height": 512,
+          "caption": "Losoma"
         },
-        "image": "https://losoma.de/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp",
+        "image": { "@id": "https://losoma.de/#primaryimage" },
         "email": "maxim@losoma.de",
-        "telephone": "+49 176 44434111",
+        "telephone": "+4917644434111",
+        "vatID": "DE357950597",
         "address": {
           "@type": "PostalAddress",
+          "@id": "https://losoma.de/#legal-address",
           "streetAddress": "Falkenseer Chaussee 247C",
           "postalCode": "13583",
           "addressLocality": "Berlin",
           "addressCountry": "DE"
         },
+        "legalAddress": { "@id": "https://losoma.de/#legal-address" },
+        "publicAccess": false,
         "areaServed": {
           "@type": "City",
           "name": "Berlin"
         },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+4917644434111",
+          "email": "maxim@losoma.de",
+          "url": "https://losoma.de/kontakt",
+          "areaServed": "DE",
+          "availableLanguage": "de"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Gebäudedienstleistungen",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/hausmeisterservice#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/treppenhausreinigung#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/gewerbliche-reinigung#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/grundreinigung#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/industriereinigung#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/winterdienst#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/garten-landschaftspflege#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/fassaden-hoehenarbeiten#service" } },
+            { "@type": "Offer", "itemOffered": { "@id": "https://losoma.de/solaranlagenreinigung#service" } }
+          ]
+        },
         "sameAs": [
-          "https://www.linkedin.com/in/maxim-soga-575478264/"
+          "https://www.linkedin.com/in/maxim-soga-575478264/",
+          "https://www.instagram.com/losomagebaudeservice/"
         ]
       },
       {
@@ -65,6 +100,7 @@
         "@id": "https://losoma.de/#website",
         "url": "https://losoma.de/",
         "name": "Losoma",
+        "description": "Informationen zu Gebäudedienstleistungen, Reinigung, Hausmeisterservice und Objektbetreuung von Losoma in Berlin.",
         "inLanguage": "de-DE",
         "publisher": { "@id": "https://losoma.de/#organization" },
         "hasPart": [
@@ -82,67 +118,16 @@
         "inLanguage": "de-DE",
         "isPartOf": { "@id": "https://losoma.de/#website" },
         "about": { "@id": "https://losoma.de/#organization" },
-        "mainEntity": { "@id": "https://losoma.de/#faq" },
+        "mainEntity": { "@id": "https://losoma.de/#organization" },
         "primaryImageOfPage": {
           "@type": "ImageObject",
-          "url": "https://losoma.de/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp"
+          "@id": "https://losoma.de/#primaryimage",
+          "url": "https://losoma.de/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp",
+          "contentUrl": "https://losoma.de/assets/generated/berliner-wohnimmobilie-gebaeudebetreuung-losoma.webp",
+          "width": 2560,
+          "height": 1429,
+          "caption": "Berliner Wohnimmobilie mit Gebäudebetreuung von Losoma"
         }
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://losoma.de/#faq",
-        "url": "https://losoma.de/#faq-title",
-        "inLanguage": "de-DE",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Welche Leistungen gehören zur Gebäudebetreuung von Wohnimmobilien in Berlin?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Dazu gehören unter anderem Treppenhausreinigung, regelmäßige Reinigung von Gemeinschaftsflächen, Hausmeisterservice, Winterdienst, Gartenpflege sowie weitere operative Aufgaben, die eine Immobilie sauber, gepflegt und funktionsfähig halten."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Wie oft sollte die Treppenhausreinigung in Wohngebäuden erfolgen?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Die Häufigkeit hängt von der Anzahl der Bewohner und der Nutzung ab. Viele Wohngebäude in Berlin planen eine Reinigung ein- bis zweimal pro Woche."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Was umfasst ein Hausmeisterservice?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Typischerweise gehören dazu regelmäßige Objektkontrollen, kleinere technische Arbeiten, Koordination von Wartungen sowie die Sicherstellung eines gepflegten Zustands der Gemeinschaftsflächen."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Bieten Gebäudedienstleister in Berlin Winterdienst an?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ja. Der Winterdienst umfasst in der Regel Schneeräumung und Streudienst für Wege, Eingänge und Zufahrten, um die Sicherheit bei Glätte zu gewährleisten."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Können Reinigung und Hausmeisterservice kombiniert werden?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ja. Viele Hausverwaltungen kombinieren Reinigungsleistungen mit Hausmeisterservice und saisonalen Leistungen wie dem Winterdienst."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Arbeiten Sie mit Hausverwaltungen in Berlin zusammen?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ja. Hausverwaltungen gehören zu unseren wichtigsten Kunden. Wir unterstützen sie bei der laufenden Betreuung und dem operativen Betrieb von Immobilien."
-            }
-          }
-        ]
       }
     ]
   }
@@ -887,10 +872,10 @@
               </svg>
             </a>
 
-            <!-- Optional social links: uncomment only after the real profile URLs are confirmed.
+            <!-- Optional Facebook link: uncomment only after the real profile URL is confirmed.
             <a href="#facebook" aria-label="Facebook"><img src="/assets/static/social-facebook.svg" alt="" width="32" height="32" aria-hidden="true"></a>
-            <a href="#instagram" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
             -->
+            <a href="https://www.instagram.com/losomagebaudeservice/" target="_blank" rel="noopener" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
           </div>
         </div>
 

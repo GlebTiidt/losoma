@@ -27,7 +27,7 @@
 - Canonical URLs must be absolute, clean, and without anchors or tracking parameters.
 - Use descriptive links and buttons, not generic `Mehr`, `Mehr erfahren`, or `Weiter` when context is unclear.
 - Keep FAQ questions close to real user wording.
-- Keep FAQ content visible and semantic, but do not add `FAQPage` JSON-LD under the current project decision unless current Google guidance and the site's eligibility are rechecked.
+- Keep FAQ content visible and semantic, but do not add `FAQPage` JSON-LD. Google retired FAQ rich results on 2026-05-07 and removed the feature documentation in June 2026.
 
 ## AI Search Principles
 
@@ -53,7 +53,7 @@ Recommended schema types:
 - `Organization`.
 - `WebSite`.
 - `Service` for service pages.
-- `FAQPage` is currently excluded; reconsider only after a fresh eligibility/guidance review.
+- `FAQPage` is excluded because Google retired the rich-result feature in May 2026. Reconsider only if Google introduces a new supported feature.
 - `BreadcrumbList` when there are nested pages.
 
 Required source facts before final JSON-LD:

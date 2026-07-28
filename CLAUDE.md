@@ -149,13 +149,15 @@ Run `npm run audit:classes:strict` after class work.
 - `robots.txt` and `sitemap.xml` are live and Google Search Console processed all 15 sitemap URLs.
 - Every indexable page must keep one production canonical, `index, follow`, an absolute OG image,
   and valid JSON-LD. Every non-home page requires `BreadcrumbList`.
-- Visible FAQ content on the homepage and all nine service pages has matching `FAQPage` JSON-LD.
-  Keep the HTML questions/answers and schema text identical; `npm run audit:seo` enforces this.
+- Keep visible FAQ content as semantic HTML, but do not emit `FAQPage` JSON-LD. Google retired FAQ
+  rich results in May 2026 and removed the documentation in June 2026; `npm run audit:seo` enforces
+  the absence of this retired type.
 - Do not invent opening hours, coordinates, founding date or price range. Add them after Maxim
   confirms the business facts. Add the Google Maps/Business Profile URL to `sameAs` after ownership
   transfer and the final public profile URL are confirmed.
-- Keep the Facebook and Instagram footer markup commented out until their real profile URLs are
-  confirmed; do not activate placeholder links.
+- Instagram is confirmed at `https://www.instagram.com/losomagebaudeservice/` and is active in
+  every footer plus homepage `sameAs`. Keep only the Facebook footer markup commented out until its
+  real profile URL is confirmed; do not activate placeholder links.
 - Blog/Einblicke is active. Keep `/blog` in the desktop header, footer navigation and burger menu
   on every page. Six SEO articles are planned; only the published article may appear as a live card.
 - Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,

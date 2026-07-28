@@ -1,6 +1,6 @@
 # Losoma — source of truth
 
-Последнее обновление: 2026-07-23.
+Последнее обновление: 2026-07-28.
 
 ## Архитектура
 
@@ -19,9 +19,10 @@
 - На всех индексируемых страницах обязательны уникальные title/description, canonical,
   `index, follow`, Open Graph и валидный JSON-LD.
 - На всех внутренних страницах обязателен `BreadcrumbList`.
-- FAQ Schema допускается только при полном совпадении с видимым FAQ.
-- Реальные social/Maps URLs активируются только после подтверждения. Сейчас подтверждён LinkedIn;
-  заготовки Facebook и Instagram сохраняются в HTML-комментариях и не отображаются пользователю.
+- Видимые FAQ остаются семантическим HTML-контентом, но `FAQPage` JSON-LD не публикуется: Google прекратил поддержку FAQ rich results в мае 2026 года.
+- Реальные social/Maps URLs активируются только после подтверждения. Сейчас подтверждены LinkedIn
+  и Instagram (`https://www.instagram.com/losomagebaudeservice/`); Facebook остаётся
+  HTML-заготовкой и не отображается пользователю.
 
 ## Формы и privacy
 

@@ -33,8 +33,26 @@
         "name": "Gebäudeservice Blog für Hausverwaltungen in Berlin",
         "description": "Praxiswissen von Losoma zu Hausmeisterservice, Gebäudebetreuung und Objektmanagement.",
         "inLanguage": "de-DE",
-        "isPartOf": { "@type": "WebSite", "@id": "https://losoma.de/#website", "name": "Losoma", "url": "https://losoma.de/" },
+        "isPartOf": { "@id": "https://losoma.de/#website" },
+        "about": { "@id": "https://losoma.de/#organization" },
+        "mainEntity": { "@id": "https://losoma.de/blog#posts" },
+        "hasPart": { "@type": "BlogPosting", "@id": "https://losoma.de/blog/hausmeister-vs-externer-spezialist#article" },
         "breadcrumb": { "@id": "https://losoma.de/blog#breadcrumb" }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://losoma.de/blog#posts",
+        "name": "Losoma Blogbeiträge",
+        "numberOfItems": 1,
+        "itemListOrder": "https://schema.org/ItemListOrderDescending",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://losoma.de/blog/hausmeister-vs-externer-spezialist",
+            "item": { "@id": "https://losoma.de/blog/hausmeister-vs-externer-spezialist#article" }
+          }
+        ]
       },
       {
         "@type": "BreadcrumbList",
@@ -129,10 +147,10 @@
       <div class="footer_contact-area">
         <div class="footer_contact"><h3>Kontakt</h3><div class="footer_links"><p>Falkenseer Chaussee 247C, 13583 Berlin, Deutschland</p><p>Geschäftsadresse · kein Kundenbüro vor Ort</p><a href="mailto:maxim@losoma.de">maxim@losoma.de</a><a href="tel:+4917644434111">+49 176 44434111</a></div></div>
         <div class="footer_social" aria-label="Social Links"><a href="https://www.linkedin.com/in/maxim-soga-575478264/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="/assets/static/social-linkedin.svg" alt="" width="32" height="32" aria-hidden="true"></a>
-            <!-- Optional social links: uncomment only after the real profile URLs are confirmed.
+            <!-- Optional Facebook link: uncomment only after the real profile URL is confirmed.
             <a href="#facebook" aria-label="Facebook"><img src="/assets/static/social-facebook.svg" alt="" width="32" height="32" aria-hidden="true"></a>
-            <a href="#instagram" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
             -->
+            <a href="https://www.instagram.com/losomagebaudeservice/" target="_blank" rel="noopener" aria-label="Instagram"><img src="/assets/static/social-instagram.svg" alt="" width="30" height="30" aria-hidden="true"></a>
           </div>
       </div>
       <div class="footer_legal"><p>© <span data-current-year>2026</span> Losoma. Alle Rechte vorbehalten.</p><p>Design und Entwicklung von Gleb Tiidt</p></div>

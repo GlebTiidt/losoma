@@ -14,16 +14,24 @@ function collectHtmlFiles(directory, files = []) {
   return files;
 }
 
-function decodeHtml(value) {
-  return value
-    .replaceAll("&amp;", "&")
-    .replaceAll("&nbsp;", " ")
-    .replace(/<[^>]+>/g, "")
-    .trim();
-}
-
 const errors = [];
 const pages = [];
+const serviceCanonicals = new Set([
+  "https://losoma.de/hausmeisterservice",
+  "https://losoma.de/treppenhausreinigung",
+  "https://losoma.de/gewerbliche-reinigung",
+  "https://losoma.de/grundreinigung",
+  "https://losoma.de/industriereinigung",
+  "https://losoma.de/winterdienst",
+  "https://losoma.de/garten-landschaftspflege",
+  "https://losoma.de/fassaden-hoehenarbeiten",
+  "https://losoma.de/solaranlagenreinigung",
+]);
+
+function hasType(node, expectedType) {
+  const types = Array.isArray(node?.["@type"]) ? node["@type"] : [node?.["@type"]];
+  return types.includes(expectedType);
+}
 
 for (const file of collectHtmlFiles(root)) {
   const relative = path.relative(root, file);
@@ -51,26 +59,76 @@ for (const file of collectHtmlFiles(root)) {
 
   const graphNodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
   const isHome = canonical === "https://losoma.de/";
-  if (!isHome && !graphNodes.some((node) => node["@type"] === "BreadcrumbList")) {
+  const breadcrumb = graphNodes.find((node) => hasType(node, "BreadcrumbList"));
+  if (!isHome && !breadcrumb) {
     errors.push(`${relative}: missing BreadcrumbList`);
   }
 
-  const htmlQuestions = Array.from(
-    html.matchAll(/<button class="faq-item_trigger"[\s\S]*?<span>(.*?)<\/span>[\s\S]*?<div class="faq-item_panel"[\s\S]*?<p>(.*?)<\/p>/g),
-    (match) => ({ name: decodeHtml(match[1]), text: decodeHtml(match[2]) }),
-  );
-  const faqNode = graphNodes.find((node) => node["@type"] === "FAQPage");
-  const schemaQuestions = faqNode?.mainEntity ?? [];
-
-  if (htmlQuestions.length !== schemaQuestions.length) {
-    errors.push(`${relative}: FAQ count differs (HTML ${htmlQuestions.length}, schema ${schemaQuestions.length})`);
-  } else {
-    htmlQuestions.forEach((question, index) => {
-      const schemaQuestion = schemaQuestions[index];
-      if (question.name !== schemaQuestion?.name || question.text !== schemaQuestion?.acceptedAnswer?.text) {
-        errors.push(`${relative}: FAQ item ${index + 1} differs between HTML and schema`);
+  if (breadcrumb) {
+    const items = breadcrumb.itemListElement ?? [];
+    if (items.length < 2) errors.push(`${relative}: BreadcrumbList needs at least two items`);
+    items.forEach((item, index) => {
+      if (!hasType(item, "ListItem") || item.position !== index + 1 || !item.name || (!item.item && index < items.length - 1)) {
+        errors.push(`${relative}: invalid BreadcrumbList item ${index + 1}`);
       }
     });
+  }
+
+  if (graphNodes.some((node) => hasType(node, "FAQPage"))) {
+    errors.push(`${relative}: FAQPage is retired from Google Search and must not be emitted`);
+  }
+
+  if (isHome) {
+    const organization = graphNodes.find((node) => hasType(node, "HomeAndConstructionBusiness"));
+    const website = graphNodes.find((node) => hasType(node, "WebSite"));
+    const webpage = graphNodes.find((node) => hasType(node, "WebPage"));
+    if (!organization || !hasType(organization, "Organization")) {
+      errors.push(`${relative}: homepage needs Organization + HomeAndConstructionBusiness`);
+    } else {
+      for (const field of ["name", "url", "logo", "image", "telephone", "email", "address", "areaServed", "contactPoint", "hasOfferCatalog", "sameAs"]) {
+        if (!organization[field]) errors.push(`${relative}: organization missing ${field}`);
+      }
+      const socialProfiles = Array.isArray(organization.sameAs) ? organization.sameAs : [];
+      for (const profile of [
+        "https://www.linkedin.com/in/maxim-soga-575478264/",
+        "https://www.instagram.com/losomagebaudeservice/",
+      ]) {
+        if (!socialProfiles.includes(profile)) errors.push(`${relative}: organization sameAs missing ${profile}`);
+      }
+    }
+    if (!website) errors.push(`${relative}: homepage missing WebSite`);
+    if (!webpage) errors.push(`${relative}: homepage missing WebPage`);
+  }
+
+  if (serviceCanonicals.has(canonical)) {
+    const service = graphNodes.find((node) => hasType(node, "Service"));
+    const webpage = graphNodes.find((node) => hasType(node, "WebPage"));
+    if (!service) {
+      errors.push(`${relative}: service page missing Service`);
+    } else {
+      for (const field of ["name", "serviceType", "description", "url", "provider", "areaServed", "image", "mainEntityOfPage"]) {
+        if (!service[field]) errors.push(`${relative}: Service missing ${field}`);
+      }
+    }
+    if (!webpage?.mainEntity?.["@id"]?.endsWith("#service")) {
+      errors.push(`${relative}: WebPage mainEntity must reference its Service`);
+    }
+  }
+
+  if (canonical === "https://losoma.de/blog") {
+    if (!graphNodes.some((node) => hasType(node, "CollectionPage"))) errors.push(`${relative}: blog index missing CollectionPage`);
+    if (!graphNodes.some((node) => hasType(node, "ItemList"))) errors.push(`${relative}: blog index missing ItemList`);
+  }
+
+  if (canonical === "https://losoma.de/blog/hausmeister-vs-externer-spezialist") {
+    const article = graphNodes.find((node) => hasType(node, "BlogPosting"));
+    if (!article) {
+      errors.push(`${relative}: article page missing BlogPosting`);
+    } else {
+      for (const field of ["headline", "description", "image", "datePublished", "dateModified", "author", "publisher", "mainEntityOfPage"]) {
+        if (!article[field]) errors.push(`${relative}: BlogPosting missing ${field}`);
+      }
+    }
   }
 
   if (/index\s*,\s*follow/i.test(robots) && canonical) {

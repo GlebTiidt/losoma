@@ -1,8 +1,8 @@
 # SEO & Schema Checklist — Losoma
 
 > Домен: **https://losoma.de**
-> Составлено: 2026-06-23; operational status reconciled 2026-07-22. Источники: Google Search Essentials, Google AI Optimization Guide, schema.org, Zapier SEO Guide.
-> Статус сайта: on-page SEO уже сильное (title/description/alt/canonical/og — везде есть). Главные пробелы — **structured data, sitemap.xml** и подключение домена `losoma.de`. `robots.txt` уже создан.
+> Составлено: 2026-06-23; operational status reconciled 2026-07-28. Источники: Google Search Essentials, Google AI Optimization Guide и schema.org.
+> Статус сайта: on-page SEO, structured data, sitemap.xml, robots.txt и production domain настроены. Открыты подтверждение дополнительных бизнес-фактов и внешняя проверка после повторного обхода Google.
 
 ---
 
@@ -42,7 +42,9 @@
   объектов/работ/команды. Отложено до появления реальных материалов.
 - [ ] 🟡 👤 **Ценовой диапазон** (`priceRange`), напр. `€€`.
 - [ ] 🟡 👤 **Год основания** компании (`foundingDate`).
-- [ ] 🟡 👤 **Соцсети** для `sameAs`: LinkedIn уже есть (`linkedin.com/in/maxim-soga-575478264`). Есть ли **Instagram / Facebook**?
+- [x] 🟡 👤💻 **Соцсети** для `sameAs`: подтверждены LinkedIn
+  (`linkedin.com/in/maxim-soga-575478264`) и Instagram
+  (`instagram.com/losomagebaudeservice`); Facebook пока не подтверждён.
 - [x] 🟡 💻 **Логотип-растр** для Schema (≥112×112) — используем существующий `assets/static/icon-512.png`.
 
 **Контактные данные (уже в Impressum, для справки):**
@@ -71,7 +73,9 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] 🔴 💻 **`Organization`** + **`WebSite`** объединены в общий граф; `SearchAction` не добавлен.
 - [x] 🔴 💻 **`Service`** присутствует на каждой из 9 страниц услуг.
 - [x] 🟡 💻 **`BreadcrumbList`** присутствует на всех 14 не-главных страницах.
-- [x] 🟡 💻 **`FAQPage`** добавлен на главной и всех 9 сервисных страницах строго по видимому FAQ. Это семантическая разметка; расширенный FAQ-сниппет Google не обещается.
+- [x] 🟡 💻 Видимые FAQ сохранены как семантический HTML, а устаревший **`FAQPage`** удалён из JSON-LD: Google прекратил показ FAQ rich results 7 мая 2026 года и удалил документацию функции в июне 2026 года.
+- [x] 🟡 💻 Главная business schema дополнена подтверждёнными `contactPoint`, `vatID`, `sameAs` и `hasOfferCatalog`; неподтверждённые часы, координаты, цены и дату основания не публикуем.
+- [x] 🟡 💻 Все 9 `Service` связаны со своей `WebPage`, провайдером, зоной обслуживания и релевантным изображением; blog index содержит `ItemList`, статья — полный `BlogPosting`.
 - [ ] ⚙️ 💻👤 Проверить всю разметку в **Rich Results Test** (https://search.google.com/test/rich-results) и Schema Markup Validator (https://validator.schema.org/).
 
 ---
