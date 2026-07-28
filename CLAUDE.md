@@ -156,8 +156,19 @@ Run `npm run audit:classes:strict` after class work.
   confirms the business facts. Add the Google Maps/Business Profile URL to `sameAs` after ownership
   transfer and the final public profile URL are confirmed.
 - Instagram is confirmed at `https://www.instagram.com/losomagebaudeservice/` and is active in
-  every footer plus homepage `sameAs`. Keep only the Facebook footer markup commented out until its
-  real profile URL is confirmed; do not activate placeholder links.
+  every footer, the contact-page social block and homepage `sameAs`. Keep it on all 15 indexable
+  pages. Keep only the Facebook footer markup commented out until its real profile URL is confirmed;
+  do not activate placeholder links.
+- Preserve the structured-data matrix: homepage = `Organization` + `HomeAndConstructionBusiness`
+  + `WebSite` + `WebPage`; each of the 9 service pages = `WebPage` + `Service` +
+  `BreadcrumbList`; blog index = `CollectionPage` + `ItemList` + `BreadcrumbList`; article =
+  `WebPage` + `BlogPosting` + `BreadcrumbList`; contact and legal pages = their appropriate
+  `WebPage` subtype + `BreadcrumbList`. Keep entities connected with stable production `@id` URLs.
+- After every metadata or JSON-LD change, run `npm run audit:seo`. Before or immediately after a
+  production SEO release, validate representative homepage, service, blog index, article, contact
+  and legal URLs with the official Schema.org Validator. Errors must be zero; review every warning
+  rather than ignoring it. A Hostinger release additionally requires a dated remote backup,
+  production smoke checks and local/remote checksums for the deployed HTML files.
 - Blog/Einblicke is active. Keep `/blog` in the desktop header, footer navigation and burger menu
   on every page. Six SEO articles are planned; only the published article may appear as a live card.
 - Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,
