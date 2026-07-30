@@ -1,6 +1,176 @@
 # Losoma — актуальный handoff
 
-Последнее обновление: 2026-07-28.
+Последнее обновление: 2026-07-30.
+
+## Непосредственная точка возобновления после перезапуска Codex
+
+Chrome DevTools MCP уже подключён глобально:
+
+```text
+chrome-devtools  /Users/glebstepanovich/.npm-global/bin/chrome-devtools-mcp  enabled
+```
+
+- 2026-07-30 обнаружено, что прежняя запись `npx -y chrome-devtools-mcp@latest` не запускалась:
+  npm registry дважды отвечал `ETIMEDOUT`, а пакет отсутствовал в локальном кэше.
+- Официальный tarball `chrome-devtools-mcp` версии `1.1.1` установлен глобально; конфигурация Codex
+  переведена на абсолютный локальный бинарник без сетевого `npx`. Включены изолированный headless
+  Chrome, redaction сетевых заголовков, structured output, memory tools и просмотр фоновых страниц;
+  Performance, Network, Emulation и CrUX оставлены включёнными, usage statistics/update checks
+  отключены.
+- В текущей сессии сервер проверен через официальный `chrome-devtools` CLI: daemon отвечает,
+  `navigate_page` и `performance_start_trace` успешно выполнены. После следующего перезапуска Codex
+  сначала проверить появление одноимённых MCP tools; переустанавливать пакет не нужно.
+- Production release выполнен на Hostinger 2026-07-30. Перед загрузкой создана ручная резервная
+  копия hPanel `2026-07-30 17:08`; сборка распакована в `domains/losoma.de/public_html` около
+  `10:54 UTC`. Release ZIP SHA-256:
+  `b30d5684a25e69819237bb7adf58cf188c3341d5e48e5f18c488515888dd3a0e`; после распаковки архив
+  перемещён из `public_html` в корзину Hostinger.
+- Все 15 production HTML URL возвращают `200` и побайтно совпадают с `dist/`; также совпали
+  `styles.css`, `script.js`, `robots.txt`, `sitemap.xml`, poster, responsive AVIF и MP4. Видео
+  сохранило SHA-256 `2283c7429ef384598ac4445da183b6450688ce78f99d91193239c94fb894714b`.
+  `/api/health` отвечает `200` / `{"ok":true,"service":"losoma-contact"}`; реальная форма не
+  отправлялась. Канонические редиректы и сохранение query string повторно проверены.
+- Post-deploy cold mobile trace production (`Slow 4G`, CPU `4x`, `412x915@3`): LCP `2,978 ms`,
+  CLS `0`, TTFB `511 ms`, render delay `2,467 ms`; LCP — `H1#hero-title`. Lighthouse production:
+  Accessibility/Best Practices/SEO/Agentic Browsing `100/100/100/100`, 56/56 проверок, console
+  error/warn/issue отсутствуют. Desktop/mobile screenshots подтвердили читаемый H1 поверх видео.
+- Контрольный cold mobile trace production-главной выполнен с `Slow 4G`, CPU `4x` и viewport
+  `412x915@3`: LCP `2,102 ms`, CLS `0`, LCP-элемент — текстовый `H1#hero-title`; TTFB `406 ms`,
+  render delay `1,696 ms` (`80,7%` LCP). CrUX page-level data отсутствуют.
+- Отдельная сетевая цепочка `script.js` -> `intl-tel-input/utils.js` достигает `4,662 ms`, но
+  DevTools оценивает её прямую экономию LCP как `0 ms`; DOM содержит 587 элементов, крупнейший
+  layout update — `118 ms`. Не выдавать эту цепочку за причину LCP без дополнительной проверки.
+- Lighthouse mobile: Accessibility `96`, Best Practices `100`, SEO `100`, Agentic Browsing `100`.
+  Найдены два класса a11y-ошибок: недостаточный contrast текста `.process-step-card_content > p`
+  (`4.06:1`) и placeholder service selector (`3.5:1`), а также accessible-name mismatch у ссылки
+  `.details-link` и карточки `.why-contact-card`. Отчёты сохранены временно в
+  `/private/tmp/losoma-lighthouse/` и не являются репозиторными артефактами.
+- Исправление hero и accessibility опубликовано на production 2026-07-30. First-visit loader
+  заканчивается независимо от видео через `900 ms`
+  (`0 ms` при reduced motion), MP4 получает `src` только после `window.load` и idle-паузы и не
+  загружается при reduced motion, Save-Data или `2g`. Вариант MP4 `960x540` пользователь отклонил
+  из-за заметной потери качества; восстановлен исходный `1920x1080`, `5,731,171` байт. Poster
+  остаётся оптимизированным: примерно `131 KiB` вместо `247 KiB`.
+- Пользователь уточнил, что исходный 30-секундный мастер весил около `444 MB`, а текущий web-MP4
+  `5.73 MB` — уже нижняя приемлемая граница качества. Не перекодировать его повторно без отдельного
+  явного решения; performance улучшать отложенной загрузкой, poster и окружающими ресурсами.
+- Поверх hero-видео добавлен responsive contrast scrim: desktop затемняется справа/снизу под H1,
+  tablet/phone — к нижнему текстовому блоку. Видео, разрешение и object-fit не менялись; локально
+  проверено в Chrome на desktop и `390x844`.
+- Post-fix mobile trace локальной сборки (`Slow 4G`, CPU `4x`, `412x915@3`) подтвердил CLS `0`,
+  текстовый LCP `H1#hero-title`, запуск запроса MP4 после `load` и cold/no-cache LCP `2,128 ms`.
+  Прогретый повтор дал `1,533 ms`. Локальный Python-сервер не сжимает HTML/CSS, поэтому эти числа
+  не считать production-сравнением. Post-fix production trace зафиксирован выше. Локальный
+  Lighthouse: Accessibility/Best Practices/SEO/Agentic Browsing — `100/100/100/100`.
+- Responsive AVIF/WebP для трёх карточек ниже hero реализованы (`480/768/1200 px`, `srcset` и
+  `sizes`). В чистом Chrome-контексте mobile `412x915@3` выбрал три 1200px AVIF общим размером
+  `286,561` байт вместо `1,702,306` (`-83.2%`); desktop `1440@1` выбрал 480px варианты общим
+  размером `65,878` байт (`-96.1%`). Insight `ImageDelivery` исчез.
+- Финальный локальный mobile trace после responsive images: LCP `1,720 ms`, CLS `0`; Lighthouse
+  Accessibility/Best Practices/SEO/Agentic Browsing — `100/100/100/100`. Render-blocking в
+  локальном trace сосредоточен в CSS и `lenis.min.js`; абсолютную оценку Python-сервера не
+  переносить на production без post-deploy trace. Forced reflow составил `38 ms`, но DevTools не
+  оценил для него экономию метрик, поэтому он не является текущим приоритетом.
+- Из пяти ожидающих URL повторно проверен только `/garten-landschaftspflege`: Search Console всё
+  ещё показывает `URL ist nicht auf Google` / `URL ist Google nicht bekannt`. Повторная заявка не
+  отправлялась. Остальные четыре URL в этой сессии не проверены.
+- Пользователь явно попросил продолжить одновременно индексацию, hero/LCP и актуализацию всей
+  документации на 2026-07-30.
+
+Строгая последовательность продолжения:
+
+1. Проверить `git status` и сохранить текущие пользовательские изменения в `.htaccess`,
+   `CLAUDE.md`, `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`, `HANDOFF.md`, `SEO_CHECKLIST.md` и
+   `SITE.md`.
+2. В Search Console проверять только `/garten-landschaftspflege`,
+   `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`. Для
+   неиндексированного URL сначала выполнить `Live-URL testen`, затем запросить индексацию только
+   при доступности URL для Google. Успехом считать только явное сообщение
+   `Indexierung wurde beantragt`; одинаковую общую/quota/server ошибку повторно не спамить.
+3. Не отправлять повторно `/hausmeisterservice` и `/grundreinigung`: для них запрос уже
+   подтверждён. Не отправлять редиректы, `.html` и trailing-slash дубли.
+4. Hero/LCP и accessibility уже опубликованы и проверены; повторно не реализовывать. Следующее
+   изменение выпускать только отдельным Hostinger release с новой rollback-копией.
+5. Post-deploy production trace выполнен с `Slow 4G`, CPU `4x` и viewport `412x915@3`; результат
+   зафиксирован выше. PageSpeed baseline `LCP 4,4 s`, payload около `9,4 MB` относится к pre-fix
+   версии и не является результатом текущего production release.
+6. Локально уже прошли `npm run audit:seo`, `npm run audit:classes:strict`, `npm run build` и
+   `node --check script.js`; перед будущим деплоем выполнить их заново на финальном diff.
+7. После технической проверки привести документацию к одному срезу 2026-07-30: создать текущий
+   SEO-аудит и только затем удалить `SEO-AUDIT-2026-07-28.md`; удалить из этого handoff устаревшие
+   дублирующие исторические разделы; обновить `SITE.md`, `SEO_CHECKLIST.md`,
+   `SEO_RANKING_CHECKLIST.md`, `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`, `MAXIM_QUESTIONS.md`.
+   Не удалять действующие deployment/legal/privacy/account safety runbooks.
+8. Следующий production release не выполнять без отдельного явного запроса. Для каждого выпуска
+   обязательны новая датированная rollback-копия, сверка хешей и полный production smoke test.
+
+Последний подтверждённый срез Search Console в этой сессии:
+
+- sitemap успешно отправлен и прочитан 2026-07-30, обнаружено 15 URL;
+- отчёт `Seiten` всё ещё показывает срез 2026-07-24: 6 индексировано, 13 не индексировано;
+- `Leistung`, обновлённый примерно за 7,5 часа до проверки: 5 кликов, 11 показов,
+  CTR `45,5%`, средняя позиция `1,6`; видимый запрос `losoma` — 4 клика / 5 показов;
+- ручных мер и проблем безопасности нет; HTTPS — 0 проблем; Breadcrumbs — 6 валидных,
+  0 невалидных; для Core Web Vitals пока недостаточно полевых данных за 90 дней.
+
+## Следующему агенту: продолжение обязательного SEO-плана
+
+1. Сначала прочитать `CLAUDE.md`, `SITE.md` и раздел 8
+   «Обязательный план после SEO-аудита 2026-07-30» в `SEO_CHECKLIST.md`.
+2. Проверить `git status` и сохранить все текущие пользовательские изменения. Не откатывать
+   `.htaccess`, `SEO_CHECKLIST.md`, `SITE.md`, `HANDOFF.md` и остальные изменённые документы.
+3. Канонизацию URL не переделывать: она уже выпущена и проверена на production 2026-07-30.
+   HTTPS canonical-варианты старых URL дают один `301`; query string сохраняется. Полная цепочка
+   `http://www` может содержать дополнительные host/scheme-переходы Hostinger/CDN, но заканчивается
+   корректным `200` на `https://losoma.de/<clean-url>` без циклов.
+4. Мобильный hero/LCP опубликован и проверен на production 2026-07-30; post-deploy cold trace
+   зафиксирован выше. Не возвращать `preload="auto"` и ожидание video `canplay` в loader.
+5. После скорости перейти к Title/H1 главной под основной intent `Gebäudeservice Berlin`, затем
+   к самостоятельному усилению `/grundreinigung` и `/hausmeisterservice` реальными фактами,
+   кейсами, фото и service-specific FAQ. Не делать формальный синонимический рерайт.
+6. Любое следующее изменение сайта: `npm run audit:seo`, `npm run audit:classes:strict`,
+   `npm run build`, `node --check script.js`; production-деплой только по явному запросу,
+   с новой датированной rollback-копией и smoke test.
+7. Chrome DevTools MCP `1.1.1` установлен глобально и настроен на локальный бинарник. После
+   перезапуска Codex проверить наличие его инструментов; повторная установка и возврат к
+   `npx ...@latest` не нужны.
+8. Не повторять уже подтверждённые запросы индексации `/hausmeisterservice` и
+   `/grundreinigung`. Позже пробовать только ожидающие URL из раздела ниже и фиксировать только
+   явное подтверждение Search Console.
+
+### Проверенное состояние редирект-релиза
+
+- Production SHA-256 `.htaccess`:
+  `621718aea7590dae3a4caa5eed021990674bd5b3a3854de6d5b58ba5b2a798c0`.
+- Rollback:
+  `domains/losoma.de/public_html/.htaccess.pre-global-canonical-20260730-01`.
+- Проверены `301` для `/index.html`, service `.html`, service trailing slash, `/blog/`,
+  `/blog/index.html`, вложенной blog `.html`/trailing slash, `/privacy*`, `/impressum/`.
+- Проверены конечные `200` для главной, clean service URL, blog, legal pages,
+  `/api/health` и статического ассета.
+- В проекте отсутствует script `npm test`; использовать перечисленные выше реальные audits.
+
+## Точка завершения сессии 2026-07-30
+
+- На production настроена единая канонизация URL: `/index.html` → `/`,
+  `/blog/` и `/blog/index.html` → `/blog`, публичные `*.html` → URL без расширения,
+  trailing-slash страницы → URL без слэша. Проверены `301`, сохранение query string,
+  конечные `200`, работоспособность `/api/health` и ассетов.
+- Активный `.htaccess` совпал с локальной сборкой по SHA-256. Rollback-копия:
+  `domains/losoma.de/public_html/.htaccess.pre-global-canonical-20260730-01`.
+- В Search Console под `maxim@losoma.de` повторно отправлен sitemap с 15 URL; отправка успешна.
+- Подтверждённые ручные запросы на индексацию: `/hausmeisterservice`, `/grundreinigung`.
+- Уже индексируются: `/blog`, `/gewerbliche-reinigung`, `/industriereinigung`,
+  `/fassaden-hoehenarbeiten`.
+- `/garten-landschaftspflege` и `/solaranlagenreinigung` проходят Live URL Test и доступны
+  Google, но ручная отправка вернула общую ошибку. Та же ошибка получена для
+  `/treppenhausreinigung`; `/kontakt` и `/impressum` остаются неиндексированными и после
+  повторяющейся ошибки не отправлялись.
+- При продолжении позже запросить только пять ожидающих URL: Garten, Solar, Treppenhaus,
+  Kontakt и Impressum. Не повторять уже подтверждённые Hausmeisterservice и Grundreinigung.
+- Google Business Profile по-прежнему не передан. 2026-07-30 Kushal из поддержки сообщил,
+  что команда продолжает проверку по Fall-ID `2-2514000041594`; нового действия не запрошено.
+  Ждать следующий ответ и продолжать только в существующей почтовой цепочке.
 
 ## Точка завершения сессии 2026-07-28
 

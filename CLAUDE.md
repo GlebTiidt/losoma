@@ -7,7 +7,8 @@ The user is not a developer, so explanations should stay practical and clear.
 
 Before changing code, read:
 
-- `HANDOFF.md`, starting with `Immediate Handoff`, for the latest environment, deployment and launch state.
+- `HANDOFF.md`, starting with `Непосредственная точка возобновления`, for the latest environment,
+  deployment and launch state.
 - `SITE.md` for current project state and recent decisions.
 - `DEPLOYMENT_CHECKLIST.md` for launch blockers and hosting rules.
 - `HOSTINGER_LAUNCH_CHECKLIST.md` before any Hostinger inspection, backup, migration or launch work.
@@ -21,6 +22,53 @@ Before changing code, read:
 - `docs/SEO_AND_CLASS_GUIDELINES.md` before adding or renaming classes.
 
 Update `SITE.md` after meaningful code or rule changes.
+
+After every meaningful action or discovery in an external admin system (Google Search Console,
+Google Business Profile, GA4, Workspace, Hostinger, DNS, Sheets or Apps Script), record the date,
+exact observed result, unresolved blocker and next safe action in the relevant repository source of
+truth before ending the task. Do not leave operational state only in chat or browser history.
+
+## Immediate Resume Rule — SEO, Indexing And Performance (2026-07-30)
+
+- Chrome DevTools MCP `1.1.1` was installed globally on 2026-07-30 and Codex now launches the
+  absolute local binary `/Users/glebstepanovich/.npm-global/bin/chrome-devtools-mcp`. Do not restore
+  `npx -y chrome-devtools-mcp@latest`: npm registry timeouts prevented that configuration from
+  starting. The local configuration uses isolated headless Chrome, network-header redaction,
+  structured output, memory tools and all-page inspection; standard Performance, Network,
+  Emulation and CrUX remain enabled, while usage statistics and update checks are disabled.
+- After restart, first verify that `navigate_page` and `performance_start_trace` are exposed as MCP
+  tools. The official `chrome-devtools` CLI is an accepted same-server fallback for the current
+  session only; do not claim a trace unless either surface actually returns trace results.
+- A verified production mobile trace now exists: `Slow 4G`, CPU `4x`, viewport `412x915@3`, LCP
+  `2.102 s`, CLS `0`, text LCP element `H1#hero-title`, TTFB `406 ms`, render delay `1.696 s`.
+  This is the pre-fix production trace; do not compare it directly with an uncompressed local server.
+- The user explicitly requested the following continuation on 2026-07-30. Resume in this order:
+  1. In Search Console under `maxim@losoma.de`, inspect only the five pending canonical URLs:
+     `/garten-landschaftspflege`, `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`
+     and `/impressum`. Run `Live-URL testen` for a URL that is not indexed and request indexing only
+     after a successful live result. Record only explicit `Indexierung wurde beantragt` success;
+     stop retries after the same generic/quota/server error.
+  2. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; their requests were already
+     confirmed. Do not request indexing for redirects or duplicate URL variants.
+  3. The local hero optimization is complete: the first-visit loader no longer waits for video,
+     video loading starts only after `window.load` plus an idle pause, and reduced-motion/Save-Data/2g
+     keep the poster. The compressed `960x540` MP4 was rejected for visible quality loss; the original
+     `1920x1080`, `5,731,171`-byte MP4 is restored. The poster remains optimized at about `131 KiB`.
+  4. Local Chrome DevTools validation used `Slow 4G`, CPU `4x`, viewport `412x915@3`: cold/no-cache
+     LCP `2.128 s`, warm LCP `1.533 s`, CLS `0`, and the MP4 request began after `load`. Local
+     Lighthouse scores are `100` for Accessibility, Best Practices, SEO and Agentic Browsing.
+  5. `npm run audit:seo`, `npm run audit:classes:strict`, `npm run build` and
+     `node --check script.js` passed. Repeat them before a future release; collect a post-fix
+     production trace only after the user explicitly authorizes deployment.
+  6. Reconcile all dated SEO sources to 2026-07-30. Replace the obsolete
+     `SEO-AUDIT-2026-07-28.md` only after its still-relevant facts are moved into a current audit;
+     remove stale duplicate history from `HANDOFF.md`; update `SITE.md`, `SEO_CHECKLIST.md`,
+     `SEO_RANKING_CHECKLIST.md`, `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` and
+     `MAXIM_QUESTIONS.md`. Keep deployment, legal, privacy and account-transfer runbooks that are
+     still operational; cleaning documentation does not mean deleting current safety rules.
+- The current documented PageSpeed baseline is mobile LCP `4.4 s` and approximately `9.4 MB`
+  payload. It is a pre-fix result; the local hero changes are not deployed. Production deployment
+  still requires a separate explicit request, a dated rollback copy and production smoke verification.
 
 ## Current Hosting Rule
 
@@ -129,7 +177,10 @@ Run `npm run audit:classes:strict` after class work.
 - Current Google Business Profile primary owner is `losoma@web.de`.
 - Managed Workspace account `maxim@losoma.de` exists and has access to Google Admin Console.
 - An invitation was sent to `maxim@losoma.de` as Google Business Profile `Inhaber`; last known status
-  on 2026-07-21 is pending (`AUSSTEHEND`) and support case `2-2514000041594` is open.
+  is pending (`AUSSTEHEND`) and support case `2-2514000041594` is open. On 2026-07-30 Kushal from
+  Google support confirmed that the team is still investigating and will reply when more
+  information is available. Continue in the same email thread; do not open a duplicate case unless
+  Google closes the existing one without resolution.
 - Never delete or recreate the existing Business Profile to move accounts. Add the new account as
   owner, accept, wait Google's required 7 days, transfer primary ownership, and keep the old account
   as a temporary backup.
@@ -147,6 +198,25 @@ Run `npm run audit:classes:strict` after class work.
 - `canonical` and `og:url` must use `https://losoma.de`.
 - `og:image` should be absolute before final production SEO QA.
 - `robots.txt` and `sitemap.xml` are live and Google Search Console processed all 15 sitemap URLs.
+- Search Console is managed through the `losoma.de` domain property under `maxim@losoma.de`.
+  Use URL Inspection for an exact canonical URL as the authoritative per-page check. The aggregate
+  Page indexing report can lag by several days, and a public `site:` search is only a secondary
+  observation, not proof of index status.
+- For a canonical URL reported as not indexed, first run `Live-URL testen`. Request indexing only
+  when the live result says the URL is available to Google. Count a request as submitted only after
+  Search Console explicitly confirms `Indexierung wurde beantragt`; a generic error dialog is not
+  success. Do not repeatedly retry after the same server/quota error. Keep the URL in the sitemap
+  and retry later.
+- Do not request indexing for redirects, 404 pages or duplicate URL variants. Fix or preserve the
+  intended redirect/canonical behavior instead. Resubmitting a sitemap does not guarantee indexing,
+  and a successful live test proves crawlability, not that Google will select the page for index.
+- Current Search Console snapshot from 2026-07-30: the 15-URL sitemap was resubmitted successfully;
+  `/hausmeisterservice` and `/grundreinigung` received confirmed manual indexing requests;
+  `/blog`, `/gewerbliche-reinigung`, `/industriereinigung` and `/fassaden-hoehenarbeiten` are
+  confirmed indexed. `/garten-landschaftspflege` and `/solaranlagenreinigung` passed live tests but
+  their request submissions returned Google's generic error. `/treppenhausreinigung` returned the
+  same request error. `/kontakt` and `/impressum` remain not indexed and were not retried after the
+  repeated error. Retry the five pending URLs later; do not resubmit already confirmed requests.
 - Every indexable page must keep one production canonical, `index, follow`, an absolute OG image,
   and valid JSON-LD. Every non-home page requires `BreadcrumbList`.
 - Keep visible FAQ content as semantic HTML, but do not emit `FAQPage` JSON-LD. Google retired FAQ

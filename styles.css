@@ -14,7 +14,8 @@
   --color-white: #ffffff;
   --color-accent: #86e83d;
   --color-blue: #0b6c95;
-  --color-muted: #747474;
+  --color-muted: #686868;
+  --color-placeholder: #656b6d;
   --color-surface-hover: #ededed;
   --color-focus: rgba(134, 232, 61, 0.42);
   --font-sans: "Lato", Arial, sans-serif;
@@ -96,6 +97,7 @@ html.has-first-visit-loader body {
   display: flex;
 }
 
+.is-first-visit-loader-leaving .site-loader,
 .site-loader.is-leaving {
   pointer-events: none;
   opacity: 0;
@@ -271,7 +273,19 @@ a {
 
 .hero_overlay {
   z-index: -1;
-  background: rgba(4, 23, 31, 0.3);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 23, 31, 0.16) 0%,
+      rgba(4, 23, 31, 0.24) 42%,
+      rgba(4, 23, 31, 0.62) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 23, 31, 0.08) 0%,
+      rgba(4, 23, 31, 0.08) 38%,
+      rgba(4, 23, 31, 0.42) 100%
+    );
 }
 
 .header {
@@ -1809,7 +1823,7 @@ a {
   --iti-border-color: rgba(4, 23, 31, 0.22);
   --iti-dropdown-bg: var(--color-white);
   --iti-hover-color: var(--color-surface-hover);
-  --iti-icon-color: #848a8c;
+  --iti-icon-color: var(--color-placeholder);
 }
 
 .contact-form .iti input {
@@ -1844,7 +1858,7 @@ a {
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #848a8c;
+  color: var(--color-placeholder);
 }
 
 .contact-form_select {
@@ -1865,7 +1879,7 @@ a {
 }
 
 .contact-form_select-toggle:not(.is-selected) {
-  color: #848a8c;
+  color: var(--color-placeholder);
 }
 
 .contact-form_select.is-invalid .contact-form_select-toggle {
@@ -1878,7 +1892,7 @@ a {
   place-items: center;
   width: 0.875rem;
   height: 0.875rem;
-  color: #848a8c;
+  color: var(--color-placeholder);
   pointer-events: none;
   transition: transform var(--motion-medium);
 }
@@ -3178,12 +3192,20 @@ a[href="#instagram"] {
   }
 }
 
-/* Tablet Hero (Figma 29:208): full-width content at the bottom, burger header.
-   Overlay is inherited from desktop (uniform rgba(4,23,31,0.3)) by request. */
+/* Tablet Hero (Figma 29:208): full-width content at the bottom, burger header. */
 @media (max-width: 1024px) {
   :root {
     /* Tablet: fixed 120px gap between sections (Figma) */
     --section-gap: 7.5rem;
+  }
+
+  .hero_overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 23, 31, 0.08) 0%,
+      rgba(4, 23, 31, 0.16) 42%,
+      rgba(4, 23, 31, 0.74) 100%
+    );
   }
 
   /* Contact page → single column: intro stacked above the form. The header is in

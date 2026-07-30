@@ -1,7 +1,7 @@
 # SEO & Schema Checklist — Losoma
 
 > Домен: **https://losoma.de**
-> Составлено: 2026-06-23; operational status reconciled 2026-07-28. Источники: Google Search Essentials, Google AI Optimization Guide и schema.org.
+> Составлено: 2026-06-23; operational status reconciled 2026-07-30. Источники: Google Search Essentials, Google AI Optimization Guide и schema.org.
 > Статус сайта: on-page SEO, structured data, sitemap.xml, robots.txt и production domain настроены. Открыты подтверждение дополнительных бизнес-фактов и внешняя проверка после повторного обхода Google.
 
 ---
@@ -61,6 +61,15 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] 🔴 💻 Создан и опубликован **`sitemap.xml`** с 15 canonical URL.
 - [x] ⚙️ 👤 Domain property подтверждён в **Google Search Console**; sitemap обработан без ошибок, найдено 15 страниц.
 - [x] ⚙️ 👤 Запрос на повторную индексацию главной страницы отправлен 2026-07-23.
+- [x] ⚙️ 👤 `sitemap.xml` повторно отправлен 2026-07-30; статус успешный, 15 URL.
+- [x] ⚙️ 👤 Подтверждённые запросы на индексацию 2026-07-30:
+  `/hausmeisterservice`, `/grundreinigung`.
+- [x] ⚙️ 👤 Актуальной проверкой URL Inspection подтверждена индексация `/blog`,
+  `/gewerbliche-reinigung`, `/industriereinigung`, `/fassaden-hoehenarbeiten`.
+- [ ] ⚙️ 👤 Позже повторить ручную отправку `/garten-landschaftspflege`,
+  `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`.
+  Первые две страницы прошли Live URL Test; запросы первых трёх вернули общую ошибку Google.
+  Не считать их отправленными и не спамить повторными запросами в одной сессии.
 - [ ] 🟡 👤 **Bing Webmaster Tools** (Bing питает ChatGPT/Copilot) — опционально.
 
 ---
@@ -123,6 +132,60 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 4. 💻 JSON-LD: Organization/WebSite/Service/Breadcrumb (база), затем LocalBusiness (когда есть гео/часы).
 5. 👤 Search Console: подтвердить домен, отправить sitemap, запросить индексацию.
 6. ⚙️ Проверить разметку в Rich Results Test, метрики в Search Console.
+
+---
+
+## 8. Обязательный план после SEO-аудита 2026-07-30
+
+> Все пункты этого раздела обязательны. Закрывать только после проверки результата на production.
+
+### P0 — техническая консолидация и скорость
+
+- [x] 🔴 💻 Настроить и проверить на production единый `301` (2026-07-30):
+  `/index.html` → `/`, `/blog/` и `/blog/index.html` → `/blog`, все публичные
+  `/*.html` → соответствующий URL без расширения, trailing-slash страниц → URL без слэша.
+  `/`, API и каталоги ассетов не затронуты; query string сохраняется.
+- [x] 🔴 💻 Старые legal URL направлены постоянными редиректами:
+  `/privacy`, `/privacy/`, `/privacy.html` → `/datenschutz`;
+  `/impressum/`, `/impressum.html` → `/impressum`.
+- [ ] 🔴 💻 Оптимизировать мобильный hero: отказаться от `preload="auto"`, показывать
+  лёгкий poster до загрузки видео, уменьшить размер/битрейт видео и повторно измерить LCP.
+  Контрольный результат PageSpeed от 2026-07-30: mobile LCP `4,4 s`, payload около `9,4 MB`.
+- [ ] 🔴 💻 Уточнить главный коммерческий запрос в Title/H1 главной страницы:
+  приоритет — `Gebäudeservice Berlin` для Hausverwaltungen и владельцев объектов,
+  без переспама и потери текущего позиционирования.
+
+### P1 — самостоятельная ценность услуг
+
+- [ ] 🔴 👤💻 В первую очередь усилить `/grundreinigung` и `/hausmeisterservice`:
+  уникальный объём/границы работ, частота, оборудование, безопасность, факторы цены,
+  реальный берлинский кейс с результатом и фотографиями, отдельный FAQ.
+- [ ] 🔴 👤💻 Затем усилить `/treppenhausreinigung`, `/garten-landschaftspflege` и
+  `/solaranlagenreinigung`; не делать формальный рерайт одинаковых шаблонных блоков.
+- [ ] 🔴 👤 Предоставить реальные кейсы и отзывы именно по Gebäudeservice, Reinigung,
+  Hausmeisterservice и Winterdienst. Не выдавать садовые отзывы за подтверждение других услуг.
+- [ ] 🔴 💻 Добавить контекстные ссылки на услуги из главной, релевантных статей и кейсов;
+  не ограничиваться одинаковым меню/футером.
+- [ ] 🔴 👤💻 Публиковать полезные кейсы/материалы по вопросам Hausverwaltung,
+  избегая тонких районных страниц и массового шаблонного SEO-контента.
+
+### P1 — локальная известность и доверие
+
+- [ ] 🔴 👤 Завершить перенос Google Business Profile на `maxim@losoma.de` и заполнить
+  часы, точные категории, услуги, service area и реальные фотографии.
+- [ ] 🔴 👤 Системно собирать настоящие отзывы клиентов в Google Business Profile,
+  без покупки и стимулированных фиктивных отзывов.
+- [ ] 🔴 👤 Получить качественные локальные упоминания/ссылки: партнёры, клиенты с их
+  разрешения, отраслевые организации и корректные берлинские справочники; исключить ссылочный спам.
+
+### Контроль индексации
+
+- [ ] 🔴 👤 После содержательных изменений запросить индексацию только изменённых
+  приоритетных URL; не повторять запросы ежедневно.
+- [ ] 🔴 👤 Через 7–14 дней повторно проверить URL Inspection и отчёты Search Console:
+  индексирование, запросы, страницы, клики, показы, CTR и среднюю позицию.
+- [ ] 🔴 👤💻 Еженедельно контролировать небрендовые запросы отдельно от `losoma` и
+  фиксировать изменения за сопоставимый 28-дневный период.
 
 ---
 

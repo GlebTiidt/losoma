@@ -98,53 +98,30 @@ function initFirstVisitLoader() {
   const root = document.documentElement;
   const loader = document.querySelector("[data-site-loader]");
 
-  if (!loader || !root.classList.contains("has-first-visit-loader")) {
+  if (!loader) {
     return;
   }
 
-  try {
-    sessionStorage.setItem("losoma_intro_seen", "true");
-  } catch {
-    // The loader still works when storage is unavailable; it may reappear next time.
-  }
-
-  const video = document.querySelector(".hero_video");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const minimumDuration = reduceMotion ? 0 : 900;
-  const startedAt = performance.now();
-  let isReleaseScheduled = false;
-  let fallbackTimer = 0;
-
   const removeLoader = () => {
-    root.classList.remove("has-first-visit-loader");
+    root.classList.remove(
+      "has-first-visit-loader",
+      "is-first-visit-loader-leaving",
+    );
     loader.remove();
   };
 
-  const releaseLoader = () => {
-    if (isReleaseScheduled) {
-      return;
-    }
-
-    isReleaseScheduled = true;
-    window.clearTimeout(fallbackTimer);
-
-    const remainingDelay = Math.max(0, minimumDuration - (performance.now() - startedAt));
-
-    window.setTimeout(() => {
-      loader.classList.add("is-leaving");
-      loader.addEventListener("transitionend", removeLoader, { once: true });
-      window.setTimeout(removeLoader, 500);
-    }, remainingDelay);
-  };
-
-  if (reduceMotion || !video || video.error || video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-    releaseLoader();
+  if (!root.classList.contains("has-first-visit-loader")) {
+    removeLoader();
     return;
   }
 
-  video.addEventListener("canplay", releaseLoader, { once: true });
-  video.addEventListener("error", releaseLoader, { once: true });
-  fallbackTimer = window.setTimeout(releaseLoader, 4500);
+  loader.addEventListener("transitionend", (event) => {
+    if (event.propertyName === "opacity") {
+      removeLoader();
+    }
+  }, { once: true });
+
+  window.setTimeout(removeLoader, 1500);
 }
 
 function initCookieConsent() {
@@ -391,21 +368,74 @@ function initHeroVideo() {
     return;
   }
 
-  // Respect users who prefer reduced motion: keep the still poster instead of playing.
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const effectiveType = connection?.effectiveType;
+  const shouldKeepPoster = prefersReducedMotion.matches
+    || connection?.saveData
+    || effectiveType === "slow-2g"
+    || effectiveType === "2g";
 
-  if (prefersReducedMotion.matches) {
-    video.removeAttribute("autoplay");
+  if (shouldKeepPoster) {
     video.pause();
     return;
   }
 
-  // Some browsers block autoplay until interaction; ignore the rejection and keep the poster.
-  const playAttempt = video.play();
+  let hasStartedLoading = false;
 
-  if (playAttempt && typeof playAttempt.catch === "function") {
-    playAttempt.catch(() => {});
+  const loadVideo = () => {
+    if (hasStartedLoading) {
+      return;
+    }
+
+    hasStartedLoading = true;
+
+    const videoSource = video.dataset.videoSrc;
+
+    if (!videoSource) {
+      return;
+    }
+
+    video.src = videoSource;
+    video.removeAttribute("data-video-src");
+    video.load();
+
+    const startPlayback = () => {
+      const playAttempt = video.play();
+
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      startPlayback();
+      return;
+    }
+
+    video.addEventListener("canplay", startPlayback, { once: true });
+  };
+
+  const scheduleVideoLoad = () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadVideo, { timeout: 1500 });
+      return;
+    }
+
+    window.setTimeout(loadVideo, 500);
+  };
+
+  if (document.readyState === "complete") {
+    scheduleVideoLoad();
+  } else {
+    window.addEventListener("load", scheduleVideoLoad, { once: true });
   }
+
+  prefersReducedMotion.addEventListener("change", (event) => {
+    if (event.matches) {
+      video.pause();
+    }
+  });
 }
 
 function initHeaderScrollState() {

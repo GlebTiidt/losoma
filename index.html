@@ -4,13 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
-    try {
-      if (!sessionStorage.getItem("losoma_intro_seen")) {
-        document.documentElement.classList.add("has-first-visit-loader");
+    (() => {
+      const root = document.documentElement;
+      let shouldShowIntro = false;
+
+      try {
+        shouldShowIntro = !sessionStorage.getItem("losoma_intro_seen");
+
+        if (shouldShowIntro) {
+          sessionStorage.setItem("losoma_intro_seen", "true");
+        }
+      } catch {
+        shouldShowIntro = true;
       }
-    } catch {
-      document.documentElement.classList.add("has-first-visit-loader");
-    }
+
+      if (!shouldShowIntro) {
+        return;
+      }
+
+      root.classList.add("has-first-visit-loader");
+      const introDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 0
+        : 900;
+
+      window.setTimeout(() => {
+        root.classList.add("is-first-visit-loader-leaving");
+
+        window.setTimeout(() => {
+          root.classList.remove(
+            "has-first-visit-loader",
+            "is-first-visit-loader-leaving",
+          );
+        }, 450);
+      }, introDuration);
+    })();
   </script>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon-16x16.png">
@@ -150,18 +177,16 @@
       <video
         class="hero_media hero_video"
         poster="/assets/static/losoma-hero-poster.webp"
-        autoplay
         muted
         loop
         playsinline
-        preload="auto"
+        preload="none"
+        data-video-src="/assets/static/losoma-hero-video.mp4"
         aria-hidden="true"
         tabindex="-1"
         width="1920"
         height="1080"
-      >
-        <source src="/assets/static/losoma-hero-video.mp4" type="video/mp4">
-      </video>
+      ></video>
 
       <div class="hero_overlay" aria-hidden="true"></div>
 
@@ -291,8 +316,23 @@
       <div class="services-overview_cards" aria-label="Leistungsbereiche">
         <article class="service-card">
           <picture class="service-card_media">
-            <source type="image/avif" srcset="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.avif">
-            <img class="service-card_image" src="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp" alt="Gepflegter Eingangsbereich eines Berliner Wohnhauses" title="Objektbetreuung und Hausmeisterservice für Berliner Wohnimmobilien" width="2560" height="1429" loading="lazy" decoding="async">
+            <source
+              type="image/avif"
+              srcset="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-480.avif 480w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-768.avif 768w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-1200.avif 1200w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.avif 2560w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+            >
+            <img
+              class="service-card_image"
+              src="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp"
+              srcset="/assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-480.webp 480w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-768.webp 768w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma-1200.webp 1200w, /assets/generated/berliner-wohnhaus-objektbetreuung-hausmeisterservice-losoma.webp 2560w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+              alt="Gepflegter Eingangsbereich eines Berliner Wohnhauses"
+              title="Objektbetreuung und Hausmeisterservice für Berliner Wohnimmobilien"
+              width="2560"
+              height="1429"
+              loading="lazy"
+              decoding="async"
+            >
           </picture>
           <div class="service-card_overlay" aria-hidden="true"></div>
           <div class="service-card_content">
@@ -303,8 +343,23 @@
 
         <article class="service-card">
           <picture class="service-card_media">
-            <source type="image/avif" srcset="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.avif">
-            <img class="service-card_image" src="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.webp" alt="Treppenhaus mit Briefkästen in einem Berliner Wohngebäude" title="Reinigungsservices für Treppenhäuser und Gemeinschaftsflächen in Berlin" width="1200" height="896" loading="lazy" decoding="async">
+            <source
+              type="image/avif"
+              srcset="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-480.avif 480w, /assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-768.avif 768w, /assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-1200.avif 1200w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+            >
+            <img
+              class="service-card_image"
+              src="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma.webp"
+              srcset="/assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-480.webp 480w, /assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-768.webp 768w, /assets/generated/treppenhaus-reinigung-briefkaesten-berlin-losoma-1200.webp 1200w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+              alt="Treppenhaus mit Briefkästen in einem Berliner Wohngebäude"
+              title="Reinigungsservices für Treppenhäuser und Gemeinschaftsflächen in Berlin"
+              width="1200"
+              height="896"
+              loading="lazy"
+              decoding="async"
+            >
           </picture>
           <div class="service-card_overlay" aria-hidden="true"></div>
           <div class="service-card_content">
@@ -315,8 +370,23 @@
 
         <article class="service-card">
           <picture class="service-card_media">
-            <source type="image/avif" srcset="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.avif">
-            <img class="service-card_image" src="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp" alt="Fassadenarbeiten an einem modernen Glasgebäude in Berlin" title="Spezialisierte Dienstleistungen für Fassadenreinigung und Höhenarbeiten" width="2400" height="1792" loading="lazy" decoding="async">
+            <source
+              type="image/avif"
+              srcset="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-480.avif 480w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-768.avif 768w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-1200.avif 1200w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.avif 2400w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+            >
+            <img
+              class="service-card_image"
+              src="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp"
+              srcset="/assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-480.webp 480w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-768.webp 768w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma-1200.webp 1200w, /assets/generated/fassadenreinigung-hoehenarbeiten-gebaeudeservice-losoma.webp 2400w"
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), calc((100vw - 7rem) / 3)"
+              alt="Fassadenarbeiten an einem modernen Glasgebäude in Berlin"
+              title="Spezialisierte Dienstleistungen für Fassadenreinigung und Höhenarbeiten"
+              width="2400"
+              height="1792"
+              loading="lazy"
+              decoding="async"
+            >
           </picture>
           <div class="service-card_overlay" aria-hidden="true"></div>
           <div class="service-card_content">
@@ -421,63 +491,63 @@
           <span class="service-catalog-card_number">01</span>
           <h3 class="service-catalog-card_title">Hausmeisterservice</h3>
           <p class="service-catalog-card_text">Regelmäßige Objektkontrollen und Vor-Ort-Betreuung, damit Auffälligkeiten früh erkannt und weitere Schritte zuverlässig koordiniert werden können.</p>
-          <a class="details-link" href="/hausmeisterservice" aria-label="Details zum Hausmeisterservice ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/hausmeisterservice" aria-label="Details ansehen: Hausmeisterservice">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/hausmeisterservice-berliner-wohnanlage-losoma.webp" alt="Gepflegte Berliner Wohnanlage für den Hausmeisterservice" title="Hausmeisterservice für Berliner Wohnanlagen von Losoma" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">02</span>
           <h3 class="service-catalog-card_title">Treppenhaus- &amp; Gemeinschaftsreinigung</h3>
           <p class="service-catalog-card_text">Regelmäßige Reinigung von Eingangsbereichen, Treppenhäusern und Gemeinschaftsflächen, damit gemeinsam genutzte Bereiche sauber und gepflegt bleiben.</p>
-          <a class="details-link" href="/treppenhausreinigung" aria-label="Details zur Treppenhaus- und Gemeinschaftsreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/treppenhausreinigung" aria-label="Details ansehen: Treppenhaus- und Gemeinschaftsreinigung">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/treppenhaus-gemeinschaftsreinigung-briefkaesten-losoma.webp" alt="Briefkastenanlage und Eingangsbereich für Treppenhausreinigung" title="Treppenhaus- und Gemeinschaftsreinigung in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">03</span>
           <h3 class="service-catalog-card_title">Gewerbliche Reinigung</h3>
           <p class="service-catalog-card_text">Regelmäßige Reinigung für Büros, Restaurants, Schulen und andere gewerbliche Flächen.</p>
-          <a class="details-link" href="/gewerbliche-reinigung" aria-label="Details zur gewerblichen Reinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/gewerbliche-reinigung" aria-label="Details ansehen: Gewerbliche Reinigung">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/gewerbliche-reinigung-buero-berlin-losoma.webp" alt="Helles Büro als Beispiel für gewerbliche Reinigung" title="Gewerbliche Reinigung für Büros und Geschäftsflächen in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">04</span>
           <h3 class="service-catalog-card_title">Grundreinigung</h3>
           <p class="service-catalog-card_text">Gründliche Reinigung von stark beanspruchten Flächen für eine intensive Pflege und sichtbare Auffrischung.</p>
-          <a class="details-link" href="/grundreinigung" aria-label="Details zur Grundreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/grundreinigung" aria-label="Details ansehen: Grundreinigung">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/grundreinigung-bodenpflege-gebaeude-losoma.webp" alt="Bodenfläche für Grundreinigung und Pflege" title="Grundreinigung und Bodenpflege für Gebäude" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">05</span>
           <h3 class="service-catalog-card_title">Industriereinigung</h3>
           <p class="service-catalog-card_text">Reinigung für robuste gewerbliche und industrielle Bereiche mit klaren Abläufen und passender Ausrüstung.</p>
-          <a class="details-link" href="/industriereinigung" aria-label="Details zur Industriereinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/industriereinigung" aria-label="Details ansehen: Industriereinigung">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/industriereinigung-gewerbeflaeche-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/industriereinigung-gewerbeflaeche-losoma.webp" alt="Gewerbefläche für Industriereinigung" title="Industriereinigung und Reinigung gewerblicher Flächen" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">06</span>
           <h3 class="service-catalog-card_title">Winterdienst</h3>
           <p class="service-catalog-card_text">Saisonale Betreuung von Wegen, Eingängen und Außenflächen bei Schnee und Glätte.</p>
-          <a class="details-link" href="/winterdienst" aria-label="Details zum Winterdienst ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/winterdienst" aria-label="Details ansehen: Winterdienst">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/winterdienst-gebaeudeservice-berlin-losoma.webp" alt="Winterdienst für Wege und Eingänge in Berlin" title="Winterdienst für Immobilien und Wohnanlagen in Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">07</span>
           <h3 class="service-catalog-card_title">Garten- &amp; Landschaftspflege</h3>
           <p class="service-catalog-card_text">Pflege von Grünflächen, Höfen und Außenanlagen für einen ordentlichen Gesamteindruck.</p>
-          <a class="details-link" href="/garten-landschaftspflege" aria-label="Details zur Garten- und Landschaftspflege ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/garten-landschaftspflege" aria-label="Details ansehen: Garten- und Landschaftspflege">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/garten-landschaftspflege-wohnanlage-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/garten-landschaftspflege-wohnanlage-losoma.webp" alt="Gepflegte Grünanlage einer Berliner Wohnimmobilie" title="Garten- und Landschaftspflege für Wohnanlagen" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">08</span>
           <h3 class="service-catalog-card_title">Fassaden- &amp; Höhenarbeiten</h3>
           <p class="service-catalog-card_text">Spezialisierte Arbeiten an Fassaden und schwer erreichbaren Bereichen mit sicherer Koordination.</p>
-          <a class="details-link" href="/fassaden-hoehenarbeiten" aria-label="Details zu Fassaden- und Höhenarbeiten ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/fassaden-hoehenarbeiten" aria-label="Details ansehen: Fassaden- und Höhenarbeiten">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/fassaden-hoehenarbeiten-berlin-losoma.webp" alt="Fassaden- und Höhenarbeiten an einem Berliner Gebäude" title="Fassaden- und Höhenarbeiten für Gebäudeservice Berlin" width="2048" height="2048" loading="lazy" decoding="async"></picture>
         </div>
         <div class="service-catalog-card splide__slide">
           <span class="service-catalog-card_number">09</span>
           <h3 class="service-catalog-card_title">Solaranlagenreinigung</h3>
           <p class="service-catalog-card_text">Reinigung von Solaranlagen für gepflegte Oberflächen und zuverlässige Nutzung.</p>
-          <a class="details-link" href="/solaranlagenreinigung" aria-label="Details zur Solaranlagenreinigung ansehen">Details ansehen <span aria-hidden="true"></span></a>
+          <a class="details-link" href="/solaranlagenreinigung" aria-label="Details ansehen: Solaranlagenreinigung">Details ansehen <span aria-hidden="true"></span></a>
           <picture class="service-catalog-card_media"><source type="image/avif" srcset="/assets/generated/solaranlagenreinigung-dachanlage-losoma.avif"><img class="service-catalog-card_image" src="/assets/generated/solaranlagenreinigung-dachanlage-losoma.webp" alt="Solaranlage auf einem Dach zur Reinigung" title="Solaranlagenreinigung für Immobilien und Gewerbeobjekte" width="2560" height="1429" loading="lazy" decoding="async"></picture>
         </div>
           </div>
@@ -492,7 +562,7 @@
         <article class="why-card is-reliable-partner"><picture class="why-card_media"><source type="image/avif" srcset="/assets/generated/warum-losoma-verantwortlicher-partner.avif"><img class="why-card_image" src="/assets/generated/warum-losoma-verantwortlicher-partner.webp" alt="Losoma Ansprechpartner vor einer Berliner Wohnimmobilie" title="Ein zuverlässiger Partner für Gebäudeservice in Berlin" width="1200" height="896" loading="lazy" decoding="async"></picture><div class="why-card_content"><h3>Ein zuverlässiger Partner</h3><p>Regelmäßige Kontrollen und persönliche Betreuung sorgen für Sauberkeit, Ordnung und den gepflegten Zustand Ihrer Immobilie</p></div></article>
         <article class="why-card is-daily-work"><picture class="why-card_media"><source type="image/avif" srcset="/assets/generated/warum-losoma-stabile-arbeit-alltag.avif"><img class="why-card_image" src="/assets/generated/warum-losoma-stabile-arbeit-alltag.webp" alt="Gepflegter Innenhof einer Berliner Wohnanlage" title="Zuverlässige Abläufe im Alltag für Immobilienbetreuung" width="1200" height="896" loading="lazy" decoding="async"></picture><div class="why-card_content"><h3>Zuverlässige Abläufe im Alltag</h3><p>Alle Aufgaben werden zuverlässig und strukturiert ausgeführt - für ein sauberes und gepflegtes Gebäude</p></div></article>
         <article class="why-card is-site-awareness"><picture class="why-card_media"><source type="image/avif" srcset="/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.avif"><img class="why-card_image" src="/assets/generated/warum-losoma-aufmerksamkeit-vor-ort.webp" alt="Eingangsbereich einer Immobilie für aufmerksame Objektbetreuung" title="Frühzeitig erkennen und schnell informieren" width="2400" height="1792" loading="lazy" decoding="async"></picture><div class="why-card_content"><h3>Frühzeitig erkennen. Schnell informieren.</h3><p>Unser Team meldet Auffälligkeiten direkt an die Verwaltung</p></div></article>
-        <a class="why-contact-card" href="/kontakt" target="_blank" rel="noopener" aria-label="Kontakt aufnehmen und Anfrage senden">
+        <a class="why-contact-card" href="/kontakt" target="_blank" rel="noopener">
           <span class="section-label is-green why-contact-card_label"><span class="section-label_dot" aria-hidden="true"></span><span>Kontakt aufnehmen</span></span>
           <span class="why-contact-card_content"><span class="why-contact-card_title">Benötigt Ihre Immobilie Unterstützung?</span><span class="why-contact-card_text">Beschreiben Sie uns kurz das Objekt und die Aufgabe. Wir prüfen den Umfang und schlagen den nächsten sinnvollen Schritt vor</span></span>
           <span class="link-button is-green why-contact-card_cta"><span class="link-button_icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none"><path d="M0.625 5.625L13.125 5.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.48218 10.625L13.4822 5.625L8.48218 0.625" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Anfrage senden</span></span>
