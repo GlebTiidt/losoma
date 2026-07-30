@@ -21,6 +21,8 @@
 - [ ] Проверить `git status`; сохранить чужие изменения.
 - [ ] Убедиться, что секретов нет в Git и `dist/`.
 - [ ] Проверить актуальные `robots.txt`, `sitemap.xml`, canonical и legal pages.
+- [ ] Если release меняет email: подтвердить прямую доставку Workspace, WEB.DE forwarding,
+  form recipient, legal pages, footer/`mailto:` и Schema/contactPoint до production upload.
 
 ## Build и QA
 

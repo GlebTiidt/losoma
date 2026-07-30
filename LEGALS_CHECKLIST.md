@@ -11,6 +11,9 @@
 - [x] Адрес обозначен как `Geschäftsadresse · kein Kundenbüro vor Ort`.
 - [x] Телефон: `+49 176 44434111`.
 - [x] Email: `maxim@losoma.de`.
+- [ ] После успешной Workspace/WEB.DE migration заменить legal/public email на
+      `info@losoma.de`. До подтверждения доставки текущим фактическим адресом остаётся
+      `maxim@losoma.de`.
 - [x] USt-IdNr.: `DE357950597`.
 - [x] Обычная Steuernummer удалена с публичной страницы как не требуемая § 5 DDG;
       USt-IdNr. `DE357950597` оставлена.
@@ -23,6 +26,8 @@
 - [x] Предыдущая инфраструктура не описывается как активный production.
 - [x] Contact flow описан: Hostinger PHP endpoint → Google Apps Script → Google Sheets + Gmail.
 - [x] Recipient указан: `maxim@losoma.de`.
+- [ ] После подтверждённой смены recipient на `info@losoma.de` синхронно обновить Datenschutz,
+      Impressum, Kontakt, form flow description и Stand-даты.
 - [x] Технические form metadata и IP-based security processing раскрыты.
 - [x] Обязательный checkbox изменён на Kenntnisnahme, а не фиктивное Einwilligung.
 - [x] Custom cookie settings, Local Storage и Session Storage описаны.

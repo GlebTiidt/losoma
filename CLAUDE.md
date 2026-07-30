@@ -45,16 +45,21 @@ truth before ending the task. Do not leave operational state only in chat or bro
   `npx -y chrome-devtools-mcp@latest` configuration. After restart, prefer exposed MCP tools; the
   official `chrome-devtools` CLI controls the same configured server when direct tools are absent.
 - Resume in this order:
-  1. Check only the five pending Search Console canonical URLs: `/garten-landschaftspflege`,
+  1. Complete the planned email migration in section 8A of
+     `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`: provision `info@losoma.de` in Workspace, verify direct
+     delivery, repoint and test WEB.DE forwarding, then update site/legal/form recipient and run one
+     explicitly authorized end-to-end test. Until those tests pass, production remains on
+     `maxim@losoma.de`.
+  2. Check only the five pending Search Console canonical URLs: `/garten-landschaftspflege`,
      `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`. Request indexing
      only after a successful live test and record only explicit confirmation.
-  2. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; do not submit redirects, `.html`
+  3. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; do not submit redirects, `.html`
      aliases or trailing-slash duplicates.
-  3. Check the existing Google Business Profile support thread `2-2514000041594`; do not create a
+  4. Check the existing Google Business Profile support thread `2-2514000041594`; do not create a
      duplicate profile. The last support response on 2026-07-30 said the investigation continues.
-  4. Complete owner-side blockers: Workspace/Hostinger 2FA, GA4 14-month retention verification,
+  5. Complete owner-side blockers: Workspace/Hostinger 2FA, GA4 14-month retention verification,
      DPA/AVV acceptance, exact Inhaber/Rechtsform and Datenschutzbeauftragter confirmation.
-  5. Improve `/grundreinigung` and `/hausmeisterservice` only with real service-specific facts,
+  6. Improve `/grundreinigung` and `/hausmeisterservice` only with real service-specific facts,
      cases, photos and FAQ; then continue with the other thin service pages.
 - Do not redeploy the already verified hero changes. Any future production change still requires an
   explicit user request, a new dated rollback copy, the full audits and production smoke checks.

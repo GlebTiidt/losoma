@@ -5,22 +5,26 @@
 ## Непосредственная точка возобновления
 
 Production release завершён и проверен. Не повторять hero/performance-работу и не деплоить её
-снова. Следующая полезная работа — Search Console, Google Business Profile и подтверждение
-владельцем открытых юридических/безопасностных фактов.
+снова. Новая подтверждённая задача — контролируемо перейти с `maxim@losoma.de` на
+`info@losoma.de`, заново настроить WEB.DE forwarding и только после тестов обновить сайт/form/legal.
 
 Порядок следующему агенту:
 
 1. Прочитать `CLAUDE.md`, `SITE.md`, этот файл и профильный checklist задачи.
 2. Проверить `git status`; не откатывать пользовательские изменения.
-3. Если работа продолжается с Google Search Console, проверять только пять ожидающих canonical URL:
+3. Для email migration выполнить раздел 8A `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` строго по
+   порядку: создать/активировать `info@losoma.de` в Workspace -> прямой внешний mail test ->
+   `losoma@web.de` forwarding на новый адрес -> public/legal/form change -> разрешённый E2E test.
+   До этого фактическим production email остаётся `maxim@losoma.de`.
+4. Если работа продолжается с Google Search Console, проверять только пять ожидающих canonical URL:
    `/garten-landschaftspflege`, `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`,
    `/impressum`. Для неиндексированного URL сначала выполнить Live URL Test; запрос считать
    принятым только при явном сообщении `Indexierung wurde beantragt`.
-4. Не отправлять повторно `/hausmeisterservice` и `/grundreinigung`; не отправлять redirect,
+5. Не отправлять повторно `/hausmeisterservice` и `/grundreinigung`; не отправлять redirect,
    `.html` и trailing-slash варианты.
-5. Если работа продолжается с Google Business Profile, проверить существующую почтовую цепочку
+6. Если работа продолжается с Google Business Profile, проверить существующую почтовую цепочку
    support case `2-2514000041594`. Новый дублирующий профиль не создавать.
-6. Для следующего изменения кода выполнить полный preflight. Production release — только по
+7. Для следующего изменения кода выполнить полный preflight. Production release — только по
    новому явному запросу пользователя и с новой rollback-копией.
 
 ## Production release 2026-07-30
@@ -116,10 +120,17 @@ Post-release Chrome DevTools mobile trace (`Slow 4G`, CPU `4x`, `412x915@3`):
   под `maxim@losoma.de`.
 - Gmail/DNS migration завершена: Google MX, один SPF, DKIM 2048, DMARC `p=none`; внешняя доставка и
   пересылка WEB.DE проверены.
+- Решение пользователя от 2026-07-30: перейти на публичный/рабочий `info@losoma.de` и заново
+  направить на него `losoma@web.de`. Это только запланировано. Не заменять текущий
+  `maxim@losoma.de` на сайте или в form recipient до прямого Workspace test и forwarding test.
+- Предпочтительный безопасный первый шаг — добавить `info@losoma.de` как alias или отдельный
+  mailbox, сохранив `maxim@losoma.de` как admin/login/recovery до проверки GBP, GA4, Search Console
+  и Drive. Точная схема фиксируется в разделе 8A Google checklist.
 - Полный operational checklist: `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
 ## Открытые блокеры, которые нельзя закрывать предположением
 
+- Полная миграция Workspace/public/form email на `info@losoma.de` и повторная WEB.DE forwarding.
 - Точный зарегистрированный Inhaber, Rechtsform и legal entity. Текущая связка
   `Einzelunternehmen` + `Maxim Soga / Alexandr Lozinschi` требует документального подтверждения.
 - Факт назначения Datenschutzbeauftragter.

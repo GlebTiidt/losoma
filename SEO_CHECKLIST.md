@@ -50,6 +50,10 @@
 **Контактные данные (уже в Impressum, для справки):**
 Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · maxim@losoma.de · USt-IdNr. DE357950597.
 
+- [ ] 🔴 👤💻 После проверенной mail migration заменить текущий `maxim@losoma.de` на
+  `info@losoma.de` в видимом контенте, `mailto:`, legal pages и Schema/contactPoint. До успешных
+  Workspace и WEB.DE tests не публиковать новый адрес.
+
 ---
 
 ## 2. Домен и индексация

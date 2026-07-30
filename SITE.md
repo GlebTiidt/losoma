@@ -65,6 +65,9 @@
 ## Формы и privacy
 
 - Endpoint: `/api/contact`.
+- Текущий production public/recipient email — `maxim@losoma.de`. Запланирована контролируемая
+  миграция на `info@losoma.de`; сайт и form recipient менять только после создания адреса в
+  Workspace, прямого mail test и повторной настройки WEB.DE forwarding.
 - Success state заменяет форму до перезагрузки.
 - Checkbox Datenschutzerklärung — подтверждение ознакомления, не отдельное согласие.
 - reCAPTCHA v3 загружается при отправке; обязательный Google legal microtext остаётся видимым.
