@@ -135,4 +135,5 @@ Production deployment выполнять только по явному запр
 `domains/losoma.de/public_html/.htaccess.pre-global-canonical-20260730-01`.
 
 Мониторинг позиций и утверждённая карта ключевых запросов находятся в
-`SEO_RANKING_CHECKLIST.md`.
+`SEO_RANKING_CHECKLIST.md`. Актуальный снимок индексации и приоритетов —
+`SEO-AUDIT-2026-07-30.md`.

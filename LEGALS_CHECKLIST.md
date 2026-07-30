@@ -1,6 +1,6 @@
 # Legals Checklist
 
-Чек-лист для `/impressum` и `/datenschutz`. Последнее обновление: 2026-07-23.
+Чек-лист для `/impressum` и `/datenschutz`. Последнее обновление: 2026-07-30.
 
 ## A. Controller / Impressum
 
@@ -59,10 +59,12 @@
 - [x] reCAPTCHA production QA и работа форм подтверждены 2026-07-23.
 - [x] Cookie/GA4 production QA подтверждён: GA Realtime получил события после consent; revoke и
       визуальная синхронизация переключателя проверены.
-- [ ] Проверить legal pages на desktop/tablet/mobile и с клавиатуры.
+- [x] После release 2026-07-30 legal pages побайтно сверены с `dist/`, возвращают `200` и
+      визуально проверены на desktop/mobile; Lighthouse Accessibility production равен `100`.
+- [ ] Выполнить отдельный keyboard-only walkthrough legal pages и cookie settings.
 - [x] Hosting/Form sections обновлены под Hostinger backend и активную reCAPTCHA.
 - [ ] Получить финальную проверку немецким юристом/Datenschutz-специалистом.
-- [x] Production switch выполнен; rollback backup сохранён.
+- [x] Production switch выполнен; новая ручная Hostinger backup `2026-07-30 17:08` сохранена.
 
 ## F. Правила актуализации
 

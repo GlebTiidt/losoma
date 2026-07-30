@@ -54,8 +54,10 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 
 ## 2. Домен и индексация
 
-- [x] 🔴 👤💻 `losoma.de` запущен и проверен на финальном Hostinger production 2026-07-23.
-- [x] 🔴 💻 Обновить `canonical` и `og:url` на абсолютные URL вида `https://losoma.de/...` на всех 13 страницах.
+- [x] 🔴 👤💻 `losoma.de` запущен на Hostinger; актуальный release опубликован и полностью
+  проверен 2026-07-30.
+- [x] 🔴 💻 `canonical` и `og:url` используют абсолютные URL `https://losoma.de/...` на всех
+  15 индексируемых страницах.
 - [x] 🟡 💻 `og:image` использует абсолютные production URL на всех страницах.
 - [x] 🔴 💻 Создан и опубликован **`robots.txt`** с разрешением обхода и production sitemap.
 - [x] 🔴 💻 Создан и опубликован **`sitemap.xml`** с 15 canonical URL.
@@ -120,18 +122,20 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] 💻 Скорость: оптимизированные изображения (AVIF/WebP), self-hosted шрифты, минимум зависимостей.
 - [x] 💻 Безопасные заголовки (`X-Content-Type-Options`, `Referrer-Policy` и т.д. в `.htaccess`).
 - [x] 💻 Фавикон + webmanifest + apple-touch-icon.
-- [ ] ⚙️ 👤 После запуска — проверить **Core Web Vitals** в PageSpeed Insights / Search Console.
+- [ ] ⚙️ 👤 Проверить **полевые** Core Web Vitals в PageSpeed Insights / Search Console, когда
+  накопится достаточно CrUX-данных. Post-release lab trace уже выполнен: mobile `Slow 4G`, CPU
+  `4x`, `412x915@3`, LCP `2,978 ms`, CLS `0`; Lighthouse `100/100/100/100`.
 
 ---
 
 ## 7. Порядок действий (рекомендуемый)
 
-1. 👤 Подключить/проверить домен `losoma.de` на Hostinger production.
-2. 👤 Завести Google Business Profile → получить координаты, часы, основной адрес.
-3. 💻 robots.txt + sitemap.xml + перевод canonical/og на `losoma.de` + OG-фиксы.
-4. 💻 JSON-LD: Organization/WebSite/Service/Breadcrumb (база), затем LocalBusiness (когда есть гео/часы).
-5. 👤 Search Console: подтвердить домен, отправить sitemap, запросить индексацию.
-6. ⚙️ Проверить разметку в Rich Results Test, метрики в Search Console.
+1. 👤 Завершить перенос существующего Google Business Profile без создания дубликата.
+2. 👤 Подтвердить часы, юридически допустимый адрес/координаты, год основания и ценовой диапазон.
+3. 💻 После подтверждения добавить только реальные факты в LocalBusiness и проверить валидаторами.
+4. 👤 В Search Console повторно проверять только пять ожидающих canonical URL из раздела 2.
+5. 👤💻 Усилить самостоятельную ценность приоритетных service pages реальными кейсами и фактами.
+6. ⚙️ Через 7–14 дней после release 2026-07-30 снять сопоставимый Search Console срез.
 
 ---
 
@@ -148,9 +152,12 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] 🔴 💻 Старые legal URL направлены постоянными редиректами:
   `/privacy`, `/privacy/`, `/privacy.html` → `/datenschutz`;
   `/impressum/`, `/impressum.html` → `/impressum`.
-- [ ] 🔴 💻 Оптимизировать мобильный hero: отказаться от `preload="auto"`, показывать
-  лёгкий poster до загрузки видео, уменьшить размер/битрейт видео и повторно измерить LCP.
-  Контрольный результат PageSpeed от 2026-07-30: mobile LCP `4,4 s`, payload около `9,4 MB`.
+- [x] 🔴 💻 Мобильный hero оптимизирован и выпущен 2026-07-30: loader больше не ждёт видео,
+  MP4 назначается после `window.load` и idle-паузы, Save-Data/2g/reduced-motion оставляют poster,
+  poster уменьшен до `133,868` байт, три карточки используют responsive AVIF/WebP. Исходный
+  web-MP4 `1920x1080`, `5,731,171` байт сохранён как нижняя приемлемая граница качества и не должен
+  повторно сжиматься без нового явного решения пользователя. Production trace: LCP `2,978 ms`,
+  CLS `0`; H1 визуально проверен на desktop/mobile и не перекрывается видео.
 - [ ] 🔴 💻 Уточнить главный коммерческий запрос в Title/H1 главной страницы:
   приоритет — `Gebäudeservice Berlin` для Hausverwaltungen и владельцев объектов,
   без переспама и потери текущего позиционирования.

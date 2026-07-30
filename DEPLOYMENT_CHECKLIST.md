@@ -1,5 +1,21 @@
 # Deployment Checklist — Hostinger
 
+Последнее обновление: 2026-07-30.
+
+## Последний завершённый release
+
+- [x] Production release выполнен 2026-07-30; source commit: `b28859c`.
+- [x] Перед выпуском создана ручная Hostinger backup-копия `2026-07-30 17:08`.
+- [x] `npm run build`, `npm run audit:classes:strict`, `npm run audit:seo`,
+  `node --check script.js` и `git diff --check` прошли.
+- [x] Все 15 canonical HTML URL и критические публичные файлы побайтно совпали с `dist/`.
+- [x] `/api/health` вернул `200`; канонические `301` и query string проверены.
+- [x] Production Lighthouse mobile: Accessibility, Best Practices, SEO и Agentic Browsing —
+  `100/100/100/100`; cold `Slow 4G`, CPU `4x`, `412x915@3`: LCP `2,978 ms`, CLS `0`.
+- [x] Реальная форма не отправлялась; ZIP релиза перемещён из `public_html` в корзину Hostinger.
+
+Ниже — обязательный шаблон для **следующего** release. Пункты намеренно остаются незакрытыми.
+
 ## Перед сборкой
 
 - [ ] Проверить `git status`; сохранить чужие изменения.

@@ -28,47 +28,36 @@ Google Business Profile, GA4, Workspace, Hostinger, DNS, Sheets or Apps Script),
 exact observed result, unresolved blocker and next safe action in the relevant repository source of
 truth before ending the task. Do not leave operational state only in chat or browser history.
 
-## Immediate Resume Rule — SEO, Indexing And Performance (2026-07-30)
+## Immediate Resume Rule — Current Session Close (2026-07-30)
 
-- Chrome DevTools MCP `1.1.1` was installed globally on 2026-07-30 and Codex now launches the
-  absolute local binary `/Users/glebstepanovich/.npm-global/bin/chrome-devtools-mcp`. Do not restore
-  `npx -y chrome-devtools-mcp@latest`: npm registry timeouts prevented that configuration from
-  starting. The local configuration uses isolated headless Chrome, network-header redaction,
-  structured output, memory tools and all-page inspection; standard Performance, Network,
-  Emulation and CrUX remain enabled, while usage statistics and update checks are disabled.
-- After restart, first verify that `navigate_page` and `performance_start_trace` are exposed as MCP
-  tools. The official `chrome-devtools` CLI is an accepted same-server fallback for the current
-  session only; do not claim a trace unless either surface actually returns trace results.
-- A verified production mobile trace now exists: `Slow 4G`, CPU `4x`, viewport `412x915@3`, LCP
-  `2.102 s`, CLS `0`, text LCP element `H1#hero-title`, TTFB `406 ms`, render delay `1.696 s`.
-  This is the pre-fix production trace; do not compare it directly with an uncompressed local server.
-- The user explicitly requested the following continuation on 2026-07-30. Resume in this order:
-  1. In Search Console under `maxim@losoma.de`, inspect only the five pending canonical URLs:
-     `/garten-landschaftspflege`, `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`
-     and `/impressum`. Run `Live-URL testen` for a URL that is not indexed and request indexing only
-     after a successful live result. Record only explicit `Indexierung wurde beantragt` success;
-     stop retries after the same generic/quota/server error.
-  2. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; their requests were already
-     confirmed. Do not request indexing for redirects or duplicate URL variants.
-  3. The local hero optimization is complete: the first-visit loader no longer waits for video,
-     video loading starts only after `window.load` plus an idle pause, and reduced-motion/Save-Data/2g
-     keep the poster. The compressed `960x540` MP4 was rejected for visible quality loss; the original
-     `1920x1080`, `5,731,171`-byte MP4 is restored. The poster remains optimized at about `131 KiB`.
-  4. Local Chrome DevTools validation used `Slow 4G`, CPU `4x`, viewport `412x915@3`: cold/no-cache
-     LCP `2.128 s`, warm LCP `1.533 s`, CLS `0`, and the MP4 request began after `load`. Local
-     Lighthouse scores are `100` for Accessibility, Best Practices, SEO and Agentic Browsing.
-  5. `npm run audit:seo`, `npm run audit:classes:strict`, `npm run build` and
-     `node --check script.js` passed. Repeat them before a future release; collect a post-fix
-     production trace only after the user explicitly authorizes deployment.
-  6. Reconcile all dated SEO sources to 2026-07-30. Replace the obsolete
-     `SEO-AUDIT-2026-07-28.md` only after its still-relevant facts are moved into a current audit;
-     remove stale duplicate history from `HANDOFF.md`; update `SITE.md`, `SEO_CHECKLIST.md`,
-     `SEO_RANKING_CHECKLIST.md`, `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` and
-     `MAXIM_QUESTIONS.md`. Keep deployment, legal, privacy and account-transfer runbooks that are
-     still operational; cleaning documentation does not mean deleting current safety rules.
-- The current documented PageSpeed baseline is mobile LCP `4.4 s` and approximately `9.4 MB`
-  payload. It is a pre-fix result; the local hero changes are not deployed. Production deployment
-  still requires a separate explicit request, a dated rollback copy and production smoke verification.
+- Production release is complete on Hostinger. Source commit: `b28859c`; manual hPanel backup:
+  `2026-07-30 17:08`. All 15 canonical HTML responses and critical public assets matched `dist/`
+  byte-for-byte. `/api/health` returned `200`; redirects and query-string preservation passed.
+- Hero/performance fixes are deployed. Keep the current `1920x1080`, `5,731,171`-byte MP4; the user
+  rejected a `960x540` variant and stated that current video quality is the minimum acceptable.
+  Improve performance through scheduling, poster and surrounding assets, not another transcode.
+- Post-release production trace: mobile `Slow 4G`, CPU `4x`, viewport `412x915@3`, LCP `2.978 s`,
+  CLS `0`, TTFB `511 ms`, text LCP `H1#hero-title`. Production Lighthouse scores are
+  Accessibility/Best Practices/SEO/Agentic Browsing `100/100/100/100`; console errors are absent.
+  Desktop/mobile screenshots confirmed that the contrast scrim keeps H1 readable over the video.
+- Chrome DevTools MCP `1.1.1` is installed at
+  `/Users/glebstepanovich/.npm-global/bin/chrome-devtools-mcp`. Do not restore the unreliable
+  `npx -y chrome-devtools-mcp@latest` configuration. After restart, prefer exposed MCP tools; the
+  official `chrome-devtools` CLI controls the same configured server when direct tools are absent.
+- Resume in this order:
+  1. Check only the five pending Search Console canonical URLs: `/garten-landschaftspflege`,
+     `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`. Request indexing
+     only after a successful live test and record only explicit confirmation.
+  2. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; do not submit redirects, `.html`
+     aliases or trailing-slash duplicates.
+  3. Check the existing Google Business Profile support thread `2-2514000041594`; do not create a
+     duplicate profile. The last support response on 2026-07-30 said the investigation continues.
+  4. Complete owner-side blockers: Workspace/Hostinger 2FA, GA4 14-month retention verification,
+     DPA/AVV acceptance, exact Inhaber/Rechtsform and Datenschutzbeauftragter confirmation.
+  5. Improve `/grundreinigung` and `/hausmeisterservice` only with real service-specific facts,
+     cases, photos and FAQ; then continue with the other thin service pages.
+- Do not redeploy the already verified hero changes. Any future production change still requires an
+  explicit user request, a new dated rollback copy, the full audits and production smoke checks.
 
 ## Current Hosting Rule
 
