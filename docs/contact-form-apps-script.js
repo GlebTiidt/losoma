@@ -1,6 +1,6 @@
 const SHEET_NAME = "Anfragen";
 const SPREADSHEET_ID = "1yaw-UptCIAixOORNwTrwnbrqoeraSiU4iEoV8HMyvxU";
-const RECIPIENT_EMAIL = "maxim@losoma.de";
+const RECIPIENT_EMAIL = "info@losoma.de";
 
 function doPost(event) {
   if (!event || !event.postData || !event.postData.contents) {

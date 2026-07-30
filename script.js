@@ -1512,7 +1512,7 @@ function initContactFormSubmit() {
         ? "Zu viele Anfragen. Bitte versuchen Sie es in einigen Minuten erneut."
         : error.message === "duplicate"
           ? "Diese Anfrage wurde bereits gesendet."
-          : "Die Anfrage konnte nicht gesendet werden. Bitte schreiben Sie uns direkt an maxim@losoma.de.";
+          : "Die Anfrage konnte nicht gesendet werden. Bitte schreiben Sie uns direkt an info@losoma.de.";
 
       setStatus(message, "error");
       sendAnalyticsEvent("form_error", {

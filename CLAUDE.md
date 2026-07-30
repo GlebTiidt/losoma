@@ -45,16 +45,15 @@ truth before ending the task. Do not leave operational state only in chat or bro
   `npx -y chrome-devtools-mcp@latest` configuration. After restart, prefer exposed MCP tools; the
   official `chrome-devtools` CLI controls the same configured server when direct tools are absent.
 - Resume in this order:
-  1. Complete the planned email migration in section 8A of
-     `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`: provision `info@losoma.de` in Workspace, verify direct
-     delivery, repoint and test WEB.DE forwarding, then update site/legal/form recipient and run one
-     explicitly authorized end-to-end test. Until those tests pass, production remains on
-     `maxim@losoma.de`.
-  2. Check only the five pending Search Console canonical URLs: `/garten-landschaftspflege`,
-     `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`. Request indexing
+  1. Do not repeat the completed email migration in section 8A of
+     `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`. Production, private recipient, direct/forwarding mail
+     tests and the explicitly authorized form-to-Gmail-and-Sheet E2E test all passed on 2026-07-30.
+  2. Check only the three pending Search Console canonical URLs: `/solaranlagenreinigung`,
+     `/treppenhausreinigung`, `/kontakt`. Request indexing
      only after a successful live test and record only explicit confirmation.
-  3. Do not resubmit `/hausmeisterservice` or `/grundreinigung`; do not submit redirects, `.html`
-     aliases or trailing-slash duplicates.
+  3. Do not resubmit `/hausmeisterservice`, `/grundreinigung` or
+     `/garten-landschaftspflege`; `/impressum` is already indexed. Do not submit redirects,
+     `.html` aliases or trailing-slash duplicates.
   4. Check the existing Google Business Profile support thread `2-2514000041594`; do not create a
      duplicate profile. The last support response on 2026-07-30 said the investigation continues.
   5. Complete owner-side blockers: Workspace/Hostinger 2FA, GA4 14-month retention verification,
@@ -148,7 +147,10 @@ Run `npm run audit:classes:strict` after class work.
 - Form endpoint: `POST /api/contact`.
 - Current backend protection: server validation, honeypot, rate limit, duplicate protection, frontend submit lock.
 - Google Sheet delivery works through Apps Script.
-- Public/legal/form recipient is `maxim@losoma.de`; HTTP 200, Gmail delivery and the `Anfragen` row were verified on 2026-07-22.
+- Source and production public/legal/form recipient is `info@losoma.de` as of 2026-07-30. The
+  private Hostinger recipient is synchronized. The explicitly authorized production E2E test
+  confirmed the success UI, Gmail recipient `info` and a new `Anfragen` row at
+  `2026-07-30T13:37:54Z`.
 - Apps Script requires only the synchronized `CONTACT_WEBHOOK_SECRET` Script Property; the Sheet ID is fixed in the deployed code and local template.
 - On success, hide the complete form and keep the green confirmation panel with larger black text visible until reload.
 - The privacy checkbox is an acknowledgement (`zur Kenntnis genommen`), not a separate consent.
@@ -183,7 +185,9 @@ Run `npm run audit:classes:strict` after class work.
 - GA4 and Search Console are already configured in Maxim's account. Keep production Measurement ID
   `G-QPX35L2ZGK`; do not restore the old ID or create another property without a separate reason.
 - Gmail for `losoma.de` is active: Google MX/SPF/DKIM are published and inbound/outbound delivery was
-  tested. WEB.DE permanently forwards to `maxim@losoma.de` while retaining copies; keep it as backup.
+  tested. `info@losoma.de` is an alias of `maxim@losoma.de`; direct delivery passed on 2026-07-30.
+  WEB.DE permanently forwards to `info@losoma.de` while retaining copies, and the recipient-side
+  confirmation was completed on 2026-07-30. Keep WEB.DE as backup.
 - The detailed source of truth and resume order is `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
 ## SEO Rules

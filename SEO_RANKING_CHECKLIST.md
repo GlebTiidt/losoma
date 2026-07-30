@@ -10,10 +10,11 @@
 - `Leistung`, обновлённый примерно за 7,5 часа до проверки: 5 кликов, 11 показов, CTR `45,5%`,
   средняя позиция `1,6`. Запрос `losoma`: 4 клика, 5 показов.
 - Подтверждённо проиндексированы `/blog`, `/gewerbliche-reinigung`, `/industriereinigung`,
-  `/fassaden-hoehenarbeiten`. Запросы индексации подтверждены для `/hausmeisterservice` и
-  `/grundreinigung`.
-- Следующая ручная проверка — только `/garten-landschaftspflege`, `/solaranlagenreinigung`,
-  `/treppenhausreinigung`, `/kontakt`, `/impressum`. Не отправлять повторно URL с уже
+  `/fassaden-hoehenarbeiten`, `/impressum`. Запросы индексации подтверждены для
+  `/hausmeisterservice`, `/grundreinigung` и `/garten-landschaftspflege`.
+- Следующая ручная проверка — только `/solaranlagenreinigung`, `/treppenhausreinigung` и
+  `/kontakt`. Все три прошли Live URL Test 2026-07-30; Solar снова вернул общую ошибку Google,
+  поэтому Treppenhaus и Kontakt в той же сессии не отправлялись. Не отправлять повторно URL с уже
   подтверждённым запросом и не отправлять redirect/`.html`/trailing-slash варианты.
 
 ## Где проверять

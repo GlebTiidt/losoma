@@ -14,11 +14,11 @@
   Measurement ID и не создавать ещё одну property без отдельной бизнес-причины.
 - Не менять MX-записи домена, пока не составлен список существующих ящиков `@losoma.de`
   и не подготовлен откат.
-- Не включать пересылку `losoma@web.de` -> `maxim@losoma.de`, пока внешнее тестовое
-  письмо не получено именно в Gmail нового Workspace-аккаунта.
-- Плановая замена публичной почты на `info@losoma.de` не считается выполненной, пока адрес не
-  создан в Google Workspace, не прошёл прямой внешний тест и новая пересылка WEB.DE не проверена.
-  До этого сайт, форму и legal pages продолжают использовать рабочий `maxim@losoma.de`.
+- Не менять получателя WEB.DE без прямого теста нового адреса и обязательного подтверждения
+  forwarding со стороны получателя.
+- Публичная миграция на `info@losoma.de` считается полностью выполненной только после проверки
+  direct delivery, WEB.DE forwarding, production recipient и отдельно разрешённого end-to-end
+  form test.
 - Не отправлять тестовые формы, письма и analytics events без предупреждения и явного
   разрешения пользователя.
 - Не хранить в репозитории пароли, банковские данные, SEPA-мандаты, recovery-коды,
@@ -48,6 +48,9 @@ Google. Ни один незакрытый пункт ниже не считат
   команде. 2026-07-30 специалист Kushal подтвердил, что команда продолжает проверку
   ситуации и сообщит результат после появления дополнительной информации. Нового действия
   со стороны клиента в письме не запрошено; при необходимости отвечать в этой же цепочке.
+  Повторная проверка 2026-07-30 подтвердила у `losoma@web.de`: `maxim@losoma.de` всё ещё
+  находится в разделе `Ausstehend` с ролью `Inhaber`; нового ответа поддержки после сообщения
+  Kushal нет.
 - [ ] `maxim@losoma.de` назначен основным владельцем (`Primärer Inhaber`).
 - [x] Новая GA4 property создана непосредственно в аккаунте Максима и проверена в Realtime.
 - [x] Search Console domain property подтверждена под аккаунтом Максима; sitemap обработан.
@@ -101,8 +104,12 @@ Google. Ни один незакрытый пункт ниже не считат
 - [x] Consent Mode v2 проверен: default denied, загрузка после `Statistik` consent.
 - [x] Realtime получил `page_view`, `cta_click` и `form_start`.
 - [x] Клиент выбрал GA4 data retention: **14 месяцев**.
-- [ ] Сохранить 14 месяцев в GA4 Admin и проверить настройку повторным открытием.
-- [ ] Подтвердить Google Analytics data-processing terms/AVV.
+- [x] Сохранить 14 месяцев для **Ereignisdaten** в GA4 Admin и проверить повторным открытием.
+  2026-07-30 `Ereignisdaten` изменены с `2 Monate` на `14 Monate`; после сохранения настройка
+  открыта заново и показывает `14 Monate` и для event data, и для user data.
+- [x] Подтвердить Google Analytics data-processing terms/AVV. В `Kontodetails` указано:
+  условия обработки данных для этого аккаунта приняты 2026-07-10. Данные юридического лица и
+  контактные сведения в дополнении всё ещё должны быть сверены с подтверждённой legal entity.
 
 ## 5. Передать Search Console и связанные сервисы
 
@@ -111,8 +118,9 @@ Google. Ни один незакрытый пункт ниже не считат
 - [x] Главная страница доступна для индексации; запрос повторной индексации отправлен.
 - [x] Проверить доступ к Google Sheets с заявками.
 - [x] Проверить доступ/владение Apps Script project `Losoma Contact Form`.
-- [ ] Проверить связанные Google Drive-файлы и при необходимости передать владение внутри
-  Workspace или добавить доступ.
+- [x] Проверить связанные Google Drive-файлы и при необходимости передать владение внутри
+  Workspace или добавить доступ. 2026-07-30 в `Meine Ablage` подтверждено: `Losoma Anfragen`
+  и `Losoma Contact Form` оба показывают `Owned by me` под `maxim@losoma.de`.
 - [ ] Если существуют Google Ads, Merchant Center или другие бизнес-сервисы, добавить новый
   аккаунт отдельно в каждом сервисе; не считать передачу Business Profile автоматической
   передачей остальных продуктов.
@@ -174,28 +182,38 @@ DNS-состояние, проверенное 2026-07-21 через публи�
 ## 8A. Плановая миграция `maxim@losoma.de` -> `info@losoma.de`
 
 Решение пользователя от 2026-07-30: новым публичным и рабочим адресом LOSOMA должен стать
-`info@losoma.de`. Миграция ещё **не выполнена**.
+`info@losoma.de`. Миграция полностью выполнена: alias, direct delivery, WEB.DE forwarding,
+независимый двухпочтовый тест, source/Apps Script, private Hostinger recipient, production deploy и
+разрешённый end-to-end form test подтверждены.
 
-- [ ] В Google Admin определить безопасную схему: сначала добавить `info@losoma.de` как alias к
+- [x] В Google Admin определить безопасную схему: сначала добавить `info@losoma.de` как alias к
   существующему Workspace user либо создать отдельный user/mailbox. Не переименовывать и не
   удалять `maxim@losoma.de`, пока не проверены Admin, GBP, GA4, Search Console, Drive и recovery.
-- [ ] Создать/активировать `info@losoma.de` в Google Workspace и подтвердить, что Gmail принимает
+- [x] Создать/активировать `info@losoma.de` в Google Workspace и подтвердить, что Gmail принимает
   прямую почту на этот адрес.
-- [ ] С внешнего независимого адреса отправить тест на `info@losoma.de` только после предупреждения
-  пользователя; проверить Inbox и Spam.
-- [ ] В WEB.DE заново изменить `dauerhaft weiterleiten`: `losoma@web.de` -> `info@losoma.de`,
+- [x] С внешнего адреса `losoma@web.de` отправить прямой тест на `info@losoma.de`; письмо
+  `LOSOMA Direkt-Test info@losoma.de 2026-07-30` получено в Gmail в 19:21.
+- [x] В WEB.DE заново изменить `dauerhaft weiterleiten`: `losoma@web.de` -> `info@losoma.de`,
   оставить `Kopien im Postfach behalten` на переходный период и пройти подтверждение адреса.
-- [ ] Выполнить отдельный тест WEB.DE -> `info@losoma.de` и подтвердить наличие письма в обоих
-  ящиках.
-- [ ] После успешных mail tests заменить публичный email и ссылки `mailto:` на всех 15 страницах,
+  Настройки сохранены, письмо подтверждения открыто в Gmail, WEB.DE показал успешную активацию.
+- [x] Выполнить отдельный тест WEB.DE -> `info@losoma.de` и подтвердить наличие письма в обоих
+  ящиках. `LOSOMA Forwarding Activation Test 2026-07-30` от независимого Gmail получен в 19:51:
+  retained copy видна в WEB.DE Spam, forwarded copy — в Workspace Gmail Inbox.
+- [x] После успешного direct mail test заменить публичный email и ссылки `mailto:` на всех 15 страницах,
   включая Impressum, Datenschutz, Kontakt, footer и Schema/contactPoint.
-- [ ] Переключить recipient формы/Apps Script на `info@losoma.de`, синхронно обновить legal-текст и
-  repository template. Не помещать секреты в Git.
-- [ ] С явного разрешения выполнить один end-to-end form test и подтвердить `HTTP 200`, письмо в
-  `info@losoma.de` и строку Sheet `Anfragen`.
-- [ ] Проверить, где `maxim@losoma.de` является login/owner, а где contact email. Не менять
+- [x] Переключить production recipient формы на `info@losoma.de`. Private Hostinger config,
+  repository template, public form fallback, examples и legal-текст обновлены. Live Apps Script
+  project head сохранён с новым
+  `RECIPIENT_EMAIL`; active deployment остаётся Version 3, но `payload.recipient` имеет приоритет,
+  поэтому отдельный Apps Script deploy для смены адреса не требуется. Секреты не помещались в Git
+  или `public_html`.
+- [x] С явного разрешения выполнить один end-to-end form test и подтвердить success response,
+  письмо в `info@losoma.de` и строку Sheet `Anfragen`. Тест `LOSOMA Techniktest` завершён
+  2026-07-30: UI показал успешную отправку, Gmail показал получателя `an info`, строка Sheet создана
+  с timestamp `2026-07-30T13:37:54Z`.
+- [x] Проверить, где `maxim@losoma.de` является login/owner, а где contact email. Не менять
   Measurement ID, Search Console property или GBP ownership автоматически только из-за смены
-  публичного адреса.
+  публичного адреса. Alias не затронул Admin, GBP, GA4, Search Console и Drive ownership.
 - [ ] После стабилизации оставить `maxim@losoma.de` как alias/admin/recovery либо зафиксировать
   отдельное решение о его роли; не допустить потери писем и доступа.
 
@@ -207,20 +225,20 @@ DNS-состояние, проверенное 2026-07-21 через публи�
 - [x] GA4 property создана и администрируется под Workspace без смены текущего Measurement ID
   `G-QPX35L2ZGK`.
 - [x] `maxim@losoma.de` имеет подтверждённый доступ к Search Console domain property.
-- [ ] Проверены права на все прочие требуемые Drive-ресурсы, кроме уже подтверждённых Sheet и
-  Apps Script.
+- [x] Проверены права на все прочие требуемые Drive-ресурсы: связанные `Losoma Anfragen` и
+  `Losoma Contact Form` принадлежат Workspace-аккаунту; иных рабочих Drive-файлов не найдено.
 - [x] Sheet заявок и Apps Script принадлежат/доступны Workspace-аккаунту и проверены.
 - [x] Входящая почта `@losoma.de` проверена в Gmail.
 - [x] Пересылка WEB.DE проверена без потери копий.
-- [x] Legal/public email и recipient формы обновлены на `maxim@losoma.de`.
+- [x] Предыдущий этап 2026-07-22: legal/public email и recipient формы были обновлены на
+  `maxim@losoma.de`; последующая миграция на `info@losoma.de` завершена по разделу 8A.
 - [x] Контролируемый end-to-end тест формы после переноса Apps Script под Workspace завершён:
   `HTTP 200`, письмо и строка в новом Google Sheet подтверждены 2026-07-22.
-- [ ] Плановая миграция публичного/рабочего адреса на `info@losoma.de` завершена по разделу 8A.
+- [x] Плановая миграция публичного/рабочего адреса на `info@losoma.de` завершена по разделу 8A.
 
 ## 10. Следующий шаг при возобновлении
 
-1. Выполнить раздел 8A в безопасной последовательности: Workspace address -> прямой mail test ->
-   новая WEB.DE forwarding -> public/legal/form change -> разрешённый end-to-end test.
+1. Не повторять email migration и E2E form test без новой причины: раздел 8A завершён.
 2. Проверить ответ Google Business Profile Support по Fall-ID `2-2514000041594` в
    `losoma@web.de` и переадресованной копии в Gmail. Последний ответ клиента отправлен
    2026-07-23 со скриншотами зависшего приглашения и отсутствия доступа у получателя.
@@ -230,6 +248,5 @@ DNS-состояние, проверенное 2026-07-21 через публи�
    `maxim@losoma.de` и зафиксировать точную дату/время принятия.
 4. Передачу `Primärer Inhaber` выполнять не раньше чем через 7 полных дней после принятия;
    `losoma@web.de` оставить резервным владельцем ещё на 2–4 недели.
-5. Сохранить GA4 retention `14 месяцев` и повторно открыть настройку для проверки; подтвердить
-   Google Analytics data-processing terms/AVV. Measurement ID не менять.
-6. Проверить оставшиеся нужные Drive-ресурсы и включить 2FA/recovery для Workspace.
+5. GA4 retention и Analytics data-processing terms уже проверены; Measurement ID не менять.
+6. Включить 2FA/recovery для Workspace и подтвердить Workspace DPA/AVV.

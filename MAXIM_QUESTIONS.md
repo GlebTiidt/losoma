@@ -7,7 +7,7 @@
 - Используются Hostinger, Google Workspace (Gmail, Sheets, Apps Script), Google Analytics 4 и
   Google reCAPTCHA.
 - AVV/DPA для Hostinger, Google Workspace и Google Analytics разрешено проверить и принять.
-- GA4 data retention выбрано: **14 месяцев**; настройку ещё нужно сохранить в GA4.
+- GA4 data retention **14 месяцев** сохранено и повторно проверено 2026-07-30.
 - Для заявок без договора пока сохраняется срок **12 месяцев после закрытия обращения**.
 - Ответственный за удаление заявок из Gmail и Sheet: **Maxim Soga**.
 - Административный доступ к Hostinger, Gmail, Sheet `Anfragen`, Apps Script, GA4 и Search Console
@@ -18,9 +18,11 @@
   не подтверждён и на сайте не показывается.
 - Release 2026-07-30 опубликован и технически проверен; вопросы ниже не блокируют текущую работу
   сайта, но остаются задачами владельца/юриста/безопасности.
-- Принято решение перейти с публичного/рабочего `maxim@losoma.de` на `info@losoma.de`, заново
-  направить туда почту из `losoma@web.de` и настроить адрес в Google Workspace. Миграция ещё не
-  выполнена; до тестов текущим адресом остаётся `maxim@losoma.de`.
+- `info@losoma.de` создан как Workspace alias и принимает прямые письма. WEB.DE forwarding
+  перенастроен на него, сохраняет копии и подтверждён получателем 2026-07-30. Исходники сайта
+  и Apps Script project head обновлены; независимый forwarding test получен в обоих ящиках.
+  Private Hostinger recipient и production переведены на новый адрес; разрешённый E2E form test
+  подтвердил success UI, письмо `info@losoma.de` и строку Sheet `Anfragen`.
 
 ## 1. Юридические данные — нужны до принятия договоров
 

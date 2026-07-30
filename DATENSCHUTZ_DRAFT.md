@@ -1,6 +1,6 @@
 # Datenschutz — фактическая карта обработки
 
-Последнее обновление: 2026-07-23. Публичный текст: `datenschutz.html`.
+Последнее обновление: 2026-07-30. Публичный текст: `datenschutz.html`.
 
 ## Активные сервисы
 
@@ -8,7 +8,7 @@
 - Google reCAPTCHA v3: защита формы от автоматизированного злоупотребления.
 - Google Apps Script: доставка валидированной заявки.
 - Google Sheets: таблица `Anfragen`.
-- Google Workspace Gmail: уведомление на `maxim@losoma.de`.
+- Google Workspace Gmail: уведомление на активный production recipient `info@losoma.de`.
 - Google Analytics 4: `G-QPX35L2ZGK`, только после согласия `Statistik`.
 
 ## Поток заявки

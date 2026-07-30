@@ -48,11 +48,10 @@
 - [x] 🟡 💻 **Логотип-растр** для Schema (≥112×112) — используем существующий `assets/static/icon-512.png`.
 
 **Контактные данные (уже в Impressum, для справки):**
-Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · maxim@losoma.de · USt-IdNr. DE357950597.
+Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Chaussee 247C, 13583 Berlin · +49 176 44434111 · info@losoma.de · USt-IdNr. DE357950597.
 
-- [ ] 🔴 👤💻 После проверенной mail migration заменить текущий `maxim@losoma.de` на
-  `info@losoma.de` в видимом контенте, `mailto:`, legal pages и Schema/contactPoint. До успешных
-  Workspace и WEB.DE tests не публиковать новый адрес.
+- [x] 🔴 👤💻 `info@losoma.de` заменил прежний public email в исходном видимом контенте, `mailto:`,
+  legal pages и Schema/contactPoint 2026-07-30; production опубликован и live-проверен.
 
 ---
 
@@ -69,13 +68,13 @@ Losoma · Maxim Soga / Alexandr Lozinschi · Einzelunternehmen · Falkenseer Cha
 - [x] ⚙️ 👤 Запрос на повторную индексацию главной страницы отправлен 2026-07-23.
 - [x] ⚙️ 👤 `sitemap.xml` повторно отправлен 2026-07-30; статус успешный, 15 URL.
 - [x] ⚙️ 👤 Подтверждённые запросы на индексацию 2026-07-30:
-  `/hausmeisterservice`, `/grundreinigung`.
+  `/hausmeisterservice`, `/grundreinigung`, `/garten-landschaftspflege`.
 - [x] ⚙️ 👤 Актуальной проверкой URL Inspection подтверждена индексация `/blog`,
-  `/gewerbliche-reinigung`, `/industriereinigung`, `/fassaden-hoehenarbeiten`.
-- [ ] ⚙️ 👤 Позже повторить ручную отправку `/garten-landschaftspflege`,
-  `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`, `/impressum`.
-  Первые две страницы прошли Live URL Test; запросы первых трёх вернули общую ошибку Google.
-  Не считать их отправленными и не спамить повторными запросами в одной сессии.
+  `/gewerbliche-reinigung`, `/industriereinigung`, `/fassaden-hoehenarbeiten`, `/impressum`.
+- [ ] ⚙️ 👤 Позже повторить ручную отправку только `/solaranlagenreinigung`,
+  `/treppenhausreinigung` и `/kontakt`. Все три прошли свежий Live URL Test 2026-07-30;
+  Solar снова вернул общую ошибку Google, поэтому Treppenhaus и Kontakt в той же сессии не
+  отправлялись. Garten уже получил явное подтверждение, Impressum уже индексирован.
 - [ ] 🟡 👤 **Bing Webmaster Tools** (Bing питает ChatGPT/Copilot) — опционально.
 
 ---

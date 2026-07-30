@@ -6,16 +6,23 @@ Production: `https://losoma.de` → `domains/losoma.de/public_html`.
 
 ## Текущий подтверждённый production
 
-- Release 2026-07-30 опубликован из `dist/`; Git commit `b28859c`.
-- Ручная rollback-копия hPanel: `2026-07-30 17:08`.
-- Release ZIP SHA-256:
-  `b30d5684a25e69819237bb7adf58cf188c3341d5e48e5f18c488515888dd3a0e`.
-- ZIP после успешной распаковки убран из `public_html` в Hostinger Trash.
-- Все 15 HTML URL, CSS/JS, robots/sitemap и выбранные media совпали с `dist/`; MP4 сохранил
-  SHA-256 `2283c7429ef384598ac4445da183b6450688ce78f99d91193239c94fb894714b`.
+- Email migration release 2026-07-30 опубликован из проверенного `dist/`; новый commit/push ещё не
+  создавался.
+- Rollback-копия сохранена вне public web root:
+  `domains/losoma.de/losoma-production-pre-info-20260730-2014.zip`.
+- Release ZIP хранится вне `public_html` в
+  `domains/losoma.de/releases/losoma-release-20260730-2014.zip`; SHA-256:
+  `ec9a512878ef98857461f3d2f54deda4f8ef93fa4b4cc7bdbefe4d064a627d86`.
+- Все 15 canonical HTML URL вернули `200`; server-side и локальные хеши `.htaccess`, HTML legal и
+  contact pages, CSS/JS, robots/sitemap и PHP API совпали.
+- Private form recipient переключён на `info@losoma.de` без переноса секретов в `public_html`.
+- Live Impressum, Datenschutz, Kontakt, footer/`mailto:` и Schema/contactPoint используют
+  `info@losoma.de`; старый public email на 15 страницах отсутствует.
+- Разрешённый E2E form test показал success UI; письмо доставлено `an info`, строка `Anfragen`
+  создана в `2026-07-30T13:37:54Z`.
 - Старые SSH-реквизиты `metropoolvastgoedbe@ssh002.webhosting.be` относятся к другому hosting
-  account и не должны использоваться для LOSOMA. Пока точный LOSOMA SSH не подтверждён,
-  безопасный путь — авторизованный hPanel File Manager.
+  account и не должны использоваться для LOSOMA. Подтверждённый LOSOMA SSH: user `u969184895`,
+  host `46.202.156.161`, port `65002`, локальный key `~/.ssh/losoma_deploy`.
 
 ## Безопасный выпуск
 

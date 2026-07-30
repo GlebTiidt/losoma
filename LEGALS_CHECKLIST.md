@@ -10,10 +10,7 @@
 - [x] Адрес на сайте: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`.
 - [x] Адрес обозначен как `Geschäftsadresse · kein Kundenbüro vor Ort`.
 - [x] Телефон: `+49 176 44434111`.
-- [x] Email: `maxim@losoma.de`.
-- [ ] После успешной Workspace/WEB.DE migration заменить legal/public email на
-      `info@losoma.de`. До подтверждения доставки текущим фактическим адресом остаётся
-      `maxim@losoma.de`.
+- [x] Email в исходниках и на production legal/public страниц: `info@losoma.de`.
 - [x] USt-IdNr.: `DE357950597`.
 - [x] Обычная Steuernummer удалена с публичной страницы как не требуемая § 5 DDG;
       USt-IdNr. `DE357950597` оставлена.
@@ -25,9 +22,8 @@
 - [x] Hostinger production и текущий `/api/contact` отражены в Datenschutz.
 - [x] Предыдущая инфраструктура не описывается как активный production.
 - [x] Contact flow описан: Hostinger PHP endpoint → Google Apps Script → Google Sheets + Gmail.
-- [x] Recipient указан: `maxim@losoma.de`.
-- [ ] После подтверждённой смены recipient на `info@losoma.de` синхронно обновить Datenschutz,
-      Impressum, Kontakt, form flow description и Stand-даты.
+- [x] Recipient в source и production legal-тексте указан: `info@losoma.de`; Impressum, Kontakt и
+      form flow description синхронизированы 2026-07-30.
 - [x] Технические form metadata и IP-based security processing раскрыты.
 - [x] Обязательный checkbox изменён на Kenntnisnahme, а не фиктивное Einwilligung.
 - [x] Custom cookie settings, Local Storage и Session Storage описаны.
@@ -41,7 +37,8 @@
 
 - [ ] Подтвердить/принять Hostinger DPA в аккаунте.
 - [ ] Подтвердить Google Workspace data-processing terms для Apps Script/Sheets/Gmail.
-- [ ] Подтвердить Google Analytics data-processing terms.
+- [x] Подтвердить Google Analytics data-processing terms: GA4 `Kontodetails` показывает принятие
+  условий 2026-07-10; legal entity/contact details в дополнении сверить после подтверждения формы.
 - [ ] Проверить актуальные subprocessors и transfer safeguards каждого provider.
 - [ ] Зафиксировать дату проверки договоров и ответственного.
 
@@ -55,7 +52,8 @@
 - [ ] Включена 2FA для административных аккаунтов. На 2026-07-23 пользователь подтвердил, что 2FA
       пока не включена.
 - [x] Клиент выбрал GA4 retention **14 месяцев**.
-- [ ] Настройка 14 месяцев фактически сохранена в GA4 Admin и проверена повторным открытием.
+- [x] Настройка 14 месяцев сохранена в GA4 Admin и проверена повторным открытием 2026-07-30:
+  `Ereignisdaten = 14 Monate`, `Nutzerdaten = 14 Monate`.
 
 ## E. Production QA и финальная legal-проверка
 
@@ -66,6 +64,10 @@
       визуальная синхронизация переключателя проверены.
 - [x] После release 2026-07-30 legal pages побайтно сверены с `dist/`, возвращают `200` и
       визуально проверены на desktop/mobile; Lighthouse Accessibility production равен `100`.
+- [x] После email release 2026-07-30 live Impressum и Datenschutz повторно открыты в браузере:
+      новый `mailto:` и описание Google Workspace recipient корректны, console errors отсутствуют.
+- [x] Разрешённый end-to-end test подтвердил фактический legal flow: success UI, письмо
+      `info@losoma.de` и строка Google Sheet `Anfragen`.
 - [ ] Выполнить отдельный keyboard-only walkthrough legal pages и cookie settings.
 - [x] Hosting/Form sections обновлены под Hostinger backend и активную reCAPTCHA.
 - [ ] Получить финальную проверку немецким юристом/Datenschutz-специалистом.

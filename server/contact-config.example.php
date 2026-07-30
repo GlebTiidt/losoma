@@ -6,7 +6,7 @@ declare(strict_types=1);
 return [
     'webhook_url' => '',
     'webhook_secret' => '',
-    'recipient' => 'maxim@losoma.de',
+    'recipient' => 'info@losoma.de',
     'state_dir' => __DIR__ . '/contact-state',
     'rate_limit_max' => 5,
     'rate_limit_window_seconds' => 600,

@@ -4,15 +4,22 @@
 
 ## Последний завершённый release
 
-- [x] Production release выполнен 2026-07-30; source commit: `b28859c`.
-- [x] Перед выпуском создана ручная Hostinger backup-копия `2026-07-30 17:08`.
+- [x] Email migration release выполнен 2026-07-30 из текущего проверенного working tree;
+  отдельный commit/push для него ещё не создавался.
+- [x] Перед выпуском сохранён server-side rollback-архив вне `public_html`:
+  `domains/losoma.de/losoma-production-pre-info-20260730-2014.zip`.
 - [x] `npm run build`, `npm run audit:classes:strict`, `npm run audit:seo`,
   `node --check script.js` и `git diff --check` прошли.
-- [x] Все 15 canonical HTML URL и критические публичные файлы побайтно совпали с `dist/`.
+- [x] Release ZIP `losoma-release-20260730-2014.zip` сохранён вне public web root в
+  `domains/losoma.de/releases/`; SHA-256:
+  `ec9a512878ef98857461f3d2f54deda4f8ef93fa4b4cc7bdbefe4d064a627d86`.
+- [x] Server-side и локальные SHA-256 критических файлов совпали; все 15 canonical HTML URL
+  вернули `200`.
 - [x] `/api/health` вернул `200`; канонические `301` и query string проверены.
-- [x] Production Lighthouse mobile: Accessibility, Best Practices, SEO и Agentic Browsing —
-  `100/100/100/100`; cold `Slow 4G`, CPU `4x`, `412x915@3`: LCP `2,978 ms`, CLS `0`.
-- [x] Реальная форма не отправлялась; ZIP релиза перемещён из `public_html` в корзину Hostinger.
+- [x] Live HTML содержит `info@losoma.de` и не содержит прежний public email; Impressum,
+  Datenschutz, Kontakt, footer/`mailto:` и Schema/contactPoint проверены на production.
+- [x] Один явно разрешённый end-to-end test завершён: success UI, письмо `an info` в Workspace и
+  строка Sheet `Anfragen` с timestamp `2026-07-30T13:37:54Z` подтверждены.
 
 Ниже — обязательный шаблон для **следующего** release. Пункты намеренно остаются незакрытыми.
 

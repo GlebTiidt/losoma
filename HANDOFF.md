@@ -5,29 +5,52 @@
 ## Непосредственная точка возобновления
 
 Production release завершён и проверен. Не повторять hero/performance-работу и не деплоить её
-снова. Новая подтверждённая задача — контролируемо перейти с `maxim@losoma.de` на
-`info@losoma.de`, заново настроить WEB.DE forwarding и только после тестов обновить сайт/form/legal.
+снова. Email migration на `info@losoma.de` полностью завершена: Workspace alias, direct delivery,
+WEB.DE forwarding с сохранением копий, private Hostinger recipient, source/legal/form release и
+разрешённый form-to-Gmail-and-Sheet E2E test подтверждены на production.
 
 Порядок следующему агенту:
 
 1. Прочитать `CLAUDE.md`, `SITE.md`, этот файл и профильный checklist задачи.
 2. Проверить `git status`; не откатывать пользовательские изменения.
-3. Для email migration выполнить раздел 8A `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` строго по
-   порядку: создать/активировать `info@losoma.de` в Workspace -> прямой внешний mail test ->
-   `losoma@web.de` forwarding на новый адрес -> public/legal/form change -> разрешённый E2E test.
-   До этого фактическим production email остаётся `maxim@losoma.de`.
-4. Если работа продолжается с Google Search Console, проверять только пять ожидающих canonical URL:
-   `/garten-landschaftspflege`, `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`,
-   `/impressum`. Для неиндексированного URL сначала выполнить Live URL Test; запрос считать
+3. Не повторять email migration или реальный form test без новой причины: раздел 8A
+   `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` закрыт. Текущий public/form recipient — `info@losoma.de`.
+4. Если работа продолжается с Google Search Console, проверять только три ожидающих canonical URL:
+   `/solaranlagenreinigung`, `/treppenhausreinigung`, `/kontakt`. Для неиндексированного URL
+   сначала выполнить Live URL Test; запрос считать
    принятым только при явном сообщении `Indexierung wurde beantragt`.
-5. Не отправлять повторно `/hausmeisterservice` и `/grundreinigung`; не отправлять redirect,
-   `.html` и trailing-slash варианты.
+5. Не отправлять повторно `/hausmeisterservice`, `/grundreinigung` и
+   `/garten-landschaftspflege`; `/impressum` уже индексирован. Не отправлять redirect, `.html` и
+   trailing-slash варианты.
 6. Если работа продолжается с Google Business Profile, проверить существующую почтовую цепочку
    support case `2-2514000041594`. Новый дублирующий профиль не создавать.
 7. Для следующего изменения кода выполнить полный preflight. Production release — только по
    новому явному запросу пользователя и с новой rollback-копией.
 
-## Production release 2026-07-30
+## Email migration production release 2026-07-30
+
+- URL: `https://losoma.de`; Hostinger target: `domains/losoma.de/public_html`.
+- Release создан из текущего проверенного working tree; отдельный commit/push ещё не выполнялся.
+- Rollback-копия сохранена вне public web root:
+  `domains/losoma.de/losoma-production-pre-info-20260730-2014.zip`.
+- Release ZIP сохранён вне `public_html`:
+  `domains/losoma.de/releases/losoma-release-20260730-2014.zip`, `29,727,654` байт, SHA-256
+  `ec9a512878ef98857461f3d2f54deda4f8ef93fa4b4cc7bdbefe4d064a627d86`.
+- `npm run build`, `npm run audit:classes:strict`, `npm run audit:seo`,
+  `node --check script.js` и `git diff --check` прошли до upload; секретов в `dist/` нет.
+- Server-side и local SHA-256 совпали для `.htaccess`, index/legal/contact HTML, CSS/JS,
+  robots/sitemap и PHP API. Все 15 canonical URL, robots, sitemap и `/api/health` вернули `200`.
+- Проверены `301` HTTP/www/`.html`/trailing slash/privacy и сохранение query string.
+- На 15 live HTML страницах найден только `info@losoma.de`; прежний public email отсутствует.
+  Impressum, Datenschutz, Kontakt, footer/`mailto:` и Schema/contactPoint проверены отдельно.
+- Private Hostinger recipient переключён на `info@losoma.de`; секреты остались вне Git и
+  `public_html`. Live Apps Script project head имеет тот же fallback, active Version 3 принимает
+  приоритетный `payload.recipient`, поэтому новый Apps Script deployment не требовался.
+- Разрешённый тест `LOSOMA Techniktest` показал production success UI. Workspace Gmail получил
+  `Neue Losoma Anfrage: Hausmeisterservice` с получателем `an info`; в Sheet `Anfragen` появилась
+  строка `2026-07-30T13:37:54Z`. Console errors на form и legal pages отсутствуют.
+
+## Предыдущий hero/performance production release 2026-07-30
 
 - URL: `https://losoma.de`.
 - Hostinger target: `domains/losoma.de/public_html`.
@@ -96,12 +119,12 @@ Post-release Chrome DevTools mobile trace (`Slow 4G`, CPU `4x`, `412x915@3`):
 - Отчёт `Seiten` всё ещё показывал срез 2026-07-24: 6 индексировано, 13 не индексировано.
 - URL Inspection подтвердил индексацию `/blog`, `/gewerbliche-reinigung`,
   `/industriereinigung`, `/fassaden-hoehenarbeiten`.
-- Явное подтверждение запроса индексации получено для `/hausmeisterservice` и
-  `/grundreinigung` — их не отправлять повторно.
-- `/garten-landschaftspflege` и `/solaranlagenreinigung` прошли Live URL Test. Запросы для них и
-  `/treppenhausreinigung` завершились одинаковой общей ошибкой Google и не считаются принятыми.
-- `/kontakt`: `URL ist Google nicht bekannt`.
-- `/impressum`: `Gefunden – zurzeit nicht indexiert`.
+- Явное подтверждение запроса индексации получено для `/hausmeisterservice`,
+  `/grundreinigung` и `/garten-landschaftspflege` — их не отправлять повторно.
+- `/impressum` подтверждённо индексирован актуальной URL Inspection.
+- Свежие Live URL Test подтвердили доступность Garten, Solar, Treppenhaus и Kontakt и по одному
+  валидному Breadcrumb. Запрос Solar снова завершился общей ошибкой Google; после неё
+  Treppenhaus и Kontakt в этой сессии не отправлялись.
 - `Leistung` на момент последней проверки: 5 кликов, 11 показов, CTR `45,5%`, средняя позиция
   `1,6`; запрос `losoma` — 4 клика / 5 показов.
 - Детальный срез и приоритеты: `SEO-AUDIT-2026-07-30.md`, `SEO_CHECKLIST.md`,
@@ -114,28 +137,39 @@ Post-release Chrome DevTools mobile trace (`Slow 4G`, CPU `4x`, `412x915@3`):
   зависло и не отображается у получателя.
 - Support case: `2-2514000041594`. Последний ответ от Kushal 2026-07-30: проверка продолжается,
   нового действия от клиента пока не запрошено. Отвечать только в существующей цепочке.
+- Повторная проверка `Personen und Zugriffsrechte` 2026-07-30 подтвердила: `losoma@web.de` —
+  `Primärer Inhaber`, а `maxim@losoma.de` всё ещё находится в `Ausstehend` как `Inhaber`.
 - После принятия приглашения выдержать 7 полных дней, затем передать `Primärer Inhaber`;
   `losoma@web.de` оставить резервным владельцем ещё 2–4 недели.
 - Workspace, Gmail, Sheet `Anfragen`, Apps Script, GA4 `G-QPX35L2ZGK` и Search Console работают
   под `maxim@losoma.de`.
+- В Drive подтверждено владение `Losoma Anfragen` и `Losoma Contact Form` аккаунтом Максима.
+- GA4 data-processing terms приняты 2026-07-10. Retention сохранён и повторно проверен:
+  `Nutzerdaten = 14 Monate`, `Ereignisdaten = 14 Monate`.
 - Gmail/DNS migration завершена: Google MX, один SPF, DKIM 2048, DMARC `p=none`; внешняя доставка и
   пересылка WEB.DE проверены.
-- Решение пользователя от 2026-07-30: перейти на публичный/рабочий `info@losoma.de` и заново
-  направить на него `losoma@web.de`. Это только запланировано. Не заменять текущий
-  `maxim@losoma.de` на сайте или в form recipient до прямого Workspace test и forwarding test.
-- Предпочтительный безопасный первый шаг — добавить `info@losoma.de` как alias или отдельный
-  mailbox, сохранив `maxim@losoma.de` как admin/login/recovery до проверки GBP, GA4, Search Console
-  и Drive. Точная схема фиксируется в разделе 8A Google checklist.
+- `info@losoma.de` добавлен как alias существующего user `maxim@losoma.de`; admin/login/owner
+  идентификаторы не менялись. Прямой WEB.DE -> alias test доставлен в Gmail в 19:21.
+- WEB.DE forwarding изменён на `info@losoma.de`, режим `Dauerhaft weiterleiten` и
+  `Kopie im Postfach behalten` включены. Recipient-side подтверждение завершено; WEB.DE показал
+  успешную активацию. Независимый тест после активации получен в обоих ящиках в 19:51: retained
+  copy в WEB.DE Spam и forwarded copy в Gmail Inbox.
+- Public/legal/form references и private Hostinger recipient заменены на `info@losoma.de` и
+  опубликованы на production. Live Apps Script project head сохранён с
+  `RECIPIENT_EMAIL = "info@losoma.de"`; active deployment остаётся Version 3, но endpoint использует
+  переданный PHP `payload.recipient`, поэтому новый Apps Script deployment для этой смены не нужен.
+- Локальные `npm run build`, `npm run audit:classes:strict` и `npm run audit:seo` прошли; SEO-аудит
+  подтвердил 15 indexable pages и 15 sitemap URLs.
+- Разрешённый production E2E test подтвердил success UI, письмо `an info` в Workspace и строку
+  Sheet `Anfragen` с timestamp `2026-07-30T13:37:54Z`.
 - Полный operational checklist: `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
 
 ## Открытые блокеры, которые нельзя закрывать предположением
 
-- Полная миграция Workspace/public/form email на `info@losoma.de` и повторная WEB.DE forwarding.
 - Точный зарегистрированный Inhaber, Rechtsform и legal entity. Текущая связка
   `Einzelunternehmen` + `Maxim Soga / Alexandr Lozinschi` требует документального подтверждения.
 - Факт назначения Datenschutzbeauftragter.
-- Hostinger DPA, Google Workspace DPA и Google Analytics data-processing terms/AVV.
-- GA4 retention: выбран срок 14 месяцев, но сохранение и повторная проверка в Admin не завершены.
+- Hostinger DPA и Google Workspace DPA/AVV.
 - 2FA и recovery/backup codes для Google Workspace и Hostinger.
 - Часы, координаты, founding date, priceRange, реальные кейсы/фото/отзывы для Schema и GBP.
 - Финальная проверка Impressum/Datenschutz немецким юристом/Datenschutz-специалистом.
