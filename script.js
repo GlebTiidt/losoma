@@ -138,6 +138,7 @@ function initCookieConsent() {
   elements.settingsButton.addEventListener("click", () => openCookiePanel(elements, "settings"));
   elements.settingsAcceptButton.addEventListener("click", () => saveCookieConsent(true, elements));
   elements.saveSelectionButton.addEventListener("click", () => saveCookieConsent(elements.statisticsInput.checked, elements));
+  elements.root.addEventListener("keydown", (event) => handleCookiePanelKeydown(event, elements));
 
   if (savedConsent) {
     applyCookieConsent(savedConsent);
@@ -155,7 +156,7 @@ function createCookieConsentElements() {
 
   root.innerHTML = `
     <div class="cookie-consent_backdrop" aria-hidden="true"></div>
-    <div class="cookie-consent_panel" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="cookie-consent-title">
+    <div class="cookie-consent_panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cookie-consent-title">
       <div class="cookie-consent_view is-intro" data-cookie-view="intro">
         <div class="cookie-consent_header">
           <h2 class="cookie-consent_title" id="cookie-consent-title">Ihre Privatsphäre ist uns wichtig</h2>
@@ -229,6 +230,16 @@ function createCookieConsentElements() {
 function openCookiePanel(elements, view) {
   const isSettings = view === "settings";
   const currentConsent = readCookieConsent();
+  const wasOpen = elements.root.classList.contains("is-open");
+
+  if (!wasOpen) {
+    const activeElement = document.activeElement;
+    elements.returnFocusElement = activeElement instanceof HTMLElement
+      && activeElement !== document.body
+      && activeElement !== document.documentElement
+      ? activeElement
+      : null;
+  }
 
   if (isSettings) {
     elements.root.classList.add("is-syncing");
@@ -253,6 +264,68 @@ function closeCookiePanel(elements) {
   elements.panel.setAttribute("aria-hidden", "true");
   elements.floatingButton.hidden = false;
   document.body.classList.remove("is-cookie-panel-open");
+
+  const returnFocusElement = elements.returnFocusElement;
+  elements.returnFocusElement = null;
+
+  if (returnFocusElement?.isConnected) {
+    window.requestAnimationFrame(() => returnFocusElement.focus());
+  }
+}
+
+function getCookiePanelFocusables(elements) {
+  const viewSelector = elements.root.classList.contains("is-settings")
+    ? '[data-cookie-view="settings"]'
+    : '[data-cookie-view="intro"]';
+  const activeView = elements.panel.querySelector(viewSelector);
+
+  if (!activeView) {
+    return [];
+  }
+
+  return Array.from(activeView.querySelectorAll(
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  )).filter((element) => !element.hidden);
+}
+
+function handleCookiePanelKeydown(event, elements) {
+  if (!elements.root.classList.contains("is-open")) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+
+    if (readCookieConsent()) {
+      closeCookiePanel(elements);
+    } else if (elements.root.classList.contains("is-settings")) {
+      openCookiePanel(elements, "intro");
+    }
+
+    return;
+  }
+
+  if (event.key !== "Tab") {
+    return;
+  }
+
+  const focusableElements = getCookiePanelFocusables(elements);
+
+  if (focusableElements.length === 0) {
+    event.preventDefault();
+    return;
+  }
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  if (event.shiftKey && document.activeElement === firstElement) {
+    event.preventDefault();
+    lastElement.focus();
+  } else if (!event.shiftKey && document.activeElement === lastElement) {
+    event.preventDefault();
+    firstElement.focus();
+  }
 }
 
 function saveCookieConsent(statistics, elements) {

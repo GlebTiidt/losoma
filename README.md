@@ -18,5 +18,5 @@ npm run audit:classes:strict
 npm run audit:seo
 ```
 
-`dist/` is generated output. Edit source files, rebuild, then deploy the contents of `dist/` by
-following `HOSTINGER_LAUNCH_CHECKLIST.md`. Never commit secrets or place them in the public web root.
+`dist/` is generated output. Edit source files, rebuild, then follow the release gate in
+`CHECKLIST.md`. Never commit secrets or place them in the public web root.

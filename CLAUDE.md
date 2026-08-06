@@ -1,265 +1,112 @@
 # Losoma Project Rules
 
-This is a plain HTML/CSS/JS website for LOSOMA Gebäudeservice in Berlin.
-The user is not a developer, so explanations should stay practical and clear.
+Plain HTML/CSS/JS website for LOSOMA Gebäudeservice in Berlin. The user is not a developer; keep
+explanations practical and clear.
 
-## Read First
+## Read first
 
-Before changing code, read:
+1. `CHECKLIST.md` — the only master status, task, evidence and release checklist.
+2. `SITE.md` — compact current technical state.
+3. The applicable file in `docs/` before layout, class, blog, SEO or legal work.
 
-- `HANDOFF.md`, starting with `Непосредственная точка возобновления`, for the latest environment,
-  deployment and launch state.
-- `SITE.md` for current project state and recent decisions.
-- `DEPLOYMENT_CHECKLIST.md` for launch blockers and hosting rules.
-- `HOSTINGER_LAUNCH_CHECKLIST.md` before any Hostinger inspection, backup, migration or launch work.
-- `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md` before Google Workspace, Google Business Profile,
-  Gmail/DNS, Analytics, Search Console, Sheets or Apps Script ownership/access work.
-- `SEO_CHECKLIST.md` before SEO, canonical, sitemap, Schema.org or Google Business Profile work.
-- `SEO_RANKING_CHECKLIST.md` before keyword-position monitoring or Search Console performance work.
-- `LEGALS_CHECKLIST.md`, `DATENSCHUTZ_DRAFT.md` and `docs/LEGAL_PAGES_GUIDELINES.md` before legal-page or privacy-policy work.
-- `docs/RESPONSIVE_GUIDELINES.md` before layout/responsive work.
-- `docs/BLOG_GUIDELINES.md` before blog index, article, editorial layout or article SEO work.
-- `docs/SEO_AND_CLASS_GUIDELINES.md` before adding or renaming classes.
+Do not recreate separate handoff, legal, Google, Hostinger, deployment, SEO or question checklists.
+Update `CHECKLIST.md` after every meaningful discovery or external-admin action. Update `SITE.md`
+only when the current technical/production state changes.
 
-Update `SITE.md` after meaningful code or rule changes.
+## Scope and safety
 
-After every meaningful action or discovery in an external admin system (Google Search Console,
-Google Business Profile, GA4, Workspace, Hostinger, DNS, Sheets or Apps Script), record the date,
-exact observed result, unresolved blocker and next safe action in the relevant repository source of
-truth before ending the task. Do not leave operational state only in chat or browser history.
+- Preserve unrelated dirty-worktree changes. Never reset or overwrite user work.
+- Production changes require a direct request, a precise scope, build/audits, a dated rollback and
+  live smoke verification.
+- Do not submit a real contact form without warning and fresh permission; it creates Gmail and Sheet
+  records.
+- Never expose Hostinger private config, reCAPTCHA secret, Apps Script webhook secret, passwords,
+  codes, customer data, billing data or closed legal documents.
+- Do not change users, ownership, billing, legal entity, DPA acceptance or account permissions
+  unless the user explicitly asks for that action.
+- Commit and push only by direct request.
+- Do not delete server rollback archives or the old WordPress/file/database backup without a
+  separate decision.
 
-## Immediate Resume Rule — Current Session Close (2026-07-30)
+## Production and build
 
-- Production release is complete on Hostinger. Source commit: `b28859c`; manual hPanel backup:
-  `2026-07-30 17:08`. All 15 canonical HTML responses and critical public assets matched `dist/`
-  byte-for-byte. `/api/health` returned `200`; redirects and query-string preservation passed.
-- Hero/performance fixes are deployed. Keep the current `1920x1080`, `5,731,171`-byte MP4; the user
-  rejected a `960x540` variant and stated that current video quality is the minimum acceptable.
-  Improve performance through scheduling, poster and surrounding assets, not another transcode.
-- Post-release production trace: mobile `Slow 4G`, CPU `4x`, viewport `412x915@3`, LCP `2.978 s`,
-  CLS `0`, TTFB `511 ms`, text LCP `H1#hero-title`. Production Lighthouse scores are
-  Accessibility/Best Practices/SEO/Agentic Browsing `100/100/100/100`; console errors are absent.
-  Desktop/mobile screenshots confirmed that the contrast scrim keeps H1 readable over the video.
-- Chrome DevTools MCP `1.1.1` is installed at
-  `/Users/glebstepanovich/.npm-global/bin/chrome-devtools-mcp`. Do not restore the unreliable
-  `npx -y chrome-devtools-mcp@latest` configuration. After restart, prefer exposed MCP tools; the
-  official `chrome-devtools` CLI controls the same configured server when direct tools are absent.
-- Resume in this order:
-  1. Do not repeat the completed email migration in section 8A of
-     `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`. Production, private recipient, direct/forwarding mail
-     tests and the explicitly authorized form-to-Gmail-and-Sheet E2E test all passed on 2026-07-30.
-  2. Check only the three pending Search Console canonical URLs: `/solaranlagenreinigung`,
-     `/treppenhausreinigung`, `/kontakt`. Request indexing
-     only after a successful live test and record only explicit confirmation.
-  3. Do not resubmit `/hausmeisterservice`, `/grundreinigung` or
-     `/garten-landschaftspflege`; `/impressum` is already indexed. Do not submit redirects,
-     `.html` aliases or trailing-slash duplicates.
-  4. Check the existing Google Business Profile support thread `2-2514000041594`; do not create a
-     duplicate profile. The last support response on 2026-07-30 said the investigation continues.
-  5. Complete owner-side blockers: Workspace/Hostinger 2FA, GA4 14-month retention verification,
-     DPA/AVV acceptance, exact Inhaber/Rechtsform and Datenschutzbeauftragter confirmation.
-  6. Improve `/grundreinigung` and `/hausmeisterservice` only with real service-specific facts,
-     cases, photos and FAQ; then continue with the other thin service pages.
-- Do not redeploy the already verified hero changes. Any future production change still requires an
-  explicit user request, a new dated rollback copy, the full audits and production smoke checks.
-
-## Current Hosting Rule
-
-- **Production is live on Hostinger:** `https://losoma.de` serves the static site from
-  `domains/losoma.de/public_html` with the PHP contact backend.
-- The old WordPress installation was replaced on 2026-07-23 only after a verified file/database
-  backup. Keep the rollback copies; do not delete the WordPress backup or database without a
-  separate explicit decision.
-- Production deployments require an explicit request, `npm run build`, all audits, and a production
-  smoke test. Upload generated `dist/`; never edit generated production files as the source of truth.
-- Do not submit a real form or create Google Sheet/email test data without warning the user and
-  receiving permission. Read-only HTTP/SEO checks are allowed.
-- Hostinger secrets and state stay outside `public_html` and Git. Never print or copy them into docs.
-- Current rollback and SSH details are recorded in `HOSTINGER_LAUNCH_CHECKLIST.md` and `HANDOFF.md`.
-
-## Build Workflow
-
-Use:
+- Production: `https://losoma.de` on Hostinger at `domains/losoma.de/public_html`.
+- Confirmed SSH: user `u969184895`, host `46.202.156.161`, port `65002`, key
+  `~/.ssh/losoma_deploy`.
+- Build output is `dist/`; never edit generated production files as source of truth.
+- Use:
 
 ```text
 npm run build
-npm run audit:classes
 npm run audit:classes:strict
+npm run audit:seo
+node --check script.js
+git diff --check
 ```
 
-Deployable media in `assets/generated` and `assets/static` is canonical. Original media and the old
-image pipeline were removed before the Hostinger release.
+- Follow the release gate in `CHECKLIST.md`; upload only the approved scope.
+- Keep secrets and release archives outside `public_html`.
 
-`dist/` is generated output. Do not edit `dist/` directly.
+## Architecture
 
-Do not auto-deploy to Hostinger. Deploy only when explicitly requested.
+- Keep plain HTML/CSS/JS; do not add React, Vue, Vite or Webpack.
+- Deployable media in `assets/generated` and `assets/static` is canonical.
+- Clean URLs, redirects and PHP routing are controlled by `.htaccess`.
+- Canonical production domain is `https://losoma.de`.
+- `robots.txt` and `sitemap.xml` must remain aligned with the 15 indexable canonical pages.
 
-## Class Naming
+## Classes and responsive rules
 
-Project-owned classes use Client-First-style naming:
+- Project classes use block, one underscore for elements and `is-*` for variants/state.
+- Prefer `data-*` hooks for JavaScript behavior.
+- Do not introduce project-owned `__`, `--`, throwaway or visual class names.
+- Third-party classes such as `splide__*`, `iti__*` and `cc__*` are exceptions.
+- Breakpoints: desktop `>=1025px`, tablet `<=1024px`, phone `<=560px`, burger `<=1150px`.
+- Phone gutter: `16px`.
+- Lato is self-hosted; do not add external Google Fonts.
+- Preserve the current hero MP4 `1920×1080`, `5,731,171` bytes. Do not transcode it again without a
+  new explicit decision.
 
-- Block: `hero`, `contact-form`, `legal-page`.
-- Element: one underscore, e.g. `hero_content`, `contact-form_submit`, `legal-page_inner`.
-- Variant/state: `is-*`, e.g. `button is-accent`, `link-button is-green`, `body.is-solid-header`, `is-open`, `is-invalid`.
-- JS behavior should prefer `data-*` hooks. Styling classes can be queried only when no practical data hook exists.
+## Forms and privacy
 
-Forbidden for project-owned classes:
+- All contact forms use shared `.contact-form` markup and `data-*` hooks.
+- Endpoint: `POST /api/contact`.
+- Protection: server validation, honeypot, rate limit, duplicate protection, frontend submit lock
+  and reCAPTCHA v3 verification.
+- Flow: Hostinger PHP → Apps Script → Google Sheet `Anfragen` + Workspace Gmail.
+- Public and form email: `info@losoma.de`. `maxim@losoma.de` remains Workspace login/admin and
+  reserve sender.
+- The Datenschutz checkbox is acknowledgement (`Kenntnisnahme`), not separate consent.
+- On success, replace the form with the persistent green confirmation until reload.
+- Any field/requiredness change must be synchronized across every HTML form, PHP validation,
+  Apps Script/Sheet mapping and Datenschutzerklärung.
 
-- Project-owned `__` and `--` class separators.
-- Visual/throwaway names such as `block-left`, `blue-text`, `div-block`, `section-1`.
+## Analytics and consent
 
-Allowed exceptions:
+- GA4 Measurement ID: `G-QPX35L2ZGK`.
+- Use direct `gtag.js` and Consent Mode v2; do not add GTM without a new requirement.
+- Default `analytics_storage`, `ad_storage`, `ad_user_data` and `ad_personalization` are denied.
+- Load GA4 only after `Statistik` consent. Keep ad consent denied unless Google Ads is added.
+- On withdrawal, deny analytics and remove available `_ga`/`_ga_*` cookies.
+- Preserve the approved two-layer cookie UX and floating settings button.
 
-- Third-party library classes such as `splide__*`, `iti__*`, `cc__*`.
-- CSS custom properties such as `--section-gap`.
-- JS object/property names such as `window.__lenis`.
+## Accounts, legal and SEO
 
-Run `npm run audit:classes:strict` after class work.
+- Current owners, access evidence, unresolved Hostinger/Google records, exact Maxim/Alexandr tasks,
+  GBP transfer, Search Console status, legal changes, retention decisions and deferred SEO/content
+  work are maintained only in `CHECKLIST.md`.
+- Treat `info@losoma.de` as the verified public address. Do not restore `maxim@losoma.de` in public
+  HTML, legal pages, Schema or form configuration.
+- Do not infer `Inhaber` from the Hostinger invoice.
+- Do not create duplicate GBP, GA4 or Search Console properties.
+- Do not request indexing for redirects, `.html` variants or trailing-slash duplicates. Count an
+  indexing request only after Google explicitly displays `Indexierung wurde beantragt`.
+- Do not invent coordinates, hours, founding date, price range, clients, cases, reviews,
+  certifications or legal facts.
 
-## Design And Responsive Rules
+## Documentation
 
-- Keep the site plain HTML/CSS/JS. Do not introduce React/Vue/Vite/Webpack.
-- Use existing tokens in `styles.css` for spacing, color, radius and type.
-- Breakpoints are fixed:
-  - Desktop base: `>= 1025px`.
-  - Tablet: `@media (max-width: 1024px)`.
-  - Phone: `@media (max-width: 560px)`.
-  - Header burger: `@media (max-width: 1150px)`.
-- Phone side gutter is 16px.
-- Preserve the existing button families:
-  - `.button.is-accent`
-  - `.button.is-static`
-  - `.link-button` / `.link-button.is-green`
-- Do not reintroduce the rejected desktop header shrink animation, shadow/hairline, or progressive blur.
-- Avoid external Google Fonts. Lato is self-hosted in `assets/vendor/lato/`.
-- Reuse component typography instead of duplicating declarations. The article lead
-  `.blog-article_lead` deliberately shares font size, weight, line-height and tracking with
-  `.quality-claim_title`; only article grid placement and spacing are unique.
-- Blog article media, H1/subtitle, lead and long-form body use 8 of 12 columns on desktop and
-  the full container at `<=1024px`.
-- `.hero_title`, `.blog-index_title` and `.blog-article_title` share the same responsive H1
-  clamps. Keep the shared desktop clamp after the blog title's base typography so the cascade
-  cannot replace it with a fixed token. The article subtitle has its own responsive clamp.
-
-## Forms
-
-- Every contact form uses the shared `.contact-form` markup and `data-*` hooks.
-- Form endpoint: `POST /api/contact`.
-- Current backend protection: server validation, honeypot, rate limit, duplicate protection, frontend submit lock.
-- Google Sheet delivery works through Apps Script.
-- Source and production public/legal/form recipient is `info@losoma.de` as of 2026-07-30. The
-  private Hostinger recipient is synchronized. The explicitly authorized production E2E test
-  confirmed the success UI, Gmail recipient `info` and a new `Anfragen` row at
-  `2026-07-30T13:37:54Z`.
-- Apps Script requires only the synchronized `CONTACT_WEBHOOK_SECRET` Script Property; the Sheet ID is fixed in the deployed code and local template.
-- On success, hide the complete form and keep the green confirmation panel with larger black text visible until reload.
-- The privacy checkbox is an acknowledgement (`zur Kenntnis genommen`), not a separate consent.
-- Turnstile is not used. Invisible reCAPTCHA v3 is active with server-side verification.
-
-## Analytics And Cookie Consent
-
-- GA4 is required. Measurement ID: `G-QPX35L2ZGK`.
-- Google Analytics setup already exists: account `Losoma Gebäudeservice`, property `Losoma Website`, web stream `https://losoma.de`, timezone Germany/Berlin, currency EUR, industry `Immobilien`, size `Klein: 1 bis 10 Mitarbeiter`, goals `Leads generieren` + `Web- und/oder App-Traffic analysieren`.
-- Use direct `gtag.js` with Google Consent Mode v2. Do not add GTM unless requirements grow.
-- Default consent must be denied for `analytics_storage`, `ad_storage`, `ad_user_data`, and `ad_personalization`.
-- Grant only `analytics_storage` after the user enables/accepts `Statistik`; keep ads fields denied unless Google Ads is added later.
-- Do not load or activate GA4 before cookie consent. If `Statistik` is revoked, set consent denied and delete `_ga` / `_ga_*` cookies.
-- Cookie banner UI is implemented in `script.js`/`styles.css`; keep future edits aligned with the approved Figma direction and existing Client-First naming.
-- Approved consent UX: first layer `Ihre Privatsphäre ist uns wichtig` with `Alle ablehnen`, `Alle akzeptieren`, `Einstellungen`, no close icon before the first choice. Second layer: `Notwendige Cookies` disabled ON / `Immer aktiv`, `Statistik` OFF by default; `Auswahl speichern` is the secondary left button and `Alle akzeptieren` is the primary right button. Only the floating cookie icon reopens the second layer after a saved choice; there is no footer cookie button.
-- Floating cookie UI: button `44×44px`, icon `32×32px`, page-color background, ink icon, neutral hover. Desktop is bottom-left; tablet `≤1024px` and phone `≤560px` are bottom-right, with the panel aligned to the same side.
-
-## Google Account Transfer
-
-- Current Google Business Profile primary owner is `losoma@web.de`.
-- Managed Workspace account `maxim@losoma.de` exists and has access to Google Admin Console.
-- An invitation was sent to `maxim@losoma.de` as Google Business Profile `Inhaber`; last known status
-  is pending (`AUSSTEHEND`) and support case `2-2514000041594` is open. On 2026-07-30 Kushal from
-  Google support confirmed that the team is still investigating and will reply when more
-  information is available. Continue in the same email thread; do not open a duplicate case unless
-  Google closes the existing one without resolution.
-- Never delete or recreate the existing Business Profile to move accounts. Add the new account as
-  owner, accept, wait Google's required 7 days, transfer primary ownership, and keep the old account
-  as a temporary backup.
-- Workspace billing/payment verification succeeded; the paid period starts 2026-08-03. Never store
-  or expose payment details in repository files or handoff notes.
-- GA4 and Search Console are already configured in Maxim's account. Keep production Measurement ID
-  `G-QPX35L2ZGK`; do not restore the old ID or create another property without a separate reason.
-- Gmail for `losoma.de` is active: Google MX/SPF/DKIM are published and inbound/outbound delivery was
-  tested. `info@losoma.de` is an alias of `maxim@losoma.de`; direct delivery passed on 2026-07-30.
-  WEB.DE permanently forwards to `info@losoma.de` while retaining copies, and the recipient-side
-  confirmation was completed on 2026-07-30. Keep WEB.DE as backup.
-- The detailed source of truth and resume order is `GOOGLE_ACCOUNT_TRANSFER_CHECKLIST.md`.
-
-## SEO Rules
-
-- Production canonical domain is `https://losoma.de`.
-- `canonical` and `og:url` must use `https://losoma.de`.
-- `og:image` should be absolute before final production SEO QA.
-- `robots.txt` and `sitemap.xml` are live and Google Search Console processed all 15 sitemap URLs.
-- Search Console is managed through the `losoma.de` domain property under `maxim@losoma.de`.
-  Use URL Inspection for an exact canonical URL as the authoritative per-page check. The aggregate
-  Page indexing report can lag by several days, and a public `site:` search is only a secondary
-  observation, not proof of index status.
-- For a canonical URL reported as not indexed, first run `Live-URL testen`. Request indexing only
-  when the live result says the URL is available to Google. Count a request as submitted only after
-  Search Console explicitly confirms `Indexierung wurde beantragt`; a generic error dialog is not
-  success. Do not repeatedly retry after the same server/quota error. Keep the URL in the sitemap
-  and retry later.
-- Do not request indexing for redirects, 404 pages or duplicate URL variants. Fix or preserve the
-  intended redirect/canonical behavior instead. Resubmitting a sitemap does not guarantee indexing,
-  and a successful live test proves crawlability, not that Google will select the page for index.
-- Current Search Console snapshot from 2026-07-30: the 15-URL sitemap was resubmitted successfully;
-  `/hausmeisterservice` and `/grundreinigung` received confirmed manual indexing requests;
-  `/blog`, `/gewerbliche-reinigung`, `/industriereinigung` and `/fassaden-hoehenarbeiten` are
-  confirmed indexed. `/garten-landschaftspflege` and `/solaranlagenreinigung` passed live tests but
-  their request submissions returned Google's generic error. `/treppenhausreinigung` returned the
-  same request error. `/kontakt` and `/impressum` remain not indexed and were not retried after the
-  repeated error. Retry the five pending URLs later; do not resubmit already confirmed requests.
-- Every indexable page must keep one production canonical, `index, follow`, an absolute OG image,
-  and valid JSON-LD. Every non-home page requires `BreadcrumbList`.
-- Keep visible FAQ content as semantic HTML, but do not emit `FAQPage` JSON-LD. Google retired FAQ
-  rich results in May 2026 and removed the documentation in June 2026; `npm run audit:seo` enforces
-  the absence of this retired type.
-- Do not invent opening hours, coordinates, founding date or price range. Add them after Maxim
-  confirms the business facts. Add the Google Maps/Business Profile URL to `sameAs` after ownership
-  transfer and the final public profile URL are confirmed.
-- Instagram is confirmed at `https://www.instagram.com/losomagebaudeservice/` and is active in
-  every footer, the contact-page social block and homepage `sameAs`. Keep it on all 15 indexable
-  pages. Keep only the Facebook footer markup commented out until its real profile URL is confirmed;
-  do not activate placeholder links.
-- Preserve the structured-data matrix: homepage = `Organization` + `HomeAndConstructionBusiness`
-  + `WebSite` + `WebPage`; each of the 9 service pages = `WebPage` + `Service` +
-  `BreadcrumbList`; blog index = `CollectionPage` + `ItemList` + `BreadcrumbList`; article =
-  `WebPage` + `BlogPosting` + `BreadcrumbList`; contact and legal pages = their appropriate
-  `WebPage` subtype + `BreadcrumbList`. Keep entities connected with stable production `@id` URLs.
-- After every metadata or JSON-LD change, run `npm run audit:seo`. Before or immediately after a
-  production SEO release, validate representative homepage, service, blog index, article, contact
-  and legal URLs with the official Schema.org Validator. Errors must be zero; review every warning
-  rather than ignoring it. A Hostinger release additionally requires a dated remote backup,
-  production smoke checks and local/remote checksums for the deployed HTML files.
-- Blog/Einblicke is active. Keep `/blog` in the desktop header, footer navigation and burger menu
-  on every page. Six SEO articles are planned; only the published article may appear as a live card.
-- Article pages require one H1, sequential H2/H3 structure, semantic lists, unique metadata,
-  canonical/OG/Twitter fields, `BlogPosting`, `WebPage` and `BreadcrumbList` schema, plus processed
-  AVIF/WebP imagery with useful `alt`, `title`, width and height.
-- Use `SEO_RANKING_CHECKLIST.md` as the stable keyword-to-page map. Measure 28-day trends in
-  impressions, clicks, CTR and average position, filtered to Germany and checked by device; do not
-  treat a personalized manual Google search as authoritative ranking data.
-
-## Legal Rules
-
-- `impressum.html` and `datenschutz.html` use the shared `.legal-page` component.
-- Current public legal names: Maxim Soga / Alexandr Lozinschi; legal form: Einzelunternehmen. Final owner wording still needs registration/lawyer confirmation.
-- Confirmed current business address: `Falkenseer Chaussee 247C, 13583 Berlin`. There is no customer office at this address.
-- Datenschutz documents the current Hostinger → Google Apps Script → Sheet `Anfragen` + Gmail
-  flow, consent storage, consent-gated GA4 and active reCAPTCHA v3.
-- Hostinger and Google AVV/DPA status must be documented against the exact legal entity.
-- Do not assert that no DPO is required. Ask whether one has been appointed and obtain legal confirmation.
-- Keep legal facts synchronized with confirmed client answers before every production release.
-
-## Git And Safety
-
-- The worktree may contain user changes. Do not revert unrelated changes.
-- Do not use destructive git commands unless explicitly requested.
-- Keep changes scoped.
-- After finishing, summarize changed files and verification commands.
+- `CHECKLIST.md` contains only current facts, open tasks and explicit “do not repeat” decisions.
+- `SITE.md` contains current architecture and production state, not a historical diary.
+- Do not reintroduce completed checkbox history. Add a short current-state fact instead.
+- Closed PDFs, support answers and legal evidence belong in a private folder, not Git.
