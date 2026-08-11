@@ -1,10 +1,27 @@
 # LOSOMA — актуальный handoff и задачи
 
-Последнее обновление: 2026-08-06.
+Последнее обновление: 2026-08-11.
 
 Это единственная точка истины для текущего состояния и незавершённых задач. Завершённая история,
 переписка по шагам и старые чек-листы здесь не хранятся. Техническое состояние production описано
 в `SITE.md`; постоянные правила разработки — в `CLAUDE.md` и профильных файлах `docs/`.
+
+## 0. Handoff на закрытие сессии 2026-08-11
+
+- Production остаётся на release 2026-08-10; в этой завершающей сессии deploy не выполнялся.
+- Google Business Profile подтверждён и принадлежит только `maxim@losoma.de`; сайт и телефон
+  корректны, отдельного публичного email-поля в редакторе нет.
+- Search Console подтверждает 15 индексированных canonical URL. Заявка на переобход
+  `https://losoma.de/impressum` принята 2026-08-11; главная и `/kontakt` остались без принятой
+  заявки из-за ошибки Google. Не повторять до 2026-08-13 и затем отправлять только если сниппет или
+  сохранённая версия всё ещё устарели.
+- Из `index.html` удалён неактивный закомментированный макет команды с повторяющимися именами и
+  неподтверждёнными ролями; из `styles.css` удалены его неиспользуемые правила. Живая секция
+  отзывов не менялась; production не обновлялся.
+- Следующая содержательная работа начинается после получения клиентского пакета из раздела 6.
+  Самый быстрый путь к росту — сначала усилить страницы, уже получающие non-brand impressions,
+  параллельно исправляя GBP/citations/reviews; `/hausmeisterservice` остаётся стратегическим
+  направлением, но одним текстом local-pack gap не закрыть.
 
 ## 1. Обязательные ограничения
 
@@ -25,9 +42,12 @@
 ## 2. Текущее production-состояние
 
 - Production: `https://losoma.de` → Hostinger `domains/losoma.de/public_html`.
-- Последний release: legal update 2026-08-01 для `datenschutz.html` и `sitemap.xml`.
-- Rollback: `domains/losoma.de/losoma-legal-pre-20260801/`.
-- Release copy: `domains/losoma.de/releases/losoma-legal-20260801/`.
+- Последний release: legal/contact/Schema sync 2026-08-10 для `index.html`, `kontakt.html`,
+  `impressum.html`, `datenschutz.html` и `sitemap.xml`.
+- Rollback: `domains/losoma.de/losoma-legal-contact-pre-20260810/`.
+- Release copy: `domains/losoma.de/releases/losoma-legal-contact-20260810/`.
+- В левом блоке `/kontakt` рядом с LinkedIn опубликован Instagram
+  `https://www.instagram.com/losomagebaudeservice/` с существующими стилями секции.
 - Публичный и form email: `info@losoma.de`; `maxim@losoma.de` — Workspace login/admin и reserve
   sender.
 - Форма: browser → Hostinger PHP → reCAPTCHA v3 → Apps Script → Sheet `Anfragen` + Gmail.
@@ -35,25 +55,37 @@
   месяцев.
 - Production E2E формы, mail delivery, analytics consent, redirects, sitemap и 15 canonical URLs
   уже проверены; не повторять без новой причины.
+- Search Console на 2026-08-10 показывает 15 индексированных canonical URL; два исключённых URL —
+  штатные редиректы `http://losoma.de/` и `https://www.losoma.de/`.
+- JSON-LD повторно проверен на всех 15 страницах: 42 graph nodes, девять `Service`, общий provider
+  `https://losoma.de/#organization`; центральный `legalName` синхронизирован как `Maxim Soga`.
 - Все прежние rollback/release archives и старый WordPress/file/database backup сохранять до
   отдельного решения.
 
 ## 3. P0 — legal и privacy
 
-### Ответы Максима
+### Подтверждённые legal-данные
 
-Семь вопросов отправлены 2026-07-31 и остаются без ответа. Повторно не отправлять без новой причины.
+- Anbieter/Verantwortlicher и подтверждённое имя в GA4 DPA: `Maxim Soga`.
+- Публичная Geschäftsbezeichnung: `Losoma Gebäudeservice`.
+- Geschäftsadresse: `Falkenseer Chaussee 247C, 13583 Berlin, Deutschland`; на сайте она обозначена
+  как `kein Kundenbüro vor Ort`.
+- Публичные контакты: `info@losoma.de`, `+49 176 44434111`.
+- USt-IdNr.: `DE357950597`.
+- `maxim@losoma.de` используется только как закрытый Workspace/DPA/admin-контакт и не публикуется
+  на сайте.
+- Неподтверждённая Rechtsform и второй человек в Anbieter/Verantwortlicher не указываются.
 
-- [ ] Подтвердить официального владельца бизнеса и роль второго человека.
-- [ ] Подтвердить официальный business address и получение корреспонденции по адресу
-      `Falkenseer Chaussee 247C, 13583 Berlin`.
+### Открытые legal/privacy-факты
+
 - [ ] Сообщить применимые Registergericht/Registernummer, Handwerksrolle, Kammer, разрешения или
       подтвердить их отсутствие.
 - [ ] Перечислить дополнительные места хранения/получателей заявок кроме Gmail и Google Sheets.
-- [ ] Подтвердить необходимость обязательных телефона, email и полного имени.
+- [ ] Подтвердить business necessity обязательных телефона и полного имени в форме.
 - [ ] Подтвердить срок хранения закрытой заявки без заказа; текущий публичный максимум — 12 месяцев
       после закрытия.
 - [ ] Сообщить, где хранятся данные, договоры и счета после появления заказа.
+- [ ] Получить финальные немецкие формулировки и заключение специалиста по Германии.
 
 ### Hostinger owner-side evidence
 
@@ -68,28 +100,23 @@
 
 ### Google DPA/AVV
 
-- [ ] В Workspace Admin read-only записать статус, дату, организацию и контакты принятого
-      Data Processing Terms/CDPA.
-- [ ] Не принимать и не переоформлять CDPA до подтверждения правильного `Inhaber`/legal entity.
-- [ ] После ответа Максима сверить legal entity/contact details в GA4 data-processing terms; факт
-      принятия GA4 terms 2026-07-10 подтверждён.
+- `Zusatz zur Verarbeitung von Cloud-Daten` (Cloud Data Processing Addendum) принят 2026-08-10
+  аккаунтом `maxim@losoma.de` от имени `Losoma (losoma.de)`. Google показывает итоговый статус
+  `Am Aug 10, 2026 von maxim@losoma.de akzeptiert`; текущая опубликованная редакция помечена
+  `Current`, `Last modified September 20, 2022`.
+- Профиль организации: `Losoma`; Primary Administrator: `maxim@losoma.de`; Alternative Email:
+  `losoma@web.de`. Local representative и Datenschutzbeauftragter не указаны; GCP sharing
+  отключён.
+- Отдельная `Angabe zur Anwendbarkeit des EU-Datenschutzgesetzes` не принята: Google указывает,
+  что этот шаг предназначен для подпадающего под европейское право использования с billing address
+  вне EMEA. HIPAA BAA также не принята и для текущего сценария не требуется.
+- GA4 Data Processing Terms для аккаунта `Losoma Gebäudeservice` (`402094681`) приняты
+  2026-07-23. DPA details заполнены и повторно проверены 2026-08-10: `Firmenname` — `Maxim Soga`;
+  единственный `Primärer Kontakt` — Maxim Soga `<maxim@losoma.de>`, Falkenseer Chaussee 247C,
+  13583 Berlin, Deutschland.
+- Аккаунт не связан с отдельной Marketing Platform organization; интерфейс помечает эту связь как
+  опциональную (`bei Bedarf`), для текущего DPA-профиля она не требуется.
 - [ ] Передать специалисту Hostinger DPA, Workspace CDPA и GA4 terms вместе с фактическим data flow.
-
-### Следующее изменение legal-страниц
-
-- [ ] В `/impressum` заменить спорный блок `Maxim Soga / Alexandr Lozinschi` и
-      `Rechtsform: Einzelunternehmen` только подтверждёнными данными.
-- [ ] Подтвердить business address, формулировку `kein Kundenbüro vor Ort` и применимые
-      регистрационные сведения.
-- [ ] Сохранить `info@losoma.de`, телефон `+49 176 44434111` и USt-IdNr. `DE357950597`, если не
-      появится подтверждённого изменения.
-- [ ] В `/datenschutz` синхронизировать Verantwortlicher, processors, поля, сроки и системы с
-      подтверждённой фактической схемой.
-- [ ] При изменении полей синхронно обновить все HTML-формы, PHP validation, Apps Script/Sheet
-      mapping и Datenschutzerklärung.
-- [ ] Получить финальные немецкие формулировки и заключение специалиста по Германии.
-- [ ] После утверждения обновить `Stand` и sitemap `lastmod`, выполнить отдельный legal release и
-      проверить обе страницы на desktop/mobile и keyboard navigation.
 
 ### Privacy operations
 
@@ -105,35 +132,23 @@
 ### Текущее состояние
 
 - Existing profile: `LOSOMA Gebäudeservice`, сайт `losoma.de`, CID `3635333874850561864`.
-- Primary Owner: `losoma@web.de`.
-- `maxim@losoma.de` — активный внутренний Google Workspace account компании.
-- Support case: `2-2514000041594`; не создавать новый case.
-- Community thread: `https://support.google.com/business/thread/457103263?hl=de`.
-- 2026-08-05 старое pending invitation было отозвано один раз и создано заново с ролью `Inhaber`;
-  при вводе явно выбрана нижняя подсказка связанного Google-аккаунта.
-- Письмо не пришло в Inbox/Spam/All Mail, приглашение не видно в Business Profile Manager, а у
-  Primary Owner оно остаётся `AUSSTEHEND`.
-- Результат контролируемого теста передан Jens и в существующий support case.
-- Agency route не используется: нет Agentur-Organisation, Nutzergruppe или Standortgruppe. Jens
-  это подтверждено 2026-08-06 без публикации адресов аккаунтов.
+- Primary Owner и единственный подтверждённый управляющий аккаунт: Maxim Soga
+  `<maxim@losoma.de>`.
+- Передача Primary Ownership и удаление прежнего доступа `losoma@web.de` подтверждены 2026-08-10;
+  старый Google Account удалён, отдельный почтовый ящик WEB.DE сохранён для forwarding.
+- Профиль остаётся существующим и подтверждённым; повторная верификация и новый профиль не нужны.
+- 2026-08-11 профиль повторно проверен в Google Search: отдельного поля публичного email в
+  редакторе Business Profile нет. Телефон `0176 44434111`, сайт `https://losoma.de/` и зона
+  обслуживания Berlin указаны корректно; часы по-прежнему не заполнены. Неподтверждённые поля не
+  менялись.
 
 ### Текущие действия
 
-- [ ] Проверять Community, существующую support chain, Gmail/Business Profile Максима и статус у
-      Primary Owner только после нового уведомления или в согласованную контрольную точку.
-- [ ] Дождаться содержательного ответа Jens/support о technical/manual reset либо официальном
-      прямом способе принятия.
-- [ ] До технического изменения не отзывать и не отправлять приглашение повторно, не менять
-      account structure, не удалять существующий профиль и не создавать дубликат.
-- [ ] Не отправлять support третью копию того же видео; отвечать только на новое содержательное
-      действие или запрос технического специалиста.
-- [ ] После исправления принять приглашение под `maxim@losoma.de` и подтвердить управление именно
-      существующей карточкой.
-- [ ] Выдержать 7 полных дней после принятия, затем назначить `maxim@losoma.de` Primary Owner.
-- [ ] Оставить `losoma@web.de` резервным Owner на 2–4 недели и отдельно решить дальнейшую роль.
-
-Удаление текущего профиля не является обходным путём: оно не гарантирует исчезновение карточки из
-Search/Maps, потребует повторной верификации и создаёт риск duplicate.
+- Открытых задач по передаче ownership или удалению старого доступа нет.
+- Не повторять закрытый invitation/support workflow и не создавать новый Business Profile без
+  новой подтверждённой проблемы.
+- Будущие изменения пользователей и ownership выполнять только из `maxim@losoma.de` по отдельной
+  прямой задаче.
 
 ## 5. Текущие аккаунты и доступы
 
@@ -150,40 +165,123 @@ Search/Maps, потребует повторной верификации и с�
 - SSH: один проверенный deploy key.
 - Workspace billing исправлен; не менять user/alias/plan и не открывать новый billing case без
   фактического начисления или расхождения в Admin.
-- [ ] Проверить, существуют ли Google Ads, Merchant Center или другие бизнес-сервисы, которым нужен
-      доступ `maxim@losoma.de`.
+- Google Ads не используется; Merchant Center не подключался и не используется. Это подтверждено
+  владельцем 2026-08-10; отдельная проверка этих сервисов сейчас не требуется.
 
 ## 6. P1/P2 — SEO, Schema и контент
 
-### Операционные проверки
+### Зафиксированный baseline
 
-- [ ] После стабильной работы SPF/DKIM проверить DMARC и только затем постепенно усиливать policy.
-- [ ] Позже повторить indexing request только для canonical `/treppenhausreinigung`; считать
-      успехом только явное `Indexierung wurde beantragt`.
-- [ ] `/hausmeisterservice` мониторить без повторной отправки до новой содержательной причины.
-- [ ] Через сопоставимый период проверить Search Console: coverage, queries, clicks, impressions,
-      CTR и average position отдельно от брендового `losoma`.
-- [ ] Опционально решить, нужен ли Bing Webmaster Tools.
+- Базовый ranking snapshot снят 2026-08-10 по данным Search Console до 2026-08-08. Для Германии
+  за 22 июля — 8 августа: 31 impression, 4 clicks, CTR 12,9%, average position 51,3. Google раскрыл
+  восемь запросов; часть низкочастотных запросов скрыта по privacy threshold. Брендовый `losoma`
+  занимает average position 1,2; раскрытые non-brand запросы находятся на позициях 79–105.
+- За последние доступные семь дней по Германии: 15 impressions, 1 click, CTR 6,7%, average
+  position 62,4. Раскрытые non-brand запросы: `gewerbliche reinigung berlin` — 92,
+  `gewerbliche reinigungsmaschinen berlin` — 79, длинный запрос про Reinigungslösungen — 93,
+  `böden professionell reinigen berlin` — 98, `fassadenreinigung hochhaus berlin` — 100.
+- В отдельном Search Console report по generative AI за 22 июля — 8 августа зафиксированы четыре
+  impressions, из них две в Германии; видимы главная и `/kontakt`, но Google не раскрывает тексты
+  AI-запросов и позиции. Контрольный live AI-ответ по выбору Hausmeisterservice + Gebäudereinigung
+  для Wohn-/Gewerbeimmobilien в Berlin Losoma не упомянул.
+- Неперсонализированная live-выдача Google для Berlin 2026-08-10: `hausmeisterservice berlin` —
+  Losoma отсутствует в первых 100 organic results.
+- Актуальный top-10/direct-provider срез по `hausmeisterservice berlin` добавлен в
+  `docs/COMPETITOR_SERVICE_RESEARCH_2026-08-03.md`. Главные gaps Losoma: service-specific proof,
+  точный состав/исключения, фактический процесс визита и отчётности, reviews, citations и GBP.
+- Брендовая выдача 2026-08-10 показывает старые внешние citations: Gelbe Seiten с `Soga Maxim,
+  Lozinschi Alexandr` и Berlin-Moabit, а также старое имя `Losoma Facility & Gebäudeservice` на
+  Locanto. Сайт, GBP и публичный email уже исправлены; старые внешние записи нужно обновлять, а не
+  возвращать их данные на сайт.
+- 2026-08-11 в URL Inspection для канонического `https://losoma.de/impressum` Google явно
+  подтвердил `Indexierung wurde beantragt`; URL добавлен в приоритетную очередь обхода. Главная и
+  `/kontakt` получили общую ошибку и не считаются отправленными. Обновление сниппета не мгновенно.
 
-### Факты для LocalBusiness/Service Schema
+### Проверка наполнения 2026-08-11
+
+- Техническая SEO-база исправна: `npm run audit:seo` проходит, в sitemap 15 из 15 canonical URL;
+  title, description, canonical, H1 и JSON-LD присутствуют.
+- Девять service pages построены почти одним шаблоном: примерно 680–779 видимых слов, пять H2 и
+  шесть FAQ на страницу. Объём достаточен, но повторяющаяся структура и общие формулировки слабо
+  доказывают конкретный способ работы Losoma.
+- Первый H2 на каждой service page является длинным абзацем, а не сканируемым заголовком. Ещё один
+  длинный H2 описывает начало продажи, но не реальный процесс выполнения услуги.
+- В тексте услуг нет контекстных ссылок между связанными страницами: 18 service links в каждом
+  файле находятся только в mobile menu и footer.
+- H1 не содержит Berlin на `/hausmeisterservice`, `/fassaden-hoehenarbeiten` и
+  `/solaranlagenreinigung`, хотя metadata и коммерческий intent локальные.
+- Не хватает уникальных блоков `что входит / опции / не входит`, периодичности, факторов цены,
+  обычного рабочего визита, отчётности, кейса, собственных фотографий результата и проверяемых
+  references. Именно эти gaps чаще всего отличают Losoma от top-10.
+- На `/fassaden-hoehenarbeiten` упомянуты Baum-/Astarbeiten, а на нескольких страницах — конкретные
+  методы и типы объектов. До усиления текста клиент должен подтвердить, что Losoma действительно
+  выполняет это своими силами или через партнёра; неподтверждённое следует убрать.
+- Запрос `gewerbliche reinigungsmaschinen berlin` имеет другой intent — поиск оборудования. Не
+  оптимизировать под него service page, несмотря на impression.
+
+### Приоритеты для максимально быстрого роста
+
+| Приоритет | URL/канал | Почему сейчас | Что нужно сделать |
+|---|---|---|---|
+| P0 | GBP + citations + reviews | local pack лидеры превосходят Losoma прежде всего отзывами и локальным entity trust | подтвердить часы/categories/services/service area, добавить реальные фото, исправить Gelbe Seiten/Locanto, запустить честный review process |
+| P1 | `/gewerbliche-reinigung` | уже есть релевантные impressions по `gewerbliche reinigung berlin` | раскрыть реальные типы объектов, зоны, график, контроль качества, exclusions, расчёт и один кейс |
+| P1 | `/fassaden-hoehenarbeiten` | уже есть impression по `fassadenreinigung hochhaus berlin`; H1 не локализован | подтвердить доступ/высоту/безопасность/материалы и Baum-/Astarbeiten, затем усилить H1, состав, процесс и proof |
+| P1 | `/grundreinigung` | запросы про профессиональную очистку полов уже видны около позиции 98 | описать покрытия, загрязнения, методы, подготовку, exclusions, результат и факторы цены |
+| P2 | `/hausmeisterservice` | стратегический основной intent, но Losoma пока вне top-100 | совместить глубокую service page с GBP, reviews, citations, отчётностью и реальным кейсом |
+| P3 | остальные пять услуг + blog | расширяют topical authority после основных страниц | обновлять только после получения собственной фактуры; не создавать массовые district pages |
+
+### Пакет данных, который нужно получить от клиента
+
+- [ ] Реальные opening hours, service area и подтверждённые primary/additional GBP categories.
+- [ ] Для четырёх приоритетных услуг: 5–8 базовых работ, options, exclusions и работы через
+      Fachbetrieb/партнёра.
+- [ ] Типы объектов, минимальный/типичный объём, периодичность, доступ/ключи, порядок визита,
+      контроль качества, отчётность и реакция на проблему.
+- [ ] Факторы цены и данные, необходимые для расчёта; без выдуманного прайса.
+- [ ] По одному реальному обезличенному кейсу: тип объекта, задача, процесс, результат и разрешение
+      на публикацию.
+- [ ] Реальные фотографии до/после, команды или процесса с правом публикации; stock images не
+      использовать как доказательство выполненных работ.
+- [ ] Подтверждённые references, страховка, сертификаты и квалификации — только если существуют и
+      их можно публично назвать.
+- [ ] Список реальных клиентов, которым допустимо отправить ссылку на отзыв; без покупки,
+      вознаграждения и навязывания ключевых слов.
+
+### Реализация на сайте и для AI-поиска после получения фактов
+
+- [ ] На каждой приоритетной странице дать в первых 40–70 словах прямой ответ: кто, какую услугу,
+      для каких объектов и где выполняет.
+- [ ] Заменить paragraph-H2 короткими предметными H2 и раскрыть под ними состав, процесс, частоту,
+      exclusions, факторы цены, доказательство и CTA.
+- [ ] Переписать FAQ из общих определений в реальные вопросы клиента: доступ, сроки реакции,
+      отчётность, замена сотрудника, допработы, безопасность и расчёт после осмотра.
+- [ ] Добавить контекстные внутренние ссылки между коммерческими страницами и статьями с
+      объяснением связи, а не оставлять перелинковку только в меню/footer.
+- [ ] Синхронизировать видимый текст, metadata, `Service` JSON-LD, GBP и citations; не добавлять
+      `FAQPage` Schema и не публиковать неподтверждённые часы, цены, рейтинги или обещания.
+- [ ] Расширить `/blog/hausmeister-vs-externer-spezialist` и затем подготовить материалы про состав
+      Hausmeisterservice, факторы стоимости и checklist для Hausverwaltung. Для AI-intents важнее
+      ясные ответы и собственные доказательства, чем искусственное повторение ключей.
+
+### Schema, social metadata и контроль
 
 - [ ] Подтвердить coordinates, address, hours, реальные фотографии, price range и founding date.
 - [ ] Добавлять только подтверждённые факты; затем проверить JSON-LD через Rich Results Test и
       Schema Markup Validator.
-- [ ] Добавить `og:site_name`, Twitter Card, размеры OG image и корректные alt.
+- `og:site_name` уже присутствует на всех 15 страницах; закрытую задачу не повторять.
+- [ ] Добавить Twitter Card на 13 страниц, где её ещё нет, и размеры OG image на все 15 страниц;
+      повторно проверить реальные alt-тексты при замене изображений.
 - [ ] Проверить field Core Web Vitals после появления достаточных CrUX data.
+- [ ] После 2026-08-13 при необходимости повторить indexing request только для изменённых
+      canonical `/` и `/kontakt`; считать успехом только явное `Indexierung wurde beantragt`.
+- [ ] Первые 6–8 недель после контентного release еженедельно сравнивать одинаковые Germany / 7-day
+      Search Console срезы: non-brand impressions, disclosed queries, clicks, CTR, page position и
+      generative-AI impressions. Не оценивать результат по одному ручному поиску.
+- [ ] Опционально решить, нужен ли Bing Webmaster Tools.
+- [ ] После стабильной работы SPF/DKIM проверить DMARC и только затем постепенно усиливать policy.
 
-### Отложенный контент
-
-Не начинать без отдельного возвращения пользователя к контентному этапу. Исследование конкурентов и
-вопросы по девяти услугам сохранены в `docs/COMPETITOR_SERVICE_RESEARCH_2026-08-03.md`.
-
-- [ ] Сначала собрать подтверждённые факты/фотографии/кейсы/FAQ для `/grundreinigung` и
-      `/hausmeisterservice`, затем для остальных приоритетных услуг.
-- [ ] Подготовить немецкие Title, H1, Meta Description, вводный ответ, состав/исключения, процесс,
-      частоту, факторы цены, кейс, FAQ и внутренние ссылки.
-- [ ] Не переносить чужие услуги, методы, сертификаты, цифры или обещания; всё неподтверждённое
-      маркировать `[нужно подтверждение]`.
+Полный top-10 срез и вопросы по девяти услугам сохранены в
+`docs/COMPETITOR_SERVICE_RESEARCH_2026-08-03.md`; копировать факты конкурентов нельзя.
 
 ## 7. Фактическая privacy-карта формы
 

@@ -2,6 +2,9 @@
 
 Дата проверки: 3 августа 2026 года.
 
+Дополнение по текущей выдаче `hausmeisterservice berlin`: 10 августа 2026 года.
+Проверка фактического наполнения девяти service pages: 11 августа 2026 года.
+
 ## Зачем нужен этот файл
 
 Цель исследования — понять, какой минимальный набор реальных фактов нужен для усиления девяти сервисных страниц Losoma. Это не список формулировок для копирования и не источник фактов о Losoma. Любое утверждение на нашем сайте должно сначала подтвердить руководство.
@@ -325,6 +328,157 @@ Losoma не нужен такой объём контента. Стоит взя
 
 Лучший переносимый паттерн — 3–6 вопросов FAQ, составленных из реальных возражений клиента. Не стоит копировать массовые региональные страницы или писать неподтверждённые счётчики, сроки существования и численность команды.
 
+## Актуальный срез топ-10 по `hausmeisterservice berlin`
+
+### Методика
+
+- Проверена неперсонализированная выдача Google для Германии; интерфейс определил регион Berlin.
+- Запрос: `hausmeisterservice berlin`, дата среза: 10 августа 2026 года.
+- Выдача смешивает рекламу, каталоги, local pack и обычные organic results. Реклама и каталоги
+  исключены. В выборку вошли десять прямых поставщиков услуг, видимых на первой странице в organic
+  results или local pack.
+- Это не постоянные места 1–10: состав и порядок модулей меняются. Цель среза — понять, какие
+  сигналы объединяют прямых конкурентов, которых Google уже считает релевантными запросу.
+
+### Сводная таблица
+
+| Конкурент | Где виден | Что помогает занимать выдачу | Сильнее Losoma | Слабость / урок |
+|---|---|---|---|---|
+| RAT Hausmeisterservice | первый прямой organic provider; также local pack | exact-intent title/H1, 18 тыс. знаков видимого текста, перечень услуг и пакетов, 8-шаговый процесс, FAQ, references, Berlin-wide coverage, документация и compliance | значительно больше конкретики, вариантов услуги и операционных доказательств | часть обещаний очень широкая; Losoma должна брать структуру, а не копировать неподтверждённые 24/7, ISO, страховку или технические работы |
+| Berliner Hausmeisterteam | второй прямой organic provider | exact-match brand/domain, Berlin в title и тексте, компактный список из десяти связанных услуг, локальная история домена | намного яснее перечисляет, что можно заказать | почти нет процесса, FAQ, доказательств и Schema `Service`; показывает силу точной локальной релевантности и внешнего доверия |
+| Piepenbrock | organic result | сильный национальный домен, отдельная Berlin landing page, преимущества, success stories, references и локальный контакт | бренд, ссылки, реальные истории клиентов и широкий trust layer | контент страницы не очень глубокий, FAQ и подробный процесс отсутствуют; Schema слабее Losoma |
+| Dustlesservice | organic result | точное вхождение `Hausmeisterservice Berlin Mitte` в title/H1, блоки опыта, клиентов и обслуживаемых объектов, FAQ и сеть локальных страниц | сильнее social proof и географическая специализация | районная стратегия легко превращается в thin content; Losoma не должна создавать районные страницы без реальных объектов и уникальных фактов |
+| 1-2-3 Gebäudemanagement | organic result | точная landing page, ясный список Hausmeisterservice/Reparatur/Garten/Winterdienst/Treppenhaus, FAQ, партнёры и форма предложения | лучше раскрывает состав и смежные услуги | два H1, мало доказательств и процесса; технически страница слабее Losoma, но точнее отвечает на коммерческий запрос |
+| MDL Unternehmensgruppe | organic informational result | большой материал про задачи, преимущества, Eigenverwaltung, стоимость и выбор Hausmeisterservice; поддерживает коммерческую тему информационным контентом | гораздо полнее покрывает вопросы до покупки | статья многословна и содержит много соседних тем; Losoma нужен компактный экспертный кластер, а не массовые общие статьи |
+| Hausservice Gehler / Wir lieben Ihre Immobilie | organic result и local pack | узнаваемая локальная марка, exact service wording, `LocalBusiness` Schema, длительная локальная история и отзывы в Google | сильнее локальное доверие и накопленные внешние сигналы | сама страница очень тонкая: около 1,3 тыс. знаков, почти без процесса, FAQ и доказательств; один хороший текст не заменит GBP/reviews/citations |
+| Lieblingsort | organic result | чёткая специализация на nachhaltige/ökologische Reinigung, объединение Reinigung и Hausmeisterservice, именованные клиентские примеры и references | заметное позиционирование и реальные клиенты | шире про уборку, чем про Hausmeisterservice; урок — Google и люди лучше запоминают конкретное отличие, чем общую «надёжность» |
+| HST Gebäudemanagement | верх local pack | подтверждённая локальная карточка, точная категория, Berlin, длинные часы работы и 250 reviews в срезе | огромный review/local-authority gap | сайт технически слабый: title `HST-Berlin`, meta `HST Berlin`, общая homepage; высокий local rank обеспечивается не качеством страницы |
+| H&A Hausservice | local pack | точная локальная категория, Berlin address, 32 reviews в срезе и понятное service-brand name | сильнее GBP/reviews и local citations | homepage с title `Home` и общим текстом; ещё одно доказательство, что local pack нельзя выиграть только on-page SEO |
+
+### Срез Losoma относительно топа
+
+Что уже сильнее или не хуже большинства:
+
+- уникальный Title и meta description с `Hausmeisterservice` и Berlin;
+- один H1, canonical и индексируемый clean URL;
+- `WebPage` + `Service` + `BreadcrumbList`, чего нет у большинства прямых лидеров;
+- понятная граница между наблюдением/сообщением и специализированным ремонтом;
+- шесть видимых FAQ, форма и CTA на Objektbesichtigung;
+- корректная ориентация на Hausverwaltungen и Wohn-/Gewerbeimmobilien.
+
+Что мешает конкурировать за топ:
+
+- H1 не содержит Berlin, хотя страница целевая локальная;
+- первый H2 фактически является длинным абзацем; тему трудно быстро просканировать человеку и
+  поисковой системе;
+- нет отдельного конкретного блока `Leistungen`: какие зоны проверяются, что выполняется регулярно,
+  что возможно дополнительно и что не входит;
+- процесс из трёх шагов описывает продажу услуги, но не показывает обычный визит, контроль,
+  сообщение о проблеме и подтверждение выполненной работы;
+- FAQ в основном описывает категорию вообще, а не фактический способ работы Losoma;
+- на странице нет собственного кейса, именованного типа объекта, фото результата, примера отчёта
+  или другого service-specific proof;
+- подтверждённые общие proof points `7+ Jahre am Markt` и `70+ Objekte` не связаны на этой странице
+  с Hausmeisterservice и не заменяют конкретный пример;
+- нет блока факторов цены, вариантов периодичности и данных, нужных для расчёта;
+- Google уже индексирует страницу, но live-срез 10 августа 2026 года не нашёл Losoma в первых 100
+  results по `hausmeisterservice berlin`; проблема сейчас не в Schema или индексации, а в
+  содержательном и локальном авторитете.
+
+### Дополнительный local SEO gap Losoma
+
+Брендовая выдача `LOSOMA Gebäudeservice Berlin` показала существующий подтверждённый Business
+Profile с категорией `Hausmeisterservice`, сайтом, телефоном и service area Berlin. Одновременно:
+
+- публичная карточка не показывает подтверждённые opening hours;
+- в срезе не отображалось публичное число reviews/rating, тогда как прямые local-pack конкуренты
+  показывали от 11 до 250 reviews;
+- Google всё ещё показывает старую внешнюю citation Gelbe Seiten с `Soga Maxim, Lozinschi Alexandr`
+  и Berlin-Moabit, которая не совпадает с текущими подтверждёнными business facts;
+- в выдаче остаётся старое упоминание `Losoma Facility & Gebäudeservice` на Locanto;
+- старый snippet Impressum ещё показывал `maxim@losoma.de`, хотя текущий публичный email уже
+  `info@losoma.de`; 11 августа 2026 года Search Console явно принял заявку на переобход
+  канонического `/impressum`, обновление сниппета ожидается на стороне Google.
+
+Исправлять внешние профили нужно только после проверки ownership и без создания дублей. Opening
+hours, категории, адрес, service area, photos и услуги в GBP можно дополнять только подтверждёнными
+фактами.
+
+### Что нужно сделать, чтобы бороться за топ
+
+#### P0 — локальное доверие
+
+1. Проверить и привести к одному подтверждённому NAP/business identity Google Business Profile,
+   сайт, Gelbe Seiten, Locanto и другие существующие citations; не создавать новые дубли.
+2. После ответа владельца заполнить реальные opening hours и проверить primary/additional
+   categories, services и service area в GBP.
+3. Добавить в GBP реальные фотографии объектов и работы, а не stock images.
+4. Ввести постоянный корректный процесс получения отзывов от реальных клиентов без покупки,
+   подарков и keyword stuffing; отвечать на каждый отзыв содержательно.
+5. Получить локальные подтверждающие ссылки/упоминания от реальных партнёров, поставщиков,
+   отраслевых объединений и обслуживаемых объектов, если публикация разрешена.
+
+#### P1 — усиление `/hausmeisterservice`
+
+1. Уточнить H1 естественной формулировкой с Berlin и заменить длинный paragraph-H2 коротким
+   заголовком плюс обычный вводный текст.
+2. Добавить 5–8 подтверждённых пунктов базовой услуги, отдельные options и exclusions.
+3. Показать обычный визит: доступ → обход → согласованные действия → фиксация отклонений → сообщение
+   Hausverwaltung → согласование следующего шага.
+4. Честно описать, что сотрудники делают сами, что только проверяют и что передают Fachbetrieb.
+5. Добавить частоту/варианты обслуживания и факторы цены без выдуманного прайса.
+6. Опубликовать один собственный обезличенный кейс с типом объекта, задачей, процессом, результатом
+   и реальными фотографиями; при наличии показать пример сообщения или отчёта без клиентских данных.
+7. Переписать FAQ на фактические вопросы о Losoma: время реакции, доступ/ключи, отчётность,
+   дополнительные работы, замена сотрудника, страховка и расчёт после осмотра — только после
+   подтверждения ответов.
+8. Связать страницу внутренними ссылками с Treppenhausreinigung, Winterdienst, Gartenpflege и
+   релевантной статьёй, не смешивая состав разных услуг.
+
+#### P2 — topical authority
+
+1. Расширить существующую статью `/blog/hausmeister-vs-externer-spezialist` и явно связать её с
+   коммерческой страницей.
+2. После получения фактов подготовить компактные материалы: состав Hausmeisterservice, факторы
+   стоимости, checklist для Hausverwaltung и границы между Hausmeister и Fachbetrieb.
+3. Не создавать массовые district pages. Отдельная районная страница оправдана только реальными
+   объектами, уникальными фото, логистикой и отличающимся содержанием.
+
+#### P3 — проверка результата
+
+1. После публикации запросить indexing только для изменённого canonical URL, если Search Console не
+   переобойдёт страницу самостоятельно.
+2. Еженедельно первые 6–8 недель сравнивать Germany impressions, disclosed queries, page position и
+   AI impressions с baseline 2026-08-10; не оценивать результат по одному ручному поиску.
+3. Отдельно следить за `hausmeisterservice berlin`, `hausmeisterdienst berlin`, `objektbetreuung
+   berlin`, запросами для Hausverwaltung и разговорными AI-intents.
+
+Попадание в топ нельзя гарантировать одним обновлением страницы: HST и H&A показывают, насколько
+сильно local pack зависит от GBP, reviews и citations, а Piepenbrock — от доменного авторитета и
+реальных references. Практический путь Losoma — сочетать сильную service page, подтверждённые кейсы,
+чистый local entity footprint и постепенно накапливаемое доверие.
+
+### Проверка наполнения всех service pages 11 августа 2026 года
+
+- Все девять страниц проходят технический SEO-аудит и имеют отдельные title, description,
+  canonical, H1, `WebPage`, `Service` и `BreadcrumbList`.
+- Видимый объём составляет примерно 680–779 слов, но каждая страница использует почти одинаковый
+  каркас из пяти H2 и шести FAQ. Первый и третий H2 — длинные предложения/абзацы вместо коротких
+  предметных заголовков.
+- В основном тексте нет контекстных ссылок на связанные услуги или статью: service links находятся
+  только в mobile menu и footer.
+- В H1 нет Berlin у `/hausmeisterservice`, `/fassaden-hoehenarbeiten` и
+  `/solaranlagenreinigung`, хотя локальный intent присутствует в metadata.
+- Самый быстрый органический тест — сначала улучшить страницы, уже получающие релевантные
+  impressions: `/gewerbliche-reinigung`, `/fassaden-hoehenarbeiten` и `/grundreinigung`.
+  `/hausmeisterservice` остаётся стратегическим приоритетом, но требует одновременной работы с GBP,
+  reviews, citations и реальным service-specific proof.
+- Impression по `gewerbliche reinigungsmaschinen berlin` имеет товарный/оборудовательный intent и
+  не является основанием переписывать коммерческую страницу услуг под этот запрос.
+
+Точный порядок, пакет фактов от клиента и критерии измерения перенесены в единый handoff
+`CHECKLIST.md`, раздел 6.
+
 ## Сравнение JSON-LD
 
 | Сайт | `Organization` | `WebPage` | `BreadcrumbList` | `Service` | `FAQPage` | Вывод |
@@ -472,6 +626,17 @@ Losoma не нужен такой объём контента. Стоит взя
 
 ## Основные источники
 
+- Текущий Google SERP `hausmeisterservice berlin`, Germany/Berlin, 2026-08-10.
+- RAT Hausmeisterservice: <https://rat-hausmeisterservice.de/>
+- Berliner Hausmeisterteam: <https://berliner-hausmeisterteam.de/>
+- Piepenbrock Hausmeisterservice Berlin: <https://www.piepenbrock.de/standorte/berlin/facility-management-berlin/hausmeisterservice-berlin/>
+- Dustlesservice Berlin Mitte: <https://dustlesservice.de/hausmeisterservice-berlin-mitte/>
+- 1-2-3 Gebäudemanagement: <https://1-2-3gm.de/hausmeisterservice-berlin/>
+- MDL Hausmeisterservice Berlin: <https://mdl-group.de/welche-aufgaben-uebernimmt-ein-hausmeisterservice-in-berlin/>
+- Hausservice Gehler: <https://wirliebenihreimmobilie.de/>
+- Lieblingsort: <https://www.lieblingsort.info/>
+- HST Gebäudemanagement: <https://www.hst-berlin.de/>
+- H&A Hausservice: <https://www.ha-hausservice.de/>
 - KGR: <https://www.kgr-gmbh.de/unsere-leistungen/>
 - KGR для управляющих компаний: <https://www.kgr-gmbh.de/unsere-leistungen/leistungen-f%C3%BCr-hausverwaltungen/>
 - KGR Grund- und Sonderreinigung: <https://www.kgr-gmbh.de/unsere-leistungen/grund-und-sonderreinigung/>

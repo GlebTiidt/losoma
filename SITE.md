@@ -1,6 +1,6 @@
 # Losoma — current technical state
 
-Последнее обновление: 2026-08-06.
+Последнее обновление: 2026-08-10.
 
 Все незавершённые действия, account/legal evidence и release gate находятся только в
 `CHECKLIST.md`.
@@ -18,15 +18,22 @@
 
 ## Current production release
 
-- Latest release: targeted legal update 2026-08-01.
-- Scope: `datenschutz.html`, `sitemap.xml` only.
-- Datenschutzerklärung: Hostinger DPA-in-Terms wording, actual Sheet/Apps Script sharing, public
-  technical role of the form web-app endpoint, `Stand: 1. August 2026`.
-- Rollback: `domains/losoma.de/losoma-legal-pre-20260801/`.
-- Release copy: `domains/losoma.de/releases/losoma-legal-20260801/`.
+- Latest release: targeted legal/contact/Schema sync 2026-08-10.
+- Scope: `index.html`, `kontakt.html`, `impressum.html`, `datenschutz.html`, `sitemap.xml` only.
+- Impressum and Datenschutzerklärung identify Maxim Soga as the public provider/controller and
+  `Losoma Gebäudeservice` as the business name; the private DPA/admin address stays unpublished.
+  Datenschutzerklärung has `Stand: 10. August 2026`.
+- The left contact block now shows the confirmed Instagram profile beside LinkedIn.
+- Homepage Organization Schema uses `legalName: Maxim Soga`; all 15 JSON-LD graphs were parsed and
+  their shared organization/provider references were checked.
+- Rollback: `domains/losoma.de/losoma-legal-contact-pre-20260810/`.
+- Release copy: `domains/losoma.de/releases/losoma-legal-contact-20260810/`.
 - Live SHA-256:
-  - `datenschutz.html`: `06c6db65d269d767b3389af612ab293cec08c12c0eb33aa0becc9749188409b2`;
-  - `sitemap.xml`: `0440dc6cca4052101e78eb4f0b09691ca6429738f16692115254ec2076897582`.
+  - `index.html`: `88fc1b9867e2c559d431425e1ea6d5fafad1a3356c18c4b0d61039d745294584`;
+  - `kontakt.html`: `11066f97c516b2ed272ca5499556dcaecbd576e48de4af68f678633b77d77939`;
+  - `impressum.html`: `cbe1f04b4378c74c810f0c191947ac42013a131b9d81a1361eb1c812372a4802`;
+  - `datenschutz.html`: `87b7271a50550f863647fe20a0fc9931f59b0630f78bd5d1b7025c16c13f1d32`;
+  - `sitemap.xml`: `722cf5d8e1a7a4f262dc389835fe1445813657cf7ee52564b4e057f674cf04bb`.
 - Build, strict class audit, SEO audit, JS syntax, diff check, server hashes and live HTTPS markers
   passed. No real form submission was made.
 
@@ -58,21 +65,25 @@
 - Workspace has one active user, Maxim Soga `<maxim@losoma.de>`, Super Admin.
 - Workspace plan: Google Workspace Business Starter, Flexible Plan, one paid license; there is no
   Standard charge or annual commitment.
+- Google Workspace Cloud Data Processing Addendum was accepted by `maxim@losoma.de` on 2026-08-10
+  for `Losoma (losoma.de)`.
 - `info@losoma.de` is a free alias of the same user, not a second paid mailbox.
 - Sheet, Apps Script, GA4 and Search Console are owned/administered only by Maxim.
-- Google Business Profile primary owner remains `losoma@web.de`. One correctly reissued Owner
-  invitation to `maxim@losoma.de` remains pending without email/UI delivery; existing support case
-  and Community escalation are awaiting a substantive technical response.
+- GA4 Data Processing Terms were accepted on 2026-07-23. Its DPA details identify `Maxim Soga` as
+  the company name and sole primary contact at `<maxim@losoma.de>`, using the confirmed Berlin
+  business address.
+- Google Business Profile `LOSOMA Gebäudeservice` is verified and owned only by Maxim Soga
+  `<maxim@losoma.de>` as Primary Owner. Ownership transfer and removal of the former
+  `losoma@web.de` access were confirmed on 2026-08-10; the former Google Account was then deleted.
+  The separate WEB.DE mailbox remains in use for the forwarding setup described above.
 - Hostinger delegated access is `Manage Services & Billing`; confidential owner-side records must
   be requested by Alexandr after direct owner login.
 - SSH has one verified deploy key.
 
 ## SEO and performance
 
-- `robots.txt` and sitemap are live; Search Console processed 15 canonical URLs.
-- Only `/treppenhausreinigung` is eligible for a later indexing-request retry; the previous request
-  did not receive an explicit success confirmation.
-- `/hausmeisterservice` is monitored but should not be resubmitted without a new reason.
+- `robots.txt` and sitemap are live. Search Console reports all 15 canonical URLs indexed; its two
+  excluded URLs are the intentional `http://losoma.de/` and `https://www.losoma.de/` redirects.
 - Production GA4, canonical redirects, responsive images, hero scheduling and consent behavior are
   established. Deferred content/Schema work is listed in `CHECKLIST.md`.
 - Preserve hero MP4 `1920×1080`, `5,731,171` bytes as the minimum accepted quality.
