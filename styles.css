@@ -40,16 +40,32 @@
   --field-height: 3.75rem;
   --control-size: 2.5rem;
   --quote-icon-size: 3rem;
-  --type-hero-title: 4.25rem;
-  --type-section-title: 2.625rem;
-  --type-metric: 4.25rem;
-  --type-card-title: 1.75rem;
-  --type-panel-title: 1.5rem;
-  --type-body-large: 1.375rem;
-  --type-body: 1.125rem;
-  --type-body-small: 1rem;
-  --type-caption: 0.75rem;
-  --type-label: 0.875rem;
+  /* Shared type scale: components consume semantic roles below instead of
+     defining their own one-off font sizes. */
+  --font-size-12: 0.75rem;
+  --font-size-14: 0.875rem;
+  --font-size-16: 1rem;
+  --font-size-18: 1.125rem;
+  --font-size-20: 1.25rem;
+  --font-size-22: 1.375rem;
+  --font-size-24: 1.5rem;
+  --font-size-28: 1.75rem;
+  --font-size-32: 2rem;
+  --font-size-40: 2.5rem;
+  --font-size-42: 2.625rem;
+  --font-size-44: 2.75rem;
+  --font-size-48: 3rem;
+  --font-size-52: 3.25rem;
+  --font-size-68: 4.25rem;
+  --type-display: var(--font-size-68);
+  --type-heading-2: var(--font-size-42);
+  --type-title-large: var(--font-size-28);
+  --type-heading-3: var(--font-size-24);
+  --type-lead: var(--font-size-22);
+  --type-body: var(--font-size-18);
+  --type-small: var(--font-size-16);
+  --type-caption: var(--font-size-12);
+  --type-label: var(--font-size-14);
   --motion-fast: 180ms ease;
   --motion-medium: 620ms cubic-bezier(0.12, 0.72, 0, 1);
   --motion-cta: 560ms cubic-bezier(0.45, 0, 0.15, 1);
@@ -151,14 +167,14 @@ a {
 }
 
 .heading-1 {
-  font-size: var(--type-hero-title);
+  font-size: var(--type-display);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0;
 }
 
 .heading-2 {
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: 0;
@@ -452,7 +468,7 @@ a {
 .hero_content {
   position: absolute;
   right: var(--content-gutter);
-  bottom: 4.375rem; /* 70px — flat desktop offset (tablet 24px / phone 16px come from the padding overrides) */
+  bottom: 4.375rem;
   left: var(--content-gutter);
   z-index: 1;
   display: grid;
@@ -500,12 +516,12 @@ a {
      proportionally (and the nav keeps fitting). Small text/paragraphs/card headings -2px,
      section H2 -6px, section labels -2px. Max = the Figma desktop value. */
   :root {
-    --type-section-title: clamp(2.25rem, calc(1.324rem + 1.446vw), 2.625rem); /* 42 → 36 */
-    --type-card-title: clamp(1.625rem, calc(1.316rem + 0.482vw), 1.75rem);    /* 28 → 26 */
-    --type-panel-title: clamp(1.375rem, calc(1.066rem + 0.482vw), 1.5rem);    /* 24 → 22 */
-    --type-body-large: clamp(1.25rem, calc(0.94rem + 0.482vw), 1.375rem);     /* 22 → 20 */
+    --type-heading-2: clamp(2.25rem, calc(1.324rem + 1.446vw), 2.625rem); /* 42 → 36 */
+    --type-title-large: clamp(1.625rem, calc(1.316rem + 0.482vw), 1.75rem);    /* 28 → 26 */
+    --type-heading-3: clamp(1.375rem, calc(1.066rem + 0.482vw), 1.5rem);    /* 24 → 22 */
+    --type-lead: clamp(1.25rem, calc(0.94rem + 0.482vw), 1.375rem);     /* 22 → 20 */
     --type-body: clamp(1rem, calc(0.69rem + 0.482vw), 1.125rem);              /* 18 → 16 */
-    --type-body-small: clamp(0.875rem, calc(0.566rem + 0.482vw), 1rem);       /* 16 → 14 */
+    --type-small: clamp(0.875rem, calc(0.566rem + 0.482vw), 1rem);       /* 16 → 14 */
     --type-label: clamp(0.75rem, calc(0.441rem + 0.482vw), 0.875rem);         /* 14 → 12 */
   }
 }
@@ -514,7 +530,7 @@ a {
   max-width: 52.5rem;
   margin-top: 1.4375rem;
   color: var(--color-white);
-  font-size: var(--type-body-large);
+  font-size: var(--type-lead);
   font-weight: 400;
   line-height: 1.3;
   letter-spacing: 0;
@@ -687,7 +703,7 @@ a {
 .hero_title,
 .blog-index_title,
 .blog-article_title {
-  font-size: clamp(2.5rem, 3.9vw, var(--type-hero-title));
+  font-size: clamp(2.5rem, 3.9vw, var(--type-display));
 }
 
 .blog-grid {
@@ -726,7 +742,7 @@ a {
 }
 
 .blog-card_title {
-  font-size: var(--type-panel-title);
+  font-size: var(--type-heading-3);
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.03em;
@@ -764,8 +780,8 @@ a {
 
 .blog-article_subtitle {
   margin-top: 0.25rem;
-  color: #767a7b;
-  font-size: clamp(1.5rem, 2.56vw, var(--type-section-title));
+  color: var(--color-muted);
+  font-size: clamp(1.5rem, 2.56vw, var(--type-heading-2));
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -820,7 +836,7 @@ a {
 }
 
 .article-section_title {
-  font-size: var(--type-body-large);
+  font-size: var(--type-lead);
   font-weight: 700;
   line-height: 1.4;
 }
@@ -981,7 +997,7 @@ a {
 
 .service-card_title {
   max-width: 21.25rem;
-  font-size: var(--type-card-title);
+  font-size: var(--type-title-large);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0;
@@ -1008,7 +1024,7 @@ a {
 
 .quality-claim_title,
 .blog-article_lead {
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.3;
   letter-spacing: 0;
@@ -1026,6 +1042,19 @@ a {
   font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.5;
+}
+
+.quality-claim_summary {
+  margin-top: 2rem;
+  padding-top: 2.5rem;
+  border-top: var(--divider-subtle);
+}
+
+.quality-claim.is-expanded-intro .quality-claim_text {
+  max-width: 49.5rem;
+  margin-top: 0;
+  color: var(--color-muted);
+  letter-spacing: -0.01em;
 }
 
 .quality-claim_cta {
@@ -1058,7 +1087,7 @@ a {
 
 .quality-point_title {
   color: var(--color-muted);
-  font-size: var(--type-body-large);
+  font-size: var(--type-heading-3);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0;
@@ -1096,6 +1125,105 @@ a {
   object-position: left center;
 }
 
+.service-details {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-column-gap);
+  align-items: start;
+  width: var(--container-width);
+  margin: var(--section-gap) auto 0;
+}
+
+.service-details_title {
+  grid-column: 1 / 5;
+  max-width: 32.6875rem;
+  font-size: var(--type-heading-2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.service-details_content {
+  grid-column: 6 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.service-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 2.5rem;
+  border-bottom: var(--divider-subtle);
+}
+
+.service-detail_title {
+  font-size: var(--type-heading-3);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.service-detail_body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--color-ink);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.service-detail_lead {
+  font-size: var(--type-lead);
+}
+
+.service-detail_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-detail_list li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.service-detail_list li::before {
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--color-blue);
+  content: "";
+}
+
+.service-detail_body a,
+.faq-item_panel a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: opacity var(--motion-fast);
+}
+
+.service-detail_body a:focus-visible,
+.faq-item_panel a:focus-visible {
+  opacity: 0.68;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service-detail_body a:hover,
+  .faq-item_panel a:hover {
+    opacity: 0.68;
+  }
+}
+
 .experience-summary {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1122,7 +1250,7 @@ a {
 }
 
 .experience-summary_value {
-  font-size: var(--type-metric);
+  font-size: var(--type-display);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0;
@@ -1131,7 +1259,7 @@ a {
 .experience-summary_text {
   margin-top: 1.125rem;
   color: #3f3f3f;
-  font-size: var(--type-body-large);
+  font-size: var(--type-lead);
   font-weight: 400;
   line-height: 1.35;
 }
@@ -1166,7 +1294,7 @@ a {
 .services-catalog_title {
   max-width: 61.8125rem;
   margin-top: 2rem;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -1272,14 +1400,14 @@ a {
 
 .service-catalog-card_number {
   color: var(--color-muted);
-  font-size: var(--type-metric);
+  font-size: var(--type-display);
   font-weight: 400;
   line-height: 1.2;
 }
 
 .service-catalog-card_title {
   margin-top: 2rem;
-  font-size: var(--type-panel-title);
+  font-size: var(--type-heading-3);
   font-weight: 400;
   line-height: 1.4;
 }
@@ -1350,7 +1478,7 @@ a {
 .why-losoma_title {
   max-width: 45.125rem;
   margin-top: 2rem;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -1417,7 +1545,7 @@ a {
 
 .why-card_content h3,
 .why-contact-card_title {
-  font-size: var(--type-card-title);
+  font-size: var(--type-title-large);
   font-weight: 700;
   line-height: 1.15;
 }
@@ -1439,7 +1567,7 @@ a {
 }
 
 .why-contact-card_title {
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -1485,7 +1613,7 @@ a {
 
 .collaboration-process_title {
   margin-top: 2rem;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -1525,7 +1653,7 @@ a {
 
 .process-step-card h3 {
   max-width: 26.25rem;
-  font-size: var(--type-panel-title);
+  font-size: var(--type-heading-3);
   font-weight: 400;
   line-height: 1.4;
 }
@@ -1571,7 +1699,7 @@ a {
 .customer-review_author-panel h3 {
   position: relative;
   display: block;
-  font-size: var(--type-body-large);
+  font-size: var(--type-lead);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -1662,7 +1790,7 @@ a {
 .customer-review_slide p {
   max-width: 58rem;
   margin: 0;
-  font-size: var(--type-panel-title);
+  font-size: var(--type-heading-3);
   font-weight: 400;
   line-height: 1.4;
 }
@@ -1729,7 +1857,7 @@ a {
 
 .contact-form h2 {
   margin-top: 2rem;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -1797,7 +1925,7 @@ a {
   z-index: 12;
   border-radius: var(--radius-field);
   overflow: hidden;
-  font: 400 var(--type-body-small)/1.3 var(--font-sans);
+  font: 400 var(--type-small)/1.3 var(--font-sans);
   /* iti positions the inline list at offsetHeight + DROPDOWN_MARGIN (3px).
      Add the remainder so the list starts 8px below the field, aligned with the field underneath. */
   margin-top: calc(var(--iti-spacer-horizontal) - 3px);
@@ -2126,7 +2254,7 @@ a {
 }
 
 .contact-page_title {
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -2310,7 +2438,7 @@ a {
 
 .legal-page_title {
   grid-column: 1 / 6;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -2335,10 +2463,18 @@ a {
 }
 
 .legal-block_title {
-  font-size: var(--type-body-large);
+  font-size: var(--type-lead);
   font-weight: 700;
   line-height: 1.4;
   color: var(--color-ink);
+}
+
+/* The current Impressum keeps its verified legal content while using the
+   updated Figma typography (node 198:377): 24px Lato Regular, 140% line-height. */
+.legal-page.is-impressum .legal-block_title {
+  font-size: var(--type-heading-3);
+  font-weight: 400;
+  letter-spacing: -0.03em;
 }
 
 .legal-block_group {
@@ -2392,7 +2528,7 @@ a {
 
 /* Muted inline labels ("Telefon:", "E-Mail:") next to ink values. */
 .legal-label {
-  color: #767a7b;
+  color: var(--color-muted);
 }
 
 .faq {
@@ -2411,7 +2547,7 @@ a {
 
 .faq h2 {
   margin-top: 2rem;
-  font-size: var(--type-section-title);
+  font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.15;
 }
@@ -2440,7 +2576,7 @@ a {
   color: var(--color-ink);
   background: transparent;
   text-align: left;
-  font-size: var(--type-panel-title);
+  font-size: var(--type-heading-3);
   font-weight: 400;
   line-height: 1.4;
   cursor: pointer;
@@ -2562,7 +2698,7 @@ a {
 .footer_nav-column h3,
 .footer_contact h3 {
   color: rgba(255, 255, 255, 0.58);
-  font-size: var(--type-body-small);
+  font-size: var(--type-small);
   font-weight: 700;
   line-height: 1.5;
   text-transform: uppercase;
@@ -2688,6 +2824,7 @@ a[href="#instagram"] {
   left: var(--content-gutter);
   bottom: var(--content-gutter);
   width: min(31.25rem, calc(100vw - (var(--content-gutter) * 2)));
+  border: 1px solid #c0c0c0;
   border-radius: var(--radius-soft);
   padding: 1rem;
   background: rgba(253, 253, 252, 0.9);
@@ -2744,7 +2881,7 @@ a[href="#instagram"] {
 .cookie-consent_title {
   margin: 0;
   color: var(--color-ink);
-  font-size: 1.375rem;
+  font-size: var(--font-size-22);
   font-weight: 700;
   line-height: normal;
   letter-spacing: 0;
@@ -2754,7 +2891,7 @@ a[href="#instagram"] {
   max-width: none;
   margin: 0;
   color: var(--color-ink);
-  font-size: 1.125rem;
+  font-size: var(--font-size-18);
   font-weight: 300;
   line-height: normal;
 }
@@ -2776,7 +2913,7 @@ a[href="#instagram"] {
   min-height: 2.75rem;
   border-radius: var(--radius-soft);
   padding: 0.75rem 1rem;
-  font: 400 1.125rem/1.1 var(--font-sans);
+  font: 400 var(--font-size-18)/1.1 var(--font-sans);
   letter-spacing: -0.02em;
   cursor: pointer;
 }
@@ -2801,7 +2938,7 @@ a[href="#instagram"] {
   padding: 0;
   color: var(--color-ink);
   background: transparent;
-  font: 400 1.125rem/1.1 var(--font-sans);
+  font: 400 var(--font-size-18)/1.1 var(--font-sans);
   letter-spacing: -0.02em;
   text-decoration: underline;
   text-underline-offset: 0.14em;
@@ -2822,7 +2959,7 @@ a[href="#instagram"] {
 .cookie-consent_option h3 {
   margin: 0;
   color: var(--color-ink);
-  font-size: 1.125rem;
+  font-size: var(--font-size-18);
   font-weight: 700;
   line-height: normal;
 }
@@ -2831,7 +2968,7 @@ a[href="#instagram"] {
   max-width: 26.75rem;
   margin-top: 0.25rem;
   color: var(--color-ink);
-  font-size: 0.875rem;
+  font-size: var(--font-size-14);
   font-weight: 300;
   line-height: normal;
 }
@@ -2844,7 +2981,7 @@ a[href="#instagram"] {
 
 .cookie-consent_option-heading span {
   color: var(--color-muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-12);
   font-weight: 700;
   line-height: normal;
 }
@@ -2936,7 +3073,7 @@ a[href="#instagram"] {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 0;
+  border: 1px solid #c0c0c0;
   border-radius: var(--radius-soft);
   color: var(--color-ink);
   background: var(--color-page);
@@ -3098,7 +3235,7 @@ a[href="#instagram"] {
   .mobile-menu_heading {
     margin-bottom: 1rem;
     color: #959595;
-    font-size: var(--type-body-small);
+    font-size: var(--type-small);
     font-weight: 700;
     line-height: 1.3;
     text-transform: uppercase;
@@ -3229,7 +3366,7 @@ a[href="#instagram"] {
 
   .quality-claim_title,
   .blog-article_lead {
-    font-size: 2rem;
+    font-size: var(--font-size-32);
     line-height: 1.2;
   }
 
@@ -3239,7 +3376,7 @@ a[href="#instagram"] {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 2.5rem;
     grid-template-columns: none;
   }
 
@@ -3264,7 +3401,7 @@ a[href="#instagram"] {
 
   .hero_text {
     margin-top: 1rem;
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .hero_cta {
@@ -3286,7 +3423,7 @@ a[href="#instagram"] {
 
   .services-overview_title {
     max-width: none;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
     line-height: 1.2;
   }
 
@@ -3340,6 +3477,16 @@ a[href="#instagram"] {
     margin-top: 1rem;
   }
 
+  .quality-claim_summary {
+    margin-top: 1.5rem;
+    padding-top: 2rem;
+  }
+
+  .quality-claim.is-expanded-intro .quality-claim_text {
+    max-width: 40.875rem;
+    margin-top: 0;
+  }
+
   .quality-claim_cta {
     margin-top: 1.5rem;
   }
@@ -3379,6 +3526,21 @@ a[href="#instagram"] {
     border-radius: var(--radius-soft);
   }
 
+  .service-details {
+    grid-template-columns: 1fr;
+    row-gap: 2.5rem;
+  }
+
+  .service-details_title,
+  .service-details_content {
+    grid-column: 1 / -1;
+  }
+
+  .service-details_title {
+    max-width: 40.875rem;
+    font-size: var(--font-size-32);
+  }
+
   .experience-summary {
     display: flex;
     flex-direction: column;
@@ -3387,14 +3549,14 @@ a[href="#instagram"] {
   }
 
   .experience-summary_value {
-    font-size: 3rem;
+    font-size: var(--font-size-48);
     line-height: 1.2;
   }
 
   .experience-summary_text {
     max-width: 36.9375rem;
     margin-top: 1rem;
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
     line-height: 1.3;
   }
 
@@ -3408,7 +3570,7 @@ a[href="#instagram"] {
 
   .services-catalog_title {
     margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
   }
 
   .services-catalog_text {
@@ -3427,7 +3589,7 @@ a[href="#instagram"] {
   }
 
   .service-catalog-card_number {
-    font-size: 3.25rem;
+    font-size: var(--font-size-52);
   }
 
   .service-catalog-card_title {
@@ -3435,7 +3597,7 @@ a[href="#instagram"] {
   }
 
   .service-catalog-card_text {
-    font-size: var(--type-body-small);
+    font-size: var(--type-small);
     line-height: 1.3;
   }
 
@@ -3462,7 +3624,7 @@ a[href="#instagram"] {
   .why-losoma_title {
     max-width: none;
     margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
   }
 
   .why-losoma_grid {
@@ -3502,7 +3664,7 @@ a[href="#instagram"] {
   }
 
   .why-contact-card_title {
-    font-size: 2rem;
+    font-size: var(--font-size-32);
   }
 
   .why-contact-card_content {
@@ -3532,7 +3694,7 @@ a[href="#instagram"] {
 
   .collaboration-process_title {
     margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
   }
 
   .process-steps {
@@ -3596,7 +3758,7 @@ a[href="#instagram"] {
 
   .contact-form h2 {
     margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
   }
 
   .contact-form p:not(.section-label) {
@@ -3626,7 +3788,7 @@ a[href="#instagram"] {
 
   .faq h2 {
     margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: var(--font-size-32);
     line-height: 1.2;
   }
 
@@ -3739,7 +3901,7 @@ a[href="#instagram"] {
   }
 
   .contact-page_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
@@ -3754,7 +3916,7 @@ a[href="#instagram"] {
   }
 
   .legal-page_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
@@ -3787,7 +3949,7 @@ a[href="#instagram"] {
   }
 
   .blog-card_title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
     line-height: 1.4;
   }
 
@@ -3812,7 +3974,7 @@ a[href="#instagram"] {
 
   .quality-claim_title,
   .blog-article_lead {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
   }
 
   .article-prose {
@@ -3825,11 +3987,11 @@ a[href="#instagram"] {
   }
 
   .article-section_title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .article-section_group {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .header {
@@ -3838,12 +4000,12 @@ a[href="#instagram"] {
   }
 
   .hero_content {
-    padding: 1rem;
+    padding: 1rem 1rem 2.5rem;
   }
 
   .hero_service-label {
     gap: 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--font-size-12);
   }
 
   .hero_service-dot {
@@ -3864,7 +4026,7 @@ a[href="#instagram"] {
 
   .hero_text {
     margin-top: 0.75rem;
-    font-size: 1.125rem;
+    font-size: var(--font-size-18);
   }
 
   /* CTA (Figma 29:751): the static layout — inline icon + 12px gap + text. This is
@@ -3877,7 +4039,7 @@ a[href="#instagram"] {
     min-width: auto;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .hero_cta::before {
@@ -3912,21 +4074,21 @@ a[href="#instagram"] {
 
   .section-label {
     gap: 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--font-size-12);
   }
 
   .services-overview_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
   .services-overview_text {
     margin-top: 0.75rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .services-overview_cta {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .service-card {
@@ -3940,13 +4102,13 @@ a[href="#instagram"] {
   }
 
   .service-card_title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-24);
     overflow-wrap: break-word;
   }
 
   .service-card_text {
     margin-top: 0.5rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   /* Phone quality-claim (Figma 29:790 / 29:791 / 29:819): single column, 16px
@@ -3970,11 +4132,20 @@ a[href="#instagram"] {
 
   .quality-claim_text {
     margin-top: 0.75rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
+  }
+
+  .quality-claim_summary {
+    margin-top: 1.25rem;
+    padding-top: 1.5rem;
+  }
+
+  .quality-claim.is-expanded-intro .quality-claim_text {
+    margin-top: 0;
   }
 
   .quality-claim_cta {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .quality-claim_detail {
@@ -3992,16 +4163,45 @@ a[href="#instagram"] {
   }
 
   .quality-point_title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .quality-point_text {
     margin-top: 0.5rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .quality-claim_media {
     height: 31.25rem;
+  }
+
+  .service-details {
+    width: 100%;
+    padding-inline: 1rem;
+    row-gap: 2rem;
+  }
+
+  .service-details_title {
+    font-size: var(--font-size-28);
+    overflow-wrap: break-word;
+  }
+
+  .service-details_content {
+    gap: 2rem;
+  }
+
+  .service-detail {
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .service-detail_title {
+    font-size: var(--font-size-20);
+  }
+
+  .service-detail_body,
+  .service-detail_lead {
+    font-size: var(--font-size-16);
   }
 
   .experience-summary {
@@ -4013,13 +4213,13 @@ a[href="#instagram"] {
   }
 
   .experience-summary_value {
-    font-size: 2.5rem;
+    font-size: var(--font-size-40);
     overflow-wrap: break-word;
   }
 
   .experience-summary_text {
     margin-top: 0.75rem;
-    font-size: 1.125rem;
+    font-size: var(--font-size-18);
   }
 
   /* Phone services-catalog (Figma 29:835, card 29:854): 16px gutters; the slider
@@ -4037,13 +4237,13 @@ a[href="#instagram"] {
   }
 
   .services-catalog_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
   .services-catalog_text {
     margin-top: 0.75rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .service-list_track {
@@ -4058,21 +4258,21 @@ a[href="#instagram"] {
   }
 
   .service-catalog-card_number {
-    font-size: 2.75rem;
+    font-size: var(--font-size-44);
   }
 
   .service-catalog-card_title {
     margin-top: 1rem;
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .service-catalog-card_text {
-    font-size: 0.875rem;
+    font-size: var(--font-size-14);
   }
 
   .details-link {
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .service-catalog-card_media {
@@ -4090,7 +4290,7 @@ a[href="#instagram"] {
   }
 
   .why-losoma_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
@@ -4099,16 +4299,16 @@ a[href="#instagram"] {
   }
 
   .why-card_content h3 {
-    font-size: 1.5rem;
+    font-size: var(--font-size-24);
   }
 
   .why-card_content p,
   .why-contact-card_text {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .why-contact-card_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
@@ -4117,7 +4317,7 @@ a[href="#instagram"] {
   }
 
   .why-contact-card_cta {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   /* Phone collaboration-process (Figma 29:999): single column, 16px gutters.
@@ -4129,21 +4329,21 @@ a[href="#instagram"] {
   }
 
   .collaboration-process_title {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
     overflow-wrap: break-word;
   }
 
   .collaboration-process_link {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .process-step-card h3 {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .process-step-card p {
     margin-top: 0.75rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   /* Phone customer-reviews wrapper keeps the shared 16px gutter. */
@@ -4161,7 +4361,7 @@ a[href="#instagram"] {
   }
 
   .customer-review_slide p {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   /* Phone contact CTA panel (Figma 29:1092): full-bleed dark panel, the navy form
@@ -4181,19 +4381,19 @@ a[href="#instagram"] {
   }
 
   .contact-form h2 {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
   }
 
   .contact-form p:not(.section-label) {
     margin-top: 0.75rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .contact-form input,
   .contact-form textarea,
   .contact-form_select-toggle,
   .contact-form_select-option {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .contact-form > input[type="text"] {
@@ -4201,7 +4401,7 @@ a[href="#instagram"] {
   }
 
   .contact-form_submit {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   /* Phone FAQ (Figma 29:1129): single column. The 16px gutter is a MARGIN (not
@@ -4214,11 +4414,11 @@ a[href="#instagram"] {
   }
 
   .faq h2 {
-    font-size: 1.75rem;
+    font-size: var(--font-size-28);
   }
 
   .faq-item_trigger {
-    font-size: 1.25rem;
+    font-size: var(--font-size-20);
   }
 
   .faq-item_icon {
@@ -4238,12 +4438,12 @@ a[href="#instagram"] {
   }
 
   .footer_service-summary p {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .footer_cta {
     margin-top: 2rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .footer_nav {
@@ -4254,7 +4454,7 @@ a[href="#instagram"] {
 
   .footer_nav-column h3,
   .footer_contact h3 {
-    font-size: 0.875rem;
+    font-size: var(--font-size-14);
   }
 
   .footer_links {
@@ -4264,7 +4464,7 @@ a[href="#instagram"] {
 
   .footer_links a,
   .footer_links p {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .footer_contact-area {
@@ -4287,15 +4487,15 @@ a[href="#instagram"] {
   }
 
   .mobile-menu_heading {
-    font-size: 0.875rem;
+    font-size: var(--font-size-14);
   }
 
   .mobile-menu_link {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .mobile-menu_tagline {
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 }
 
@@ -4331,12 +4531,12 @@ a[href="#instagram"] {
   }
 
   .cookie-consent_title {
-    font-size: 1.375rem;
+    font-size: var(--font-size-22);
   }
 
   .cookie-consent_text {
     margin: 0;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .cookie-consent_actions,
@@ -4348,12 +4548,12 @@ a[href="#instagram"] {
 
   .cookie-consent_button {
     min-height: 3.25rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .cookie-consent_settings {
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
   }
 
   .cookie-consent_option {
@@ -4372,15 +4572,15 @@ a[href="#instagram"] {
   .cookie-consent_option-heading span {
     display: block;
     margin-top: 0.25rem;
-    font-size: 0.875rem;
+    font-size: var(--font-size-14);
   }
 
   .cookie-consent_option h3 {
-    font-size: 1.125rem;
+    font-size: var(--font-size-18);
   }
 
   .cookie-consent_option p {
-    font-size: 0.875rem;
+    font-size: var(--font-size-14);
   }
 
   .cookie-consent_floating {

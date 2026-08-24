@@ -27,7 +27,7 @@
         "@id": "https://losoma.de/hausmeisterservice#webpage",
         "url": "https://losoma.de/hausmeisterservice",
         "name": "Hausmeisterservice in Berlin für Wohn- und Gewerbeimmobilien",
-        "description": "Hausmeisterservice von Losoma in Berlin: regelmäßige Objektbetreuung mit Routinekontrollen, geprüften Gemeinschaftsflächen und klarer Rückmeldung an die Verwaltung.",
+        "description": "Hausmeisterservice von Losoma für Mehrfamilienhäuser, Wohnanlagen sowie Büro- und Gewerbeobjekte in Berlin: regelmäßige Kontrollgänge, vereinbarte Aufgaben und klare Meldung sichtbarer Auffälligkeiten an die Hausverwaltung.",
         "inLanguage": "de-DE",
         "isPartOf": { "@id": "https://losoma.de/#website" },
         "mainEntity": { "@id": "https://losoma.de/hausmeisterservice#service" },
@@ -37,11 +37,16 @@
       {
         "@type": "Service",
         "@id": "https://losoma.de/hausmeisterservice#service",
-        "name": "Hausmeisterservice",
-        "serviceType": "Hausmeisterservice und Objektbetreuung",
-        "description": "Regelmäßige Objektbetreuung mit Routinekontrollen, gepflegten Gemeinschaftsflächen und klarer Rückmeldung an die Verwaltung.",
+        "name": "Hausmeisterservice und Objektbetreuung in Berlin",
+        "serviceType": ["Hausmeisterservice", "Objektbetreuung"],
+        "category": "Gebäudedienstleistungen",
+        "description": "Regelmäßige Objektbetreuung für Mehrfamilienhäuser, Wohnanlagen sowie Büro- und Gewerbeobjekte: Kontrollgänge in zugänglichen Gemeinschafts- und Außenbereichen, vereinbarte einfache Aufgaben und Meldung sichtbarer Schäden oder Auffälligkeiten an die Hausverwaltung.",
         "mainEntityOfPage": { "@id": "https://losoma.de/hausmeisterservice#webpage" },
         "provider": { "@id": "https://losoma.de/#organization" },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Hausverwaltungen, Eigentümer, Wohnungseigentümergemeinschaften und Unternehmen"
+        },
         "areaServed": { "@type": "City", "name": "Berlin" },
         "image": "https://losoma.de/assets/generated/hausmeisterservice-berliner-innenhof-losoma.webp",
         "url": "https://losoma.de/hausmeisterservice"
@@ -182,14 +187,18 @@
       </div>
     </section>
 
-    <section class="quality-claim" aria-labelledby="ansatz-title">
+    <div class="quality-claim is-expanded-intro">
       <div class="quality-claim_intro">
         <p class="section-label is-blue">
           <span class="section-label_dot" aria-hidden="true"></span>
           <span>Unser Ansatz</span>
         </p>
 
-        <h2 class="quality-claim_title" id="ansatz-title">Ein Gebäude sollte nicht erst dann Aufmerksamkeit bekommen, wenn bereits etwas nicht mehr funktioniert. Eingänge, Gemeinschaftsflächen, Höfe und sichtbare technische Bereiche werden täglich genutzt — und ihr Zustand beeinflusst, wie Bewohner, Mieter und Besucher die Immobilie wahrnehmen. Unser Hausmeisterservice hält diese Bereiche regelmäßig im Blick, damit sichtbare Auffälligkeiten früh erkannt und klar an die Hausverwaltung weitergegeben werden können.</h2>
+        <p class="quality-claim_title">Der Hausmeisterservice von Losoma richtet sich an Hausverwaltungen, Eigentümer, Wohnungseigentümergemeinschaften und Unternehmen, die für den Alltag ihrer Immobilie einen verlässlichen Ansprechpartner benötigen</p>
+
+        <div class="quality-claim_summary">
+          <p class="quality-claim_text">Wir behalten den Zustand des Objekts und der Gemeinschaftsbereiche regelmäßig im Blick, übernehmen vereinbarte laufende Aufgaben und informieren die Hausverwaltung über sichtbare Schäden oder andere Auffälligkeiten. So hat die Verwaltung einen klaren Ansprechpartner, der weiß, was vor Ort passiert, und den nächsten Schritt unterstützt.</p>
+        </div>
 
         <a class="link-button quality-claim_cta" href="/kontakt" target="_blank" rel="noopener">
           <span class="link-button_icon" aria-hidden="true">
@@ -204,21 +213,63 @@
 
       <div class="quality-claim_detail">
         <div class="quality-claim_points" aria-label="Anpassung und Weitergabe">
-          <article class="quality-point">
-            <h3 class="quality-point_title">Wie der Service angepasst wird</h3>
-            <p class="quality-point_text">Der genaue Ablauf hängt von der Größe der Immobilie, der Anzahl der Mieter, den Gemeinschaftsflächen vor Ort und der technischen Infrastruktur ab, die beobachtet werden muss.</p>
-          </article>
+          <div class="quality-point">
+            <p class="quality-point_title">Wie der Service an das Objekt angepasst wird</p>
+            <p class="quality-point_text">Häufigkeit und Aufgaben richten sich nach Größe, Nutzung, Gemeinschafts- und Außenflächen sowie danach, welche laufenden Arbeiten das Losoma-Team übernehmen soll.</p>
+          </div>
 
-          <article class="quality-point">
-            <h3 class="quality-point_title">Wie wir weitergeben</h3>
-            <p class="quality-point_text">Wenn Auffälligkeiten, Schäden oder möglicher Wartungsbedarf sichtbar werden, informieren wir die Hausverwaltung klar und rechtzeitig, damit der nächste Schritt entschieden werden kann.</p>
-          </article>
+          <div class="quality-point">
+            <p class="quality-point_title">Wie wir Informationen weitergeben</p>
+            <p class="quality-point_text">Wenn bei einem Rundgang ein Schaden, eine Verunreinigung oder eine andere Auffälligkeit sichtbar wird, beschreiben wir die Situation und informieren den vereinbarten Ansprechpartner der Hausverwaltung.</p>
+          </div>
         </div>
 
         <picture class="quality-claim_media">
           <source type="image/avif" srcset="/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.avif">
           <img class="quality-claim_image is-zoom" src="/assets/generated/hausmeisterservice-treppenhaus-gemeinschaftsbereich-losoma.webp" alt="Helles Treppenhaus mit Geländern und Fenstern in einem Berliner Wohngebäude" title="Hausmeisterservice mit regelmäßiger Kontrolle der Gemeinschaftsbereiche" width="1200" height="1200" loading="lazy" decoding="async">
         </picture>
+      </div>
+    </div>
+
+    <section class="service-details" aria-labelledby="service-details-title">
+      <h2 class="service-details_title" id="service-details-title">So ist der Hausmeisterservice vor Ort organisiert</h2>
+
+      <div class="service-details_content">
+        <article class="service-detail">
+          <h3 class="service-detail_title">Was wir bei einem Objektbesuch übernehmen</h3>
+          <div class="service-detail_body">
+            <p class="service-detail_lead">Je nach Objekt und Leistungsvereinbarung gehören dazu:</p>
+            <ul class="service-detail_list">
+              <li>Kontrolle von Eingängen, Treppenhäusern, Fluren und Kellerzugängen;</li>
+              <li>Sichtkontrolle von Höfen, Außenflächen und zugänglichen Gebäudebereichen;</li>
+              <li>Entfernen von losem Müll auf dem Grundstück;</li>
+              <li>Leeren vereinbarter Abfallbehälter im Außenbereich;</li>
+              <li>Reinigung und Kontrolle von Müllstandplätzen;</li>
+              <li>Kontrolle des Zustands der vereinbarten Reinigungsleistungen;</li>
+              <li>Erkennen und Melden sichtbarer Schäden oder ungewöhnlicher Veränderungen;</li>
+              <li>einfache und gefahrlose Kleinarbeiten im vereinbarten Umfang.</li>
+            </ul>
+            <p>Zu solchen Kleinarbeiten können beispielsweise der Austausch zugänglicher Leuchtmittel oder das Befestigen lockerer Türgriffe und Sockelleisten gehören. Elektro-, Sanitär-, Heizungs- und andere Facharbeiten werden an entsprechend qualifizierte Betriebe weitergegeben.</p>
+            <p>Wenn zusätzlich eine regelmäßige Reinigung der gemeinsam genutzten Innenbereiche benötigt wird, kann der Hausmeisterservice mit unserer <a href="/treppenhausreinigung">Treppenhausreinigung</a> kombiniert werden. Für Grün- und Außenanlagen bieten wir die <a href="/garten-landschaftspflege">Garten- und Landschaftspflege</a> und saisonal den <a href="/winterdienst">Winterdienst</a> an.</p>
+          </div>
+        </article>
+
+        <article class="service-detail">
+          <h3 class="service-detail_title">Wie häufig ist der Hausmeister vor Ort?</h3>
+          <div class="service-detail_body">
+            <p>Bei vielen Immobilien ist ein fester Besuch pro Woche ausreichend. Größere oder stärker genutzte Objekte können mehrere Kontrollen pro Woche oder eine tägliche Betreuung benötigen.</p>
+            <p>Die Häufigkeit wird mit der Hausverwaltung anhand der Objektgröße, Nutzung, Gemeinschaftsflächen und laufenden Aufgaben vereinbart. Zusätzliche Einsätze nach einer Meldung sind nach Absprache und Verfügbarkeit möglich.</p>
+          </div>
+        </article>
+
+        <article class="service-detail">
+          <h3 class="service-detail_title">Was passiert bei einer Auffälligkeit?</h3>
+          <div class="service-detail_body">
+            <p>Wenn wir einen Schaden, eine Verunreinigung oder möglichen Wartungsbedarf feststellen, informieren wir den zuständigen Ansprechpartner. Die Auffälligkeit wird nachvollziehbar beschrieben und bei Bedarf dokumentiert.</p>
+            <p>Einfache Aufgaben können wir nach Vereinbarung direkt erledigen. Wenn besondere Qualifikation, Werkzeug oder eine sicherheitsrelevante Prüfung erforderlich ist, empfehlen wir die Weitergabe an einen Fachbetrieb und unterstützen auf Wunsch bei der Koordination.</p>
+            <p>Bei einer akuten Situation leiten wir die vereinbarten Erstmaßnahmen ein. Dazu kann beispielsweise gehören, die Verwaltung sofort zu informieren oder – sofern eindeutig, zugänglich und gefahrlos möglich – eine Absperreinrichtung zu betätigen.</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -371,7 +422,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
-              <p>Ein Hausmeisterservice umfasst in der Regel regelmäßige Objektkontrollen, die Überprüfung von Gemeinschaftsflächen, Eingängen und Treppenhäusern, die Beobachtung sichtbarer technischer Bereiche sowie die Meldung von Auffälligkeiten, die Wartung oder fachliche Unterstützung erfordern können.</p>
+              <p>Der Leistungsumfang wird für jedes Objekt individuell festgelegt. Dazu können regelmäßige Kontrollgänge in Gemeinschafts- und Außenbereichen, die Kontrolle von Sauberkeit und sichtbaren Schäden, die Pflege von Müllstandplätzen, das Entfernen von losem Müll, das Leeren vereinbarter Abfallbehälter, die Kontrolle ausgeführter Reinigungsleistungen und einfache gefahrlose Kleinarbeiten gehören. Der genaue Umfang wird in der Leistungsvereinbarung festgehalten.</p>
             </div>
           </article>
           <article class="faq-item">
@@ -387,7 +438,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
-              <p>Die Hauptaufgabe des Hausmeisterservice besteht darin, die Immobilie im Blick zu behalten, sichtbare Auffälligkeiten früh zu erkennen und klar weiterzugeben. Technische Reparaturen werden in der Regel von spezialisierten Fachbetrieben oder zuständigen Technikern übernommen.</p>
+              <p>Einfache und gefahrlose Kleinarbeiten können im vereinbarten Umfang direkt erledigt werden, zum Beispiel der Austausch eines zugänglichen Leuchtmittels oder das Befestigen eines lockeren Türgriffs. Elektro-, Sanitär-, Heizungs- und andere qualifikationspflichtige Arbeiten müssen von einem geeigneten Fachbetrieb ausgeführt werden.</p>
             </div>
           </article>
           <article class="faq-item">
@@ -403,7 +454,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
-              <p>Die Häufigkeit hängt von der Größe des Gebäudes, der Anzahl der Mieter, den Gemeinschaftsflächen vor Ort und der technischen Infrastruktur ab, die beobachtet werden muss. Manche Immobilien benötigen mehrere Besuche pro Woche, andere funktionieren gut mit geplanten Routinekontrollen.</p>
+              <p>Bei vielen Objekten ist ein geplanter Besuch pro Woche ausreichend. Für größere oder stärker genutzte Gebäude können mehrere Termine pro Woche oder eine tägliche Betreuung vereinbart werden. Die Häufigkeit richtet sich nach Objektgröße, Nutzung, Gemeinschaftsflächen und laufenden Aufgaben.</p>
             </div>
           </article>
           <article class="faq-item">
@@ -419,7 +470,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
-              <p>Ja. Wir arbeiten mit Hausverwaltungen zusammen, die für Wohn-, Gewerbe- oder gemischt genutzte Immobilien in Berlin verantwortlich sind. Der Service hilft dabei, die Objektbetreuung strukturiert zu halten und die Kommunikation klar zu gestalten.</p>
+              <p>Ja. Unser Hausmeisterservice richtet sich unter anderem an Hausverwaltungen von Mehrfamilienhäusern, Wohnanlagen sowie Büro-, Gewerbe- und gemischt genutzten Immobilien in Berlin. Aufgaben, Zuständigkeiten und Kommunikationswege werden mit dem verantwortlichen Ansprechpartner der Hausverwaltung abgestimmt.</p>
             </div>
           </article>
           <article class="faq-item">
@@ -435,7 +486,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
-              <p>Wenn eine Auffälligkeit, ein Schaden oder möglicher Wartungsbedarf sichtbar wird, informieren wir die Hausverwaltung klar, damit der passende nächste Schritt abgestimmt werden kann.</p>
+              <p>Wir informieren den vereinbarten Ansprechpartner über Schäden, Verunreinigungen oder andere sichtbare Auffälligkeiten und beschreiben die Situation nachvollziehbar. Bei Bedarf wird der Hinweis zusätzlich dokumentiert. Eine einfache Aufgabe kann im Rahmen der Vereinbarung direkt erledigt werden. Arbeiten mit besonderer Qualifikationsanforderung werden nach Abstimmung mit der Hausverwaltung an einen geeigneten Fachbetrieb übergeben.</p>
             </div>
           </article>
           <article class="faq-item">
@@ -451,7 +502,7 @@
               </button>
             </h3>
             <div class="faq-item_panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6">
-              <p>Reinigungsservice konzentriert sich darauf, Oberflächen und Gemeinschaftsflächen sauber zu halten. Hausmeisterservice konzentriert sich auf regelmäßige Objektbetreuung: Gemeinschaftsflächen prüfen, sichtbare Zustände beobachten und Auffälligkeiten melden, wenn etwas Aufmerksamkeit benötigt.</p>
+              <p>Ein Reinigungsservice konzentriert sich vor allem auf die Sauberkeit von Räumen und Oberflächen. Für Büros und gewerblich genutzte Räume ist dies Teil unserer <a href="/gewerbliche-reinigung">gewerblichen Reinigung</a>. Der Hausmeisterservice umfasst eine breitere laufende Objektbetreuung: regelmäßige Kontrollgänge, die Kontrolle von Gemeinschafts- und Außenbereichen, vereinbarte Aufgaben vor Ort und die Meldung sichtbarer Schäden oder anderer Probleme. Die Kontrolle des sichtbaren Reinigungsergebnisses kann ebenfalls dazugehören, wenn dies Teil der Leistungsvereinbarung ist.</p>
             </div>
           </article>
         </div>

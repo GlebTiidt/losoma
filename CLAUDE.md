@@ -9,7 +9,9 @@ explanations practical and clear.
 2. `SITE.md` — compact current technical state.
 3. The applicable file in `docs/` before layout, class, blog, SEO or legal work.
 
-Do not recreate separate handoff, legal, Google, Hostinger, deployment, SEO or question checklists.
+Do not recreate separate handoff, legal, Google, Hostinger, deployment, SEO or question checklists
+unless the user explicitly requests a client-facing standalone document. Current status and open
+tasks still belong in `CHECKLIST.md`.
 Update `CHECKLIST.md` after every meaningful discovery or external-admin action. Update `SITE.md`
 only when the current technical/production state changes.
 
@@ -64,6 +66,20 @@ git diff --check
 - Breakpoints: desktop `>=1025px`, tablet `<=1024px`, phone `<=560px`, burger `<=1150px`.
 - Phone gutter: `16px`.
 - Lato is self-hosted; do not add external Google Fonts.
+- Typography has one global scale in `:root`: fixed `--font-size-*` primitives feed the shared
+  semantic roles `--type-display`, `--type-heading-2`, `--type-title-large`, `--type-heading-3`,
+  `--type-lead`, `--type-body`, `--type-small`, `--type-caption` and `--type-label`. Components must
+  consume these roles; do not add component-specific type tokens or isolated fixed font sizes.
+- Use `--type-heading-2` for section H2 and `--type-heading-3` for content H3. Keep `clamp()` only
+  where fluid sizing is intentionally required for a display heading, responsive hero heading,
+  loader or success state; do not introduce a clamp to work around a one-off component.
+- Hero CTA bottom spacing is a layout invariant: `70px` on desktop (`>=1025px`) and `40px` on
+  tablet/phone (`<=1024px`), independent of text wrapping.
+- Contextual links inside body copy inherit the surrounding text colour, keep their underline and
+  change only opacity on hover/focus. Do not make them browser-blue unless the approved design calls
+  for an explicit blue action/navigation treatment.
+- Secondary and supporting copy uses the shared `--color-muted` token. Do not repeat its hex value
+  inside component selectors; changing the semantic token must update every muted text treatment.
 - Preserve the current hero MP4 `1920×1080`, `5,731,171` bytes. Do not transcode it again without a
   new explicit decision.
 
@@ -95,6 +111,10 @@ git diff --check
 - Current owners, access evidence, unresolved Hostinger/Google records, exact Maxim/Alexandr tasks,
   GBP transfer, Search Console status, legal changes, retention decisions and deferred SEO/content
   work are maintained only in `CHECKLIST.md`.
+- Stage new service-page copy locally in the Git-ignored `docs/content-drafts/` and follow the
+  approval, claim-safety, section-mapping and measurement workflow in
+  `docs/SEO_AND_CLASS_GUIDELINES.md`. A content draft is never permission to rewrite a whole page,
+  deploy it or expose unpublished client facts in the public repository.
 - Treat `info@losoma.de` as the verified public address. Do not restore `maxim@losoma.de` in public
   HTML, legal pages, Schema or form configuration.
 - Do not infer `Inhaber` from the Hostinger invoice.
@@ -103,6 +123,10 @@ git diff --check
   indexing request only after Google explicitly displays `Indexierung wurde beantragt`.
 - Do not invent coordinates, hours, founding date, price range, clients, cases, reviews,
   certifications or legal facts.
+- Keep every JSON-LD graph synchronized with the current canonical page and the shared Organization
+  `@id`. All Service nodes require current name/type/category/description/provider/audience/area,
+  and `scripts/audit-seo.mjs` must pass before release. Do not emit an unconfirmed `legalName` or
+  attach a person's social profile to the Organization node.
 
 ## Documentation
 

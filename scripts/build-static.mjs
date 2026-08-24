@@ -8,6 +8,7 @@ const staticAssetsDir = new URL("../assets/static/", import.meta.url);
 const vendorAssetsDir = new URL("../assets/vendor/", import.meta.url);
 const blogPagesDir = new URL("../blog/", import.meta.url);
 const apiDir = new URL("api/", rootDir);
+const isVercelBuild = process.env.VERCEL === "1";
 
 // Every page is a root-level .html file — auto-discover them so new service pages
 // (hausmeisterservice.html, …) ship without editing this list.
@@ -43,10 +44,14 @@ for (const asset of [
   await writeFile(new URL(asset.name, outputDir), result.code);
 }
 
-await mkdir(new URL("api/", outputDir), { recursive: true });
+// Hostinger executes the PHP endpoints. Vercel is used only for the static
+// review deployment, so never publish PHP source files there as static assets.
+if (!isVercelBuild) {
+  await mkdir(new URL("api/", outputDir), { recursive: true });
 
-for (const file of apiFiles) {
-  await copyFile(new URL(file, apiDir), new URL(`api/${file}`, outputDir));
+  for (const file of apiFiles) {
+    await copyFile(new URL(file, apiDir), new URL(`api/${file}`, outputDir));
+  }
 }
 
 // Blog routes keep their nested, SEO-friendly URLs (`/blog` and

@@ -17,7 +17,9 @@ per-section Figma frame is the source of truth — never eyeball adaptive layout
 
 - **No separate landscape-phone breakpoint.** Landscape phones fall into the tablet range; only the `100vh` hero needs short-height care (handled via hero height, not a bp).
 - The phone block lives at the **end of `styles.css`**, after the `@media (max-width: 1024px)` block, so it wins on equal specificity. Tablet rules cascade into phone unless overridden — only override what actually changes from tablet.
-- Desktop typography is fluid via clamps on the type tokens inside `@media (min-width: 1025px) :root` (desktop-only).
+- Only the established display/hero roles that genuinely need interpolation are fluid via
+  `clamp()`. Regular H2, H3 and body roles come from the shared fixed scale; do not create a local
+  clamp for an individual block.
 
 ---
 
@@ -71,7 +73,7 @@ Match the section's Figma frame, but these are the recurring values — reuse th
 | Card title (overlay cards) | **24px** (`1.5rem`) |
 | Card / secondary text | **16px**, sometimes **14px** (catalog card body) |
 | Metric value (e.g. "7+ Jahre") | **40px** (`2.5rem`) |
-| Link-button / CTA text | **16px** — set per section: `.section_cta { font-size: 1rem; }` (the shared `.link-button` base stays 18px) |
+| Link-button / CTA text | **16px** — use the shared 16px primitive per section (the shared `.link-button` base stays 18px) |
 | Footer column headings | **14px** (`0.875rem`) |
 | Footer links / body | **16px** (`1rem`) |
 | **Mobile-menu heading** | **14px** (`0.875rem`) — matches the footer heading |
@@ -87,6 +89,9 @@ Match the section's Figma frame, but these are the recurring values — reuse th
 
 ## 6. Spacing & dividers
 
+- **Hero CTA bottom spacing is locked independently from hero text height:** `70px` on desktop
+  (`>=1025px`) and `40px` on tablet and phone (`<=1024px`). Keep this as bottom padding/offset on
+  `.hero_content`; do not derive it from the paragraph, button margin or content wrapping.
 - **Dividers are real `border`s** (e.g. `--divider-subtle`), never absolute-positioned lines. Mirror desktop.
 - **Inset border (not edge-to-edge):** if a section needs a top border at the 16px gutter, put the gutter as a **`margin-inline`, not `padding-inline`** — a `border-top` on a full-width element with padding runs edge-to-edge. Example (FAQ): `margin: 2rem 1rem 0; padding: 2.5rem 0 3rem;`.
 - **Full-bleed divider while keeping text inset:** negative inline margin + matching padding on the element (quality-claim intro): `margin-inline: -1rem; padding-inline: 1rem;` — the border spans full width, the text stays at 16px.

@@ -43,6 +43,68 @@ Modern AI search and agents must be able to understand the page without relying 
 - Avoid ambiguous CTA text. Prefer `Objektbesichtigung anfragen`, `Hausmeisterservice anfragen`, `Gebäudedienstleistungen in Berlin besprechen`.
 - Add JSON-LD for key entities when page content supports it.
 
+## Service Content Draft And Release Workflow
+
+New service-page copy must be staged and reviewed before it touches live HTML.
+
+- Store page-specific working copy locally in the Git-ignored `docs/content-drafts/`, one file per
+  canonical service URL. These files may contain unpublished owner/client facts and must not be
+  committed to the public repository.
+- Preserve four layers in each draft when available: owner-provided source facts, a polished Russian
+  editorial version, the final German adaptation and a short list of facts that still need approval.
+- The German website copy is an adaptation for German commercial language, not a literal
+  translation. Keep formal `Sie`, natural German terminology and the restrained Losoma tone.
+- Treat a draft as a source for section-level replacement, not as permission to replace the entire
+  page. Map proposed text to metadata, H1/hero, service-specific content, process, exclusions and FAQ.
+  Preserve forms, CTA, navigation, footer and useful visual components unless the approved design
+  scope explicitly changes them.
+- Replace repeated generic claims with concrete verified facts. Do not inflate an already adequate
+  page by appending the same idea in another paragraph.
+- Put the direct answer in the first 40–70 words: service, target object/client, geography and the
+  practical result.
+- Prefer short descriptive H2 headings followed by real details: included work, options, exclusions,
+  visit frequency, process, reporting, price factors, realistic result and next step.
+- Add contextual internal links only where the relationship is explained in the surrounding copy;
+  menu and footer links do not count as contextual linking.
+- Current published five-service pattern (2026-08-22): `Unser Ansatz` label, large paragraph lead
+  without a terminal period, supporting paragraph in `--color-muted`, a short CTA, one descriptive
+  H2 above the detailed section, H3 per topic, real `<ul>/<li>` markup where applicable and six
+  visible FAQ items. Reuse this structure for matching service-page updates unless a new approved
+  design explicitly changes it.
+
+### Claims that require explicit approval
+
+- Do not publish client or brand names, project counts, references, certificates, qualifications,
+  insurance, response times, availability, prices or product properties without an owner-confirmed
+  and publicly usable source.
+- Distinguish company experience from an employee's or owner's prior experience. Do not write
+  `Losoma hat ... ausgeführt` when the work was performed for another employer or subcontractor.
+- Describe accessible building checks as `Sichtkontrolle` unless Losoma is qualified and contracted
+  to perform a formal technical inspection.
+- Do not promise electrical, sanitary, heating or other regulated trade work under generic
+  `Kleinarbeiten`. Use a clear boundary: safe simple tasks in the agreed scope; qualified work goes
+  to an appropriate `Fachbetrieb`.
+- Do not list socket repairs or work on electrical installations without confirmed applicable
+  qualification and authorization.
+- Product-dependent claims such as slip resistance, disinfectant resistance, durability or material
+  compatibility require the exact product data sheet and a confirmed application method.
+- Keep limitations visible when they affect the decision. Cleaning cannot promise to reverse wear,
+  material damage or every deeply absorbed stain.
+
+### Content release and measurement gate
+
+- Do not edit source HTML until the owner approves the facts and the Russian editorial meaning.
+- Before implementation, record the exact canonical URLs and replacement scope. Synchronize every
+  field inside that approved scope without inventing new facts. If hero/H1/metadata/OG are deferred,
+  record that explicitly; Service/WebPage JSON-LD must still describe the currently visible page.
+- Run the full local build and audits from `CLAUDE.md`. Production still requires a separate direct
+  deploy request, dated rollback, exact target list, hash comparison and live smoke.
+- Record the release date, URL and target query cluster. Use Search Console `Germany` as the primary
+  SEO cohort and compare equal 28-day windows before and after the change. Seven-day windows are for
+  early monitoring only while volume remains small.
+- Do not attribute an aggregate average-position change to new copy when periods, countries, query
+  mix or brand/non-brand composition differ.
+
 ## Structured Data Plan
 
 Use JSON-LD, not microdata, unless there is a specific reason.
@@ -64,6 +126,26 @@ Required source facts before final JSON-LD:
 - Phone.
 - Email.
 - Opening hours if relevant.
+
+Current Losoma JSON-LD invariants:
+
+- Canonical Organization ID is `https://losoma.de/#organization`; the confirmed public name is
+  `Losoma Gebäudeservice` and `legalName` stays absent until the registered name is confirmed.
+- Confirmed owners are separate Person nodes/references. A personal social profile belongs to its
+  Person (`Maxim Soga` → LinkedIn), while an official company profile belongs to Organization
+  (`Losoma Gebäudeservice` → Instagram).
+- Every one of the nine service pages has one WebPage, one Service and one BreadcrumbList node.
+  Service requires current `name`, `serviceType`, `category`, `description`, `provider`, `audience`,
+  `areaServed`, `image`, `url` and `mainEntityOfPage` values. WebPage `mainEntity` must point back to
+  the same Service ID.
+- Legal pages use the current Organization as `about`; contact uses it as `about` and `mainEntity`.
+  Blog author/publisher references the same Organization and article dates must agree with the
+  Open Graph article metadata.
+- Run the production-scoped `scripts/audit-seo.mjs` after every content or legal change. The audit
+  rejects stale IDs/providers, incomplete Service nodes, unconfirmed `legalName`, misplaced social
+  profiles, mismatched article dates and `FAQPage` output. For the five service pages updated on
+  2026-08-22 it also enforces the paragraph lead without a terminal period, detail H2/H3 structure,
+  at least one semantic list and exactly six visible FAQ items.
 - Logo URL.
 - Social profile URLs.
 
@@ -87,9 +169,39 @@ Project-owned `__` and `--` class separators are not allowed. Use `npm run audit
 
 This project does NOT use Client-First-style utility classes (`.padding-global`, `.container-large`, etc. do **not** exist). Instead:
 
-- **Spacing / sizing / colour / type** are CSS custom-property tokens in `:root` (and redefined per breakpoint): `--section-gap`, `--section-gap-tight`, `--content-gutter`, `--grid-column-gap`, `--container-width`, `--type-section-title`, `--type-body`, `--color-ink`, `--color-blue`, etc. Desktop type is fluid via clamps in `@media (min-width: 1025px) :root`.
+- **Spacing / sizing / colour / type** are CSS custom-property tokens in `:root` (and redefined per breakpoint): `--section-gap`, `--section-gap-tight`, `--content-gutter`, `--grid-column-gap`, `--container-width`, `--type-heading-2`, `--type-heading-3`, `--type-body`, `--color-ink`, `--color-blue`, etc.
+- Semantic text colours must also come from the shared tokens: ordinary copy uses `--color-ink`,
+  while secondary/supporting copy uses `--color-muted`. Do not duplicate the muted hex value in a
+  component selector.
 - **Layout** is per-component CSS (grid/flex on the block class), e.g. the 12-col grid on `.contact-page_inner` / `.legal-page_inner`.
 - A handful of **shared, reusable classes** carry cross-page UI: `.heading-1`, `.heading-2`, `.button` + `.is-accent` / `.is-static`, `.link-button` + `.is-green`, `.section-label` + `.is-blue` / `.is-green`.
+
+### Shared typography scale
+
+- Keep one fixed size scale in `:root` with reusable `--font-size-*` primitives. Those primitives
+  feed the semantic roles `--type-display`, `--type-heading-2`, `--type-title-large`,
+  `--type-heading-3`, `--type-lead`, `--type-body`, `--type-small`, `--type-caption` and
+  `--type-label`.
+- Components consume semantic roles. Do not create tokens such as `--type-card-title`,
+  `--type-panel-title` or another block-specific alias when an existing role has the same meaning.
+- Section H2 uses `--type-heading-2`; content H3 uses `--type-heading-3`. A component variant may
+  change weight, line-height or colour without inventing a second heading-size scale.
+- Use a `--font-size-*` primitive for a fixed breakpoint-specific size instead of a raw `font-size`.
+  A raw value is acceptable only when a third-party API or browser quirk cannot consume the scale.
+- Keep `clamp()` only for deliberately fluid display/hero headings and established loader or
+  success states where viewport interpolation is part of the design. Document any new exception;
+  do not use a clamp as a one-off component token.
+- A refactor of type tokens must preserve the computed production sizes at the locked breakpoints.
+  Consolidation is not permission to redesign the page.
+
+### Contextual inline links
+
+- A contextual link inside article, service-detail or FAQ body copy inherits the surrounding text
+  colour and keeps a visible underline. It must not fall back to the browser's blue link colour.
+- Hover and keyboard focus use the same subtle opacity change (`0.68`) with the shared fast-motion
+  token. Do not change size, weight or layout on interaction.
+- Blue remains available for components whose approved design explicitly uses blue as an action or
+  navigation treatment; this exception does not apply to ordinary inline copy links.
 
 ### Component (block) classes — Client-First
 
@@ -107,7 +219,7 @@ legal-page      legal-page_inner   legal-page_title   legal-page_content
 legal-block     legal-block_title  legal-block_row   legal-block_col
 ```
 
-Use domain meaning where it improves clarity (`service-card`, `reviews`, `contact-form`, `faq`, `footer`, `legal-block`). Avoid visual-only names. **Spacing and type come from CSS custom-property tokens** (`--section-gap`, `--type-section-title`, `--content-gutter`, …) defined in `:root` and the breakpoint `:root` blocks — NOT from utility classes. There are a few shared cross-page classes: `.heading-1`, `.heading-2`, `.button`, `.link-button`, `.section-label`.
+Use domain meaning where it improves clarity (`service-card`, `reviews`, `contact-form`, `faq`, `footer`, `legal-block`). Avoid visual-only names. **Spacing and type come from CSS custom-property tokens** (`--section-gap`, `--type-heading-2`, `--type-heading-3`, `--content-gutter`, …) defined in `:root` and the breakpoint `:root` blocks — NOT from utility classes. There are a few shared cross-page classes: `.heading-1`, `.heading-2`, `.button`, `.link-button`, `.section-label`.
 
 ### State & variant classes
 

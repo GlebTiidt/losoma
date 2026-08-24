@@ -3,6 +3,12 @@
 Thumbs.db
 node_modules/
 dist/
+
+# Local business materials may contain unpublished client facts and analytics.
+# Keep them in the workspace, never in the public repository.
+docs/content-drafts/
+reports/
+
 # Browser-ready AVIF/WebP files are the canonical deployable image assets.
 # Heavy originals and intermediate normalized files stay local only.
 assets/source/*.jpg
@@ -21,4 +27,3 @@ assets/source/*.mkv
 .vercel/
 .dev.vars
 .env
-.vercel
