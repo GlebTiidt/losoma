@@ -119,14 +119,29 @@ git diff --check
   HTML, legal pages, Schema or form configuration.
 - Do not infer `Inhaber` from the Hostinger invoice.
 - Do not create duplicate GBP, GA4 or Search Console properties.
+- Google Business Profile is owner-operated. The owner sends screenshots and performs all profile
+  edits, uploads and submissions personally; guide one screen and one decision at a time. Do not
+  open or operate the authenticated profile or change it on the owner's behalf unless the owner
+  explicitly reverses this instruction. Website/Schema work is a separate scope.
+- For GBP photo guidance, use real work photos with publication rights, avoid presenting a client's
+  property as a Losoma office, and suggest concise German descriptive filenames without sequence
+  numbers. The owner chooses and uploads the images.
 - Do not request indexing for redirects, `.html` variants or trailing-slash duplicates. Count an
   indexing request only after Google explicitly displays `Indexierung wurde beantragt`.
+- For `/hausmeisterservice`, use fresh URL Inspection evidence before drawing conclusions about
+  indexing. Do not repeat the accepted 2026-09-21 indexing request without new evidence or a
+  direct request; a successful Live Test or valid Schema does not establish index inclusion.
 - Do not invent coordinates, hours, founding date, price range, clients, cases, reviews,
   certifications or legal facts.
 - Keep every JSON-LD graph synchronized with the current canonical page and the shared Organization
   `@id`. All Service nodes require current name/type/category/description/provider/audience/area,
   and `scripts/audit-seo.mjs` must pass before release. Do not emit an unconfirmed `legalName` or
   attach a person's social profile to the Organization node.
+- Add `FAQPage` only where the page has a visible FAQ; question and answer text must match the
+  rendered content exactly. Validate all changed markup and do not present FAQ Schema as an
+  indexing fix or a Google FAQ rich-result opportunity: Google retired that display feature.
+- Keep the verified public Google Maps profile URL on the homepage Organization in `sameAs` and
+  `hasMap`. Do not replace it with an unverified directory listing or a personal social profile.
 
 ## Documentation
 

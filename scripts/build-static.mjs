@@ -1,5 +1,6 @@
 import { cp, copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { transform } from "esbuild";
+import { renderFooter } from "./footer-component.mjs";
 
 const rootDir = new URL("../", import.meta.url);
 const outputDir = new URL("../dist/", import.meta.url);
@@ -59,6 +60,20 @@ if (!isVercelBuild) {
 await cp(blogPagesDir, new URL("blog/", outputDir), {
   recursive: true
 });
+
+// Source pages keep a marker; the single footer template is rendered into every
+// output page so production HTML remains complete without client-side JS.
+const footerTemplate = await readFile(new URL("../components/footer.html", import.meta.url), "utf8");
+const blogPages = (await readdir(blogPagesDir)).filter((name) => name.endsWith(".html"));
+
+for (const page of [
+  ...htmlPages,
+  ...blogPages.map((name) => `blog/${name}`),
+]) {
+  const source = await readFile(new URL(page, rootDir), "utf8");
+  const rendered = renderFooter(source, `/${page}`, footerTemplate);
+  await writeFile(new URL(page, outputDir), rendered);
+}
 
 await cp(generatedAssetsDir, new URL("assets/generated/", outputDir), {
   recursive: true,

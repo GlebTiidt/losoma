@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const ignoredDirectories = new Set([".git", "dist", "node_modules", "reports"]);
+const ignoredDirectories = new Set([".git", "components", "dist", "node_modules", "reports"]);
 
 function collectHtmlFiles(directory, files = []) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -19,6 +19,7 @@ const pages = [];
 const organizationId = "https://losoma.de/#organization";
 const organizationName = "Losoma Gebäudeservice";
 const websiteId = "https://losoma.de/#website";
+const googleBusinessProfileUrl = "https://www.google.com/maps?cid=3635333874850561864";
 const serviceCanonicals = new Set([
   "https://losoma.de/hausmeisterservice",
   "https://losoma.de/treppenhausreinigung",
@@ -47,6 +48,29 @@ function findPageNode(nodes) {
   return nodes.find((node) =>
     ["WebPage", "ContactPage", "CollectionPage"].some((type) => hasType(node, type)),
   );
+}
+
+function visibleText(markup) {
+  return markup
+    .replace(/<\/(?:p|li|div)>|<br\s*\/?>/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(Number.parseInt(code, 16)))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractVisibleFaq(html) {
+  const section = html.match(/<section class="faq"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  if (!section) return null;
+  const heading = section.match(/<h2 id="faq-title">([\s\S]*?)<\/h2>/)?.[1];
+  const items = Array.from(section.matchAll(/<article class="faq-item">([\s\S]*?)<\/article>/g), (match) => {
+    const question = match[1].match(/<button class="faq-item_trigger"[^>]*>\s*<span>([\s\S]*?)<\/span>/)?.[1];
+    const answer = match[1].match(/<div class="faq-item_panel"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+    return { question: question ? visibleText(question) : "", answer: answer ? visibleText(answer) : "" };
+  });
+  return { name: heading ? visibleText(heading) : "", items };
 }
 
 for (const file of collectHtmlFiles(root)) {
@@ -111,8 +135,37 @@ for (const file of collectHtmlFiles(root)) {
     });
   }
 
-  if (graphNodes.some((node) => hasType(node, "FAQPage"))) {
-    errors.push(`${relative}: FAQPage is retired from Google Search and must not be emitted`);
+  const visibleFaq = extractVisibleFaq(html);
+  const faqNodes = graphNodes.filter((node) => hasType(node, "FAQPage"));
+  if (visibleFaq) {
+    if (!/<section class="faq" id="faq"/.test(html)) errors.push(`${relative}: FAQ section needs id="faq"`);
+    if (!visibleFaq.name || !visibleFaq.items.length) errors.push(`${relative}: visible FAQ is incomplete`);
+    if (faqNodes.length !== 1) {
+      errors.push(`${relative}: expected one FAQPage for visible FAQ, found ${faqNodes.length}`);
+    } else {
+      const faq = faqNodes[0];
+      if (faq["@id"] !== `${canonical}#faq` || faq.url !== `${canonical}#faq`) {
+        errors.push(`${relative}: FAQPage ID and URL must point to the visible FAQ section`);
+      }
+      if (faq.isPartOf?.["@id"] !== expectedWebpageId || faq.inLanguage !== "de-DE" || faq.name !== visibleFaq.name) {
+        errors.push(`${relative}: FAQPage page reference, language or heading does not match`);
+      }
+      const questions = faq.mainEntity;
+      if (!Array.isArray(questions) || questions.length !== visibleFaq.items.length) {
+        errors.push(`${relative}: FAQPage question count does not match visible FAQ`);
+      } else {
+        questions.forEach((question, index) => {
+          if (!visibleFaq.items[index].question || !visibleFaq.items[index].answer ||
+              !hasType(question, "Question") || question.name !== visibleFaq.items[index].question ||
+              !hasType(question.acceptedAnswer, "Answer") ||
+              question.acceptedAnswer.text !== visibleFaq.items[index].answer) {
+            errors.push(`${relative}: FAQPage question or answer ${index + 1} differs from visible content`);
+          }
+        });
+      }
+    }
+  } else if (faqNodes.length) {
+    errors.push(`${relative}: FAQPage exists without visible FAQ`);
   }
 
   if (isHome) {
@@ -131,6 +184,9 @@ for (const file of collectHtmlFiles(root)) {
       const instagram = "https://www.instagram.com/losomagebaudeservice/";
       const maximLinkedIn = "https://www.linkedin.com/in/maxim-soga-575478264/";
       if (!socialProfiles.includes(instagram)) errors.push(`${relative}: organization sameAs missing ${instagram}`);
+      if (!socialProfiles.includes(googleBusinessProfileUrl) || organization.hasMap !== googleBusinessProfileUrl) {
+        errors.push(`${relative}: organization Google Business Profile link is missing or stale`);
+      }
       if (socialProfiles.includes(maximLinkedIn)) errors.push(`${relative}: personal LinkedIn must belong to Maxim, not the organization`);
       const owners = Array.isArray(organization.owner) ? organization.owner : [];
       const maxim = owners.find((owner) => owner?.["@id"] === "https://losoma.de/#maxim-soga");

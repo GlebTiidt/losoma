@@ -27,7 +27,7 @@
 - Canonical URLs must be absolute, clean, and without anchors or tracking parameters.
 - Use descriptive links and buttons, not generic `Mehr`, `Mehr erfahren`, or `Weiter` when context is unclear.
 - Keep FAQ questions close to real user wording.
-- Keep FAQ content visible and semantic, but do not add `FAQPage` JSON-LD. Google retired FAQ rich results on 2026-05-07 and removed the feature documentation in June 2026.
+- Keep FAQ content visible and semantic. `FAQPage` JSON-LD is present at the owner's request on pages with a visible FAQ; its questions and answers must match the page exactly. Google retired FAQ rich results on 2026-05-07, so this markup does not make Losoma eligible for that retired display feature.
 
 ## AI Search Principles
 
@@ -115,7 +115,7 @@ Recommended schema types:
 - `Organization`.
 - `WebSite`.
 - `Service` for service pages.
-- `FAQPage` is excluded because Google retired the rich-result feature in May 2026. Reconsider only if Google introduces a new supported feature.
+- `FAQPage` only where the page has a visible FAQ, with exact question and answer text. This remains Schema.org markup, not a Google FAQ rich-result feature.
 - `BreadcrumbList` when there are nested pages.
 
 Required source facts before final JSON-LD:
@@ -143,7 +143,7 @@ Current Losoma JSON-LD invariants:
   Open Graph article metadata.
 - Run the production-scoped `scripts/audit-seo.mjs` after every content or legal change. The audit
   rejects stale IDs/providers, incomplete Service nodes, unconfirmed `legalName`, misplaced social
-  profiles, mismatched article dates and `FAQPage` output. For the five service pages updated on
+  profiles, mismatched article dates and FAQ markup that differs from visible content. For the five service pages updated on
   2026-08-22 it also enforces the paragraph lead without a terminal period, detail H2/H3 structure,
   at least one semantic list and exactly six visible FAQ items.
 - Logo URL.

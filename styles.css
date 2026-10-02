@@ -809,14 +809,26 @@ a {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--grid-column-gap);
-  margin-top: 7.5rem;
+  margin-top: 2.5rem;
 }
 
 .blog-article_lead {
   grid-column: 1 / span 8;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2rem;
+  row-gap: 1rem;
+  font-size: var(--type-lead);
+  font-weight: 400;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 767px),
+  (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
+  .blog-article_lead {
+    grid-template-columns: 1fr;
+  }
 }
 
 .article-prose {
@@ -1022,8 +1034,7 @@ a {
   border-bottom: var(--divider-subtle);
 }
 
-.quality-claim_title,
-.blog-article_lead {
+.quality-claim_title {
   font-size: var(--type-heading-2);
   font-weight: 400;
   line-height: 1.3;
@@ -1204,20 +1215,27 @@ a {
   content: "";
 }
 
+.service-card_title a,
+.article-prose a,
 .service-detail_body a,
 .faq-item_panel a {
   color: inherit;
+  text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
   transition: opacity var(--motion-fast);
 }
 
+.service-card_title a:focus-visible,
+.article-prose a:focus-visible,
 .service-detail_body a:focus-visible,
 .faq-item_panel a:focus-visible {
   opacity: 0.68;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .service-card_title a:hover,
+  .article-prose a:hover,
   .service-detail_body a:hover,
   .faq-item_panel a:hover {
     opacity: 0.68;
@@ -2800,6 +2818,51 @@ a[href="#instagram"] {
   line-height: 1.3;
 }
 
+.footer_legal a {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* The full desktop columns need about 1680px including gutters. On narrower
+   desktops, let the link groups use their own row instead of clipping right. */
+@media (min-width: 1025px) and (max-width: 1679px) {
+  .footer {
+    --footer-section-gap: 3rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "logo"
+      "service-summary"
+      "nav"
+      "contact-area"
+      "legal";
+    row-gap: var(--footer-section-gap);
+    min-height: auto;
+  }
+
+  .footer_service-summary {
+    padding-top: 0;
+    padding-bottom: var(--footer-section-gap);
+    border-bottom: var(--divider-on-dark);
+  }
+
+  .footer_nav {
+    grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .footer_contact-area {
+    padding-top: var(--footer-section-gap);
+  }
+
+  .footer_legal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 0;
+    padding-top: var(--footer-section-gap);
+  }
+}
+
 .cookie-consent {
   position: fixed;
   inset: 0;
@@ -3247,10 +3310,6 @@ a[href="#instagram"] {
     gap: 0.5rem;
   }
 
-  .mobile-menu_secondary {
-    margin-top: 1.5rem;
-  }
-
   .mobile-menu_link {
     color: var(--color-white);
     font-size: var(--type-body);
@@ -3359,15 +3418,17 @@ a[href="#instagram"] {
     grid-column: 1 / -1;
   }
 
-  .blog-article_content,
   .article-prose {
     margin-top: 5rem;
   }
 
-  .quality-claim_title,
-  .blog-article_lead {
+  .quality-claim_title {
     font-size: var(--font-size-32);
     line-height: 1.2;
+  }
+
+  .blog-article_lead {
+    font-size: var(--font-size-20);
   }
 
   .hero_content {
@@ -3793,10 +3854,10 @@ a[href="#instagram"] {
   }
 
   /* Footer (Figma 29:668): sits flush under the FAQ — everything stacks into a
-     single column. Order: logo, tagline + CTA, the link columns (2-up grid),
-     a divider, the contact block, then the legal row. 60px top / 24px sides /
-     24px bottom. */
+     single column. Order: logo, tagline + CTA, link columns (2-up grid),
+     contact block, then the legal row. 60px top / 24px sides / 24px bottom. */
   .footer {
+    --footer-section-gap: 2.5rem;
     grid-template-columns: 1fr;
     grid-template-areas:
       "logo"
@@ -3813,6 +3874,8 @@ a[href="#instagram"] {
   .footer_service-summary {
     margin-top: 2.5rem;
     padding-top: 0;
+    padding-bottom: var(--footer-section-gap);
+    border-bottom: var(--divider-on-dark);
   }
 
   .footer_service-summary p {
@@ -3826,7 +3889,7 @@ a[href="#instagram"] {
   /* Link columns: Leistungen + Navigation on row 1, Rechtliches under
      Leistungen on row 2. */
   .footer_nav {
-    margin-top: 3.75rem;
+    margin-top: var(--footer-section-gap);
     grid-template-columns: 1fr 1fr;
     gap: 2rem 1rem;
   }
@@ -3836,7 +3899,8 @@ a[href="#instagram"] {
     grid-template-columns: 1fr;
     row-gap: 0.5rem;
     column-gap: 0;
-    margin-top: 2.5rem;
+    margin-top: var(--footer-section-gap);
+    padding-top: var(--footer-section-gap);
   }
 
   .footer_contact {
@@ -3852,8 +3916,8 @@ a[href="#instagram"] {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: 2.5rem;
-    padding-top: 1rem;
+    margin-top: var(--footer-section-gap);
+    padding-top: var(--footer-section-gap);
   }
 }
 
@@ -3964,17 +4028,12 @@ a[href="#instagram"] {
     margin-top: 2rem;
   }
 
-  .blog-article_content {
-    margin-top: 4rem;
-  }
-
-  .blog-article_lead {
-    gap: 1.5rem;
-  }
-
-  .quality-claim_title,
-  .blog-article_lead {
+  .quality-claim_title {
     font-size: var(--font-size-28);
+  }
+
+  .blog-article_lead {
+    font-size: var(--font-size-18);
   }
 
   .article-prose {
@@ -4430,6 +4489,7 @@ a[href="#instagram"] {
      link groups stacked, a divider, the contact block, a divider, then the legal
      lines stacked. 40px top / 16px sides / 16px bottom. Headings 14px, body 16px. */
   .footer {
+    --footer-section-gap: 2rem;
     padding: 2.5rem 1rem 1rem;
   }
 
@@ -4448,7 +4508,7 @@ a[href="#instagram"] {
 
   .footer_nav {
     grid-template-columns: 1fr;
-    margin-top: 2.5rem;
+    margin-top: var(--footer-section-gap);
     gap: 1.25rem;
   }
 
@@ -4468,14 +4528,14 @@ a[href="#instagram"] {
   }
 
   .footer_contact-area {
-    margin-top: 2rem;
-    padding-top: 2rem;
+    margin-top: var(--footer-section-gap);
+    padding-top: var(--footer-section-gap);
   }
 
   .footer_legal {
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: 2rem;
+    margin-top: var(--footer-section-gap);
   }
 
   /* Phone mobile menu: 16px side gutters (tablet keeps 24px) and the EXACT phone
