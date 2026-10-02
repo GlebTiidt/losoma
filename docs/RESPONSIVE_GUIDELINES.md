@@ -156,6 +156,14 @@ Pages with no dark hero (Kontakt, Impressum) need the header solid from the very
 
 Landing on `/#leistungen` from another page: `initSmoothScroll` sets `history.scrollRestoration = "manual"` and re-asserts the `-(header + 24)` Lenis offset on `load`, so the native offset-less fragment jump can't tuck the heading under the fixed header. Same visible offset as same-page anchor clicks — **don't** add CSS `scroll-padding-top` (it double-stacks with the JS offset).
 
+## 7e. Shared footer
+
+- Edit `components/footer.html` once; `npm run dev` and `npm run build` insert it into every page.
+  Source HTML pages contain only the `<!-- LOSOMA_FOOTER -->` marker.
+- The narrow desktop layout stacks the footer groups before they overflow. Its CTA, navigation
+  and contact groups have visible dividers with consistent spacing; tablet and phone inherit the
+  same sequence through the existing media queries. Check every page after changing the template.
+
 ---
 
 ## 8. Images & overlays
@@ -173,10 +181,7 @@ Follow `docs/SEO_AND_CLASS_GUIDELINES.md`: project-owned classes use Client-Firs
 
 ---
 
-## 10. Status
+## 10. Verification widths
 
-- Home page: desktop + tablet (≤1024) + phone (≤560) are **all complete**.
-- Service pages (Hausmeisterservice, Treppenhausreinigung): reuse the home components, responsive via the shared classes.
-- **Contact page (`/kontakt`): desktop + tablet + phone done** — `body.is-solid-header`, light re-themed `.contact-form`. See §7b / §7c.
-- **Impressum (`/impressum`): desktop + tablet + phone done** — `body.is-solid-header`, `.legal-page` component. See §7c.
-- Devices to spot-check on phone: **320 / 360 / 390 / 414 px**.
+Spot-check footer and page overflow at 320, 360, 390, 414, 768, 1024, 1280 and 1679 px,
+especially when a shared component or breakpoint rule changes.
